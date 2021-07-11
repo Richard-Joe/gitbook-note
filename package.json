@@ -4,7 +4,7 @@
   "description": "## Kafka",
   "main": "index.js",
   "scripts": {
-    "build": "gitbook build . ./_docs"
+    "build": "gitbook build . ./docs"
   },
   "repository": {
     "type": "git",
