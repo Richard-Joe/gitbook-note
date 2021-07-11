@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>gitbook搭建 · GitBook</title>
+        <title>gitbook · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../网络基础/" />
+    <link rel="next" href="../network/" />
     
     
     <link rel="prev" href="../" />
@@ -102,12 +102,19 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2" data-path="./">
+
+    
+        
+        <li class="header">gitbook搭建</li>
+        
+        
+    
+        <li class="chapter active" data-level="2.1" data-path="./">
             
                 <a href="./">
             
                     
-                    gitbook搭建
+                    gitbook
             
                 </a>
             
@@ -115,9 +122,30 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="../网络基础/">
+
+    
+        
+        <li class="header">网络</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../network/">
             
-                <a href="../网络基础/">
+                <a href="../network/">
+            
+                    
+                    网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../network/basic.html">
+            
+                <a href="../network/basic.html">
             
                     
                     网络基础
@@ -125,6 +153,56 @@
                 </a>
             
 
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../network/load_balance.html">
+            
+                <a href="../network/load_balance.html">
+            
+                    
+                    负载均衡
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.2.1" data-path="../network/lb/LVS.html">
+            
+                <a href="../network/lb/LVS.html">
+            
+                    
+                    LVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../network/traffic_control.html">
+            
+                <a href="../network/traffic_control.html">
+            
+                    
+                    流量控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
             
         </li>
     
@@ -158,7 +236,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >gitbook搭建</a>
+        <a href=".." >gitbook</a>
     </h1>
 </div>
 
@@ -185,7 +263,7 @@ https://npm.taobao.org/mirrors/node/v12.18.4/node-v12.18.4-x64.msi
 gitbook --version
 </code></pre><h2 id="&#x521D;&#x59CB;&#x5316;">&#x521D;&#x59CB;&#x5316;</h2>
 <pre><code>cd gitbook-note
- gitbook init
+gitbook init
 </code></pre><h2 id="&#x542F;&#x52A8;&#x672C;&#x5730;&#x670D;&#x52A1;">&#x542F;&#x52A8;&#x672C;&#x5730;&#x670D;&#x52A1;</h2>
 <pre><code>gitbook serve
 
@@ -205,28 +283,26 @@ npm run build
 <h2 id="&#x9519;&#x8BEF;&#x53C2;&#x8003;">&#x9519;&#x8BEF;&#x53C2;&#x8003;</h2>
 <p>&#x53EF;&#x80FD;&#x9047;&#x5230;&#x7684;&#x9519;&#x8BEF;&#xFF0C;&#x6BD4;&#x5982;&#xFF1A;</p>
 <ol>
-<li>&#x811A;&#x672C;&#x62A5;&#x9519;
-```
-C:\Users\frank\AppData\Roaming\npm\node_modules\gitbook-cli\node_modules\npm\node_modules\graceful-fs\polyfills.js:287</li>
+<li>&#x811A;&#x672C;&#x62A5;&#x9519;</li>
 </ol>
-<p>if (cb) cb.apply(this, arguments)</p>
-<pre><code>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;
+<pre><code>C:\Users\frank\AppData\Roaming\npm\node_modules\gitbook-cli\node_modules\npm\node_modules\graceful-fs\polyfills.js:287
+
+if (cb) cb.apply(this, arguments)
+</code></pre><p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;
 &#x6253;&#x5F00;polyfills.js&#x6587;&#x4EF6;&#xFF0C;&#x628A;&#x8C03;&#x7528;statFix&#x7684;&#x5730;&#x65B9;&#x6CE8;&#x91CA;&#x6389;&#x3002;
 //fs.stat = statFix(fs.stat)
 //fs.fstat = statFix(fs.fstat)
-//fs.lstat = statFix(fs.lstat)
-
-
-2. gitbook init &#x9519;&#x8BEF;
-</code></pre><blockquote>
-<p>gitbook init
+//fs.lstat = statFix(fs.lstat)</p>
+<ol>
+<li>gitbook init &#x9519;&#x8BEF;</li>
+</ol>
+<pre><code>&gt; gitbook init
 warn: no summary file in this book
 info: create README.md
-info: create SUMMARY.md</p>
-</blockquote>
-<p>TypeError [ERR_INVALID_ARG_TYPE]: The &quot;data&quot; argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received an instance of Promise
-```
-&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;
+info: create SUMMARY.md
+
+TypeError [ERR_INVALID_ARG_TYPE]: The &quot;data&quot; argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received an instance of Promise
+</code></pre><p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;
 &#x9009;&#x62E9;&#x4F4E;&#x7248;&#x672C;&#x7684;node&#xFF0C;
 <a href="https://stackoverflow.com/questions/61538769/gitbook-init-error-typeerror-err-invalid-arg-type-the-data-argument-must-b" target="_blank">https://stackoverflow.com/questions/61538769/gitbook-init-error-typeerror-err-invalid-arg-type-the-data-argument-must-b</a></p>
 
@@ -261,7 +337,7 @@ info: create SUMMARY.md</p>
                 </a>
                 
                 
-                <a href="../网络基础/" class="navigation navigation-next " aria-label="Next page: 网络基础">
+                <a href="../network/" class="navigation navigation-next " aria-label="Next page: 网络">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -272,7 +348,7 @@ info: create SUMMARY.md</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"gitbook搭建","level":"1.2","depth":1,"next":{"title":"网络基础","level":"1.3","depth":1,"path":"网络基础/index.md","ref":"./网络基础/index.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"gitbook/index.md","mtime":"2021-07-11T13:38:24.692Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-11T13:39:03.803Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"gitbook","level":"2.1","depth":1,"next":{"title":"网络","level":"3.1","depth":1,"path":"network/index.md","ref":"./network/index.md","articles":[{"title":"网络基础","level":"3.1.1","depth":2,"path":"network/basic.md","ref":"./network/basic.md","articles":[]},{"title":"负载均衡","level":"3.1.2","depth":2,"path":"network/load_balance.md","ref":"./network/load_balance.md","articles":[{"title":"LVS","level":"3.1.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]}]},{"title":"流量控制","level":"3.1.3","depth":2,"path":"network/traffic_control.md","ref":"./network/traffic_control.md","articles":[]}]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"gitbook/index.md","mtime":"2021-07-11T13:43:29.993Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-11T14:26:13.915Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

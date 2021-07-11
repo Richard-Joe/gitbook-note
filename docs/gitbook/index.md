@@ -24,7 +24,7 @@ gitbook --version
 
 ```
 cd gitbook-note
- gitbook init
+gitbook init
 ```
 
 
@@ -64,11 +64,13 @@ npm run build
 
 
 1. 脚本报错
+
 ```
 C:\Users\frank\AppData\Roaming\npm\node_modules\gitbook-cli\node_modules\npm\node_modules\graceful-fs\polyfills.js:287
 
 if (cb) cb.apply(this, arguments)
 ```
+
 解决方法：
 打开polyfills.js文件，把调用statFix的地方注释掉。
 //fs.stat = statFix(fs.stat)
@@ -77,6 +79,7 @@ if (cb) cb.apply(this, arguments)
 
 
 2. gitbook init 错误
+
 ```
 > gitbook init
 warn: no summary file in this book
@@ -85,6 +88,7 @@ info: create SUMMARY.md
 
 TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received an instance of Promise
 ```
+
 解决方法：
 选择低版本的node，
 https://stackoverflow.com/questions/61538769/gitbook-init-error-typeerror-err-invalid-arg-type-the-data-argument-must-b
