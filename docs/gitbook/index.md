@@ -10,7 +10,6 @@ windows平台会有一些错误问题，我选择了v12.18版本
 https://npm.taobao.org/mirrors/node/v12.18.4/node-v12.18.4-x64.msi
 ```
 
-
 ## 安装 gitbook
 
 ```
@@ -56,7 +55,6 @@ npm run build
 推送到 github ，然后到 Github Pages 一项下面。Source 一项设置为 main，/docs 
 
 然后就可以访问https://richard-joe.github.io/gitbook-note/
-
 
 ## 错误参考
 
