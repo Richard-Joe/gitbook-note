@@ -1,12 +1,71 @@
 # 内核是如何接收一个网络包的
 
-[TOC]
-
+* [一、准备工作] (# 一、准备工作)
+	* [注册软中断] (# 注册软中断)
+	* [注册硬中断] (# 注册硬中断)
 
 
 ## 一、准备工作
 
-内核版本`5.14.14`， 以Intel e1000 网卡驱动为例，找到`e1000_main.c`源码：
+内核版本`5.14.14`
+
+### 注册软中断
+
+---
+
+Linux的软中断都是在专门的内核线程`ksoftirqd`中进行的。该进程的数量等于机器的核数。
+```shell
+root@ubuntu:~# ps aux | grep ksoft
+root          12  0.0  0.0      0     0 ?        S    18:16   0:00 [ksoftirqd/0]
+root          20  0.0  0.0      0     0 ?        S    18:16   0:00 [ksoftirqd/1]
+root          26  0.0  0.0      0     0 ?        S    18:16   0:00 [ksoftirqd/2]
+root          32  0.0  0.0      0     0 ?        S    18:16   0:01 [ksoftirqd/3]
+
+```
+
+系统初始化时，调用`spawn_ksoftirqd`来创建出`ksoftirqd`进程。
+当`ksoftirqd`被创建出来以后，它就会进入自己的线程循环函数`ksoftirqd`和`ksoftirqd`了。不停地判断有没有软中断需要被处理。
+
+```c
+static struct smp_hotplug_thread softirq_threads = {
+	.store				= &ksoftirqd,
+	.thread_should_run	= ksoftirqd_should_run,
+	.thread_fn			= run_ksoftirqd,
+	.thread_comm		= "ksoftirqd/%u",
+};
+
+static __init int spawn_ksoftirqd(void)
+{
+	...
+	BUG_ON(smpboot_register_percpu_thread(&softirq_threads));
+
+	return 0;
+}
+early_initcall(spawn_ksoftirqd);
+
+static int smpboot_thread_fn(void *data)
+{
+	struct smpboot_thread_data *td = data;
+	struct smp_hotplug_thread *ht = td->ht;
+
+	while (1) {
+		...
+		if (!ht->thread_should_run(td->cpu)) {
+			preempt_enable_no_resched();
+			schedule();
+		} else {
+			__set_current_state(TASK_RUNNING);
+			preempt_enable();
+			ht->thread_fn(td->cpu);
+		}
+	}
+}
+```
+
+### 注册硬中断
+---
+
+以Intel e1000 网卡驱动为例，找到`e1000_main.c`源码：
 
 ```c
 static struct pci_driver e1000_driver = {
@@ -99,8 +158,8 @@ static long local_pci_probe(void *_ddi)
 那下面接着看`probe`的具体做了些什么：
 ```c
 static const struct net_device_ops e1000_netdev_ops = {
-	.ndo_open		= e1000_open,
-	.ndo_stop		= e1000_close,
+	.ndo_open			= e1000_open,
+	.ndo_stop			= e1000_close,
 	.ndo_start_xmit		= e1000_xmit_frame,
 	.ndo_do_ioctl		= e1000_ioctl,
 	...
@@ -157,3 +216,25 @@ int e1000_open(struct net_device *netdev)
 ## 四、硬中断处理
 
 当DMA操作完成后，网卡会向CPU发起一个硬中断，通知CPU有数据到达。
+
+上面我们说了，硬中断处理函数是`e1000_intr`
+
+```c
+static irqreturn_t e1000_intr(int irq, void *data)
+{
+	...
+	__napi_schedule(&adapter->napi);
+	...
+}
+
+static inline void ____napi_schedule(struct softnet_data *sd, struct napi_struct *napi)
+{
+	...
+	// 把napi挂到softnet_data链表上
+	list_add_tail(&napi->poll_list, &sd->poll_list);
+	// 触发收包软中断（仅仅对变量的一次或运算）
+	__raise_softirq_irqoff(NET_RX_SOFTIRQ);
+	...
+}
+```
+上面可以看到，硬中断处理过程真的非常短。只是记录了一个寄存器，修改了CPU的poll_list，然后发出软中断。

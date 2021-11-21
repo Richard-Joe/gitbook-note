@@ -270,9 +270,63 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="&#x5185;&#x6838;&#x662F;&#x5982;&#x4F55;&#x63A5;&#x6536;&#x4E00;&#x4E2A;&#x7F51;&#x7EDC;&#x5305;&#x7684;">&#x5185;&#x6838;&#x662F;&#x5982;&#x4F55;&#x63A5;&#x6536;&#x4E00;&#x4E2A;&#x7F51;&#x7EDC;&#x5305;&#x7684;</h1>
-<p>[TOC]</p>
+<ul>
+<li>[&#x4E00;&#x3001;&#x51C6;&#x5907;&#x5DE5;&#x4F5C;] (# &#x4E00;&#x3001;&#x51C6;&#x5907;&#x5DE5;&#x4F5C;)<ul>
+<li>[&#x6CE8;&#x518C;&#x8F6F;&#x4E2D;&#x65AD;] (# &#x6CE8;&#x518C;&#x8F6F;&#x4E2D;&#x65AD;)</li>
+<li>[&#x6CE8;&#x518C;&#x786C;&#x4E2D;&#x65AD;] (# &#x6CE8;&#x518C;&#x786C;&#x4E2D;&#x65AD;)</li>
+</ul>
+</li>
+</ul>
 <h2 id="&#x4E00;&#x3001;&#x51C6;&#x5907;&#x5DE5;&#x4F5C;">&#x4E00;&#x3001;&#x51C6;&#x5907;&#x5DE5;&#x4F5C;</h2>
-<p>&#x5185;&#x6838;&#x7248;&#x672C;<code>5.14.14</code>&#xFF0C; &#x4EE5;Intel e1000 &#x7F51;&#x5361;&#x9A71;&#x52A8;&#x4E3A;&#x4F8B;&#xFF0C;&#x627E;&#x5230;<code>e1000_main.c</code>&#x6E90;&#x7801;&#xFF1A;</p>
+<p>&#x5185;&#x6838;&#x7248;&#x672C;<code>5.14.14</code></p>
+<h3 id="&#x6CE8;&#x518C;&#x8F6F;&#x4E2D;&#x65AD;">&#x6CE8;&#x518C;&#x8F6F;&#x4E2D;&#x65AD;</h3>
+<hr>
+<p>Linux&#x7684;&#x8F6F;&#x4E2D;&#x65AD;&#x90FD;&#x662F;&#x5728;&#x4E13;&#x95E8;&#x7684;&#x5185;&#x6838;&#x7EBF;&#x7A0B;<code>ksoftirqd</code>&#x4E2D;&#x8FDB;&#x884C;&#x7684;&#x3002;&#x8BE5;&#x8FDB;&#x7A0B;&#x7684;&#x6570;&#x91CF;&#x7B49;&#x4E8E;&#x673A;&#x5668;&#x7684;&#x6838;&#x6570;&#x3002;</p>
+<pre><code class="lang-shell">root@ubuntu:~# ps aux | grep ksoft
+root          12  0.0  0.0      0     0 ?        S    18:16   0:00 [ksoftirqd/0]
+root          20  0.0  0.0      0     0 ?        S    18:16   0:00 [ksoftirqd/1]
+root          26  0.0  0.0      0     0 ?        S    18:16   0:00 [ksoftirqd/2]
+root          32  0.0  0.0      0     0 ?        S    18:16   0:01 [ksoftirqd/3]
+</code></pre>
+<p>&#x7CFB;&#x7EDF;&#x521D;&#x59CB;&#x5316;&#x65F6;&#xFF0C;&#x8C03;&#x7528;<code>spawn_ksoftirqd</code>&#x6765;&#x521B;&#x5EFA;&#x51FA;<code>ksoftirqd</code>&#x8FDB;&#x7A0B;&#x3002;
+&#x5F53;<code>ksoftirqd</code>&#x88AB;&#x521B;&#x5EFA;&#x51FA;&#x6765;&#x4EE5;&#x540E;&#xFF0C;&#x5B83;&#x5C31;&#x4F1A;&#x8FDB;&#x5165;&#x81EA;&#x5DF1;&#x7684;&#x7EBF;&#x7A0B;&#x5FAA;&#x73AF;&#x51FD;&#x6570;<code>ksoftirqd</code>&#x548C;<code>ksoftirqd</code>&#x4E86;&#x3002;&#x4E0D;&#x505C;&#x5730;&#x5224;&#x65AD;&#x6709;&#x6CA1;&#x6709;&#x8F6F;&#x4E2D;&#x65AD;&#x9700;&#x8981;&#x88AB;&#x5904;&#x7406;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">static</span> <span class="hljs-keyword">struct</span> smp_hotplug_thread softirq_threads = {
+    .store                = &amp;ksoftirqd,
+    .thread_should_run    = ksoftirqd_should_run,
+    .thread_fn            = run_ksoftirqd,
+    .thread_comm        = <span class="hljs-string">&quot;ksoftirqd/%u&quot;</span>,
+};
+
+<span class="hljs-keyword">static</span> __<span class="hljs-function">init <span class="hljs-keyword">int</span> <span class="hljs-title">spawn_ksoftirqd</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span>{
+    ...
+    BUG_ON(smpboot_register_percpu_thread(&amp;softirq_threads));
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+early_initcall(spawn_ksoftirqd);
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">smpboot_thread_fn</span><span class="hljs-params">(<span class="hljs-keyword">void</span> *data)</span>
+</span>{
+    <span class="hljs-keyword">struct</span> smpboot_thread_data *td = data;
+    <span class="hljs-keyword">struct</span> smp_hotplug_thread *ht = td-&gt;ht;
+
+    <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) {
+        ...
+        <span class="hljs-keyword">if</span> (!ht-&gt;thread_should_run(td-&gt;cpu)) {
+            preempt_enable_no_resched();
+            schedule();
+        } <span class="hljs-keyword">else</span> {
+            __set_current_state(TASK_RUNNING);
+            preempt_enable();
+            ht-&gt;thread_fn(td-&gt;cpu);
+        }
+    }
+}
+</code></pre>
+<h3 id="&#x6CE8;&#x518C;&#x786C;&#x4E2D;&#x65AD;">&#x6CE8;&#x518C;&#x786C;&#x4E2D;&#x65AD;</h3>
+<hr>
+<p>&#x4EE5;Intel e1000 &#x7F51;&#x5361;&#x9A71;&#x52A8;&#x4E3A;&#x4F8B;&#xFF0C;&#x627E;&#x5230;<code>e1000_main.c</code>&#x6E90;&#x7801;&#xFF1A;</p>
 <pre><code class="lang-c"><span class="hljs-keyword">static</span> <span class="hljs-keyword">struct</span> pci_driver e1000_driver = {
     ...
     .name     = e1000_driver_name,    <span class="hljs-comment">// &#x9A71;&#x52A8;&#x540D;&#x79F0;</span>
@@ -355,8 +409,8 @@
 </blockquote>
 <p>&#x90A3;&#x4E0B;&#x9762;&#x63A5;&#x7740;&#x770B;<code>probe</code>&#x7684;&#x5177;&#x4F53;&#x505A;&#x4E86;&#x4E9B;&#x4EC0;&#x4E48;&#xFF1A;</p>
 <pre><code class="lang-c"><span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> net_device_ops e1000_netdev_ops = {
-    .ndo_open        = e1000_open,
-    .ndo_stop        = e1000_close,
+    .ndo_open            = e1000_open,
+    .ndo_stop            = e1000_close,
     .ndo_start_xmit        = e1000_xmit_frame,
     .ndo_do_ioctl        = e1000_ioctl,
     ...
@@ -403,6 +457,25 @@
 <img src="recv_one_package-images/dma_1.png" alt="recv_one_package-images/dma_1.png"></p>
 <h2 id="&#x56DB;&#x3001;&#x786C;&#x4E2D;&#x65AD;&#x5904;&#x7406;">&#x56DB;&#x3001;&#x786C;&#x4E2D;&#x65AD;&#x5904;&#x7406;</h2>
 <p>&#x5F53;DMA&#x64CD;&#x4F5C;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x7F51;&#x5361;&#x4F1A;&#x5411;CPU&#x53D1;&#x8D77;&#x4E00;&#x4E2A;&#x786C;&#x4E2D;&#x65AD;&#xFF0C;&#x901A;&#x77E5;CPU&#x6709;&#x6570;&#x636E;&#x5230;&#x8FBE;&#x3002;</p>
+<p>&#x4E0A;&#x9762;&#x6211;&#x4EEC;&#x8BF4;&#x4E86;&#xFF0C;&#x786C;&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x51FD;&#x6570;&#x662F;<code>e1000_intr</code></p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">static</span> irqreturn_t <span class="hljs-title">e1000_intr</span><span class="hljs-params">(<span class="hljs-keyword">int</span> irq, <span class="hljs-keyword">void</span> *data)</span>
+</span>{
+    ...
+    __napi_schedule(&amp;adapter-&gt;napi);
+    ...
+}
+
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> ____napi_schedule(<span class="hljs-keyword">struct</span> softnet_data *sd, <span class="hljs-keyword">struct</span> napi_struct *napi)
+{
+    ...
+    <span class="hljs-comment">// &#x628A;napi&#x6302;&#x5230;softnet_data&#x94FE;&#x8868;&#x4E0A;</span>
+    list_add_tail(&amp;napi-&gt;poll_list, &amp;sd-&gt;poll_list);
+    <span class="hljs-comment">// &#x89E6;&#x53D1;&#x6536;&#x5305;&#x8F6F;&#x4E2D;&#x65AD;&#xFF08;&#x4EC5;&#x4EC5;&#x5BF9;&#x53D8;&#x91CF;&#x7684;&#x4E00;&#x6B21;&#x6216;&#x8FD0;&#x7B97;&#xFF09;</span>
+    __raise_softirq_irqoff(NET_RX_SOFTIRQ);
+    ...
+}
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x786C;&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x8FC7;&#x7A0B;&#x771F;&#x7684;&#x975E;&#x5E38;&#x77ED;&#x3002;&#x53EA;&#x662F;&#x8BB0;&#x5F55;&#x4E86;&#x4E00;&#x4E2A;&#x5BC4;&#x5B58;&#x5668;&#xFF0C;&#x4FEE;&#x6539;&#x4E86;CPU&#x7684;poll_list&#xFF0C;&#x7136;&#x540E;&#x53D1;&#x51FA;&#x8F6F;&#x4E2D;&#x65AD;&#x3002;</p>
 
                                 
                                 </section>
@@ -446,7 +519,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"内核是如何接收一个网络包的","level":"1.3.1.1","depth":3,"next":{"title":"内核DMA机制","level":"1.3.1.2","depth":3,"path":"network/basic/dma.md","ref":"./network/basic/dma.md","articles":[]},"previous":{"title":"网络基础","level":"1.3.1","depth":2,"path":"network/basic/index.md","ref":"./network/basic/index.md","articles":[{"title":"内核是如何接收一个网络包的","level":"1.3.1.1","depth":3,"path":"network/basic/recv_one_package.md","ref":"./network/basic/recv_one_package.md","articles":[]},{"title":"内核DMA机制","level":"1.3.1.2","depth":3,"path":"network/basic/dma.md","ref":"./network/basic/dma.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/recv_one_package.md","mtime":"2021-11-21T07:37:10.666Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-11-21T07:38:37.636Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"内核是如何接收一个网络包的","level":"1.3.1.1","depth":3,"next":{"title":"内核DMA机制","level":"1.3.1.2","depth":3,"path":"network/basic/dma.md","ref":"./network/basic/dma.md","articles":[]},"previous":{"title":"网络基础","level":"1.3.1","depth":2,"path":"network/basic/index.md","ref":"./network/basic/index.md","articles":[{"title":"内核是如何接收一个网络包的","level":"1.3.1.1","depth":3,"path":"network/basic/recv_one_package.md","ref":"./network/basic/recv_one_package.md","articles":[]},{"title":"内核DMA机制","level":"1.3.1.2","depth":3,"path":"network/basic/dma.md","ref":"./network/basic/dma.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/recv_one_package.md","mtime":"2021-11-21T14:40:07.029Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-11-21T14:40:16.367Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
