@@ -94,7 +94,7 @@ static long local_pci_probe(void *_ddi)
 > `bus`：总线（Bus）是指计算机组件间规范化的交换数据（data）的方式，即以一种通用的方式为各组件提供数据传送和控制逻辑。如果说主板（Mother Board）是一座城市，那么总线就像是城市里的公共汽车（bus），能按照固定行车路线，传输来回不停运作的比特（bit）。-- wikipedia
 > `driver`：驱动程序，提供操作的软件接口。
 > `device`：设备就是连接在总线上的物理实体。
-> ![bus](_img/bus.png)
+> ![recv_one_package-images/bus.png](recv_one_package-images/bus.png)
 
 那下面接着看`probe`的具体做了些什么：
 ```c
@@ -142,17 +142,17 @@ int e1000_open(struct net_device *netdev)
 
 ## 二、从网线到网卡
 
-![网卡](_img/pci.png)
+![recv_one_package-images/pci.png](recv_one_package-images/pci.png)
 
 总之这个过程，**实质上就是把网线中的高低电平，转换到网卡上的一个缓冲区中存储着**。
 
 ## 三、从网卡到内存
 
 数据到达了网卡这个硬件的缓冲区中，现在要把它弄到**内存中的缓冲区**。
-![DMA](_img/dma.png)
+![recv_one_package-images/dma.png](recv_one_package-images/dma.png)
 
 这个过程完全不需要 CPU 参与，只需要 **DMA** 这个硬件设备，**DMA** 等网卡的缓冲区有数据到来时，把它拷贝到内存里。
-![DMA_1](_img/dma_1.png)
+![recv_one_package-images/dma_1.png](recv_one_package-images/dma_1.png)
 
 ## 四、硬中断处理
 
