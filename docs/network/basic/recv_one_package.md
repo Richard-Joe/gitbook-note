@@ -122,6 +122,15 @@ static int e1000_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
 	err = register_netdev(netdev);
 	...
 }
+
+void netif_napi_add(struct net_device *dev, struct napi_struct *napi,
+		    int (*poll)(struct napi_struct *, int), int weight)
+{
+	...
+	// 注册poll函数
+	napi->poll = poll;
+	...
+}
 ```
 
 上面网卡驱动初始化都完成后，就可以启动网卡了。当启动一个网卡时，`net_device_ops`中的`e1000_open`会被调用。
@@ -132,11 +141,35 @@ int e1000_open(struct net_device *netdev)
 	// 分配RingBuffer，分配RX、TX队列内存，DMA初始化
 	err = e1000_setup_all_tx_resources(adapter);
 	err = e1000_setup_all_rx_resources(adapter);
+	// adapter配置
+	e1000_configure(adapter);
 	// 注册中断处理函数（e1000_intr）
 	err = e1000_request_irq(adapter);
 	// 启用NAPI
 	napi_enable(&adapter->napi);
 	...
+}
+
+#define ETH_DATA_LEN	1500		/* Max. octets in payload	 */
+
+static void e1000_configure_rx(struct e1000_adapter *adapter)
+{
+	u64 rdba;
+	struct e1000_hw *hw = &adapter->hw;
+	u32 rdlen, rctl, rxcsum;
+
+	// 设置 clean_rx 回调 （后面收包会用到）
+	if (adapter->netdev->mtu > ETH_DATA_LEN) {
+		rdlen = adapter->rx_ring[0].count *
+			sizeof(struct e1000_rx_desc);
+		adapter->clean_rx = e1000_clean_jumbo_rx_irq;
+		adapter->alloc_rx_buf = e1000_alloc_jumbo_rx_buffers;
+	} else {
+		rdlen = adapter->rx_ring[0].count *
+			sizeof(struct e1000_rx_desc);
+		adapter->clean_rx = e1000_clean_rx_irq;
+		adapter->alloc_rx_buf = e1000_alloc_rx_buffers;
+	}
 }
 ```
 
@@ -194,6 +227,7 @@ static int smpboot_thread_fn(void *data)
 ```
 
 linux内核通过调用`subsys_initcall`来初始化各个子系统。网络子系统的初始化阶段会进行注册软中断处理函数。
+
 ```c
 /*
  *	The list of packet types we will receive (as opposed to discard)
@@ -241,7 +275,9 @@ static int __init net_dev_init(void)
 
 		...
 
+		// 后面收包会先收到backlog队列
 		init_gro_hash(&sd->backlog);
+		// 设置处理队列包的回调（process_backlog）
 		sd->backlog.poll = process_backlog;
 		sd->backlog.weight = weight_p;
 	}
@@ -362,5 +398,206 @@ void __raise_softirq_irqoff(unsigned int nr)
 ```c
 static __latent_entropy void net_rx_action(struct softirq_action *h)
 {
+	// 获取到当前CPU变量 softnet_data
+	struct softnet_data *sd = this_cpu_ptr(&softnet_data);
+	// time_limit 和 budget 是用来控制 net_rx_action 主动退出的
+	// 目的是保证网络包的接收不霸占CPU不放
+	unsigned long time_limit = jiffies +
+		usecs_to_jiffies(netdev_budget_usecs);
+	int budget = netdev_budget;
+	LIST_HEAD(list);
+	LIST_HEAD(repoll);
+
+	// 更改poll_list前需要把所有硬中断给关了
+	local_irq_disable();
+	// 把poll_list链到list上，并把poll_list置空
+	list_splice_init(&sd->poll_list, &list);
+	local_irq_enable();
+
+	for (;;) {
+		struct napi_struct *n;
+
+		...
+
+		n = list_first_entry(&list, struct napi_struct, poll_list);
+		budget -= napi_poll(n, &repoll);
+
+		// 主动退出逻辑
+		/* If softirq window is exhausted then punt.
+		 * Allow this to run for 2 jiffies since which will allow
+		 * an average latency of 1.5/HZ.
+		 */
+		if (unlikely(budget <= 0 ||
+			     time_after_eq(jiffies, time_limit))) {
+			sd->time_squeeze++;
+			break;
+		}
+	}
+	...
 }
 ```
+
+`budget` 参数可以通过内核参数调整。
+```c
+net.core.netdev_budget = 300
+```
+
+```c
+static int napi_poll(struct napi_struct *n, struct list_head *repoll)
+{
+	bool do_repoll = false;
+	void *have;
+	int work;
+
+	list_del_init(&n->poll_list);
+
+	have = netpoll_poll_lock(n);
+
+	work = __napi_poll(n, &do_repoll);
+
+	if (do_repoll)
+		list_add_tail(&n->poll_list, repoll);
+
+	netpoll_poll_unlock(have);
+
+	return work;
+}
+
+static int __napi_poll(struct napi_struct *n, bool *repoll)
+{
+	...
+	if (test_bit(NAPI_STATE_SCHED, &n->state)) {
+		// 执行网卡驱动注册的poll函数
+		work = n->poll(n, weight);
+		trace_napi_poll(n, work, weight);
+	}
+	...
+}
+```
+
+上面我们说过，网卡驱动注册的poll函数是`e1000_clean`
+```c
+/**
+ * e1000_clean - NAPI Rx polling callback
+ * @napi: napi struct containing references to driver info
+ * @budget: budget given to driver for receive packets
+ **/
+static int e1000_clean(struct napi_struct *napi, int budget)
+{
+	struct e1000_adapter *adapter = container_of(napi, struct e1000_adapter,
+						     napi);
+	int tx_clean_complete = 0, work_done = 0;
+
+	...
+
+	// 上面有说，在e1000_open中有注册e1000_clean_rx_irq函数到clean_rx
+	adapter->clean_rx(adapter, &adapter->rx_ring[0], &work_done, budget);
+
+	if (!tx_clean_complete || work_done == budget)
+		return budget;
+
+	...
+
+	return work_done;
+}
+```
+
+```c
+static bool e1000_clean_rx_irq(struct e1000_adapter *adapter,
+			       struct e1000_rx_ring *rx_ring,
+			       int *work_done, int work_to_do)
+{
+	struct e1000_rx_buffer *buffer_info, *next_buffer;
+	unsigned int i;
+	
+	i = rx_ring->next_to_clean;
+	rx_desc = E1000_RX_DESC(*rx_ring, i);
+	buffer_info = &rx_ring->buffer_info[i];
+
+	while (rx_desc->status & E1000_RXD_STAT_DD) {
+		struct sk_buff *skb;
+		
+		data = buffer_info->rxbuf.data;
+		// 生成skb包
+		skb = e1000_copybreak(adapter, buffer_info, length, data);
+		if (!skb) {
+			skb = build_skb(data - E1000_HEADROOM, frag_len);
+			skb_reserve(skb, E1000_HEADROOM);
+			buffer_info->rxbuf.data = NULL;
+		}
+		
+process_skb:
+		/* Receive Checksum Offload */
+		e1000_rx_checksum(adapter,
+				  (u32)(status) |
+				  ((u32)(rx_desc->errors) << 24),
+				  le16_to_cpu(rx_desc->csum), skb);
+
+		e1000_receive_skb(adapter, status, rx_desc->special, skb);
+	}
+	
+	...
+}
+
+static void e1000_receive_skb(struct e1000_adapter *adapter, u8 status,
+			      __le16 vlan, struct sk_buff *skb)
+{
+	...
+	napi_gro_receive(&adapter->napi, skb);
+}
+
+gro_result_t napi_gro_receive(struct napi_struct *napi, struct sk_buff *skb)
+{
+	...
+	ret = napi_skb_finish(napi, skb, dev_gro_receive(napi, skb));
+	...
+	return ret;
+}
+
+static gro_result_t napi_skb_finish(struct napi_struct *napi,
+				    struct sk_buff *skb,
+				    gro_result_t ret)
+{
+	switch (ret) {
+	case GRO_NORMAL:
+		gro_normal_one(napi, skb, 1);
+		break;
+	...
+	}
+}
+
+// 省略中间的函数调用。。
+gro_normal_one -> gro_normal_list -> netif_receive_skb_list_internal -> 
+	enqueue_to_backlog
+
+// 入队到backlog
+static int enqueue_to_backlog(struct sk_buff *skb, int cpu, unsigned int *qtail)
+{
+	...
+	qlen = skb_queue_len(&sd->input_pkt_queue);
+	if (qlen <= netdev_max_backlog && !skb_flow_limit(skb, qlen)) {
+		if (qlen) {
+enqueue:
+			__skb_queue_tail(&sd->input_pkt_queue, skb);
+			...
+			// 入队成功，返回收包成功
+			return NET_RX_SUCCESS;
+		}
+		...
+	}
+
+drop:
+	...
+	// 释放掉skb，返回丢包
+	kfree_skb(skb);
+	return NET_RX_DROP;
+}
+```
+
+netdev_max_backlog 是可以通过修改内核参数更改的。
+```shell
+net.core.netdev_max_backlog = 1000
+```
+
+上面把生成skb包后，紧接着入队到backlog。下面我们接着数据包出队。
+

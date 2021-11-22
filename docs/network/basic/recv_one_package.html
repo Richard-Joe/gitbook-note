@@ -360,27 +360,36 @@
 <img src="recv_one_package-images/bus.png" alt="recv_one_package-images/bus.png"></p>
 </blockquote>
 <p>&#x90A3;&#x4E0B;&#x9762;&#x63A5;&#x7740;&#x770B;<code>probe</code>&#x7684;&#x5177;&#x4F53;&#x505A;&#x4E86;&#x4E9B;&#x4EC0;&#x4E48;&#xFF1A;</p>
-<pre><code class="lang-c"><span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> net_device_ops e1000_netdev_ops = {
+<pre><code class="lang-c">static const struct net_device_ops e1000_netdev_ops = {
     .ndo_open            = e1000_open,
     .ndo_stop            = e1000_close,
     .ndo_start_xmit        = e1000_xmit_frame,
     .ndo_do_ioctl        = e1000_ioctl,
     ...
 };
-<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">e1000_probe</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> pci_dev *pdev, <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> pci_device_id *ent)</span>
-</span>{
+static int e1000_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+{
     ...
-    <span class="hljs-comment">// &#x8BBE;&#x7F6E;net_device_ops</span>
+    // &#x8BBE;&#x7F6E;net_device_ops
     netdev-&gt;netdev_ops = &amp;e1000_netdev_ops;
-    <span class="hljs-comment">// &#x6CE8;&#x518C;ethtool&#x5B9E;&#x73B0;&#x51FD;&#x6570;</span>
+    // &#x6CE8;&#x518C;ethtool&#x5B9E;&#x73B0;&#x51FD;&#x6570;
     e1000_set_ethtool_ops(netdev);
-    <span class="hljs-comment">// NAPI&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x6CE8;&#x518C;poll&#x51FD;&#x6570;&#xFF08;e1000_clean&#xFF09;</span>
-    netif_napi_add(netdev, &amp;adapter-&gt;napi, e1000_clean, <span class="hljs-number">64</span>);
-    <span class="hljs-comment">// &#x83B7;&#x53D6;MAC&#x5730;&#x5740;</span>
+    // NAPI&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x6CE8;&#x518C;poll&#x51FD;&#x6570;&#xFF08;e1000_clean&#xFF09;
+    netif_napi_add(netdev, &amp;adapter-&gt;napi, e1000_clean, 64);
+    // &#x83B7;&#x53D6;MAC&#x5730;&#x5740;
     e1000_read_mac_addr(hw);
-    <span class="hljs-comment">// &#x6CE8;&#x518C;net_device</span>
-    <span class="hljs-built_in">strcpy</span>(netdev-&gt;name, <span class="hljs-string">&quot;eth%d&quot;</span>);
+    // &#x6CE8;&#x518C;net_device
+    strcpy(netdev-&gt;name, &quot;eth%d&quot;);
     err = register_netdev(netdev);
+    ...
+}
+
+void netif_napi_add(struct net_device *dev, struct napi_struct *napi,
+            int (*poll)(struct napi_struct *, int), int weight)
+{
+    ...
+    // &#x6CE8;&#x518C;poll&#x51FD;&#x6570;
+    napi-&gt;poll = poll;
     ...
 }
 </code></pre>
@@ -391,11 +400,35 @@
     <span class="hljs-comment">// &#x5206;&#x914D;RingBuffer&#xFF0C;&#x5206;&#x914D;RX&#x3001;TX&#x961F;&#x5217;&#x5185;&#x5B58;&#xFF0C;DMA&#x521D;&#x59CB;&#x5316;</span>
     err = e1000_setup_all_tx_resources(adapter);
     err = e1000_setup_all_rx_resources(adapter);
+    <span class="hljs-comment">// adapter&#x914D;&#x7F6E;</span>
+    e1000_configure(adapter);
     <span class="hljs-comment">// &#x6CE8;&#x518C;&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x51FD;&#x6570;&#xFF08;e1000_intr&#xFF09;</span>
     err = e1000_request_irq(adapter);
     <span class="hljs-comment">// &#x542F;&#x7528;NAPI</span>
     napi_enable(&amp;adapter-&gt;napi);
     ...
+}
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> ETH_DATA_LEN    1500        <span class="hljs-comment">/* Max. octets in payload     */</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">e1000_configure_rx</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> e1000_adapter *adapter)</span>
+</span>{
+    u64 rdba;
+    <span class="hljs-keyword">struct</span> e1000_hw *hw = &amp;adapter-&gt;hw;
+    u32 rdlen, rctl, rxcsum;
+
+    <span class="hljs-comment">// &#x8BBE;&#x7F6E; clean_rx &#x56DE;&#x8C03; &#xFF08;&#x540E;&#x9762;&#x6536;&#x5305;&#x4F1A;&#x7528;&#x5230;&#xFF09;</span>
+    <span class="hljs-keyword">if</span> (adapter-&gt;netdev-&gt;mtu &gt; ETH_DATA_LEN) {
+        rdlen = adapter-&gt;rx_ring[<span class="hljs-number">0</span>].<span class="hljs-function">count *
+            <span class="hljs-title">sizeof</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> e1000_rx_desc)</span></span>;
+        adapter-&gt;clean_rx = e1000_clean_jumbo_rx_irq;
+        adapter-&gt;alloc_rx_buf = e1000_alloc_jumbo_rx_buffers;
+    } <span class="hljs-keyword">else</span> {
+        rdlen = adapter-&gt;rx_ring[<span class="hljs-number">0</span>].<span class="hljs-function">count *
+            <span class="hljs-title">sizeof</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> e1000_rx_desc)</span></span>;
+        adapter-&gt;clean_rx = e1000_clean_rx_irq;
+        adapter-&gt;alloc_rx_buf = e1000_alloc_rx_buffers;
+    }
 }
 </code></pre>
 <h3 id="&#x6CE8;&#x518C;&#x8F6F;&#x4E2D;&#x65AD;">&#x6CE8;&#x518C;&#x8F6F;&#x4E2D;&#x65AD;</h3>
@@ -490,7 +523,9 @@ static int __init net_dev_init(void)
 
         ...
 
+        // &#x540E;&#x9762;&#x6536;&#x5305;&#x4F1A;&#x5148;&#x6536;&#x5230;backlog&#x961F;&#x5217;
         init_gro_hash(&amp;sd-&gt;backlog);
+        // &#x8BBE;&#x7F6E;&#x5904;&#x7406;&#x961F;&#x5217;&#x5305;&#x7684;&#x56DE;&#x8C03;&#xFF08;process_backlog&#xFF09;
         sd-&gt;backlog.poll = process_backlog;
         sd-&gt;backlog.weight = weight_p;
     }
@@ -587,8 +622,197 @@ asmlinkage __visible <span class="hljs-keyword">void</span> __softirq_entry __do
 <p>&#x5185;&#x6838;&#x7EBF;&#x7A0B;&#x68C0;&#x6D4B;&#x5230;&#x8F6F;&#x4E2D;&#x65AD;&#x89E6;&#x53D1;&#x540E;&#xFF0C;&#x4F1A;&#x8C03;&#x7528;&#x6CE8;&#x518C;&#x7684;<code>net_rx_action</code>&#x51FD;&#x6570;&#x3002;</p>
 <pre><code class="lang-c"><span class="hljs-keyword">static</span> __<span class="hljs-function">latent_entropy <span class="hljs-keyword">void</span> <span class="hljs-title">net_rx_action</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> softirq_action *h)</span>
 </span>{
+    <span class="hljs-comment">// &#x83B7;&#x53D6;&#x5230;&#x5F53;&#x524D;CPU&#x53D8;&#x91CF; softnet_data</span>
+    <span class="hljs-keyword">struct</span> softnet_data *sd = this_cpu_ptr(&amp;softnet_data);
+    <span class="hljs-comment">// time_limit &#x548C; budget &#x662F;&#x7528;&#x6765;&#x63A7;&#x5236; net_rx_action &#x4E3B;&#x52A8;&#x9000;&#x51FA;&#x7684;</span>
+    <span class="hljs-comment">// &#x76EE;&#x7684;&#x662F;&#x4FDD;&#x8BC1;&#x7F51;&#x7EDC;&#x5305;&#x7684;&#x63A5;&#x6536;&#x4E0D;&#x9738;&#x5360;CPU&#x4E0D;&#x653E;</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> time_limit = jiffies +
+        usecs_to_jiffies(netdev_budget_usecs);
+    <span class="hljs-keyword">int</span> budget = netdev_budget;
+    LIST_HEAD(<span class="hljs-built_in">list</span>);
+    LIST_HEAD(repoll);
+
+    <span class="hljs-comment">// &#x66F4;&#x6539;poll_list&#x524D;&#x9700;&#x8981;&#x628A;&#x6240;&#x6709;&#x786C;&#x4E2D;&#x65AD;&#x7ED9;&#x5173;&#x4E86;</span>
+    local_irq_disable();
+    <span class="hljs-comment">// &#x628A;poll_list&#x94FE;&#x5230;list&#x4E0A;&#xFF0C;&#x5E76;&#x628A;poll_list&#x7F6E;&#x7A7A;</span>
+    list_splice_init(&amp;sd-&gt;poll_list, &amp;<span class="hljs-built_in">list</span>);
+    local_irq_enable();
+
+    <span class="hljs-keyword">for</span> (;;) {
+        <span class="hljs-keyword">struct</span> napi_struct *n;
+
+        ...
+
+        n = list_first_entry(&amp;<span class="hljs-built_in">list</span>, <span class="hljs-keyword">struct</span> napi_struct, poll_list);
+        budget -= napi_poll(n, &amp;repoll);
+
+        <span class="hljs-comment">// &#x4E3B;&#x52A8;&#x9000;&#x51FA;&#x903B;&#x8F91;</span>
+        <span class="hljs-comment">/* If softirq window is exhausted then punt.
+         * Allow this to run for 2 jiffies since which will allow
+         * an average latency of 1.5/HZ.
+         */</span>
+        <span class="hljs-keyword">if</span> (unlikely(budget &lt;= <span class="hljs-number">0</span> ||
+                 time_after_eq(jiffies, time_limit))) {
+            sd-&gt;time_squeeze++;
+            <span class="hljs-keyword">break</span>;
+        }
+    }
+    ...
 }
 </code></pre>
+<p><code>budget</code> &#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5185;&#x6838;&#x53C2;&#x6570;&#x8C03;&#x6574;&#x3002;</p>
+<pre><code class="lang-c">net.core.netdev_budget = <span class="hljs-number">300</span>
+</code></pre>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">napi_poll</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> napi_struct *n, <span class="hljs-keyword">struct</span> list_head *repoll)</span>
+</span>{
+    <span class="hljs-keyword">bool</span> do_repoll = <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">void</span> *have;
+    <span class="hljs-keyword">int</span> work;
+
+    list_del_init(&amp;n-&gt;poll_list);
+
+    have = netpoll_poll_lock(n);
+
+    work = __napi_poll(n, &amp;do_repoll);
+
+    <span class="hljs-keyword">if</span> (do_repoll)
+        list_add_tail(&amp;n-&gt;poll_list, repoll);
+
+    netpoll_poll_unlock(have);
+
+    <span class="hljs-keyword">return</span> work;
+}
+
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> __napi_poll(<span class="hljs-keyword">struct</span> napi_struct *n, <span class="hljs-keyword">bool</span> *repoll)
+{
+    ...
+    <span class="hljs-keyword">if</span> (test_bit(NAPI_STATE_SCHED, &amp;n-&gt;state)) {
+        <span class="hljs-comment">// &#x6267;&#x884C;&#x7F51;&#x5361;&#x9A71;&#x52A8;&#x6CE8;&#x518C;&#x7684;poll&#x51FD;&#x6570;</span>
+        work = n-&gt;poll(n, weight);
+        trace_napi_poll(n, work, weight);
+    }
+    ...
+}
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x6211;&#x4EEC;&#x8BF4;&#x8FC7;&#xFF0C;&#x7F51;&#x5361;&#x9A71;&#x52A8;&#x6CE8;&#x518C;&#x7684;poll&#x51FD;&#x6570;&#x662F;<code>e1000_clean</code></p>
+<pre><code class="lang-c"><span class="hljs-comment">/**
+ * e1000_clean - NAPI Rx polling callback
+ * @napi: napi struct containing references to driver info
+ * @budget: budget given to driver for receive packets
+ **/</span>
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">e1000_clean</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> napi_struct *napi, <span class="hljs-keyword">int</span> budget)</span>
+</span>{
+    <span class="hljs-keyword">struct</span> e1000_adapter *adapter = container_of(napi, <span class="hljs-keyword">struct</span> e1000_adapter,
+                             napi);
+    <span class="hljs-keyword">int</span> tx_clean_complete = <span class="hljs-number">0</span>, work_done = <span class="hljs-number">0</span>;
+
+    ...
+
+    <span class="hljs-comment">// &#x4E0A;&#x9762;&#x6709;&#x8BF4;&#xFF0C;&#x5728;e1000_open&#x4E2D;&#x6709;&#x6CE8;&#x518C;e1000_clean_rx_irq&#x51FD;&#x6570;&#x5230;clean_rx</span>
+    adapter-&gt;clean_rx(adapter, &amp;adapter-&gt;rx_ring[<span class="hljs-number">0</span>], &amp;work_done, budget);
+
+    <span class="hljs-keyword">if</span> (!tx_clean_complete || work_done == budget)
+        <span class="hljs-keyword">return</span> budget;
+
+    ...
+
+    <span class="hljs-keyword">return</span> work_done;
+}
+</code></pre>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">e1000_clean_rx_irq</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> e1000_adapter *adapter,
+                   <span class="hljs-keyword">struct</span> e1000_rx_ring *rx_ring,
+                   <span class="hljs-keyword">int</span> *work_done, <span class="hljs-keyword">int</span> work_to_do)</span>
+</span>{
+    <span class="hljs-keyword">struct</span> e1000_rx_buffer *buffer_info, *next_buffer;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> i;
+
+    i = rx_ring-&gt;next_to_clean;
+    rx_desc = E1000_RX_DESC(*rx_ring, i);
+    buffer_info = &amp;rx_ring-&gt;buffer_info[i];
+
+    <span class="hljs-keyword">while</span> (rx_desc-&gt;status &amp; E1000_RXD_STAT_DD) {
+        <span class="hljs-keyword">struct</span> sk_buff *skb;
+
+        data = buffer_info-&gt;rxbuf.data;
+        <span class="hljs-comment">// &#x751F;&#x6210;skb&#x5305;</span>
+        skb = e1000_copybreak(adapter, buffer_info, length, data);
+        <span class="hljs-keyword">if</span> (!skb) {
+            skb = build_skb(data - E1000_HEADROOM, frag_len);
+            skb_reserve(skb, E1000_HEADROOM);
+            buffer_info-&gt;rxbuf.data = <span class="hljs-literal">NULL</span>;
+        }
+
+process_skb:
+        <span class="hljs-comment">/* Receive Checksum Offload */</span>
+        e1000_rx_checksum(adapter,
+                  (u32)(status) |
+                  ((u32)(rx_desc-&gt;errors) &lt;&lt; <span class="hljs-number">24</span>),
+                  le16_to_cpu(rx_desc-&gt;csum), skb);
+
+        e1000_receive_skb(adapter, status, rx_desc-&gt;special, skb);
+    }
+
+    ...
+}
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">e1000_receive_skb</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> e1000_adapter *adapter, u8 status,
+                  __le16 vlan, <span class="hljs-keyword">struct</span> sk_buff *skb)</span>
+</span>{
+    ...
+    napi_gro_receive(&amp;adapter-&gt;napi, skb);
+}
+
+<span class="hljs-keyword">gro_result_t</span> napi_gro_receive(<span class="hljs-keyword">struct</span> napi_struct *napi, <span class="hljs-keyword">struct</span> sk_buff *skb)
+{
+    ...
+    ret = napi_skb_finish(napi, skb, dev_gro_receive(napi, skb));
+    ...
+    <span class="hljs-keyword">return</span> ret;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> gro_result_t <span class="hljs-title">napi_skb_finish</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> napi_struct *napi,
+                    <span class="hljs-keyword">struct</span> sk_buff *skb,
+                    gro_result_t ret)</span>
+</span>{
+    <span class="hljs-keyword">switch</span> (ret) {
+    <span class="hljs-keyword">case</span> GRO_NORMAL:
+        gro_normal_one(napi, skb, <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">break</span>;
+    ...
+    }
+}
+
+<span class="hljs-comment">// &#x7701;&#x7565;&#x4E2D;&#x95F4;&#x7684;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x3002;&#x3002;</span>
+gro_normal_one -&gt; gro_normal_list -&gt; netif_receive_skb_list_internal -&gt; 
+    enqueue_to_backlog
+
+<span class="hljs-comment">// &#x5165;&#x961F;&#x5230;backlog</span>
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">enqueue_to_backlog</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> sk_buff *skb, <span class="hljs-keyword">int</span> cpu, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> *qtail)</span>
+</span>{
+    ...
+    qlen = skb_queue_len(&amp;sd-&gt;input_pkt_queue);
+    <span class="hljs-keyword">if</span> (qlen &lt;= netdev_max_backlog &amp;&amp; !skb_flow_limit(skb, qlen)) {
+        <span class="hljs-keyword">if</span> (qlen) {
+enqueue:
+            __skb_queue_tail(&amp;sd-&gt;input_pkt_queue, skb);
+            ...
+            <span class="hljs-comment">// &#x5165;&#x961F;&#x6210;&#x529F;&#xFF0C;&#x8FD4;&#x56DE;&#x6536;&#x5305;&#x6210;&#x529F;</span>
+            <span class="hljs-keyword">return</span> NET_RX_SUCCESS;
+        }
+        ...
+    }
+
+drop:
+    ...
+    <span class="hljs-comment">// &#x91CA;&#x653E;&#x6389;skb&#xFF0C;&#x8FD4;&#x56DE;&#x4E22;&#x5305;</span>
+    kfree_skb(skb);
+    <span class="hljs-keyword">return</span> NET_RX_DROP;
+}
+</code></pre>
+<p>netdev_max_backlog &#x662F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4FEE;&#x6539;&#x5185;&#x6838;&#x53C2;&#x6570;&#x66F4;&#x6539;&#x7684;&#x3002;</p>
+<pre><code class="lang-shell">net.core.netdev_max_backlog = 1000
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x628A;&#x751F;&#x6210;skb&#x5305;&#x540E;&#xFF0C;&#x7D27;&#x63A5;&#x7740;&#x5165;&#x961F;&#x5230;backlog&#x3002;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x63A5;&#x7740;&#x6570;&#x636E;&#x5305;&#x51FA;&#x961F;&#x3002;</p>
 
                                 
                                 </section>
@@ -632,7 +856,7 @@ asmlinkage __visible <span class="hljs-keyword">void</span> __softirq_entry __do
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"内核是如何接收一个网络包的","level":"1.3.1.1","depth":3,"next":{"title":"内核DMA机制","level":"1.3.1.2","depth":3,"path":"network/basic/dma.md","ref":"./network/basic/dma.md","articles":[]},"previous":{"title":"网络基础","level":"1.3.1","depth":2,"path":"network/basic/index.md","ref":"./network/basic/index.md","articles":[{"title":"内核是如何接收一个网络包的","level":"1.3.1.1","depth":3,"path":"network/basic/recv_one_package.md","ref":"./network/basic/recv_one_package.md","articles":[]},{"title":"内核DMA机制","level":"1.3.1.2","depth":3,"path":"network/basic/dma.md","ref":"./network/basic/dma.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/recv_one_package.md","mtime":"2021-11-21T15:49:04.400Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-11-21T15:49:20.205Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"内核是如何接收一个网络包的","level":"1.3.1.1","depth":3,"next":{"title":"内核DMA机制","level":"1.3.1.2","depth":3,"path":"network/basic/dma.md","ref":"./network/basic/dma.md","articles":[]},"previous":{"title":"网络基础","level":"1.3.1","depth":2,"path":"network/basic/index.md","ref":"./network/basic/index.md","articles":[{"title":"内核是如何接收一个网络包的","level":"1.3.1.1","depth":3,"path":"network/basic/recv_one_package.md","ref":"./network/basic/recv_one_package.md","articles":[]},{"title":"内核DMA机制","level":"1.3.1.2","depth":3,"path":"network/basic/dma.md","ref":"./network/basic/dma.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/recv_one_package.md","mtime":"2021-11-22T16:08:44.255Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-11-22T16:11:35.989Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
