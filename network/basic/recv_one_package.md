@@ -339,6 +339,73 @@ asmlinkage __visible void __softirq_entry __do_softirq(void)
 
 如果发现你的linux上软中断CPU消耗都集中在一个核上，做法是调整硬中断的CPU亲和性，来将硬中断打散到不同的CPU核上去。
 
+### 协议层注册
+---
+
+系统启动的时候，不同的协议会注册不同的处理函数。
+
+```c
+static struct packet_type ip_packet_type __read_mostly = {
+	.type = cpu_to_be16(ETH_P_IP),
+	.func = ip_rcv,
+	.list_func = ip_list_rcv,
+};
+
+static int __init inet_init(void)
+{
+	// ARP模块初始化
+	arp_init();
+	...
+	// 添加所有的基础协议
+	if (inet_add_protocol(&icmp_protocol, IPPROTO_ICMP) < 0)
+		pr_crit("%s: Cannot add ICMP protocol\n", __func__);
+	if (inet_add_protocol(&udp_protocol, IPPROTO_UDP) < 0)
+		pr_crit("%s: Cannot add UDP protocol\n", __func__);
+	if (inet_add_protocol(&tcp_protocol, IPPROTO_TCP) < 0)
+		pr_crit("%s: Cannot add TCP protocol\n", __func__);
+	...
+	// 添加IP协议处理
+	dev_add_pack(&ip_packet_type);
+	...
+}
+fs_initcall(inet_init);
+
+// Add a protocol handler to the networking stack. 
+void dev_add_pack(struct packet_type *pt)
+{
+	struct list_head *head = ptype_head(pt);
+
+	spin_lock(&ptype_lock);
+	list_add_rcu(&pt->list, head);
+	spin_unlock(&ptype_lock);
+}
+
+static inline struct list_head *ptype_head(const struct packet_type *pt)
+{
+	if (pt->type == htons(ETH_P_ALL))
+		return pt->dev ? &pt->dev->ptype_all : &ptype_all;
+	else
+		return pt->dev ? &pt->dev->ptype_specific :
+				 &ptype_base[ntohs(pt->type) & PTYPE_HASH_MASK];
+}
+```
+
+上面可以看到，`ip_packet_type`被添加到`ptype_base[ETH_P_IP]`里面。上面也有说过`ptype_base`的定义和初始化。
+
+类似的，ARP协议处理也被添加进去
+```c
+static struct packet_type arp_packet_type __read_mostly = {
+	.type =	cpu_to_be16(ETH_P_ARP),
+	.func =	arp_rcv,
+};
+
+void __init arp_init(void)
+{
+	...
+	dev_add_pack(&arp_packet_type);
+	...
+}
+```
 
 ---
 当做好以上准备工作后，就可以开始接收数据包了。
@@ -646,75 +713,9 @@ static inline int deliver_skb(struct sk_buff *skb,
 	return pt_prev->func(skb, skb->dev, pt_prev, orig_dev);
 }
 ```
+如果是IP协议，上面的func就会进入到ip_rcv。
 
-## 六、协议层注册
-
-如果是IP协议包，上面的func就会进入到ip_rcv，下面看下ip_rcv是如何注册进去的。
-
-```c
-static struct packet_type ip_packet_type __read_mostly = {
-	.type = cpu_to_be16(ETH_P_IP),
-	.func = ip_rcv,
-	.list_func = ip_list_rcv,
-};
-
-static int __init inet_init(void)
-{
-	// ARP模块初始化
-	arp_init();
-	...
-	// 添加所有的基础协议
-	if (inet_add_protocol(&icmp_protocol, IPPROTO_ICMP) < 0)
-		pr_crit("%s: Cannot add ICMP protocol\n", __func__);
-	if (inet_add_protocol(&udp_protocol, IPPROTO_UDP) < 0)
-		pr_crit("%s: Cannot add UDP protocol\n", __func__);
-	if (inet_add_protocol(&tcp_protocol, IPPROTO_TCP) < 0)
-		pr_crit("%s: Cannot add TCP protocol\n", __func__);
-	...
-	// 添加IP协议处理
-	dev_add_pack(&ip_packet_type);
-	...
-}
-fs_initcall(inet_init);
-
-// Add a protocol handler to the networking stack. 
-void dev_add_pack(struct packet_type *pt)
-{
-	struct list_head *head = ptype_head(pt);
-
-	spin_lock(&ptype_lock);
-	list_add_rcu(&pt->list, head);
-	spin_unlock(&ptype_lock);
-}
-
-static inline struct list_head *ptype_head(const struct packet_type *pt)
-{
-	if (pt->type == htons(ETH_P_ALL))
-		return pt->dev ? &pt->dev->ptype_all : &ptype_all;
-	else
-		return pt->dev ? &pt->dev->ptype_specific :
-				 &ptype_base[ntohs(pt->type) & PTYPE_HASH_MASK];
-}
-```
-
-上面可以看到，`ip_packet_type`被添加到`ptype_base[ETH_P_IP]`里面。上面也有说过`ptype_base`的定义和初始化。
-
-类似的，ARP协议处理也被添加进去
-```c
-static struct packet_type arp_packet_type __read_mostly = {
-	.type =	cpu_to_be16(ETH_P_ARP),
-	.func =	arp_rcv,
-};
-
-void __init arp_init(void)
-{
-	...
-	dev_add_pack(&arp_packet_type);
-	...
-}
-```
-
-## 七、协议层处理
+## 六、协议层处理
 
 `netfilter`框架就不在这里介绍了，可以看相关章节。
 
@@ -754,5 +755,5 @@ void ip_protocol_deliver_rcu(struct net *net, struct sk_buff *skb, int protocol)
 
 后面可能会经过socket传到应用层，这里就不展开了。
 
-## 八、总结
+## 七、总结
 
