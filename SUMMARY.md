@@ -10,5 +10,5 @@
     * [内核DMA机制](./network/basic/dma.md)
   * [负载均衡](./network/load_balance.md)
     * [LVS](./network/lb/LVS.md)
-  * [流量控制](./network/traffic_control.md)
+  * [流量控制](./network/traffic_control/tc.md)
 
