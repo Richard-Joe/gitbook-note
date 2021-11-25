@@ -601,3 +601,158 @@ net.core.netdev_max_backlog = 1000
 
 上面把生成skb包后，紧接着入队到backlog。下面我们接着数据包出队。
 
+```c
+static int process_backlog(struct napi_struct *napi, int quota)
+{
+	...
+	while (again) {
+		struct sk_buff *skb;
+
+		// skb包从process_queue队列中出队
+		while ((skb = __skb_dequeue(&sd->process_queue))) {
+			rcu_read_lock();
+			// skb包被送往协议栈（__netif_receive_skb往下传递一直到deliver_skb）
+			__netif_receive_skb(skb);
+			rcu_read_unlock();
+			...
+		}
+
+		local_irq_disable();
+		...
+		if (skb_queue_empty(&sd->input_pkt_queue)) {
+			// 如果input_pkt_queue队列为空，则退出流程
+			napi->state = 0;
+			again = false;
+		} else {
+			// 将input_pkt_queue队列数据放到process_queue队列，并把input_pkt_queue置空
+			skb_queue_splice_tail_init(&sd->input_pkt_queue,
+						   &sd->process_queue);
+		}
+		...
+		local_irq_enable();
+	}
+	
+	...
+}
+
+static inline int deliver_skb(struct sk_buff *skb,
+			      struct packet_type *pt_prev,
+			      struct net_device *orig_dev)
+{
+	if (unlikely(skb_orphan_frags_rx(skb, GFP_ATOMIC)))
+		return -ENOMEM;
+	refcount_inc(&skb->users);
+	// 协议层注册的处理函数
+	return pt_prev->func(skb, skb->dev, pt_prev, orig_dev);
+}
+```
+
+## 六、协议层注册
+
+如果是IP协议包，上面的func就会进入到ip_rcv，下面看下ip_rcv是如何注册进去的。
+
+```c
+static struct packet_type ip_packet_type __read_mostly = {
+	.type = cpu_to_be16(ETH_P_IP),
+	.func = ip_rcv,
+	.list_func = ip_list_rcv,
+};
+
+static int __init inet_init(void)
+{
+	// ARP模块初始化
+	arp_init();
+	...
+	// 添加所有的基础协议
+	if (inet_add_protocol(&icmp_protocol, IPPROTO_ICMP) < 0)
+		pr_crit("%s: Cannot add ICMP protocol\n", __func__);
+	if (inet_add_protocol(&udp_protocol, IPPROTO_UDP) < 0)
+		pr_crit("%s: Cannot add UDP protocol\n", __func__);
+	if (inet_add_protocol(&tcp_protocol, IPPROTO_TCP) < 0)
+		pr_crit("%s: Cannot add TCP protocol\n", __func__);
+	...
+	// 添加IP协议处理
+	dev_add_pack(&ip_packet_type);
+	...
+}
+fs_initcall(inet_init);
+
+// Add a protocol handler to the networking stack. 
+void dev_add_pack(struct packet_type *pt)
+{
+	struct list_head *head = ptype_head(pt);
+
+	spin_lock(&ptype_lock);
+	list_add_rcu(&pt->list, head);
+	spin_unlock(&ptype_lock);
+}
+
+static inline struct list_head *ptype_head(const struct packet_type *pt)
+{
+	if (pt->type == htons(ETH_P_ALL))
+		return pt->dev ? &pt->dev->ptype_all : &ptype_all;
+	else
+		return pt->dev ? &pt->dev->ptype_specific :
+				 &ptype_base[ntohs(pt->type) & PTYPE_HASH_MASK];
+}
+```
+
+上面可以看到，`ip_packet_type`被添加到`ptype_base[ETH_P_IP]`里面。上面也有说过`ptype_base`的定义和初始化。
+
+类似的，ARP协议处理也被添加进去
+```c
+static struct packet_type arp_packet_type __read_mostly = {
+	.type =	cpu_to_be16(ETH_P_ARP),
+	.func =	arp_rcv,
+};
+
+void __init arp_init(void)
+{
+	...
+	dev_add_pack(&arp_packet_type);
+	...
+}
+```
+
+## 七、协议层处理
+
+`netfilter`框架就不在这里介绍了，可以看相关章节。
+
+我们接着看数据包经过IP协议层，如何被送到`TCP`或`UDP`的
+
+```c
+// 调用流程如下：
+ip_rcv -> ip_rcv_finish -> dst_input
+
+// 这里涉及路由子系统，netfilter框架中经过路由判决后会决定走local_in还是forward。
+static inline int dst_input(struct sk_buff *skb)
+{
+	return INDIRECT_CALL_INET(skb_dst(skb)->input,
+				  ip6_input, ip_local_deliver, skb);
+}
+```
+
+如果包是送往本机的，那我们接着看`ip_local_deliver`,
+```c
+// 调用流程如下：
+ip_local_deliver -> ip_local_deliver_finish -> ip_protocol_deliver_rcu
+
+void ip_protocol_deliver_rcu(struct net *net, struct sk_buff *skb, int protocol)
+{
+	...
+	// 获取IP协议类型
+	ipprot = rcu_dereference(inet_protos[protocol]);
+	if (ipprot) {
+		...
+		// 调用对应的协议处理函数（上面的inet_init函数中已经注册过了）
+		ret = INDIRECT_CALL_2(ipprot->handler, tcp_v4_rcv, udp_rcv, skb);
+		...
+	}
+	...
+}
+```
+
+后面可能会经过socket传到应用层，这里就不展开了。
+
+## 八、总结
+
