@@ -272,9 +272,155 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="&#x6D41;&#x91CF;&#x63A7;&#x5236;&#xFF08;traffic-control&#xFF0C;tc&#xFF09;">&#x6D41;&#x91CF;&#x63A7;&#x5236;&#xFF08;Traffic Control&#xFF0C;tc&#xFF09;</h1>
-<h2 id="qdisc">qdisc</h2>
-<h2 id="fitler">fitler</h2>
-<h2 id="class">class</h2>
+<p>&#x6D41;&#x63A7;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x7EC4;&#x673A;&#x5236;&#x548C;&#x64CD;&#x4F5C;&#xFF0C;&#x4F7F;&#x5F97;&#x6570;&#x636E;&#x5305;&#x5728;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x4E0A;&#x6392;&#x961F;&#xFF08;&#x4F20;&#x8F93;/&#x63A5;&#x6536;&#xFF09;&#x3002;</p>
+<p>&#x8FD9;&#x4E9B;&#x64CD;&#x4F5C;&#x5305;&#x542B;&#x4E86;&#x6392;&#x961F;&#x3001;&#x76D1;&#x7BA1;&#x3001;&#x5206;&#x7C7B;&#x3001;&#x8C03;&#x5EA6;&#x3001;&#x6574;&#x5F62;&#x3001;&#x4E22;&#x5F03;&#x3002;</p>
+<h2 id="&#x4E00;&#x3001;&#x57FA;&#x672C;&#x6982;&#x5FF5;">&#x4E00;&#x3001;&#x57FA;&#x672C;&#x6982;&#x5FF5;</h2>
+<ol>
+<li>&#x961F;&#x5217;&#xFF08;Queues&#xFF09;<ul>
+<li>&#x4E24;&#x4E2A;&#x52A8;&#x4F5C;&#xFF1A;&#x5165;&#x961F;&#x3001;&#x51FA;&#x961F;</li>
+</ul>
+</li>
+<li>&#x6D41;&#x91CF;&#xFF08;Flows&#xFF09;</li>
+<li>&#x4EE4;&#x724C;&#x548C;&#x6876;&#xFF08;Tokens and buckets&#xFF09;<ul>
+<li>&#x6876;&#x662F;&#x6309;&#x7167;&#x901F;&#x7387;&#x88C5;&#x6EE1;&#x4EE4;&#x724C;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x4EE4;&#x724C;&#x6CA1;&#x6709;&#x88AB;&#x4F7F;&#x7528;&#xFF0C;&#x6876;&#x53EF;&#x4EE5;&#x88C5;&#x6EE1;&#x3002;&#x5982;&#x679C;&#x4F7F;&#x7528;&#x4EE4;&#x724C;&#xFF0C;&#x5219;&#x6876;&#x5C06;&#x4E0D;&#x4F1A;&#x586B;&#x6EE1;</li>
+<li>&#x5E38;&#x89C4;&#x6D41;&#x91CF;&#x53EF;&#x4EE5;&#x7531;&#x5C0F;&#x6876;&#x5904;&#x7406;&#xFF0C;&#x7A81;&#x53D1;&#x6D41;&#x91CF;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x66F4;&#x5927;&#x7684;&#x6876;</li>
+</ul>
+</li>
+<li>&#x6570;&#x636E;&#x5305;&#x548C;&#x5E27;&#xFF08;Packets and frames&#xFF09;<ul>
+<li>&#x5E27;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x8FDB;&#x884C;&#x6D41;&#x91CF;&#x63A7;&#x5236;&#x7684;&#x5355;&#x4F4D;</li>
+</ul>
+</li>
+</ol>
+<h2 id="&#x4E8C;&#x3001;&#x4F20;&#x7EDF;&#x5143;&#x7D20;">&#x4E8C;&#x3001;&#x4F20;&#x7EDF;&#x5143;&#x7D20;</h2>
+<ol>
+<li>&#x6574;&#x5F62;&#xFF08;Shaping&#xFF09;<ul>
+<li>&#x6574;&#x5F62;&#x662F;&#x5728;&#x8F93;&#x51FA;&#x961F;&#x5217;&#x4E2D;&#x4F20;&#x8F93;&#x4E4B;&#x524D;&#x5EF6;&#x8FDF;&#x6570;&#x636E;&#x5305;&#x4EE5;&#x6EE1;&#x8DB3;&#x6240;&#x9700;&#x8F93;&#x51FA;&#x901F;&#x7387;&#x7684;&#x673A;&#x5236;</li>
+</ul>
+</li>
+<li>&#x8C03;&#x5EA6;&#xFF08;Scheduling&#xFF09;<ul>
+<li>&#x8C03;&#x5EA6;&#x662F;&#x5728;&#x7279;&#x5B9A;&#x961F;&#x5217;&#x7684;&#x8F93;&#x5165;&#x548C;&#x8F93;&#x51FA;&#x4E4B;&#x95F4;&#x6392;&#x5217;&#xFF08;&#x6216;&#x91CD;&#x65B0;&#x6392;&#x5217;&#xFF09;&#x6570;&#x636E;&#x5305;&#x7684;&#x673A;&#x5236;</li>
+</ul>
+</li>
+<li>&#x5206;&#x7C7B;&#xFF08;Classifying&#xFF09;<ul>
+<li>&#x5206;&#x7C7B;&#x662F;&#x5C06;&#x6570;&#x636E;&#x5305;&#x5206;&#x5F00;&#x4EE5;&#x8FDB;&#x884C;&#x4E0D;&#x540C;&#x5904;&#x7406;&#xFF08;&#x53EF;&#x80FD;&#x662F;&#x4E0D;&#x540C;&#x7684;&#x8F93;&#x51FA;&#x961F;&#x5217;&#xFF09;&#x7684;&#x673A;&#x5236;</li>
+</ul>
+</li>
+<li>&#x76D1;&#x7BA1;&#xFF08;Policing&#xFF09;<ul>
+<li>&#x76D1;&#x7BA1;&#xFF0C;&#x53EA;&#x662F;&#x4E00;&#x79CD;&#x53EF;&#x4EE5;&#x9650;&#x5236;&#x6D41;&#x91CF;&#x7684;&#x673A;&#x5236;</li>
+</ul>
+</li>
+<li>&#x4E22;&#x5F03;&#xFF08;Dropping&#xFF09;<ul>
+<li>&#x4E22;&#x5F03;&#x4F1A;&#x4E22;&#x5F03;&#x6574;&#x4E2A;&#x6570;&#x636E;&#x5305;&#x3001;&#x6D41;&#x6216;&#x5206;&#x7C7B;</li>
+</ul>
+</li>
+<li>&#x6807;&#x8BB0;&#xFF08;Marking&#xFF09;<ul>
+<li>&#x6807;&#x8BB0;&#x662F;&#x4E00;&#x79CD;&#x6539;&#x53D8;&#x6570;&#x636E;&#x5305;&#x7684;&#x673A;&#x5236;</li>
+<li>&#x8FD9;&#x4E2A;&#x4E0D;&#x662F;<code>fwmark</code>&#x3002;iptables&#x7684;MARK&#x662F;&#x7528;&#x6765;&#x6539;&#x53D8;&#x6570;&#x636E;&#x5305;&#x7684;&#x5143;&#x6570;&#x636E;&#xFF0C;&#x4E0D;&#x662F;&#x6570;&#x636E;&#x5305;&#x672C;&#x8EAB;</li>
+<li>&#x2753;&#x4E0D;&#x592A;&#x660E;&#x767D;&#x533A;&#x522B;&#x662F;&#x5565;&#x2753;</li>
+</ul>
+</li>
+</ol>
+<h2 id="&#x4E09;&#x3001;&#x7EC4;&#x4EF6;">&#x4E09;&#x3001;&#x7EC4;&#x4EF6;</h2>
+<h3 id="qdisc-queuing-discipline">qdisc (queuing discipline)</h3>
+<p>&#x6392;&#x961F;&#x89C4;&#x5219;</p>
+<p><code>root qdisc</code>&#x548C;<code>ingress qdisc</code></p>
+<h3 id="class">class</h3>
+<p><code>class</code>&#x53EA;&#x5B58;&#x5728;&#x4E8E;<code>classful qdisc</code>&#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x5305;&#x542B;&#x591A;&#x4E2A;&#x5B50;<code>class</code>&#x6216;&#x5355;&#x4E2A;<code>qdisc</code>&#x3002;</p>
+<p>&#x4EFB;&#x4F55;<code>class</code>&#x4E5F;&#x53EF;&#x4EE5;&#x9644;&#x52A0;&#x4EFB;&#x610F;&#x6570;&#x91CF;&#x7684;<code>fitler</code>&#x3002;</p>
+<p>&#x53F6;&#x5B50;<code>class</code>&#x5305;&#x542B;&#x4E86;&#x4E00;&#x4E2A;<code>qdisc</code>&#xFF0C;&#x5E76;&#x4E14;&#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x5305;&#x542B;&#x5B50;<code>class</code>&#x3002;</p>
+<p><code>class</code>&#x548C;&#x5B50;<code>class</code>&#x7684;&#x7C7B;&#x578B;&#x5FC5;&#x987B;&#x4E00;&#x81F4;&#x3002;<code>HTB qdisc</code>&#x53EA;&#x80FD;&#x5C06;<code>HTB class</code>&#x4F5C;&#x4E3A;&#x5B50;&#x7EA7;&#x3002;</p>
+<h3 id="fitler">fitler</h3>
+<p>&#x8FC7;&#x6EE4;&#x5668;</p>
+<h3 id="classifier">classifier</h3>
+<p>&#x5206;&#x7C7B;&#x5668;</p>
+<h3 id="policer">policer</h3>
+<p>&#x76D1;&#x7BA1;&#x5668;</p>
+<h3 id="drop">drop</h3>
+<p>&#x552F;&#x4E00;&#x53EF;&#x4EE5;&#x660E;&#x786E;&#x4E22;&#x5F03;&#x6570;&#x636E;&#x5305;&#x7684;&#x5730;&#x65B9;&#x5C31;&#x662F;&#x76D1;&#x7BA1;&#x5668;&#x3002;</p>
+<p>&#x6B64;&#x5916;&#xFF0C;&#x6574;&#x5F62;&#x5668;&#x548C;&#x8C03;&#x5EA6;&#x5668;&#x53EF;&#x80FD;&#x4E0D;&#x5F97;&#x4E0D;&#x5728;&#x7A81;&#x53D1;&#x6216;&#x8FC7;&#x8F7D;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x4E22;&#x5F03;&#x6570;&#x636E;&#x5305;&#x3002;</p>
+<h3 id="handle">handle</h3>
+<p>&#x53E5;&#x67C4;</p>
+<p>&#x6BCF;&#x4E2A;<code>class</code>&#x6216;<code>classful qdisc</code>&#x90FD;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x552F;&#x4E00;&#x6807;&#x8BC6;&#x7B26;&#x3002;&#x79F0;&#x4E3A;&#x53E5;&#x67C4;&#x3002;</p>
+<p>&#x53E5;&#x67C4;&#x6709;&#x4E24;&#x4E2A;&#x7EC4;&#x6210;&#x6210;&#x5458;&#xFF0C;&#x4E3B;&#x8981;&#x7F16;&#x53F7;&#xFF08;<code>major</code>&#xFF09;&#x548C;&#x6B21;&#x8981;&#x7F16;&#x53F7;&#xFF08;<code>minor</code>&#xFF09;&#x3002;</p>
+<p>&#x5171;&#x4EAB;&#x4E00;&#x4E2A;&#x7236;&#x7EA7;&#x7684;&#x6240;&#x6709; <code>class</code> &#x90FD;&#x5FC5;&#x987B;&#x5171;&#x4EAB;&#x4E00;&#x4E2A; &#x4E3B;&#x7F16;&#x53F7;&#xFF0C;&#x62E5;&#x6709;&#x552F;&#x4E00;&#x7684; &#x6B21;&#x7F16;&#x53F7;&#x3002;</p>
+<p>&#x7279;&#x6B8A;&#x53E5;&#x67C4; <code>ffff:0</code> &#x662F;&#x4E3A; <code>ingress qdisc</code>&#x4FDD;&#x7559;&#x7684;&#x3002;</p>
+<h2 id="&#x56DB;&#x3001;&#x5DE5;&#x5177;&#x4F7F;&#x7528;">&#x56DB;&#x3001;&#x5DE5;&#x5177;&#x4F7F;&#x7528;</h2>
+<h3 id="&#x5185;&#x6838;&#x7F16;&#x8BD1;&#x9009;&#x9879;">&#x5185;&#x6838;&#x7F16;&#x8BD1;&#x9009;&#x9879;</h3>
+<pre><code class="lang-shell">#
+# QoS and/or fair queueing
+#
+CONFIG_NET_SCHED=y
+CONFIG_NET_SCH_CBQ=m
+CONFIG_NET_SCH_HTB=m
+CONFIG_NET_SCH_CSZ=m
+CONFIG_NET_SCH_PRIO=m
+CONFIG_NET_SCH_RED=m
+CONFIG_NET_SCH_SFQ=m
+CONFIG_NET_SCH_TEQL=m
+CONFIG_NET_SCH_TBF=m
+CONFIG_NET_SCH_GRED=m
+CONFIG_NET_SCH_DSMARK=m
+CONFIG_NET_SCH_INGRESS=m
+CONFIG_NET_QOS=y
+CONFIG_NET_ESTIMATOR=y
+CONFIG_NET_CLS=y
+CONFIG_NET_CLS_TCINDEX=m
+CONFIG_NET_CLS_ROUTE4=m
+CONFIG_NET_CLS_ROUTE=y
+CONFIG_NET_CLS_FW=m
+CONFIG_NET_CLS_U32=m
+CONFIG_NET_CLS_RSVP=m
+CONFIG_NET_CLS_RSVP6=m
+CONFIG_NET_CLS_POLICE=y
+</code></pre>
+<h3 id="tc-&#x5DE5;&#x5177;">tc &#x5DE5;&#x5177;</h3>
+<pre><code class="lang-bash">[root@localhost]<span class="hljs-comment"># tc                \   #</span>
+&gt;                 qdisc add         \   <span class="hljs-comment"># &#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x6392;&#x961F;&#x89C4;&#x5219;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x662F; del</span>
+&gt;                 dev eth0          \   <span class="hljs-comment"># &#x6307;&#x5B9A;&#x7F51;&#x53E3;</span>
+&gt;                 root              \   <span class="hljs-comment"># &#x6839;</span>
+&gt;                 handle 1:0        \   <span class="hljs-comment"># &#x53E5;&#x67C4;</span>
+&gt;                 htb                   <span class="hljs-comment"># qdisc&#x7C7B;&#x578B;</span>
+
+[root@localhost]<span class="hljs-comment"># tc                \   #</span>
+&gt;                 class add         \   <span class="hljs-comment"># &#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x7C7B;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x662F; del</span>
+&gt;                 dev eth0          \   <span class="hljs-comment"># &#x6307;&#x5B9A;&#x7F51;&#x53E3;</span>
+&gt;                 parent 1:1        \   <span class="hljs-comment"># &#x6307;&#x5B9A;&#x7236;&#x53E5;&#x67C4;</span>
+&gt;                 classid 1:6       \   <span class="hljs-comment"># &#x6807;&#x8BC6;&#x8BE5;class&#x7684;&#x53E5;&#x67C4;</span>
+&gt;                 rate 256kbit      \   <span class="hljs-comment"># &#x53C2;&#x6570;&#xFF0C;&#x5206;&#x914D;&#x7ED9;&#x8BE5;class&#x7684;&#x901F;&#x7387;&#xFF0C;&#x53EF;&#x501F;</span>
+&gt;                 ceil 512kbit          <span class="hljs-comment"># &#x53C2;&#x6570;&#xFF0C;&#x6307;&#x5B9A;&#x8BE5;class&#x7684;&#x4E0A;&#x9650;&#x901F;&#x7387;&#xFF0C;&#x4E0D;&#x53EF;&#x501F;</span>
+
+[root@localhost]<span class="hljs-comment"># tc                        \   #</span>
+&gt;                 filter add                \   <span class="hljs-comment"># &#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x8FC7;&#x6EE4;&#x5668;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x662F; del</span>
+&gt;                 dev eth0                  \   <span class="hljs-comment"># &#x6307;&#x5B9A;&#x7F51;&#x53E3;</span>
+&gt;                 parent 1:0                \   <span class="hljs-comment"># &#x6307;&#x5B9A;&#x7236;&#x53E5;&#x67C4;</span>
+&gt;                 protocol ip               \   <span class="hljs-comment"># &#x6307;&#x5B9A;&#x534F;&#x8BAE;&#x7C7B;&#x578B;</span>
+&gt;                 prio 5                    \   <span class="hljs-comment"># &#x6307;&#x5B9A;&#x4F18;&#x5148;&#x7EA7;</span>
+&gt;                 u32                       \   <span class="hljs-comment"># &#x6307;&#x5B9A;&#x5206;&#x7C7B;&#x5668;</span>
+&gt;                 match ip port 22 0xffff   \   <span class="hljs-comment"># &#x5206;&#x7C7B;&#x5668;&#x53C2;&#x6570;&#xFF0C;&#x5339;&#x914D;&#x7AEF;&#x53E3;22</span>
+&gt;                 match ip tos 0x10 0xff    \   <span class="hljs-comment"># &#x5206;&#x7C7B;&#x5668;&#x53C2;&#x6570;&#xFF0C;tos&#x6807;&#x5FD7;</span>
+&gt;                 flowid 1:6                \   <span class="hljs-comment"># &#x6D41;ID</span>
+&gt;                 police                    \   <span class="hljs-comment"># &#x76D1;&#x7BA1;&#x5668;</span>
+&gt;                 rate 32000bps             \   <span class="hljs-comment"># &#x76D1;&#x7BA1;&#x5668;&#x5C06;&#x6839;&#x636E;&#x6B64;&#x901F;&#x7387;&#x6267;&#x884C;&#x64CD;&#x4F5C;</span>
+&gt;                 burst 10240               \   <span class="hljs-comment"># &#x7A81;&#x53D1;&#xFF0C;&#x7A7A;&#x95F2;&#x671F;&#x95F4;&#x53EF;&#x4EE5;&#x7D2F;&#x79EF;&#x7684;&#x6700;&#x5927;&#x5B57;&#x8282;&#x6570;</span>
+&gt;                 mpu 0                     \   <span class="hljs-comment"># &#x76D1;&#x7BA1;&#x7684;&#x6700;&#x5C0F;&#x5355;&#x4F4D;&#x3002;&#x7528;&#x4E8E;&#x7EDF;&#x8BA1;&#x6240;&#x6709;&#x6D41;&#x91CF;</span>
+&gt;                 action drop/<span class="hljs-built_in">continue</span>      \   <span class="hljs-comment"># &#x76D1;&#x7BA1;&#x64CD;&#x4F5C;&#x3002;&#x8D85;&#x51FA;&#x76D1;&#x7BA1;&#x65F6;drop&#xFF0C;&#x5426;&#x5219;continue</span>
+</code></pre>
+<h2 id="&#x4E94;&#x3001;&#x65E0;&#x7C7B;&#x6392;&#x961F;&#x89C4;&#x5219;&#xFF08;classless-qdisc&#xFF09;">&#x4E94;&#x3001;&#x65E0;&#x7C7B;&#x6392;&#x961F;&#x89C4;&#x5219;&#xFF08;classless qdisc&#xFF09;</h2>
+<p>&#x8FD9;&#x4E9B;&#x662F;Linux&#x4E0B;&#x4F7F;&#x7528;&#x7684;&#x57FA;&#x672C;&#x8C03;&#x5EA6;&#x7A0B;&#x5E8F;&#x3002;&#x9ED8;&#x8BA4;&#x8C03;&#x5EA6;&#x7A0B;&#x5E8F;&#x662F;<code>pfifo_fast</code></p>
+<h3 id="fifo--first-in-first-out-">FIFO ( First-In First-Out )</h3>
+<h3 id="pfifofast">pfifo_fast</h3>
+<h3 id="sfq--stochastic-fair-queuing-">SFQ ( Stochastic Fair Queuing )</h3>
+<h3 id="esfq--extended-stochastic-fair-queuing-">ESFQ ( Extended Stochastic Fair Queuing )</h3>
+<h3 id="gred--generic-random-early-drop-">GRED ( Generic Random Early Drop )</h3>
+<h3 id="tbf--token-bucket-filter-">TBF ( Token Bucket Filter )</h3>
+<h2 id="&#x516D;&#x3001;&#x6709;&#x7C7B;&#x6392;&#x961F;&#x89C4;&#x5219;&#xFF08;classful-qdisc&#xFF09;">&#x516D;&#x3001;&#x6709;&#x7C7B;&#x6392;&#x961F;&#x89C4;&#x5219;&#xFF08;classful qdisc&#xFF09;</h2>
+<h3 id="htb--hierarchical-token-bucket-">HTB ( Hierarchical Token Bucket )</h3>
+<h3 id="hfsc--hierarchical-fair-service-curve-">HFSC ( Hierarchical Fair Service Curve )</h3>
+<h3 id="prio--priority-scheduler-">PRIO ( Priority Scheduler )</h3>
+<h3 id="cbq--class-based-queuing-">CBQ ( Class Based Queuing )</h3>
+<h2 id="&#x4E03;&#x3001;&#x6E90;&#x7801;&#x5206;&#x6790;">&#x4E03;&#x3001;&#x6E90;&#x7801;&#x5206;&#x6790;</h2>
+<h2 id="&#x516B;&#x3001;&#x603B;&#x7ED3;">&#x516B;&#x3001;&#x603B;&#x7ED3;</h2>
+<p><img src="tc-images/htb-class.png" alt="tc-images/htb-class.png"></p>
 
                                 
                                 </section>
@@ -314,7 +460,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"流量控制","level":"1.3.3","depth":2,"previous":{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/traffic_control/tc.md","mtime":"2021-11-25T16:11:37.609Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-11-25T16:11:59.596Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"流量控制","level":"1.3.3","depth":2,"previous":{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/traffic_control/tc.md","mtime":"2021-11-27T07:02:47.999Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-11-27T07:03:20.090Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
