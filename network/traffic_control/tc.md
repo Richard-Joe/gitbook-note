@@ -154,26 +154,116 @@ CONFIG_NET_CLS_POLICE=y
 
 ### FIFO ( First-In First-Out )
 
+Linux 实现了两种基本的 FIFO qdisc，
+一种是`pfifo`，单位是数据包
+一种是`bfifo`，单位是字节
+
+![tc-images/fifo-qdisc.png](tc-images/fifo-qdisc.png)
+
 ### pfifo_fast
+
+基于传统的 FIFO qdisc ，pfifo_fast 还提供了优先级。它提供了三个不同的频段（单独的FIFO）用于分离流量。
+
+![tc-images/pfifo_fast-qdisc.png](tc-images/pfifo_fast-qdisc.png)
 
 ### SFQ ( Stochastic Fair Queuing )
 
+SFQ（随机公平排队）  企图在任意数量的流之间，公平地分配传输数据的机会。通过使用Hash函数将流量分离，以`Round Robin`的方式出队。
+
+![tc-images/sfq-qdisc.png](tc-images/sfq-qdisc.png)
+
 ### ESFQ ( Extended Stochastic Fair Queuing )
+
+ESFQ（扩展随机公平排队）通过允许用户控制使用哪种哈希算法来分配对网络带宽的访问，达到更公平的真实带宽分配。
 
 ### GRED ( Generic Random Early Drop )
 
+...
+
 ### TBF ( Token Bucket Filter )
 
+它只是将传输的流量减慢到指定的速率。
+
+仅当有足够的令牌可用时才会传输数据包。否则，数据包将被延迟。
+
+![tc-images/tbf-qdisc.png](tc-images/tbf-qdisc.png)
 
 ## 六、有类排队规则（classful qdisc）
 
+有类队列规则可以附加过滤器，允许将数据包定向到特定的类和子队列。
+
+附加到`root qdisc`的`class`称为根类，一般也称内部类`inner class`。
+
+指定了`qdisc`的任何终端类`terminal class`都称为叶类`leaf class`。
+
 ### HTB ( Hierarchical Token Bucket )
+
+HTB（分层令牌桶），这种排队规则允许用户定义所使用的令牌和桶的特征，并允许用户以任意方式嵌套这些桶。当与`class`结合使用时，可以以非常精细的方式控制流量。
+
+HTB 最常见的应用之一就是将传输的流量整形为特定速率。
+
+所有的整形都发生在叶类中。内部类或根类中不会发生整形，因为它们的存在只是建议` borrowing model`（借贷模型）如何 `分配可用令牌`。
+
+#### Borrowing
+
+子类一旦超出`rate`，就会向父类借令牌，直到达到`ceil`，此时它会将数据包排队等待，直到有更多的令牌可用。
+
+HTB 等级状态和可能采取的行动：
+
+| type of class | class state | HTB internel state | action taken |
+| ---- | ---- | ---- | :--- |
+| leaf        | < rate         | HTB_CAN_SEND   | 叶类将排队的字节出队 |
+| leaf        | > rate, < ceil | HTB_MAY_BORROW | 叶类尝试从父类借用令牌。如果令牌可用，父类会以`quantum`增量的方式借出，并且子类会出队`cburst`字节 |
+| leaf        | > ceil         | HTB_CANT_SEND  | 没有数据包会出队 |
+| inner, root | < rate         | HTB_CAN_SEND   | 内部类会将令牌借给子类 |
+| inner, root | > rate, < ceil | HTB_MAY_BORROW | 内部类尝试从父类借用令牌。父类会以每个请求`quantum`增量的方式借给它们的子类 |
+| inner, root | > ceil         | HTB_CANT_SEND  | 内部类不会尝试从其父类借令牌，也不会将令牌借给子类 |
+
+每个类都必须准确计算自己及其所有子类使用的令牌数量。
+
+- 子类从其父类请求令牌，如果它（父类）也超出`rate`，则继续向它的父类借，直到找到令牌或到达根类。
+- 在子类或叶类中使用的任何令牌都会向每个父类收费，直到根类。
+
+所以，令牌的借用流向叶类，令牌使用的收费流向根类。
+
+![tc-images/htb-borrow.png](tc-images/htb-borrow.png)
+
+#### 参数
+
+- default
+		可选，默认值为0，未分类流量发送到的类
+- rate
+		限制传输流量的最低所需速度。（叶类的保证带宽）
+- ceil
+		限制传输流量的最大所需速度。（突发带宽，限制带宽）
+- burst
+		`rate`桶的大小。HTB在等待更多`tokens`到之前，出队`burst`字节
+- cburst
+		`ceil`桶的大小。HTB在等待更多`ctokens`到之前，出队`cburst`字节
+- quantum
+		控制借用的关键参数。一次借给叶子多少字节。
+- mtu
+		速率计算中使用的最小数据包大小。
+
+#### 规则
+
+- HTB 进行整形仅发生在叶类中。
+- 叶类的`rate`之和不应该超过父类的`ceil`。
+- `quantum`只用在`rate < x < ceil`。
+- `quantum`应该设置为`MTU`或更高。
+- 父类以`quantum`为增量将令牌借给子类，因此为获取最大粒度和最均匀分布的带宽，`quantum`应尽可能低，同时仍不小于`MTU`。
 
 ### HFSC ( Hierarchical Fair Service Curve )
 
+分层公平服务曲线
+
 ### PRIO ( Priority Scheduler )
 
+优先级调度器
+
 ### CBQ ( Class Based Queuing )
+
+基于类的排队
 
 ## 七、源码分析
 

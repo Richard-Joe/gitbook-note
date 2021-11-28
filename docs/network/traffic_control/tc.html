@@ -408,16 +408,121 @@ CONFIG_NET_CLS_POLICE=y
 <h2 id="&#x4E94;&#x3001;&#x65E0;&#x7C7B;&#x6392;&#x961F;&#x89C4;&#x5219;&#xFF08;classless-qdisc&#xFF09;">&#x4E94;&#x3001;&#x65E0;&#x7C7B;&#x6392;&#x961F;&#x89C4;&#x5219;&#xFF08;classless qdisc&#xFF09;</h2>
 <p>&#x8FD9;&#x4E9B;&#x662F;Linux&#x4E0B;&#x4F7F;&#x7528;&#x7684;&#x57FA;&#x672C;&#x8C03;&#x5EA6;&#x7A0B;&#x5E8F;&#x3002;&#x9ED8;&#x8BA4;&#x8C03;&#x5EA6;&#x7A0B;&#x5E8F;&#x662F;<code>pfifo_fast</code></p>
 <h3 id="fifo--first-in-first-out-">FIFO ( First-In First-Out )</h3>
+<p>Linux &#x5B9E;&#x73B0;&#x4E86;&#x4E24;&#x79CD;&#x57FA;&#x672C;&#x7684; FIFO qdisc&#xFF0C;
+&#x4E00;&#x79CD;&#x662F;<code>pfifo</code>&#xFF0C;&#x5355;&#x4F4D;&#x662F;&#x6570;&#x636E;&#x5305;
+&#x4E00;&#x79CD;&#x662F;<code>bfifo</code>&#xFF0C;&#x5355;&#x4F4D;&#x662F;&#x5B57;&#x8282;</p>
+<p><img src="tc-images/fifo-qdisc.png" alt="tc-images/fifo-qdisc.png"></p>
 <h3 id="pfifofast">pfifo_fast</h3>
+<p>&#x57FA;&#x4E8E;&#x4F20;&#x7EDF;&#x7684; FIFO qdisc &#xFF0C;pfifo_fast &#x8FD8;&#x63D0;&#x4F9B;&#x4E86;&#x4F18;&#x5148;&#x7EA7;&#x3002;&#x5B83;&#x63D0;&#x4F9B;&#x4E86;&#x4E09;&#x4E2A;&#x4E0D;&#x540C;&#x7684;&#x9891;&#x6BB5;&#xFF08;&#x5355;&#x72EC;&#x7684;FIFO&#xFF09;&#x7528;&#x4E8E;&#x5206;&#x79BB;&#x6D41;&#x91CF;&#x3002;</p>
+<p><img src="tc-images/pfifo_fast-qdisc.png" alt="tc-images/pfifo_fast-qdisc.png"></p>
 <h3 id="sfq--stochastic-fair-queuing-">SFQ ( Stochastic Fair Queuing )</h3>
+<p>SFQ&#xFF08;&#x968F;&#x673A;&#x516C;&#x5E73;&#x6392;&#x961F;&#xFF09;  &#x4F01;&#x56FE;&#x5728;&#x4EFB;&#x610F;&#x6570;&#x91CF;&#x7684;&#x6D41;&#x4E4B;&#x95F4;&#xFF0C;&#x516C;&#x5E73;&#x5730;&#x5206;&#x914D;&#x4F20;&#x8F93;&#x6570;&#x636E;&#x7684;&#x673A;&#x4F1A;&#x3002;&#x901A;&#x8FC7;&#x4F7F;&#x7528;Hash&#x51FD;&#x6570;&#x5C06;&#x6D41;&#x91CF;&#x5206;&#x79BB;&#xFF0C;&#x4EE5;<code>Round Robin</code>&#x7684;&#x65B9;&#x5F0F;&#x51FA;&#x961F;&#x3002;</p>
+<p><img src="tc-images/sfq-qdisc.png" alt="tc-images/sfq-qdisc.png"></p>
 <h3 id="esfq--extended-stochastic-fair-queuing-">ESFQ ( Extended Stochastic Fair Queuing )</h3>
+<p>ESFQ&#xFF08;&#x6269;&#x5C55;&#x968F;&#x673A;&#x516C;&#x5E73;&#x6392;&#x961F;&#xFF09;&#x901A;&#x8FC7;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x63A7;&#x5236;&#x4F7F;&#x7528;&#x54EA;&#x79CD;&#x54C8;&#x5E0C;&#x7B97;&#x6CD5;&#x6765;&#x5206;&#x914D;&#x5BF9;&#x7F51;&#x7EDC;&#x5E26;&#x5BBD;&#x7684;&#x8BBF;&#x95EE;&#xFF0C;&#x8FBE;&#x5230;&#x66F4;&#x516C;&#x5E73;&#x7684;&#x771F;&#x5B9E;&#x5E26;&#x5BBD;&#x5206;&#x914D;&#x3002;</p>
 <h3 id="gred--generic-random-early-drop-">GRED ( Generic Random Early Drop )</h3>
+<p>...</p>
 <h3 id="tbf--token-bucket-filter-">TBF ( Token Bucket Filter )</h3>
+<p>&#x5B83;&#x53EA;&#x662F;&#x5C06;&#x4F20;&#x8F93;&#x7684;&#x6D41;&#x91CF;&#x51CF;&#x6162;&#x5230;&#x6307;&#x5B9A;&#x7684;&#x901F;&#x7387;&#x3002;</p>
+<p>&#x4EC5;&#x5F53;&#x6709;&#x8DB3;&#x591F;&#x7684;&#x4EE4;&#x724C;&#x53EF;&#x7528;&#x65F6;&#x624D;&#x4F1A;&#x4F20;&#x8F93;&#x6570;&#x636E;&#x5305;&#x3002;&#x5426;&#x5219;&#xFF0C;&#x6570;&#x636E;&#x5305;&#x5C06;&#x88AB;&#x5EF6;&#x8FDF;&#x3002;</p>
+<p><img src="tc-images/tbf-qdisc.png" alt="tc-images/tbf-qdisc.png"></p>
 <h2 id="&#x516D;&#x3001;&#x6709;&#x7C7B;&#x6392;&#x961F;&#x89C4;&#x5219;&#xFF08;classful-qdisc&#xFF09;">&#x516D;&#x3001;&#x6709;&#x7C7B;&#x6392;&#x961F;&#x89C4;&#x5219;&#xFF08;classful qdisc&#xFF09;</h2>
+<p>&#x6709;&#x7C7B;&#x961F;&#x5217;&#x89C4;&#x5219;&#x53EF;&#x4EE5;&#x9644;&#x52A0;&#x8FC7;&#x6EE4;&#x5668;&#xFF0C;&#x5141;&#x8BB8;&#x5C06;&#x6570;&#x636E;&#x5305;&#x5B9A;&#x5411;&#x5230;&#x7279;&#x5B9A;&#x7684;&#x7C7B;&#x548C;&#x5B50;&#x961F;&#x5217;&#x3002;</p>
+<p>&#x9644;&#x52A0;&#x5230;<code>root qdisc</code>&#x7684;<code>class</code>&#x79F0;&#x4E3A;&#x6839;&#x7C7B;&#xFF0C;&#x4E00;&#x822C;&#x4E5F;&#x79F0;&#x5185;&#x90E8;&#x7C7B;<code>inner class</code>&#x3002;</p>
+<p>&#x6307;&#x5B9A;&#x4E86;<code>qdisc</code>&#x7684;&#x4EFB;&#x4F55;&#x7EC8;&#x7AEF;&#x7C7B;<code>terminal class</code>&#x90FD;&#x79F0;&#x4E3A;&#x53F6;&#x7C7B;<code>leaf class</code>&#x3002;</p>
 <h3 id="htb--hierarchical-token-bucket-">HTB ( Hierarchical Token Bucket )</h3>
+<p>HTB&#xFF08;&#x5206;&#x5C42;&#x4EE4;&#x724C;&#x6876;&#xFF09;&#xFF0C;&#x8FD9;&#x79CD;&#x6392;&#x961F;&#x89C4;&#x5219;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x5B9A;&#x4E49;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x4EE4;&#x724C;&#x548C;&#x6876;&#x7684;&#x7279;&#x5F81;&#xFF0C;&#x5E76;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x4EE5;&#x4EFB;&#x610F;&#x65B9;&#x5F0F;&#x5D4C;&#x5957;&#x8FD9;&#x4E9B;&#x6876;&#x3002;&#x5F53;&#x4E0E;<code>class</code>&#x7ED3;&#x5408;&#x4F7F;&#x7528;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x4EE5;&#x975E;&#x5E38;&#x7CBE;&#x7EC6;&#x7684;&#x65B9;&#x5F0F;&#x63A7;&#x5236;&#x6D41;&#x91CF;&#x3002;</p>
+<p>HTB &#x6700;&#x5E38;&#x89C1;&#x7684;&#x5E94;&#x7528;&#x4E4B;&#x4E00;&#x5C31;&#x662F;&#x5C06;&#x4F20;&#x8F93;&#x7684;&#x6D41;&#x91CF;&#x6574;&#x5F62;&#x4E3A;&#x7279;&#x5B9A;&#x901F;&#x7387;&#x3002;</p>
+<p>&#x6240;&#x6709;&#x7684;&#x6574;&#x5F62;&#x90FD;&#x53D1;&#x751F;&#x5728;&#x53F6;&#x7C7B;&#x4E2D;&#x3002;&#x5185;&#x90E8;&#x7C7B;&#x6216;&#x6839;&#x7C7B;&#x4E2D;&#x4E0D;&#x4F1A;&#x53D1;&#x751F;&#x6574;&#x5F62;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x4EEC;&#x7684;&#x5B58;&#x5728;&#x53EA;&#x662F;&#x5EFA;&#x8BAE;<code>borrowing model</code>&#xFF08;&#x501F;&#x8D37;&#x6A21;&#x578B;&#xFF09;&#x5982;&#x4F55; <code>&#x5206;&#x914D;&#x53EF;&#x7528;&#x4EE4;&#x724C;</code>&#x3002;</p>
+<h4 id="borrowing">Borrowing</h4>
+<p>&#x5B50;&#x7C7B;&#x4E00;&#x65E6;&#x8D85;&#x51FA;<code>rate</code>&#xFF0C;&#x5C31;&#x4F1A;&#x5411;&#x7236;&#x7C7B;&#x501F;&#x4EE4;&#x724C;&#xFF0C;&#x76F4;&#x5230;&#x8FBE;&#x5230;<code>ceil</code>&#xFF0C;&#x6B64;&#x65F6;&#x5B83;&#x4F1A;&#x5C06;&#x6570;&#x636E;&#x5305;&#x6392;&#x961F;&#x7B49;&#x5F85;&#xFF0C;&#x76F4;&#x5230;&#x6709;&#x66F4;&#x591A;&#x7684;&#x4EE4;&#x724C;&#x53EF;&#x7528;&#x3002;</p>
+<p>HTB &#x7B49;&#x7EA7;&#x72B6;&#x6001;&#x548C;&#x53EF;&#x80FD;&#x91C7;&#x53D6;&#x7684;&#x884C;&#x52A8;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th>type of class</th>
+<th>class state</th>
+<th>HTB internel state</th>
+<th style="text-align:left">action taken</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leaf</td>
+<td>&lt; rate</td>
+<td>HTB_CAN_SEND</td>
+<td style="text-align:left">&#x53F6;&#x7C7B;&#x5C06;&#x6392;&#x961F;&#x7684;&#x5B57;&#x8282;&#x51FA;&#x961F;</td>
+</tr>
+<tr>
+<td>leaf</td>
+<td>&gt; rate, &lt; ceil</td>
+<td>HTB_MAY_BORROW</td>
+<td style="text-align:left">&#x53F6;&#x7C7B;&#x5C1D;&#x8BD5;&#x4ECE;&#x7236;&#x7C7B;&#x501F;&#x7528;&#x4EE4;&#x724C;&#x3002;&#x5982;&#x679C;&#x4EE4;&#x724C;&#x53EF;&#x7528;&#xFF0C;&#x7236;&#x7C7B;&#x4F1A;&#x4EE5;<code>quantum</code>&#x589E;&#x91CF;&#x7684;&#x65B9;&#x5F0F;&#x501F;&#x51FA;&#xFF0C;&#x5E76;&#x4E14;&#x5B50;&#x7C7B;&#x4F1A;&#x51FA;&#x961F;<code>cburst</code>&#x5B57;&#x8282;</td>
+</tr>
+<tr>
+<td>leaf</td>
+<td>&gt; ceil</td>
+<td>HTB_CANT_SEND</td>
+<td style="text-align:left">&#x6CA1;&#x6709;&#x6570;&#x636E;&#x5305;&#x4F1A;&#x51FA;&#x961F;</td>
+</tr>
+<tr>
+<td>inner, root</td>
+<td>&lt; rate</td>
+<td>HTB_CAN_SEND</td>
+<td style="text-align:left">&#x5185;&#x90E8;&#x7C7B;&#x4F1A;&#x5C06;&#x4EE4;&#x724C;&#x501F;&#x7ED9;&#x5B50;&#x7C7B;</td>
+</tr>
+<tr>
+<td>inner, root</td>
+<td>&gt; rate, &lt; ceil</td>
+<td>HTB_MAY_BORROW</td>
+<td style="text-align:left">&#x5185;&#x90E8;&#x7C7B;&#x5C1D;&#x8BD5;&#x4ECE;&#x7236;&#x7C7B;&#x501F;&#x7528;&#x4EE4;&#x724C;&#x3002;&#x7236;&#x7C7B;&#x4F1A;&#x4EE5;&#x6BCF;&#x4E2A;&#x8BF7;&#x6C42;<code>quantum</code>&#x589E;&#x91CF;&#x7684;&#x65B9;&#x5F0F;&#x501F;&#x7ED9;&#x5B83;&#x4EEC;&#x7684;&#x5B50;&#x7C7B;</td>
+</tr>
+<tr>
+<td>inner, root</td>
+<td>&gt; ceil</td>
+<td>HTB_CANT_SEND</td>
+<td style="text-align:left">&#x5185;&#x90E8;&#x7C7B;&#x4E0D;&#x4F1A;&#x5C1D;&#x8BD5;&#x4ECE;&#x5176;&#x7236;&#x7C7B;&#x501F;&#x4EE4;&#x724C;&#xFF0C;&#x4E5F;&#x4E0D;&#x4F1A;&#x5C06;&#x4EE4;&#x724C;&#x501F;&#x7ED9;&#x5B50;&#x7C7B;</td>
+</tr>
+</tbody>
+</table>
+<p>&#x6BCF;&#x4E2A;&#x7C7B;&#x90FD;&#x5FC5;&#x987B;&#x51C6;&#x786E;&#x8BA1;&#x7B97;&#x81EA;&#x5DF1;&#x53CA;&#x5176;&#x6240;&#x6709;&#x5B50;&#x7C7B;&#x4F7F;&#x7528;&#x7684;&#x4EE4;&#x724C;&#x6570;&#x91CF;&#x3002;</p>
+<ul>
+<li>&#x5B50;&#x7C7B;&#x4ECE;&#x5176;&#x7236;&#x7C7B;&#x8BF7;&#x6C42;&#x4EE4;&#x724C;&#xFF0C;&#x5982;&#x679C;&#x5B83;&#xFF08;&#x7236;&#x7C7B;&#xFF09;&#x4E5F;&#x8D85;&#x51FA;<code>rate</code>&#xFF0C;&#x5219;&#x7EE7;&#x7EED;&#x5411;&#x5B83;&#x7684;&#x7236;&#x7C7B;&#x501F;&#xFF0C;&#x76F4;&#x5230;&#x627E;&#x5230;&#x4EE4;&#x724C;&#x6216;&#x5230;&#x8FBE;&#x6839;&#x7C7B;&#x3002;</li>
+<li>&#x5728;&#x5B50;&#x7C7B;&#x6216;&#x53F6;&#x7C7B;&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x4EFB;&#x4F55;&#x4EE4;&#x724C;&#x90FD;&#x4F1A;&#x5411;&#x6BCF;&#x4E2A;&#x7236;&#x7C7B;&#x6536;&#x8D39;&#xFF0C;&#x76F4;&#x5230;&#x6839;&#x7C7B;&#x3002;</li>
+</ul>
+<p>&#x6240;&#x4EE5;&#xFF0C;&#x4EE4;&#x724C;&#x7684;&#x501F;&#x7528;&#x6D41;&#x5411;&#x53F6;&#x7C7B;&#xFF0C;&#x4EE4;&#x724C;&#x4F7F;&#x7528;&#x7684;&#x6536;&#x8D39;&#x6D41;&#x5411;&#x6839;&#x7C7B;&#x3002;</p>
+<p><img src="tc-images/htb-borrow.png" alt="tc-images/htb-borrow.png"></p>
+<h4 id="&#x53C2;&#x6570;">&#x53C2;&#x6570;</h4>
+<ul>
+<li>default<pre><code>  &#x53EF;&#x9009;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;0&#xFF0C;&#x672A;&#x5206;&#x7C7B;&#x6D41;&#x91CF;&#x53D1;&#x9001;&#x5230;&#x7684;&#x7C7B;
+</code></pre></li>
+<li>rate<pre><code>  &#x9650;&#x5236;&#x4F20;&#x8F93;&#x6D41;&#x91CF;&#x7684;&#x6700;&#x4F4E;&#x6240;&#x9700;&#x901F;&#x5EA6;&#x3002;&#xFF08;&#x53F6;&#x7C7B;&#x7684;&#x4FDD;&#x8BC1;&#x5E26;&#x5BBD;&#xFF09;
+</code></pre></li>
+<li>ceil<pre><code>  &#x9650;&#x5236;&#x4F20;&#x8F93;&#x6D41;&#x91CF;&#x7684;&#x6700;&#x5927;&#x6240;&#x9700;&#x901F;&#x5EA6;&#x3002;&#xFF08;&#x7A81;&#x53D1;&#x5E26;&#x5BBD;&#xFF0C;&#x9650;&#x5236;&#x5E26;&#x5BBD;&#xFF09;
+</code></pre></li>
+<li>burst<pre><code>  `rate`&#x6876;&#x7684;&#x5927;&#x5C0F;&#x3002;HTB&#x5728;&#x7B49;&#x5F85;&#x66F4;&#x591A;`tokens`&#x5230;&#x4E4B;&#x524D;&#xFF0C;&#x51FA;&#x961F;`burst`&#x5B57;&#x8282;
+</code></pre></li>
+<li>cburst<pre><code>  `ceil`&#x6876;&#x7684;&#x5927;&#x5C0F;&#x3002;HTB&#x5728;&#x7B49;&#x5F85;&#x66F4;&#x591A;`ctokens`&#x5230;&#x4E4B;&#x524D;&#xFF0C;&#x51FA;&#x961F;`cburst`&#x5B57;&#x8282;
+</code></pre></li>
+<li>quantum<pre><code>  &#x63A7;&#x5236;&#x501F;&#x7528;&#x7684;&#x5173;&#x952E;&#x53C2;&#x6570;&#x3002;&#x4E00;&#x6B21;&#x501F;&#x7ED9;&#x53F6;&#x5B50;&#x591A;&#x5C11;&#x5B57;&#x8282;&#x3002;
+</code></pre></li>
+<li>mtu<pre><code>  &#x901F;&#x7387;&#x8BA1;&#x7B97;&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x6700;&#x5C0F;&#x6570;&#x636E;&#x5305;&#x5927;&#x5C0F;&#x3002;
+</code></pre></li>
+</ul>
+<h4 id="&#x89C4;&#x5219;">&#x89C4;&#x5219;</h4>
+<ul>
+<li>HTB &#x8FDB;&#x884C;&#x6574;&#x5F62;&#x4EC5;&#x53D1;&#x751F;&#x5728;&#x53F6;&#x7C7B;&#x4E2D;&#x3002;</li>
+<li>&#x53F6;&#x7C7B;&#x7684;<code>rate</code>&#x4E4B;&#x548C;&#x4E0D;&#x5E94;&#x8BE5;&#x8D85;&#x8FC7;&#x7236;&#x7C7B;&#x7684;<code>ceil</code>&#x3002;</li>
+<li><code>quantum</code>&#x53EA;&#x7528;&#x5728;<code>rate &lt; x &lt; ceil</code>&#x3002;</li>
+<li><code>quantum</code>&#x5E94;&#x8BE5;&#x8BBE;&#x7F6E;&#x4E3A;<code>MTU</code>&#x6216;&#x66F4;&#x9AD8;&#x3002;</li>
+<li>&#x7236;&#x7C7B;&#x4EE5;<code>quantum</code>&#x4E3A;&#x589E;&#x91CF;&#x5C06;&#x4EE4;&#x724C;&#x501F;&#x7ED9;&#x5B50;&#x7C7B;&#xFF0C;&#x56E0;&#x6B64;&#x4E3A;&#x83B7;&#x53D6;&#x6700;&#x5927;&#x7C92;&#x5EA6;&#x548C;&#x6700;&#x5747;&#x5300;&#x5206;&#x5E03;&#x7684;&#x5E26;&#x5BBD;&#xFF0C;<code>quantum</code>&#x5E94;&#x5C3D;&#x53EF;&#x80FD;&#x4F4E;&#xFF0C;&#x540C;&#x65F6;&#x4ECD;&#x4E0D;&#x5C0F;&#x4E8E;<code>MTU</code>&#x3002;</li>
+</ul>
 <h3 id="hfsc--hierarchical-fair-service-curve-">HFSC ( Hierarchical Fair Service Curve )</h3>
+<p>&#x5206;&#x5C42;&#x516C;&#x5E73;&#x670D;&#x52A1;&#x66F2;&#x7EBF;</p>
 <h3 id="prio--priority-scheduler-">PRIO ( Priority Scheduler )</h3>
+<p>&#x4F18;&#x5148;&#x7EA7;&#x8C03;&#x5EA6;&#x5668;</p>
 <h3 id="cbq--class-based-queuing-">CBQ ( Class Based Queuing )</h3>
+<p>&#x57FA;&#x4E8E;&#x7C7B;&#x7684;&#x6392;&#x961F;</p>
 <h2 id="&#x4E03;&#x3001;&#x6E90;&#x7801;&#x5206;&#x6790;">&#x4E03;&#x3001;&#x6E90;&#x7801;&#x5206;&#x6790;</h2>
 <h2 id="&#x516B;&#x3001;&#x603B;&#x7ED3;">&#x516B;&#x3001;&#x603B;&#x7ED3;</h2>
 <p><img src="tc-images/htb-class.png" alt="tc-images/htb-class.png"></p>
@@ -460,7 +565,7 @@ CONFIG_NET_CLS_POLICE=y
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"流量控制","level":"1.3.3","depth":2,"previous":{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/traffic_control/tc.md","mtime":"2021-11-27T07:02:47.999Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-11-27T07:03:20.090Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"流量控制","level":"1.3.3","depth":2,"previous":{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/traffic_control/tc.md","mtime":"2021-11-28T14:45:15.102Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-11-28T14:45:42.091Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
