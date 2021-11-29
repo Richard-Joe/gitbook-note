@@ -267,6 +267,185 @@ HTB 等级状态和可能采取的行动：
 
 ## 七、源码分析
 
+这里不分析排队规则的实现，只看下TC在内核中的流程。先对整体流程有个概念。
+
+### 准备工作
+
+前面的文章有分析过，在网卡驱动初始化流程中，调用了`e1000_probe`。队列的初始化也是在这个流程当中。
+
+```c
+static const struct net_device_ops e1000_netdev_ops = {
+	...
+	// 网口发包回调
+	.ndo_start_xmit		= e1000_xmit_frame,
+	...
+};
+
+static int e1000_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+{
+	...
+	// 申请 net_device 结构
+	netdev = alloc_etherdev(sizeof(struct e1000_adapter));
+	...
+	// 设置网口操作回调
+	netdev->netdev_ops = &e1000_netdev_ops;
+	...
+	// 注册网络设备
+	strcpy(netdev->name, "eth%d");
+	err = register_netdev(netdev);  // --> register_netdevice
+	...
+}
+
+#define alloc_etherdev(sizeof_priv) alloc_etherdev_mq(sizeof_priv, 1)
+#define alloc_etherdev_mq(sizeof_priv, count) alloc_etherdev_mqs(sizeof_priv, count, count)
+
+struct net_device *alloc_etherdev_mqs(int sizeof_priv, unsigned int txqs, unsigned int rxqs)
+{
+	return alloc_netdev_mqs(sizeof_priv, "eth%d", NET_NAME_UNKNOWN,
+				ether_setup, txqs, rxqs);
+}
+
+struct net_device *alloc_netdev_mqs(int sizeof_priv, const char *name,
+		unsigned char name_assign_type,
+		void (*setup)(struct net_device *),
+		unsigned int txqs, unsigned int rxqs)
+{
+	...
+	// 分配发包队列
+	dev->num_tx_queues = txqs;
+	dev->real_num_tx_queues = txqs;
+	if (netif_alloc_netdev_queues(dev))
+		goto free_all;
+
+	// 分配收包队列
+	dev->num_rx_queues = rxqs;
+	dev->real_num_rx_queues = rxqs;
+	if (netif_alloc_rx_queues(dev))
+		goto free_all;
+	...
+}
+
+static int netif_alloc_netdev_queues(struct net_device *dev)
+{
+	unsigned int count = dev->num_tx_queues;
+	struct netdev_queue *tx;
+	size_t sz = count * sizeof(*tx);
+
+	if (count < 1 || count > 0xffff)
+		return -EINVAL;
+
+	tx = kvzalloc(sz, GFP_KERNEL | __GFP_RETRY_MAYFAIL);
+	if (!tx)
+		return -ENOMEM;
+
+	// 记录分配的发包队列到 _tx 中
+	dev->_tx = tx;
+	...
+}
+
+static int netif_alloc_rx_queues(struct net_device *dev)
+{
+	unsigned int i, count = dev->num_rx_queues;
+	struct netdev_rx_queue *rx;
+	size_t sz = count * sizeof(*rx);
+	int err = 0;
+
+	BUG_ON(count < 1);
+
+	rx = kvzalloc(sz, GFP_KERNEL | __GFP_RETRY_MAYFAIL);
+	if (!rx)
+		return -ENOMEM;
+
+	// 记录分配的收包队列到 _rx 中
+	dev->_rx = rx;
+	...
+}
+
+int register_netdevice(struct net_device *dev)
+{
+	...
+	dev_init_scheduler(dev);
+	...
+}
+
+void dev_init_scheduler(struct net_device *dev)
+{
+	// 设置网络设备排队规则
+	dev->qdisc = &noop_qdisc;
+	netdev_for_each_tx_queue(dev, dev_init_scheduler_queue, &noop_qdisc);
+	if (dev_ingress_queue(dev))
+		dev_init_scheduler_queue(dev, dev_ingress_queue(dev), &noop_qdisc);
+
+	timer_setup(&dev->watchdog_timer, dev_watchdog, 0);
+}
+```
+
+### 发包流程
+
+netfilter走完`POST_ROUTING`，就是要发包了。我们跟着`ip_finish_output`进去，最后走到`dev_queue_xmit`。在这里我们看到了流控的入口。
+
+```c
+static int __dev_queue_xmit(struct sk_buff *skb, struct net_device *sb_dev)
+{
+	...
+	// 获取网口设备发包队列 netdev_queue
+	txq = netdev_core_pick_tx(dev, skb, sb_dev);
+	// 获取排队规则 Qdisc
+	q = rcu_dereference_bh(txq->qdisc);
+	if (q->enqueue) {
+		// 如果有入队回调，则执行 __dev_xmit_skb
+		rc = __dev_xmit_skb(skb, q, dev, txq);
+		goto out;
+	}
+	...
+}
+
+struct netdev_queue *netdev_core_pick_tx(struct net_device *dev,
+					 struct sk_buff *skb,
+					 struct net_device *sb_dev)
+{
+	int queue_index = 0;
+	...
+	return netdev_get_tx_queue(dev, queue_index);
+}
+
+static inline struct netdev_queue *netdev_get_tx_queue(const struct net_device *dev, unsigned int index)
+{
+	// _tx 在前面已经设置过
+	return &dev->_tx[index];
+}
+
+static inline int __dev_xmit_skb(struct sk_buff *skb, struct Qdisc *q,
+				 struct net_device *dev,
+				 struct netdev_queue *txq)
+{
+	...
+	// 如果队列不为空
+	if (unlikely(!nolock_qdisc_is_empty(q))) {
+		// 将数据包入队
+		rc = dev_qdisc_enqueue(skb, q, &to_free, txq);
+		// 执行发包流程（出队）
+		__qdisc_run(q);
+		qdisc_run_end(q);
+		goto no_lock_out;
+    }
+    ...
+    // 直接发包
+    if (sch_direct_xmit(skb, q, dev, txq, NULL, true) && !nolock_qdisc_is_empty(q))
+    	// 继续发送
+		__qdisc_run(q);
+
+	qdisc_run_end(q);
+	// 返回成功
+	return NET_XMIT_SUCCESS;
+}
+
+// 后面发包最终会走到 ndo_start_xmit，
+// 前面e1000设置了回调 e1000_xmit_frame。
+dev_hard_start_xmit -> xmit_one -> netdev_start_xmit -> ndo_start_xmit
+```
+
+
 ## 八、总结
 
 ![tc-images/htb-class.png](tc-images/htb-class.png)
