@@ -90,3 +90,7 @@ TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be of type string or 
 解决方法：
 选择低版本的node，
 https://stackoverflow.com/questions/61538769/gitbook-init-error-typeerror-err-invalid-arg-type-the-data-argument-must-b
+
+## GitBook文档
+
+https://chrisniael.gitbooks.io/gitbook-documentation/content/index.html

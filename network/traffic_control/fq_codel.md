@@ -21,9 +21,8 @@ CoDel旨在将CoDel管理的缓冲区队列中的数据包延迟控制在最小�
 
 **当缩短间隔时，将根据由于过多排队延迟而丢包的连续间隔数的倒数平方根来执行此操作。 间隔的顺序是 **
 $$
-100、\frac{100}{\sqrt{2}}、\frac{100}{\sqrt{3}}、\frac{100}{\sqrt{4}}、\frac{100}{\sqrt{5}}    ...
+100, \frac{100}{\sqrt{2}}, \frac{100}{\sqrt{3}}, \frac{100}{\sqrt{4}}, \frac{100}{\sqrt{5}}    ...
 $$
-
 
 ## 内核 Fair Queue CoDel discipline 实现
 
