@@ -378,7 +378,119 @@ void dev_init_scheduler(struct net_device *dev)
 
 	timer_setup(&dev->watchdog_timer, dev_watchdog, 0);
 }
+
+static void dev_init_scheduler_queue(struct net_device *dev,
+				     struct netdev_queue *dev_queue,
+				     void *_qdisc)
+{
+	struct Qdisc *qdisc = _qdisc;
+
+	// 排队规则设置到netdev_queue中的qdisc指针中
+	rcu_assign_pointer(dev_queue->qdisc, qdisc);
+	dev_queue->qdisc_sleeping = qdisc;
+}
 ```
+
+### 排队规则注册
+
+每种排队规则`qdisc`作为一个独立的驱动实现。驱动加载和卸载会执行`qdisc`的注册和注销。
+
+注册和注销实现也相当简单，仅仅对`qdisc_base`链表增加或删除结点。
+```c
+/* The list of all installed queueing disciplines. */
+
+static struct Qdisc_ops *qdisc_base;
+
+int register_qdisc(struct Qdisc_ops *qops)
+{
+	struct Qdisc_ops *q, **qp;
+	int rc = -EEXIST;
+
+	write_lock(&qdisc_mod_lock);
+	for (qp = &qdisc_base; (q = *qp) != NULL; qp = &q->next)
+		if (!strcmp(qops->id, q->id))
+			goto out;
+
+	...
+
+	qops->next = NULL;
+	*qp = qops;
+	rc = 0;
+out:
+	write_unlock(&qdisc_mod_lock);
+	return rc;
+}
+
+int unregister_qdisc(struct Qdisc_ops *qops)
+{
+	struct Qdisc_ops *q, **qp;
+	int err = -ENOENT;
+
+	write_lock(&qdisc_mod_lock);
+	for (qp = &qdisc_base; (q = *qp) != NULL; qp = &q->next)
+		if (q == qops)
+			break;
+	if (q) {
+		*qp = q->next;
+		q->next = NULL;
+		err = 0;
+	}
+	write_unlock(&qdisc_mod_lock);
+	return err;
+}
+```
+
+系统启动默认会注册一部分排队规则：
+```c
+static int __init pktsched_init(void)
+{
+	int err;
+
+	err = register_pernet_subsys(&psched_net_ops);
+	if (err) {
+		pr_err("pktsched_init: "
+		       "cannot initialize per netns operations\n");
+		return err;
+	}
+
+	// 注册 pfifo_fast
+	register_qdisc(&pfifo_fast_ops);
+	// 注册 pfifo
+	register_qdisc(&pfifo_qdisc_ops);
+	// 注册 bfifo
+	register_qdisc(&bfifo_qdisc_ops);
+	// 注册 pfifo_head_drop （首部丢弃）
+	register_qdisc(&pfifo_head_drop_qdisc_ops);
+	// 注册 mq （多队列）
+	register_qdisc(&mq_qdisc_ops);
+	// 注册 noqueue （多队列）
+	register_qdisc(&noqueue_qdisc_ops);
+
+	// rtnetlink
+	rtnl_register(PF_UNSPEC, RTM_NEWQDISC, tc_modify_qdisc, NULL, 0);
+	rtnl_register(PF_UNSPEC, RTM_DELQDISC, tc_get_qdisc, NULL, 0);
+	rtnl_register(PF_UNSPEC, RTM_GETQDISC, tc_get_qdisc, tc_dump_qdisc,
+		      0);
+	rtnl_register(PF_UNSPEC, RTM_NEWTCLASS, tc_ctl_tclass, NULL, 0);
+	rtnl_register(PF_UNSPEC, RTM_DELTCLASS, tc_ctl_tclass, NULL, 0);
+	rtnl_register(PF_UNSPEC, RTM_GETTCLASS, tc_ctl_tclass, tc_dump_tclass,
+		      0);
+
+	return 0;
+}
+
+subsys_initcall(pktsched_init);
+```
+
+`noqueue qdisc`队列规则：
+-  没有类
+-  没有调度程序
+-  丢弃所有排队的包
+-  没有速率限制
+-  不对数据包进行分类
+
+`noqueue` 真正的意思是：**不要将此数据包排队**。
+当数据包通过设备发送，它检查它是否正在使用“noqueue”。如果是，设备立即发送数据包，如果无法发送，则将其丢弃。
 
 ### 发包流程
 
@@ -387,6 +499,8 @@ netfilter走完`POST_ROUTING`，就是要发包了。我们跟着`ip_finish_outp
 ```c
 static int __dev_queue_xmit(struct sk_buff *skb, struct net_device *sb_dev)
 {
+	struct net_device *dev = skb->dev;
+	struct netdev_queue *txq;
 	...
 	// 获取网口设备发包队列 netdev_queue
 	txq = netdev_core_pick_tx(dev, skb, sb_dev);
@@ -444,7 +558,6 @@ static inline int __dev_xmit_skb(struct sk_buff *skb, struct Qdisc *q,
 // 前面e1000设置了回调 e1000_xmit_frame。
 dev_hard_start_xmit -> xmit_one -> netdev_start_xmit -> ndo_start_xmit
 ```
-
 
 ## 八、总结
 

@@ -26,6 +26,17 @@ $$
 
 ## 内核 Fair Queue CoDel discipline 实现
 
+实验的系统是ubuntu，内核版本5.14.14
+
+系统默认disc查看以及驱动查看：
+```shell
+root@joe-ubuntu:~# sysctl -a | grep default_qdisc
+net.core.default_qdisc = fq_codel
+
+root@joe-ubuntu:~# lsmod | grep fq_codel
+sch_fq_codel           20480  3
+```
+
 准则：
 
 - 数据包按流分类。（随机模型，多个流可能在同一个hash槽上）
@@ -34,4 +45,50 @@ $$
 - 对于给定的流，包不会被重新排序(CoDel使用FIFO)，只会丢弃头。
 - 默认情况下ECN功能是开启的。
 - 低内存占用，每个流的数据结构最多只占64字节。
+
+### 驱动的安装和卸载
+
+```c
+static const struct Qdisc_class_ops fq_codel_class_ops = {
+	.leaf		=	fq_codel_leaf,
+	.find		=	fq_codel_find,
+	.tcf_block	=	fq_codel_tcf_block,
+	.bind_tcf	=	fq_codel_bind,
+	.unbind_tcf	=	fq_codel_unbind,
+	.dump		=	fq_codel_dump_class,
+	.dump_stats	=	fq_codel_dump_class_stats,
+	.walk		=	fq_codel_walk,
+};
+
+static struct Qdisc_ops fq_codel_qdisc_ops __read_mostly = {
+	.cl_ops		=	&fq_codel_class_ops,
+	.id			=	"fq_codel",
+	.priv_size	=	sizeof(struct fq_codel_sched_data),
+	.enqueue	=	fq_codel_enqueue,
+	.dequeue	=	fq_codel_dequeue,
+	.peek		=	qdisc_peek_dequeued,
+	.init		=	fq_codel_init,
+	.reset		=	fq_codel_reset,
+	.destroy	=	fq_codel_destroy,
+	.change		=	fq_codel_change,
+	.dump		=	fq_codel_dump,
+	.dump_stats =	fq_codel_dump_stats,
+	.owner		=	THIS_MODULE,
+};
+
+static int __init fq_codel_module_init(void)
+{
+	return register_qdisc(&fq_codel_qdisc_ops);
+}
+
+static void __exit fq_codel_module_exit(void)
+{
+	unregister_qdisc(&fq_codel_qdisc_ops);
+}
+```
+
+### 入队
+
+
+### 出队
 
