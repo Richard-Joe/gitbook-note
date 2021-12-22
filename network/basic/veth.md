@@ -5,7 +5,9 @@
 - 可以作为独立的网络设备
 
 `veth`设备总是创建为一对互联的设备。一端连着协议栈，一端彼此相连着。
+
 ![veth-images/veth-pair.png](veth-images/veth-pair.png)
+
 其中一台设备发送的报文，另一台设备会立即接收到。当任意一台设备状态为down时，对端链路状态也为down。
 
 ## 如何创建 veth-pair
@@ -16,6 +18,7 @@ ip link add <p1-name> type veth peer name <p2-name>
 ## 实验
 
 直接相连是最简单的方式，如下图，一对veth-pair直接将两个namespace连接。
+
 ![veth-images/veth-netns.png](veth-images/veth-netns.png)
 
 ```bash
