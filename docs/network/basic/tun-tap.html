@@ -1,0 +1,687 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>tun/tap设备 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-intopic-toc/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../load_balance.md" />
+    
+    
+    <link rel="prev" href="veth.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../gitbook/">
+            
+                <a href="../../gitbook/">
+            
+                    
+                    gitbook搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    网络基础
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="recv_one_package.html">
+            
+                <a href="recv_one_package.html">
+            
+                    
+                    内核是如何接收一个网络包的
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="dma.html">
+            
+                <a href="dma.html">
+            
+                    
+                    内核DMA机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="veth.html">
+            
+                <a href="veth.html">
+            
+                    
+                    veth设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.1.4" data-path="tun-tap.html">
+            
+                <a href="tun-tap.html">
+            
+                    
+                    tun/tap设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../load_balance.md">
+            
+                <span>
+            
+                    
+                    负载均衡
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../lb/LVS.html">
+            
+                <a href="../lb/LVS.html">
+            
+                    
+                    LVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../traffic_control/tc.html">
+            
+                <a href="../traffic_control/tc.html">
+            
+                    
+                    流量控制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="../traffic_control/bufferbloat.html">
+            
+                <a href="../traffic_control/bufferbloat.html">
+            
+                    
+                    缓冲膨胀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="../traffic_control/fq_codel.html">
+            
+                <a href="../traffic_control/fq_codel.html">
+            
+                    
+                    公平队列控制延迟
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >tun/tap设备</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="tuntap">TUN/TAP</h1>
+<p><code>TUN/TAP</code>&#x4E3A;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x7A0B;&#x5E8F;&#x63D0;&#x4F9B;&#x6570;&#x636E;&#x5305;&#x7684;&#x63A5;&#x6536;&#x548C;&#x4F20;&#x8F93;&#x3002;</p>
+<p><code>tun</code>&#x8BBE;&#x5907;&#x7684;&#x5DE5;&#x4F5C;&#x6A21;&#x5F0F;&#xFF1A;
+<img src="tun-tap-images/tun.png" alt="tun-tap-images/tun.png"></p>
+<p><code>tun</code>&#x8BBE;&#x5907;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x8BBE;&#x5907;&#x6587;&#x4EF6;&#x6536;&#x53D1;&#x6570;&#x636E;&#x5305;&#x3002;&#x7528;&#x6237;&#x6001;&#x7684;&#x8FDB;&#x7A0B;&#x53EF;&#x4EE5;&#x5199;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x901A;&#x8FC7;<code>tun</code>&#x8BBE;&#x5907;&#x8F6C;&#x6362;&#x6210;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5305;&#x4F20;&#x9001;&#x7ED9;&#x5185;&#x6838;&#x7F51;&#x7EDC;&#x534F;&#x8BAE;&#x6808;&#x3002;&#x5F53;&#x5185;&#x6838;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x5305;&#x7ED9;<code>tun</code>&#x8BBE;&#x5907;&#x65F6;&#xFF0C;&#x7528;&#x6237;&#x6001;&#x7684;&#x8FDB;&#x7A0B;&#x901A;&#x8FC7;&#x8BFB;&#x53D6;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x53EF;&#x4EE5;&#x62FF;&#x5230;&#x5305;&#x7684;&#x5185;&#x5BB9;&#x3002;</p>
+<p><code>tun</code>&#x548C;<code>tap</code>&#x8BBE;&#x5907;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#x5B8C;&#x5168;&#x76F8;&#x540C;&#xFF0C;&#x533A;&#x522B;&#x5728;&#x4E8E;&#xFF1A;</p>
+<ul>
+<li><code>tun</code>&#x8868;&#x793A;&#x865A;&#x62DF;&#x7684;&#x662F;&#x70B9;&#x5BF9;&#x70B9;&#x8BBE;&#x5907;&#xFF0C;&#x6536;&#x53D1;&#x7684;&#x662F;IP&#x5305;&#xFF0C;&#x53EA;&#x80FD;&#x5DE5;&#x4F5C;&#x5728;L3&#xFF0C;&#x65E0;&#x6CD5;&#x4E0E;&#x7269;&#x7406;&#x7F51;&#x5361;&#x505A;&#x6865;&#x63A5;&#x3002;</li>
+<li><code>tap</code>&#x8868;&#x793A;&#x865A;&#x62DF;&#x7684;&#x662F;&#x4EE5;&#x592A;&#x7F51;&#x8BBE;&#x5907;&#xFF0C;&#x6536;&#x53D1;&#x7684;&#x662F;&#x94FE;&#x8DEF;&#x5C42;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x53EF;&#x4EE5;&#x4E0E;&#x7269;&#x7406;&#x7F51;&#x5361;&#x6865;&#x63A5;&#x3002;</li>
+</ul>
+<h2 id="&#x5B9E;&#x9A8C;">&#x5B9E;&#x9A8C;</h2>
+<p><img src="tun-tap-images/tun-test.png" alt="tun-tap-images/tun-test.png"></p>
+<p>&#x4F7F;&#x7528;<code>ping</code>&#x547D;&#x4EE4;&#x5411;<code>tun</code>&#x8BBE;&#x5907;&#x53D1;&#x9001;<code>ICMP request</code>&#x5305;&#xFF0C;&#x7136;&#x540E;&#x6211;&#x4EEC;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;<code>tun-app</code>&#x7A0B;&#x5E8F;&#xFF0C;&#x54CD;&#x5E94;<code>ICMP reply</code>&#x5305;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;fcntl.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;net/if.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/ioctl.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/stat.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/types.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;linux/if.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;linux/if_tun.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span>{
+    <span class="hljs-keyword">struct</span> ifreq ifr;
+    <span class="hljs-keyword">int</span> fd, err, nread, nwrite;
+    <span class="hljs-keyword">char</span> buf[<span class="hljs-number">1500</span>];
+
+    <span class="hljs-keyword">if</span>((fd = open(<span class="hljs-string">&quot;/dev/net/tun&quot;</span>, O_RDWR)) &lt; <span class="hljs-number">0</span>)
+        <span class="hljs-keyword">return</span> fd;
+
+    <span class="hljs-built_in">memset</span>(&amp;ifr, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(ifr));
+
+    ifr.ifr_flags = IFF_TUN | IFF_NO_PI;
+    <span class="hljs-keyword">if</span>((err = ioctl(fd, TUNSETIFF, (<span class="hljs-keyword">void</span> *) &amp;ifr)) &lt; <span class="hljs-number">0</span>) {
+        perror(<span class="hljs-string">&quot;ioctl error&quot;</span>);
+        close(fd);
+        <span class="hljs-keyword">return</span> err;
+    }
+
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Tun device name: %s\n&quot;</span>, ifr.ifr_name);
+
+    <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>) {
+        nread = read(fd, buf, <span class="hljs-keyword">sizeof</span>(buf));
+        <span class="hljs-keyword">if</span> (nread &lt; <span class="hljs-number">0</span>) {
+            perror(<span class="hljs-string">&quot;read error&quot;</span>);
+            close(fd);
+            <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>);
+        }
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Read %d bytes from tun device\n&quot;</span>, nread);
+
+        <span class="hljs-comment">// &#x5C06;&#x6E90;IP&#x548C;&#x76EE;&#x7684;IP&#x7F6E;&#x6362;</span>
+        <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> ip[<span class="hljs-number">4</span>];
+        <span class="hljs-built_in">memcpy</span>(ip, &amp;buf[<span class="hljs-number">12</span>], <span class="hljs-number">4</span>);
+        <span class="hljs-built_in">memcpy</span>(&amp;buf[<span class="hljs-number">12</span>], &amp;buf[<span class="hljs-number">16</span>], <span class="hljs-number">4</span>);
+        <span class="hljs-built_in">memcpy</span>(&amp;buf[<span class="hljs-number">16</span>], ip, <span class="hljs-number">4</span>);
+        <span class="hljs-comment">// ICMP&#x7C7B;&#x578B;&#xFF1A;request&#x6539;&#x4E3A;reply</span>
+        buf[<span class="hljs-number">20</span>] = <span class="hljs-number">0</span>;
+        <span class="hljs-comment">// &#x6821;&#x9A8C;&#x548C;</span>
+        *((<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">short</span>*)&amp;buf[<span class="hljs-number">22</span>]) += <span class="hljs-number">8</span>;
+
+        nwrite = write(fd, buf, nread);
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Write %d bytes to tun device\n&quot;</span>, nwrite);
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre>
+<p>&#x4E0B;&#x9762;&#x5F00;&#x59CB;&#x6D4B;&#x8BD5;&#xFF1A;</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x7F16;&#x8BD1;&#x7A0B;&#x5E8F;</span>
+[root@vm ~] gcc tun-app.c -o tun-app
+
+<span class="hljs-comment"># &#x8FD0;&#x884C;&#x7A0B;&#x5E8F;</span>
+[root@vm ~] ./tun-app
+Tun device name: tun0
+
+<span class="hljs-comment"># &#x542F;&#x7528;tun0</span>
+ip link <span class="hljs-built_in">set</span> tun0 up
+
+<span class="hljs-comment"># &#x6DFB;&#x52A0;&#x8DEF;&#x7531;</span>
+route add 1.2.3.4 dev tun0
+
+<span class="hljs-comment"># &#x6267;&#x884C;ping</span>
+[root@vm ~] ping 1.2.3.4
+PING 1.2.3.4 (1.2.3.4) 56(84) bytes of data.
+64 bytes from 1.2.3.4: icmp_seq=1 ttl=64 time=0.145 ms
+64 bytes from 1.2.3.4: icmp_seq=2 ttl=64 time=0.081 ms
+</code></pre>
+<h2 id="&#x6E90;&#x7801;&#x5206;&#x6790;">&#x6E90;&#x7801;&#x5206;&#x6790;</h2>
+<p>&#x5185;&#x6838;&#x91CC;&#x9762;<code>tun</code>&#x6E90;&#x7801;&#x5728;<code>drivers/net/tun.c</code>&#xFF0C;<code>tap</code>&#x6E90;&#x7801;&#x5728;<code>drivers/net/tap.c</code>&#x3002;&#x4E0B;&#x9762;&#x770B;&#x4E0B;<code>tun</code>&#x8BBE;&#x5907;&#x7684;&#x5B9E;&#x73B0;&#x3002;</p>
+<h3 id="&#x6A21;&#x5757;&#x521D;&#x59CB;&#x5316;">&#x6A21;&#x5757;&#x521D;&#x59CB;&#x5316;</h3>
+<pre><code class="lang-c"><span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> file_operations tun_fops = {
+    <span class="hljs-comment">// &#x5F02;&#x6B65;I/O&#x56DE;&#x8C03;</span>
+    .read_iter  = tun_chr_read_iter,
+    .write_iter = tun_chr_write_iter,
+    <span class="hljs-comment">// &#x547D;&#x4EE4;&#x64CD;&#x4F5C;&#x56DE;&#x8C03;</span>
+    .unlocked_ioctl    = tun_chr_ioctl,
+    <span class="hljs-comment">// &#x6253;&#x5F00;&#x8BBE;&#x5907;&#x6587;&#x4EF6;&#x56DE;&#x8C03;</span>
+    .open    = tun_chr_open,
+    ...
+};
+
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">struct</span> miscdevice tun_miscdev = {
+    .minor = TUN_MINOR,
+    .name = <span class="hljs-string">&quot;tun&quot;</span>,
+    .nodename = <span class="hljs-string">&quot;net/tun&quot;</span>,
+    .fops = &amp;tun_fops,
+};
+
+<span class="hljs-comment">// &#x6A21;&#x5757;&#x521D;&#x59CB;&#x5316;</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> __<span class="hljs-function">init <span class="hljs-title">tun_init</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span>
+</span>{
+    <span class="hljs-comment">// &#x6CE8;&#x518C;&#x6742;&#x9879;&#x5B57;&#x7B26;&#x8BBE;&#x5907;</span>
+    ret = misc_register(&amp;tun_miscdev);
+    ...
+}
+</code></pre>
+<h3 id="&#x6253;&#x5F00;&#x8BBE;&#x5907;">&#x6253;&#x5F00;&#x8BBE;&#x5907;</h3>
+<p>&#x9996;&#x5148;&#x8C03;&#x7528;<code>open</code>&#x6253;&#x5F00;&#x8BBE;&#x5907;&#x6587;&#x4EF6;&#xFF0C;&#x56DE;&#x8C03;<code>tun_chr_open</code>&#xFF1A;</p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">tun_chr_open</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> inode *inode, <span class="hljs-keyword">struct</span> file * file)</span>
+</span>{
+    <span class="hljs-keyword">struct</span> tun_file *tfile;
+    tfile = (<span class="hljs-keyword">struct</span> tun_file *)sk_alloc(net, AF_UNSPEC, GFP_KERNEL,
+                        &amp;tun_proto, <span class="hljs-number">0</span>);
+    <span class="hljs-comment">// &#x521D;&#x59CB;&#x5316;ring</span>
+    <span class="hljs-keyword">if</span> (ptr_ring_init(&amp;tfile-&gt;tx_ring, <span class="hljs-number">0</span>, GFP_KERNEL)) {
+        sk_free(&amp;tfile-&gt;sk);
+        <span class="hljs-keyword">return</span> -ENOMEM;
+    }
+    RCU_INIT_POINTER(tfile-&gt;tun, <span class="hljs-literal">NULL</span>);
+
+    <span class="hljs-comment">// &#x8BBE;&#x7F6E;sock&#x64CD;&#x4F5C;&#x56DE;&#x8C03;</span>
+    tfile-&gt;socket.file = file;
+    tfile-&gt;socket.ops = &amp;tun_socket_ops;
+}
+</code></pre>
+<p>&#x8BBF;&#x95EE;<code>tun</code>&#x8BBE;&#x5907;&#x6709;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;&#x6587;&#x4EF6;&#x65B9;&#x5F0F;&#x3001;socket&#x65B9;&#x5F0F;&#x3002;
+&#x4E0A;&#x9762;&#x7684;&#x5B9E;&#x73B0;&#x4F7F;&#x7528;&#x7684;&#x662F;&#x6587;&#x4EF6;&#x65B9;&#x5F0F;&#x3002;</p>
+<p>&#x7136;&#x540E;&#x4F7F;&#x7528;<code>ioctl</code>&#x6253;&#x5F00;&#x8BBE;&#x5907;&#xFF0C;&#x56DE;&#x8C03;<code>__tun_chr_ioctl</code>&#xFF0C;&#x51FD;&#x6570;&#x547D;&#x4EE4;&#x529F;&#x80FD;&#x5F88;&#x591A;&#xFF0C;&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x53EA;&#x770B;&#x4E0B;<code>TUNSETIFF</code>&#x547D;&#x4EE4;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">static</span> <span class="hljs-keyword">long</span> __tun_chr_ioctl(<span class="hljs-keyword">struct</span> file *file, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> cmd,
+                <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> arg, <span class="hljs-keyword">int</span> ifreq_len)
+{
+    ...
+    <span class="hljs-keyword">if</span> (cmd == TUNSETIFF) {
+        ...
+        ret = tun_set_iff(net, file, &amp;ifr);
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">tun_set_iff</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> net *net, <span class="hljs-keyword">struct</span> file *file, <span class="hljs-keyword">struct</span> ifreq *ifr)</span>
+</span>{
+    <span class="hljs-comment">// &#x6839;&#x636E;ifr_name&#x83B7;&#x53D6;&#x7F51;&#x7EDC;&#x8BBE;&#x5907;</span>
+    dev = __dev_get_by_name(net, ifr-&gt;ifr_name);
+
+    <span class="hljs-keyword">if</span> (dev) {
+        tun = netdev_priv(dev);
+        ...
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">// &#x627E;&#x4E0D;&#x5230;&#x5219;&#x521B;&#x5EFA;</span>
+        dev = alloc_netdev_mqs(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> tun_struct), name,
+                NET_NAME_UNKNOWN, tun_setup, queues,
+                queues);
+        tun = netdev_priv(dev);
+        <span class="hljs-comment">// &#x521D;&#x59CB;&#x5316;tun&#x8BBE;&#x5907;</span>
+        tun_net_init(dev);
+        rcu_assign_pointer(tfile-&gt;tun, tun);
+        ...
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">tun_net_init</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> net_device *dev)</span>
+</span>{
+    ...
+    dev-&gt;netdev_ops = &amp;tun_netdev_ops;
+    dev-&gt;header_ops = &amp;ip_tunnel_header_ops;
+
+    <span class="hljs-comment">/* Point-to-Point TUN Device */</span>
+    dev-&gt;hard_header_len = <span class="hljs-number">0</span>;
+    dev-&gt;addr_len = <span class="hljs-number">0</span>;
+    dev-&gt;mtu = <span class="hljs-number">1500</span>;
+
+    <span class="hljs-comment">/* Zero header length */</span>
+    dev-&gt;type = ARPHRD_NONE;
+    dev-&gt;flags = IFF_POINTOPOINT | IFF_NOARP | IFF_MULTICAST;
+    ...
+}
+
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> net_device_ops tun_netdev_ops = {
+    <span class="hljs-comment">// &#x8BBE;&#x7F6E;tun&#x8BBE;&#x5907;&#x53D1;&#x5305;&#x56DE;&#x8C03;</span>
+    .ndo_start_xmit        = tun_net_xmit,
+    ...
+};
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x7684;&#x4E3B;&#x8981;&#x505A;&#x4E86;&#x7533;&#x8BF7;&#x8D44;&#x6E90;&#xFF0C;&#x521B;&#x5EFA;tun&#x8BBE;&#x5907;&#x5E76;&#x521D;&#x59CB;&#x5316;&#x3002;</p>
+<h3 id="&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4ECE;tun&#x8BBE;&#x5907;&#x8BFB;&#x53D6;">&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4ECE;tun&#x8BBE;&#x5907;&#x8BFB;&#x53D6;</h3>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">static</span> ssize_t <span class="hljs-title">tun_chr_read_iter</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> kiocb *iocb, <span class="hljs-keyword">struct</span> iov_iter *to)</span>
+</span>{
+    ret = tun_do_read(tun, tfile, to, noblock, <span class="hljs-literal">NULL</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> ssize_t <span class="hljs-title">tun_do_read</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> tun_struct *tun, <span class="hljs-keyword">struct</span> tun_file *tfile,
+               <span class="hljs-keyword">struct</span> iov_iter *to,
+               <span class="hljs-keyword">int</span> noblock, <span class="hljs-keyword">void</span> *ptr)</span>
+</span>{
+    <span class="hljs-comment">// &#x4ECE;ring&#x91CC;&#x9762;&#x83B7;&#x53D6;&#x5E27;</span>
+    ptr = tun_ring_recv(tfile, noblock, &amp;err);
+
+    <span class="hljs-keyword">struct</span> sk_buff *skb = ptr;
+    <span class="hljs-comment">// &#x628A;&#x5305;&#x5199;&#x5230;&#x7528;&#x6237;&#x7A7A;&#x95F4;</span>
+    ret = tun_put_user(tun, tfile, skb, to);
+    ...
+}
+</code></pre>
+<h3 id="&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x5411;tun&#x8BBE;&#x5907;&#x5199;&#x5165;">&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x5411;tun&#x8BBE;&#x5907;&#x5199;&#x5165;</h3>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">static</span> ssize_t <span class="hljs-title">tun_chr_write_iter</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> kiocb *iocb, <span class="hljs-keyword">struct</span> iov_iter *from)</span>
+</span>{
+    ...
+    <span class="hljs-comment">// &#x4ECE;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x83B7;&#x53D6;&#x6570;&#x636E;&#x5305;</span>
+    result = tun_get_user(tun, tfile, <span class="hljs-literal">NULL</span>, from, noblock, <span class="hljs-literal">false</span>);
+    ...
+}
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> ssize_t <span class="hljs-title">tun_get_user</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> tun_struct *tun, <span class="hljs-keyword">struct</span> tun_file *tfile,
+                <span class="hljs-keyword">void</span> *msg_control, <span class="hljs-keyword">struct</span> iov_iter *from,
+                <span class="hljs-keyword">int</span> noblock, <span class="hljs-keyword">bool</span> more)</span>
+</span>{
+    <span class="hljs-comment">// &#x7533;&#x8BF7;skb</span>
+    skb = tun_alloc_skb(tfile, align, copylen, linear, noblock);
+    <span class="hljs-comment">// &#x5C06;&#x6570;&#x636E;&#x62F7;&#x8D1D;&#x5230;skb&#x4E2D;</span>
+    err = skb_copy_datagram_from_iter(skb, <span class="hljs-number">0</span>, from, len);
+
+    <span class="hljs-comment">// skb&#x4E00;&#x4E9B;&#x8BBE;&#x7F6E;</span>
+    skb_reset_mac_header(skb);
+    skb-&gt;protocol = pi.proto;
+    skb-&gt;dev = tun-&gt;dev;
+    skb_reset_network_header(skb);
+    skb_probe_transport_header(skb);
+    skb_record_rx_queue(skb, tfile-&gt;queue_index);
+
+    <span class="hljs-comment">// &#x53D1;&#x9001;skb&#xFF08;&#x4F1A;&#x8D70;&#x5230;&#x6536;&#x5305;&#x8F6F;&#x4E2D;&#x65AD;&#x56DE;&#x8C03;&#xFF0C;&#x4E22;&#x7ED9;&#x534F;&#x8BAE;&#x6808;&#x5904;&#x7406;&#x4E86;&#xFF09;</span>
+    netif_rx_ni(skb);
+}
+</code></pre>
+<h3 id="tun&#x8BBE;&#x5907;&#x53D1;&#x5305;">tun&#x8BBE;&#x5907;&#x53D1;&#x5305;</h3>
+<p>&#x534F;&#x8BAE;&#x6808;&#x5904;&#x7406;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x6700;&#x7EC8;&#x4F1A;&#x8C03;&#x7528;&#x8BBE;&#x5907;&#x6CE8;&#x518C;&#x7684;&#x53D1;&#x5305;&#x56DE;&#x8C03;&#x3002;&#x56DE;&#x8C03;&#x5B9E;&#x73B0;&#x91CC;&#x9762;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x6700;&#x7EC8;&#x628A;&#x6570;&#x636E;&#x5305;&#x4E22;&#x7ED9;&#x4E86;<code>socket</code>&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">static</span> netdev_tx_t <span class="hljs-title">tun_net_xmit</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> sk_buff *skb, <span class="hljs-keyword">struct</span> net_device *dev)</span>
+</span>{
+    ...
+    <span class="hljs-comment">/* Notify and wake up reader process */</span>
+    <span class="hljs-keyword">if</span> (tfile-&gt;flags &amp; TUN_FASYNC)
+        kill_fasync(&amp;tfile-&gt;fasync, SIGIO, POLL_IN);
+    tfile-&gt;socket.sk-&gt;sk_data_ready(tfile-&gt;socket.sk);
+    ...
+}
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="veth.html" class="navigation navigation-prev " aria-label="Previous page: veth设备">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../load_balance.md" class="navigation navigation-next " aria-label="Next page: 负载均衡">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"tun/tap设备","level":"1.3.1.4","depth":3,"next":{"title":"负载均衡","level":"1.3.2","depth":2,"path":"network/load_balance.md","ref":"./network/load_balance.md","articles":[{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]}]},"previous":{"title":"veth设备","level":"1.3.1.3","depth":3,"path":"network/basic/veth.md","ref":"./network/basic/veth.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"katex":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/tun-tap.md","mtime":"2021-12-25T11:13:20.979Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-12-25T11:23:51.607Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-intopic-toc/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-intopic-toc/gumshoe.polyfills.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-intopic-toc/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
