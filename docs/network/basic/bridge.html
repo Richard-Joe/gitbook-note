@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>内核DMA机制 · GitBook</title>
+        <title>bridge · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -65,10 +65,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="veth.html" />
+    <link rel="next" href="../load_balance.md" />
     
     
-    <link rel="prev" href="recv_one_package.html" />
+    <link rel="prev" href="tun-tap.html" />
     
 
     </head>
@@ -164,7 +164,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3.1.2" data-path="dma.html">
+        <li class="chapter " data-level="1.3.1.2" data-path="dma.html">
             
                 <a href="dma.html">
             
@@ -203,7 +203,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.1.5" data-path="bridge.html">
+        <li class="chapter active" data-level="1.3.1.5" data-path="bridge.html">
             
                 <a href="bridge.html">
             
@@ -333,7 +333,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >内核DMA机制</a>
+        <a href="../.." >bridge</a>
     </h1>
 </div>
 
@@ -348,7 +348,56 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="&#x5185;&#x6838;dma&#x673A;&#x5236;">&#x5185;&#x6838;DMA&#x673A;&#x5236;</h1>
+                                <h1 id="bridge">Bridge</h1>
+<p>&#x4E24;&#x4E2A;netns&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>veth pair</code>&#x8FDE;&#x63A5;&#xFF0C;&#x4E24;&#x4E2A;&#x4EE5;&#x4E0A;netns&#x76F8;&#x4E92;&#x8FDE;&#x63A5;&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x4F7F;&#x7528;<code>bridge</code>&#x4E86;&#x3002;</p>
+<p>Linux bridge&#x6709;&#x591A;&#x4E2A;&#x7AEF;&#x53E3;&#xFF0C;&#x6570;&#x636E;&#x53EF;&#x4EE5;&#x4ECE;&#x4EFB;&#x4F55;&#x7AEF;&#x53E3;&#x8FDB;&#x6765;&#xFF0C;&#x8FDB;&#x6765;&#x4E4B;&#x540E;&#x4ECE;&#x54EA;&#x4E2A;&#x53E3;&#x51FA;&#x53BB;&#x5219;&#x53D6;&#x51B3;&#x4E8E;&#x76EE;&#x7684;MAC&#x5730;&#x5740;&#x3002;</p>
+<p><strong>&#x7F51;&#x6865;&#x662F;&#x4E00;&#x79CD;&#x4EE5;&#x72EC;&#x7ACB;&#x4E8E;&#x534F;&#x8BAE;&#x7684;&#x65B9;&#x5F0F;&#x5C06;&#x4E24;&#x4E2A;&#x4EE5;&#x592A;&#x7F51;&#x6BB5;&#x8FDE;&#x63A5;&#x5728;&#x4E00;&#x8D77;&#x7684;&#x65B9;&#x5F0F;&#x3002;&#x6570;&#x636E;&#x5305;&#x65F6;&#x57FA;&#x4E8E;&#x4EE5;&#x592A;&#x7F51;&#x5730;&#x5740;&#x8F6C;&#x53D1;&#x7684;&#xFF0C;&#x800C;&#x4E0D;&#x662F;IP&#x5730;&#x5740;&#x3002;&#x7531;&#x4E8E;&#x8F6C;&#x53D1;&#x662F;&#x5728;L2&#x5B8C;&#x6210;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x6240;&#x6709;&#x534F;&#x8BAE;&#x90FD;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7F51;&#x6865;&#x900F;&#x660E;&#x5730;&#x4F20;&#x8F93;&#x3002;</strong></p>
+<h2 id="&#x5B9E;&#x9A8C;">&#x5B9E;&#x9A8C;</h2>
+<p><img src="bridge-images/bridge-test.png" alt="bridge-images/bridge-test.png"></p>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x521B;&#x5EFA;bridge&#x5E76;&#x542F;&#x7528;</span>
+ip link add name br0 <span class="hljs-built_in">type</span> bridge
+ip link <span class="hljs-built_in">set</span> br0 up
+
+<span class="hljs-comment"># &#x521B;&#x5EFA;netns</span>
+ip netns add ns1
+ip netns add ns2
+ip netns add ns3
+
+<span class="hljs-comment"># &#x521B;&#x5EFA;veth-pair</span>
+ip link add veth1-ns <span class="hljs-built_in">type</span> veth peer name veth1-br
+ip link add veth2-ns <span class="hljs-built_in">type</span> veth peer name veth2-br
+ip link add veth3-ns <span class="hljs-built_in">type</span> veth peer name veth3-br
+
+<span class="hljs-comment"># &#x5C06;veth&#x7684;&#x4E00;&#x7AEF;&#x79FB;&#x52A8;&#x5230;netns&#x4E2D;</span>
+ip link <span class="hljs-built_in">set</span> veth1-ns netns ns1
+ip link <span class="hljs-built_in">set</span> veth2-ns netns ns2
+ip link <span class="hljs-built_in">set</span> veth3-ns netns ns3
+
+<span class="hljs-comment"># &#x7ED9;netns&#x4E2D;&#x7684;veth&#x914D;&#x7F6E;IP&#x5E76;&#x542F;&#x7528;</span>
+ip netns <span class="hljs-built_in">exec</span> ns1 ip addr add 10.0.0.1/24 dev veth1-ns
+ip netns <span class="hljs-built_in">exec</span> ns1 ip link <span class="hljs-built_in">set</span> veth1-ns up
+ip netns <span class="hljs-built_in">exec</span> ns2 ip addr add 10.0.0.2/24 dev veth2-ns
+ip netns <span class="hljs-built_in">exec</span> ns2 ip link <span class="hljs-built_in">set</span> veth2-ns up
+ip netns <span class="hljs-built_in">exec</span> ns3 ip addr add 10.0.0.3/24 dev veth3-ns
+ip netns <span class="hljs-built_in">exec</span> ns3 ip link <span class="hljs-built_in">set</span> veth3-ns up
+
+<span class="hljs-comment"># &#x5C06;veth&#x7684;&#x53E6;&#x4E00;&#x7AEF;&#x542F;&#x52A8;&#x5E76;&#x6302;&#x8F7D;&#x5230;bridge&#x4E0A;</span>
+ip link <span class="hljs-built_in">set</span> veth1-br up
+ip link <span class="hljs-built_in">set</span> veth2-br up
+ip link <span class="hljs-built_in">set</span> veth3-br up
+ip link <span class="hljs-built_in">set</span> dev veth1-br master br0
+ip link <span class="hljs-built_in">set</span> dev veth2-br master br0
+ip link <span class="hljs-built_in">set</span> dev veth3-br master br0
+
+<span class="hljs-comment"># &#x6D4B;&#x8BD5;&#x8FDE;&#x901A;&#x6027;</span>
+ip netns <span class="hljs-built_in">exec</span> ns1 ping 10.0.0.2
+ip netns <span class="hljs-built_in">exec</span> ns1 ping 10.0.0.3
+ip netns <span class="hljs-built_in">exec</span> ns2 ping 10.0.0.3
+</code></pre>
+<h2 id="&#x6E90;&#x7801;&#x5206;&#x6790;">&#x6E90;&#x7801;&#x5206;&#x6790;</h2>
+<p><code>bridge</code>&#x7684;&#x6E90;&#x7801;&#x5728;<code>net/bridge</code>&#x4E0B;</p>
+<h3 id="&#x6A21;&#x5757;&#x521D;&#x59CB;&#x5316;">&#x6A21;&#x5757;&#x521D;&#x59CB;&#x5316;</h3>
+<h3 id="&#x521B;&#x5EFA;-bridge">&#x521B;&#x5EFA; bridge</h3>
 
                                 
                                 </section>
@@ -376,12 +425,12 @@
 
             
                 
-                <a href="recv_one_package.html" class="navigation navigation-prev " aria-label="Previous page: 内核是如何接收一个网络包的">
+                <a href="tun-tap.html" class="navigation navigation-prev " aria-label="Previous page: tun/tap设备">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="veth.html" class="navigation navigation-next " aria-label="Next page: veth设备">
+                <a href="../load_balance.md" class="navigation navigation-next " aria-label="Next page: 负载均衡">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -392,7 +441,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"内核DMA机制","level":"1.3.1.2","depth":3,"next":{"title":"veth设备","level":"1.3.1.3","depth":3,"path":"network/basic/veth.md","ref":"./network/basic/veth.md","articles":[]},"previous":{"title":"内核是如何接收一个网络包的","level":"1.3.1.1","depth":3,"path":"network/basic/recv_one_package.md","ref":"./network/basic/recv_one_package.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"katex":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/dma.md","mtime":"2021-11-14T16:48:54.948Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-12-26T15:58:48.965Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"bridge","level":"1.3.1.5","depth":3,"next":{"title":"负载均衡","level":"1.3.2","depth":2,"path":"network/load_balance.md","ref":"./network/load_balance.md","articles":[{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]}]},"previous":{"title":"tun/tap设备","level":"1.3.1.4","depth":3,"path":"network/basic/tun-tap.md","ref":"./network/basic/tun-tap.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"katex":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/bridge.md","mtime":"2021-12-26T15:42:45.728Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-12-26T15:58:48.965Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
