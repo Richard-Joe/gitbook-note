@@ -109,3 +109,38 @@ int br_ioctl_stub(struct net *net, struct net_bridge *br, unsigned int cmd,
 - 向网桥上添加、删除设备
 
 ### 创建 bridge
+```c
+int br_add_bridge(struct net *net, const char *name)
+{
+	struct net_device *dev;
+	int res;
+
+	// 申请网络设备
+	dev = alloc_netdev(sizeof(struct net_bridge), name, NET_NAME_UNKNOWN,
+			   br_dev_setup);
+
+	...
+	// 注册网络设备
+	res = register_netdevice(dev);
+	...
+}
+
+static const struct net_device_ops br_netdev_ops = {
+	// 设置发包函数回调
+	.ndo_start_xmit		 = br_dev_xmit,
+
+};
+
+void br_dev_setup(struct net_device *dev)
+{
+	struct net_bridge *br = netdev_priv(dev);
+	...
+	dev->netdev_ops = &br_netdev_ops;
+	...
+	br->dev = dev;
+	INIT_LIST_HEAD(&br->port_list);
+	INIT_HLIST_HEAD(&br->fdb_list);
+	// 定时清理任务
+	INIT_DELAYED_WORK(&br->gc_work, br_fdb_cleanup);
+}
+```
