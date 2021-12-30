@@ -58,4 +58,54 @@ ip netns exec ns2 ping 10.0.0.3
 
 ### 模块初始化
 
+```c
+static int __init br_init(void)
+{
+	...
+	// 注册ioctl钩子
+	brioctl_set(br_ioctl_stub);
+	...
+}
+
+static int (*br_ioctl_hook)(struct net *net, struct net_bridge *br,
+			    unsigned int cmd, struct ifreq *ifr,
+			    void __user *uarg);
+
+void brioctl_set(int (*hook)(struct net *net, struct net_bridge *br,
+			     unsigned int cmd, struct ifreq *ifr,
+			     void __user *uarg))
+{
+	mutex_lock(&br_ioctl_mutex);
+	br_ioctl_hook = hook;
+	mutex_unlock(&br_ioctl_mutex);
+}
+
+int br_ioctl_stub(struct net *net, struct net_bridge *br, unsigned int cmd,
+		  struct ifreq *ifr, void __user *uarg)
+{
+	...
+	switch (cmd) {
+	...
+	case SIOCBRADDBR:
+	case SIOCBRDELBR:
+	{
+		...
+		if (cmd == SIOCBRADDBR)
+			ret = br_add_bridge(net, buf);
+		else
+			ret = br_del_bridge(net, buf);
+	}
+		break;
+	case SIOCBRADDIF:
+	case SIOCBRDELIF:
+		ret = add_del_if(br, ifr->ifr_ifindex, cmd == SIOCBRADDIF);
+		break;
+	}
+	...
+}
+```
+注册ioctl响应操作，
+- 添加、删除网桥；
+- 向网桥上添加、删除设备
+
 ### 创建 bridge
