@@ -213,9 +213,48 @@ int br_add_if(struct net_bridge *br, struct net_device *dev,
 	struct net_bridge_port *p;
 	// 创建新的网桥端口
 	p = new_nbp(br, dev);
+	// 注册接收处理回调（br_handle_frame）
+	err = netdev_rx_handler_register(dev, br_get_rx_handler(dev), p);
 	// 将网桥端口挂到port_list链表上
 	list_add_rcu(&p->list, &br->port_list);
+	// 这里会调用到dev_set_promiscuity，将网桥端口相关的NIC设置为混杂模式
+	nbp_update_port_count(br);
 	// 插入net_bridge_fdb_entry结点到fdb_hash_tbl
 	br_fdb_insert(br, p, dev->dev_addr, 0);
+}
+
+int netdev_rx_handler_register(struct net_device *dev,
+			       rx_handler_func_t *rx_handler,
+			       void *rx_handler_data)
+{
+	...
+	/* Note: rx_handler_data must be set before rx_handler */
+	rcu_assign_pointer(dev->rx_handler_data, rx_handler_data);
+	rcu_assign_pointer(dev->rx_handler, rx_handler);
+	...
+}
+```
+
+### 接收数据
+
+```c
+static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
+				    struct packet_type **ppt_prev)
+{
+	...
+	// 获取接收处理回调
+	rx_handler = rcu_dereference(skb->dev->rx_handler);
+	if (rx_handler) {
+		...
+		// 执行接收处理回调（br_handle_frame）
+		switch (rx_handler(&skb)) {
+		...
+		}
+	}
+	...
+}
+
+static rx_handler_result_t br_handle_frame(struct sk_buff **pskb)
+{
 }
 ```
