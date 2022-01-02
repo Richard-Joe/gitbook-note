@@ -56,6 +56,57 @@ ip netns exec ns2 ping 10.0.0.3
 
 `bridge`的源码在`net/bridge`下
 
+### 数据结构
+
+```c
+#define ETH_ALEN	6		/* Octets in one ethernet addr	 */
+
+// 网桥ID
+struct bridge_id {
+	unsigned char	prio[2]; 			// 网桥优先级
+	unsigned char	addr[ETH_ALEN];		// MAC地址
+};
+
+// MAC地址
+struct mac_addr {
+	unsigned char	addr[ETH_ALEN];
+};
+
+struct net_bridge_fdb_key {
+	mac_addr addr;
+	u16 vlan_id;
+};
+
+// 转发数据库的记录项。网桥所学到的每个MAC地址都有这样一个记录。（记录MAC地址和网桥端口的映射关系）
+struct net_bridge_fdb_entry {
+	struct rhash_head		rhnode;		// fdb hash表节点
+	struct net_bridge_port		*dst;	// 网桥端口
+
+	struct net_bridge_fdb_key	key;	// MAC地址
+	struct hlist_node		fdb_node;	// ？
+	unsigned long			flags;
+	...
+	struct rcu_head			rcu;
+};
+
+// 网桥端口
+struct net_bridge_port {
+	struct net_bridge		*br;	// 所属网桥设备对象
+	struct net_device		*dev;	// 网络接口设备对象
+	struct list_head		list;	// 链表节点
+	u16				port_no;		// 端口号
+	...
+};
+
+struct net_bridge {
+	struct net_device		*dev;			// 网络接口设备对象
+	struct rhashtable		fdb_hash_tbl;	// fdb hash表（net_bridge_fdb_entry）
+	struct list_head		port_list;		// 端口列表（net_bridge_port）
+	struct hlist_head		fdb_list;		// ？
+	...
+};
+```
+
 ### 模块初始化
 
 ```c
@@ -63,29 +114,23 @@ static int __init br_init(void)
 {
 	...
 	// 注册ioctl钩子
-	brioctl_set(br_ioctl_stub);
+	brioctl_set(br_ioctl_deviceless_stub);
 	...
 }
 
-static int (*br_ioctl_hook)(struct net *net, struct net_bridge *br,
-			    unsigned int cmd, struct ifreq *ifr,
-			    void __user *uarg);
+static int (*br_ioctl_hook) (struct net *, unsigned int cmd, void __user *arg);
 
-void brioctl_set(int (*hook)(struct net *net, struct net_bridge *br,
-			     unsigned int cmd, struct ifreq *ifr,
-			     void __user *uarg))
+void brioctl_set(int (*hook) (struct net *, unsigned int, void __user *))
 {
 	mutex_lock(&br_ioctl_mutex);
 	br_ioctl_hook = hook;
 	mutex_unlock(&br_ioctl_mutex);
 }
 
-int br_ioctl_stub(struct net *net, struct net_bridge *br, unsigned int cmd,
-		  struct ifreq *ifr, void __user *uarg)
+int br_ioctl_deviceless_stub(struct net *net, unsigned int cmd, void __user *uarg)
 {
 	...
 	switch (cmd) {
-	...
 	case SIOCBRADDBR:
 	case SIOCBRDELBR:
 	{
@@ -95,18 +140,13 @@ int br_ioctl_stub(struct net *net, struct net_bridge *br, unsigned int cmd,
 		else
 			ret = br_del_bridge(net, buf);
 	}
-		break;
-	case SIOCBRADDIF:
-	case SIOCBRDELIF:
-		ret = add_del_if(br, ifr->ifr_ifindex, cmd == SIOCBRADDIF);
-		break;
 	}
 	...
 }
 ```
 注册ioctl响应操作，
-- 添加、删除网桥；
-- 向网桥上添加、删除设备
+- 添加网桥：`br_add_bridge`；
+- 删除网桥：`br_del_bridge`；
 
 ### 创建 bridge
 ```c
@@ -128,7 +168,8 @@ int br_add_bridge(struct net *net, const char *name)
 static const struct net_device_ops br_netdev_ops = {
 	// 设置发包函数回调
 	.ndo_start_xmit		 = br_dev_xmit,
-
+	// 设置dev ioctl
+	.ndo_do_ioctl		 = br_dev_ioctl,
 };
 
 void br_dev_setup(struct net_device *dev)
@@ -142,5 +183,39 @@ void br_dev_setup(struct net_device *dev)
 	INIT_HLIST_HEAD(&br->fdb_list);
 	// 定时清理任务
 	INIT_DELAYED_WORK(&br->gc_work, br_fdb_cleanup);
+}
+
+int br_dev_ioctl(struct net_device *dev, struct ifreq *rq, int cmd)
+{
+	struct net_bridge *br = netdev_priv(dev);
+
+	switch (cmd) {
+	...
+	case SIOCBRADDIF:
+	case SIOCBRDELIF:
+		return add_del_if(br, rq->ifr_ifindex, cmd == SIOCBRADDIF);
+
+	}
+	...
+}
+```
+
+注册dev ioctl响应操作，
+- 给网桥添加端口：`br_add_if`；
+- 给网桥删除端口：`br_del_if`；
+
+### 给网桥添加端口
+
+```c
+int br_add_if(struct net_bridge *br, struct net_device *dev,
+	      struct netlink_ext_ack *extack)
+{
+	struct net_bridge_port *p;
+	// 创建新的网桥端口
+	p = new_nbp(br, dev);
+	// 将网桥端口挂到port_list链表上
+	list_add_rcu(&p->list, &br->port_list);
+	// 插入net_bridge_fdb_entry结点到fdb_hash_tbl
+	br_fdb_insert(br, p, dev->dev_addr, 0);
 }
 ```

@@ -396,8 +396,162 @@ ip netns <span class="hljs-built_in">exec</span> ns2 ping 10.0.0.3
 </code></pre>
 <h2 id="&#x6E90;&#x7801;&#x5206;&#x6790;">&#x6E90;&#x7801;&#x5206;&#x6790;</h2>
 <p><code>bridge</code>&#x7684;&#x6E90;&#x7801;&#x5728;<code>net/bridge</code>&#x4E0B;</p>
+<h3 id="&#x6570;&#x636E;&#x7ED3;&#x6784;">&#x6570;&#x636E;&#x7ED3;&#x6784;</h3>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> ETH_ALEN    6        <span class="hljs-comment">/* Octets in one ethernet addr     */</span></span>
+
+<span class="hljs-comment">// &#x7F51;&#x6865;ID</span>
+<span class="hljs-keyword">struct</span> bridge_id {
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span>    prio[<span class="hljs-number">2</span>];             <span class="hljs-comment">// &#x7F51;&#x6865;&#x4F18;&#x5148;&#x7EA7;</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span>    addr[ETH_ALEN];        <span class="hljs-comment">// MAC&#x5730;&#x5740;</span>
+};
+
+<span class="hljs-comment">// MAC&#x5730;&#x5740;</span>
+<span class="hljs-keyword">struct</span> mac_addr {
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span>    addr[ETH_ALEN];
+};
+
+<span class="hljs-keyword">struct</span> net_bridge_fdb_key {
+    mac_addr addr;
+    u16 vlan_id;
+};
+
+<span class="hljs-comment">// &#x8F6C;&#x53D1;&#x6570;&#x636E;&#x5E93;&#x7684;&#x8BB0;&#x5F55;&#x9879;&#x3002;&#x7F51;&#x6865;&#x6240;&#x5B66;&#x5230;&#x7684;&#x6BCF;&#x4E2A;MAC&#x5730;&#x5740;&#x90FD;&#x6709;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x8BB0;&#x5F55;&#x3002;&#xFF08;&#x8BB0;&#x5F55;MAC&#x5730;&#x5740;&#x548C;&#x7F51;&#x6865;&#x7AEF;&#x53E3;&#x7684;&#x6620;&#x5C04;&#x5173;&#x7CFB;&#xFF09;</span>
+<span class="hljs-keyword">struct</span> net_bridge_fdb_entry {
+    <span class="hljs-keyword">struct</span> rhash_head        rhnode;        <span class="hljs-comment">// fdb hash&#x8868;&#x8282;&#x70B9;</span>
+    <span class="hljs-keyword">struct</span> net_bridge_port        *dst;    <span class="hljs-comment">// &#x7F51;&#x6865;&#x7AEF;&#x53E3;</span>
+
+    <span class="hljs-keyword">struct</span> net_bridge_fdb_key    key;    <span class="hljs-comment">// MAC&#x5730;&#x5740;</span>
+    <span class="hljs-keyword">struct</span> hlist_node        fdb_node;    <span class="hljs-comment">// &#xFF1F;</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>            flags;
+    ...
+    <span class="hljs-keyword">struct</span> rcu_head            rcu;
+};
+
+<span class="hljs-comment">// &#x7F51;&#x6865;&#x7AEF;&#x53E3;</span>
+<span class="hljs-keyword">struct</span> net_bridge_port {
+    <span class="hljs-keyword">struct</span> net_bridge        *br;    <span class="hljs-comment">// &#x6240;&#x5C5E;&#x7F51;&#x6865;&#x8BBE;&#x5907;&#x5BF9;&#x8C61;</span>
+    <span class="hljs-keyword">struct</span> net_device        *dev;    <span class="hljs-comment">// &#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x8BBE;&#x5907;&#x5BF9;&#x8C61;</span>
+    <span class="hljs-keyword">struct</span> list_head        <span class="hljs-built_in">list</span>;    <span class="hljs-comment">// &#x94FE;&#x8868;&#x8282;&#x70B9;</span>
+    u16                port_no;        <span class="hljs-comment">// &#x7AEF;&#x53E3;&#x53F7;</span>
+    ...
+};
+
+<span class="hljs-keyword">struct</span> net_bridge {
+    <span class="hljs-keyword">struct</span> net_device        *dev;            <span class="hljs-comment">// &#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x8BBE;&#x5907;&#x5BF9;&#x8C61;</span>
+    <span class="hljs-keyword">struct</span> rhashtable        fdb_hash_tbl;    <span class="hljs-comment">// fdb hash&#x8868;&#xFF08;net_bridge_fdb_entry&#xFF09;</span>
+    <span class="hljs-keyword">struct</span> list_head        port_list;        <span class="hljs-comment">// &#x7AEF;&#x53E3;&#x5217;&#x8868;&#xFF08;net_bridge_port&#xFF09;</span>
+    <span class="hljs-keyword">struct</span> hlist_head        fdb_list;        <span class="hljs-comment">// &#xFF1F;</span>
+    ...
+};
+</code></pre>
 <h3 id="&#x6A21;&#x5757;&#x521D;&#x59CB;&#x5316;">&#x6A21;&#x5757;&#x521D;&#x59CB;&#x5316;</h3>
+<pre><code class="lang-c">static int __init br_init(void)
+{
+    ...
+    // &#x6CE8;&#x518C;ioctl&#x94A9;&#x5B50;
+    brioctl_set(br_ioctl_deviceless_stub);
+    ...
+}
+
+static int (*br_ioctl_hook) (struct net *, unsigned int cmd, void __user *arg);
+
+void brioctl_set(int (*hook) (struct net *, unsigned int, void __user *))
+{
+    mutex_lock(&amp;br_ioctl_mutex);
+    br_ioctl_hook = hook;
+    mutex_unlock(&amp;br_ioctl_mutex);
+}
+
+int br_ioctl_deviceless_stub(struct net *net, unsigned int cmd, void __user *uarg)
+{
+    ...
+    switch (cmd) {
+    case SIOCBRADDBR:
+    case SIOCBRDELBR:
+    {
+        ...
+        if (cmd == SIOCBRADDBR)
+            ret = br_add_bridge(net, buf);
+        else
+            ret = br_del_bridge(net, buf);
+    }
+    }
+    ...
+}
+</code></pre>
+<p>&#x6CE8;&#x518C;ioctl&#x54CD;&#x5E94;&#x64CD;&#x4F5C;&#xFF0C;</p>
+<ul>
+<li>&#x6DFB;&#x52A0;&#x7F51;&#x6865;&#xFF1A;<code>br_add_bridge</code>&#xFF1B;</li>
+<li>&#x5220;&#x9664;&#x7F51;&#x6865;&#xFF1A;<code>br_del_bridge</code>&#xFF1B;</li>
+</ul>
 <h3 id="&#x521B;&#x5EFA;-bridge">&#x521B;&#x5EFA; bridge</h3>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">br_add_bridge</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> net *net, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *name)</span>
+</span>{
+    <span class="hljs-keyword">struct</span> net_device *dev;
+    <span class="hljs-keyword">int</span> res;
+
+    <span class="hljs-comment">// &#x7533;&#x8BF7;&#x7F51;&#x7EDC;&#x8BBE;&#x5907;</span>
+    dev = alloc_netdev(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> net_bridge), name, NET_NAME_UNKNOWN,
+               br_dev_setup);
+
+    ...
+    <span class="hljs-comment">// &#x6CE8;&#x518C;&#x7F51;&#x7EDC;&#x8BBE;&#x5907;</span>
+    res = register_netdevice(dev);
+    ...
+}
+
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> net_device_ops br_netdev_ops = {
+    <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x53D1;&#x5305;&#x51FD;&#x6570;&#x56DE;&#x8C03;</span>
+    .ndo_start_xmit         = br_dev_xmit,
+    <span class="hljs-comment">// &#x8BBE;&#x7F6E;dev ioctl</span>
+    .ndo_do_ioctl         = br_dev_ioctl,
+};
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">br_dev_setup</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> net_device *dev)</span>
+</span>{
+    <span class="hljs-keyword">struct</span> net_bridge *br = netdev_priv(dev);
+    ...
+    dev-&gt;netdev_ops = &amp;br_netdev_ops;
+    ...
+    br-&gt;dev = dev;
+    INIT_LIST_HEAD(&amp;br-&gt;port_list);
+    INIT_HLIST_HEAD(&amp;br-&gt;fdb_list);
+    <span class="hljs-comment">// &#x5B9A;&#x65F6;&#x6E05;&#x7406;&#x4EFB;&#x52A1;</span>
+    INIT_DELAYED_WORK(&amp;br-&gt;gc_work, br_fdb_cleanup);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">br_dev_ioctl</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> net_device *dev, <span class="hljs-keyword">struct</span> ifreq *rq, <span class="hljs-keyword">int</span> cmd)</span>
+</span>{
+    <span class="hljs-keyword">struct</span> net_bridge *br = netdev_priv(dev);
+
+    <span class="hljs-keyword">switch</span> (cmd) {
+    ...
+    <span class="hljs-keyword">case</span> SIOCBRADDIF:
+    <span class="hljs-keyword">case</span> SIOCBRDELIF:
+        <span class="hljs-keyword">return</span> add_del_if(br, rq-&gt;ifr_ifindex, cmd == SIOCBRADDIF);
+
+    }
+    ...
+}
+</code></pre>
+<p>&#x6CE8;&#x518C;dev ioctl&#x54CD;&#x5E94;&#x64CD;&#x4F5C;&#xFF0C;</p>
+<ul>
+<li>&#x7ED9;&#x7F51;&#x6865;&#x6DFB;&#x52A0;&#x7AEF;&#x53E3;&#xFF1A;<code>br_add_if</code>&#xFF1B;</li>
+<li>&#x7ED9;&#x7F51;&#x6865;&#x5220;&#x9664;&#x7AEF;&#x53E3;&#xFF1A;<code>br_del_if</code>&#xFF1B;</li>
+</ul>
+<h3 id="&#x7ED9;&#x7F51;&#x6865;&#x6DFB;&#x52A0;&#x7AEF;&#x53E3;">&#x7ED9;&#x7F51;&#x6865;&#x6DFB;&#x52A0;&#x7AEF;&#x53E3;</h3>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">br_add_if</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> net_bridge *br, <span class="hljs-keyword">struct</span> net_device *dev,
+          <span class="hljs-keyword">struct</span> netlink_ext_ack *extack)</span>
+</span>{
+    <span class="hljs-keyword">struct</span> net_bridge_port *p;
+    <span class="hljs-comment">// &#x521B;&#x5EFA;&#x65B0;&#x7684;&#x7F51;&#x6865;&#x7AEF;&#x53E3;</span>
+    p = new_nbp(br, dev);
+    <span class="hljs-comment">// &#x5C06;&#x7F51;&#x6865;&#x7AEF;&#x53E3;&#x6302;&#x5230;port_list&#x94FE;&#x8868;&#x4E0A;</span>
+    list_add_rcu(&amp;p-&gt;<span class="hljs-built_in">list</span>, &amp;br-&gt;port_list);
+    <span class="hljs-comment">// &#x63D2;&#x5165;net_bridge_fdb_entry&#x7ED3;&#x70B9;&#x5230;fdb_hash_tbl</span>
+    br_fdb_insert(br, p, dev-&gt;dev_addr, <span class="hljs-number">0</span>);
+}
+</code></pre>
 
                                 
                                 </section>
@@ -441,7 +595,7 @@ ip netns <span class="hljs-built_in">exec</span> ns2 ping 10.0.0.3
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"bridge","level":"1.3.1.5","depth":3,"next":{"title":"负载均衡","level":"1.3.2","depth":2,"path":"network/load_balance.md","ref":"./network/load_balance.md","articles":[{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]}]},"previous":{"title":"tun/tap设备","level":"1.3.1.4","depth":3,"path":"network/basic/tun-tap.md","ref":"./network/basic/tun-tap.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"katex":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/bridge.md","mtime":"2021-12-26T15:42:45.728Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-12-26T15:58:48.965Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"bridge","level":"1.3.1.5","depth":3,"next":{"title":"负载均衡","level":"1.3.2","depth":2,"path":"network/load_balance.md","ref":"./network/load_balance.md","articles":[{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]}]},"previous":{"title":"tun/tap设备","level":"1.3.1.4","depth":3,"path":"network/basic/tun-tap.md","ref":"./network/basic/tun-tap.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"katex":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/bridge.md","mtime":"2022-01-02T05:57:21.097Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-01-02T05:57:34.224Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
