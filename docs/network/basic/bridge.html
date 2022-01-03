@@ -417,11 +417,11 @@ ip netns <span class="hljs-built_in">exec</span> ns2 ping 10.0.0.3
 
 <span class="hljs-comment">// &#x8F6C;&#x53D1;&#x6570;&#x636E;&#x5E93;&#x7684;&#x8BB0;&#x5F55;&#x9879;&#x3002;&#x7F51;&#x6865;&#x6240;&#x5B66;&#x5230;&#x7684;&#x6BCF;&#x4E2A;MAC&#x5730;&#x5740;&#x90FD;&#x6709;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x8BB0;&#x5F55;&#x3002;&#xFF08;&#x8BB0;&#x5F55;MAC&#x5730;&#x5740;&#x548C;&#x7F51;&#x6865;&#x7AEF;&#x53E3;&#x7684;&#x6620;&#x5C04;&#x5173;&#x7CFB;&#xFF09;</span>
 <span class="hljs-keyword">struct</span> net_bridge_fdb_entry {
-    <span class="hljs-keyword">struct</span> rhash_head        rhnode;        <span class="hljs-comment">// fdb hash&#x8868;&#x8282;&#x70B9;</span>
+    <span class="hljs-keyword">struct</span> rhash_head        rhnode;        <span class="hljs-comment">// &#x8F6C;&#x53D1;&#x6570;&#x636E;&#x5E93;&#x8868;&#x8282;&#x70B9;</span>
     <span class="hljs-keyword">struct</span> net_bridge_port        *dst;    <span class="hljs-comment">// &#x7F51;&#x6865;&#x7AEF;&#x53E3;</span>
 
     <span class="hljs-keyword">struct</span> net_bridge_fdb_key    key;    <span class="hljs-comment">// MAC&#x5730;&#x5740;</span>
-    <span class="hljs-keyword">struct</span> hlist_node        fdb_node;    <span class="hljs-comment">// &#xFF1F;</span>
+    <span class="hljs-keyword">struct</span> hlist_node        fdb_node;    <span class="hljs-comment">// &#x8282;&#x70B9;</span>
     <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>            flags;
     ...
     <span class="hljs-keyword">struct</span> rcu_head            rcu;
@@ -432,15 +432,18 @@ ip netns <span class="hljs-built_in">exec</span> ns2 ping 10.0.0.3
     <span class="hljs-keyword">struct</span> net_bridge        *br;    <span class="hljs-comment">// &#x6240;&#x5C5E;&#x7F51;&#x6865;&#x8BBE;&#x5907;&#x5BF9;&#x8C61;</span>
     <span class="hljs-keyword">struct</span> net_device        *dev;    <span class="hljs-comment">// &#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x8BBE;&#x5907;&#x5BF9;&#x8C61;</span>
     <span class="hljs-keyword">struct</span> list_head        <span class="hljs-built_in">list</span>;    <span class="hljs-comment">// &#x94FE;&#x8868;&#x8282;&#x70B9;</span>
+    u8                priority;        <span class="hljs-comment">// &#x7AEF;&#x53E3;&#x4F18;&#x5148;&#x7EA7;</span>
+    u8                state;            <span class="hljs-comment">// &#x7AEF;&#x53E3;&#x72B6;&#x6001;</span>
     u16                port_no;        <span class="hljs-comment">// &#x7AEF;&#x53E3;&#x53F7;</span>
+    port_id            port_id;        <span class="hljs-comment">// &#x7AEF;&#x53E3;ID&#xFF08;&#x7531;priority&#x548C;port_no&#x8BA1;&#x7B97;&#x5F97;&#x5230;&#xFF09;</span>
     ...
 };
 
 <span class="hljs-keyword">struct</span> net_bridge {
     <span class="hljs-keyword">struct</span> net_device        *dev;            <span class="hljs-comment">// &#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x8BBE;&#x5907;&#x5BF9;&#x8C61;</span>
-    <span class="hljs-keyword">struct</span> rhashtable        fdb_hash_tbl;    <span class="hljs-comment">// fdb hash&#x8868;&#xFF08;net_bridge_fdb_entry&#xFF09;</span>
-    <span class="hljs-keyword">struct</span> list_head        port_list;        <span class="hljs-comment">// &#x7AEF;&#x53E3;&#x5217;&#x8868;&#xFF08;net_bridge_port&#xFF09;</span>
-    <span class="hljs-keyword">struct</span> hlist_head        fdb_list;        <span class="hljs-comment">// &#xFF1F;</span>
+    <span class="hljs-keyword">struct</span> rhashtable        fdb_hash_tbl;    <span class="hljs-comment">// &#x8F6C;&#x53D1;&#x6570;&#x636E;&#x5E93;&#xFF08;&#x8282;&#x70B9;&#xFF1A;net_bridge_fdb_entry&#xFF09;</span>
+    <span class="hljs-keyword">struct</span> list_head        port_list;        <span class="hljs-comment">// &#x7AEF;&#x53E3;&#x5217;&#x8868;&#xFF08;&#x8282;&#x70B9;&#xFF1A;net_bridge_port&#xFF09;</span>
+    <span class="hljs-keyword">struct</span> hlist_head        fdb_list;        <span class="hljs-comment">// fdb_create&#x65F6;&#xFF0C;&#x6302;&#x4E0D;&#x5230;fdb_hash_tbl&#x4E0A;&#xFF0C;&#x5219;&#x4F1A;&#x6302;&#x5230;fdb_list&#x4E0A;&#xFF08;&#x8282;&#x70B9;&#xFF1A;net_bridge_fdb_entry&#xFF09;</span>
     ...
 };
 </code></pre>
@@ -586,6 +589,153 @@ int br_ioctl_deviceless_stub(struct net *net, unsigned int cmd, void __user *uar
 
 <span class="hljs-function"><span class="hljs-keyword">static</span> rx_handler_result_t <span class="hljs-title">br_handle_frame</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> sk_buff **pskb)</span>
 </span>{
+    <span class="hljs-keyword">struct</span> net_bridge_port *p;
+    ...
+    <span class="hljs-keyword">switch</span> (p-&gt;state) {
+    <span class="hljs-comment">// &#x5224;&#x65AD;&#x7AEF;&#x53E3;&#x72B6;&#x6001;</span>
+    <span class="hljs-keyword">case</span> BR_STATE_FORWARDING:
+    <span class="hljs-keyword">case</span> BR_STATE_LEARNING:
+        <span class="hljs-keyword">if</span> (ether_addr_equal(p-&gt;br-&gt;dev-&gt;dev_addr, dest))
+            skb-&gt;pkt_type = PACKET_HOST;
+        <span class="hljs-comment">// &#x6267;&#x884C;NF_BR_PRE_ROUTING&#x4E0A;&#x7684;&#x94A9;&#x5B50;&#xFF0C;&#x7136;&#x540E;&#x8C03;&#x7528;br_handle_frame_finish</span>
+        <span class="hljs-keyword">return</span> nf_hook_bridge_pre(skb, pskb);
+    ...
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">br_handle_frame_finish</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> net *net, <span class="hljs-keyword">struct</span> sock *sk, <span class="hljs-keyword">struct</span> sk_buff *skb)</span>
+</span>{
+    ...
+    <span class="hljs-comment">// &#x66F4;&#x65B0;&#x8F6C;&#x53D1;&#x6570;&#x636E;&#x5E93;</span>
+    <span class="hljs-keyword">if</span> (p-&gt;flags &amp; BR_LEARNING)
+        br_fdb_update(br, p, eth_hdr(skb)-&gt;h_source, vid, <span class="hljs-number">0</span>);
+
+    <span class="hljs-keyword">switch</span> (pkt_type) {
+    <span class="hljs-keyword">case</span> BR_PKT_MULTICAST:
+        ...
+        <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> BR_PKT_UNICAST:
+        <span class="hljs-comment">// &#x5355;&#x64AD;&#xFF0C;&#x6839;&#x636E;&#x76EE;&#x7684;MAC&#x5730;&#x5740;&#x627E;&#x5230;net_bridge_fdb_entry</span>
+        dst = br_fdb_find_rcu(br, eth_hdr(skb)-&gt;h_dest, vid);
+        <span class="hljs-keyword">break</span>;
+    ...
+    }
+
+    <span class="hljs-keyword">if</span> (dst) {
+        <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> now = jiffies;
+
+        <span class="hljs-comment">// &#x5982;&#x679C;dst&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;&#x672C;&#x5730;&#xFF0C;&#x5219;&#x76F4;&#x63A5;&#x5411;&#x4E0A;&#x4F20;&#x9012;&#x5904;&#x7406;</span>
+        <span class="hljs-keyword">if</span> (test_bit(BR_FDB_LOCAL, &amp;dst-&gt;flags))
+            <span class="hljs-keyword">return</span> br_pass_frame_up(skb);
+
+        <span class="hljs-comment">// &#x5C06;&#x6570;&#x636E;&#x5305;&#x8F6C;&#x53D1;&#x7ED9;&#x6307;&#x5B9A;&#x7AEF;&#x53E3;</span>
+        br_forward(dst-&gt;dst, skb, local_rcv, <span class="hljs-literal">false</span>);
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">if</span> (!mcast_hit)
+            <span class="hljs-comment">// &#x5BF9;&#x7F51;&#x6865;&#x4E0A;&#x7684;&#x6BCF;&#x4E2A;&#x7AEF;&#x53E3;&#x6269;&#x6563;&#x6570;&#x636E;&#x5305;</span>
+            br_flood(br, skb, pkt_type, local_rcv, <span class="hljs-literal">false</span>);
+        <span class="hljs-keyword">else</span>
+            <span class="hljs-comment">// &#x5BF9;&#x591A;&#x4E2A;&#x76EE;&#x7684;&#x5730;&#x5740;&#x8FDB;&#x884C;&#x6269;&#x6563;&#x6570;&#x636E;&#x5305;</span>
+            br_multicast_flood(mdst, skb, local_rcv, <span class="hljs-literal">false</span>);
+    }
+
+    <span class="hljs-keyword">if</span> (local_rcv)
+        <span class="hljs-comment">// &#x672C;&#x5730;&#x63A5;&#x6536;&#x5219;&#x5411;&#x4E0A;&#x4F20;&#x9012;&#x6570;&#x636E;&#x5305;</span>
+        <span class="hljs-keyword">return</span> br_pass_frame_up(skb);
+    ...
+}
+</code></pre>
+<h4 id="&#x5C06;&#x6570;&#x636E;&#x5305;&#x8F6C;&#x53D1;&#x7ED9;&#x6307;&#x5B9A;&#x7AEF;&#x53E3;">&#x5C06;&#x6570;&#x636E;&#x5305;&#x8F6C;&#x53D1;&#x7ED9;&#x6307;&#x5B9A;&#x7AEF;&#x53E3;</h4>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">br_forward</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> net_bridge_port *to,
+        <span class="hljs-keyword">struct</span> sk_buff *skb, <span class="hljs-keyword">bool</span> local_rcv, <span class="hljs-keyword">bool</span> local_orig)</span>
+</span>{
+    ...
+    __br_forward(to, skb, local_orig);
+    ...
+}
+
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> __br_forward(<span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> net_bridge_port *to,
+             <span class="hljs-keyword">struct</span> sk_buff *skb, <span class="hljs-keyword">bool</span> local_orig)
+{
+    ...
+    indev = skb-&gt;dev;
+    <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5305;&#x7684;dev&#x4E3A;&#x76EE;&#x7684;&#x7AEF;&#x53E3;dev</span>
+    skb-&gt;dev = to-&gt;dev;
+    <span class="hljs-keyword">if</span> (!local_orig) {
+        <span class="hljs-comment">// &#x6570;&#x636E;&#x5305;&#x4E0D;&#x662F;&#x6765;&#x81EA;&#x672C;&#x5730;&#xFF0C;&#x5219;&#x8D70;forward</span>
+        br_hook = NF_BR_FORWARD;
+        net = dev_net(indev);
+        ...
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">// &#x6570;&#x636E;&#x5305;&#x6765;&#x81EA;&#x672C;&#x5730;&#xFF0C;&#x5219;&#x8D70;local_out</span>
+        br_hook = NF_BR_LOCAL_OUT;
+        net = dev_net(skb-&gt;dev);
+        ...
+    }
+
+    <span class="hljs-comment">// &#x6267;&#x884C;&#x5BF9;&#x5E94;&#x94A9;&#x5B50;&#x6D41;&#x7A0B;</span>
+    NF_HOOK(NFPROTO_BRIDGE, br_hook,
+        net, <span class="hljs-literal">NULL</span>, skb, indev, skb-&gt;dev,
+        br_forward_finish);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">br_forward_finish</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> net *net, <span class="hljs-keyword">struct</span> sock *sk, <span class="hljs-keyword">struct</span> sk_buff *skb)</span>
+</span>{
+    <span class="hljs-comment">// &#x6267;&#x884C;NF_BR_POST_ROUTING&#x94A9;&#x5B50;&#x6D41;&#x7A0B;</span>
+    <span class="hljs-keyword">return</span> NF_HOOK(NFPROTO_BRIDGE, NF_BR_POST_ROUTING,
+               net, sk, skb, <span class="hljs-literal">NULL</span>, skb-&gt;dev,
+               br_dev_queue_push_xmit);
+
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">br_dev_queue_push_xmit</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> net *net, <span class="hljs-keyword">struct</span> sock *sk, <span class="hljs-keyword">struct</span> sk_buff *skb)</span>
+</span>{
+    ...
+    <span class="hljs-comment">// &#x8D70;&#x961F;&#x5217;&#x53D1;&#x9001;</span>
+    dev_queue_xmit(skb);
+    ...
+}
+</code></pre>
+<p><code>dev_queue_xmit</code>&#x6700;&#x7EC8;&#x4F1A;&#x8C03;&#x7528;&#x51FD;&#x6570;&#x6307;&#x9488;<code>ndo_start_xmit</code>&#x8FDB;&#x884C;&#x53D1;&#x9001;&#xFF0C;</p>
+<ul>
+<li>&#x53EF;&#x80FD;&#x8C03;&#x7528;NIC&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x56DE;&#x8C03;</li>
+<li>&#x53EF;&#x80FD;&#x8C03;&#x7528;&#x7F51;&#x6865;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x56DE;&#x8C03;&#xFF08;br_dev_xmit&#xFF09;</li>
+</ul>
+<h4 id="&#x5C06;&#x6570;&#x636E;&#x5305;&#x8F6C;&#x53D1;&#x7ED9;&#x7F51;&#x6865;&#x6240;&#x6709;&#x7AEF;&#x53E3;">&#x5C06;&#x6570;&#x636E;&#x5305;&#x8F6C;&#x53D1;&#x7ED9;&#x7F51;&#x6865;&#x6240;&#x6709;&#x7AEF;&#x53E3;</h4>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">br_flood</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> net_bridge *br, <span class="hljs-keyword">struct</span> sk_buff *skb,
+          <span class="hljs-keyword">enum</span> br_pkt_type pkt_type, <span class="hljs-keyword">bool</span> local_rcv, <span class="hljs-keyword">bool</span> local_orig)</span>
+</span>{
+    <span class="hljs-keyword">struct</span> net_bridge_port *prev = <span class="hljs-literal">NULL</span>;
+    <span class="hljs-keyword">struct</span> net_bridge_port *p;
+
+    <span class="hljs-comment">// &#x904D;&#x5386;&#x7F51;&#x6865;&#x4E0A;&#x7684;&#x7AEF;&#x53E3;&#x5217;&#x8868;</span>
+    list_for_each_entry_rcu(p, &amp;br-&gt;port_list, <span class="hljs-built_in">list</span>) {
+        ...
+        prev = maybe_deliver(prev, p, skb, local_orig);
+        ...
+    }
+    ...
+    <span class="hljs-comment">// &#x8F6C;&#x53D1;&#x5305;&#x5230;&#x6307;&#x5B9A;&#x7AEF;&#x53E3;</span>
+    __br_forward(prev, skb, local_orig);
+    ...
+}
+
+<span class="hljs-keyword">netdev_tx_t</span> br_dev_xmit(<span class="hljs-keyword">struct</span> sk_buff *skb, <span class="hljs-keyword">struct</span> net_device *dev)
+{
+    dest = eth_hdr(skb)-&gt;h_dest;
+    <span class="hljs-keyword">if</span> (is_broadcast_ether_addr(dest)) {
+        <span class="hljs-comment">// &#x5982;&#x679C;&#x662F;&#x5E7F;&#x64AD;&#x5730;&#x5740;&#xFF0C;&#x5219;&#x8C03;&#x7528;br_flood&#x8FDB;&#x884C;&#x6570;&#x636E;&#x5305;&#x6269;&#x6563;</span>
+        br_flood(br, skb, BR_PKT_BROADCAST, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (is_multicast_ether_addr(dest)) {
+        <span class="hljs-comment">// &#x5982;&#x679C;&#x662F;&#x591A;&#x64AD;&#x5730;&#x5740;&#xFF0C;&#x5219;&#x8C03;&#x7528;br_flood&#x8FDB;&#x884C;&#x6570;&#x636E;&#x5305;&#x6269;&#x6563;</span>
+        br_flood(br, skb, BR_PKT_MULTICAST, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ((dst = br_fdb_find_rcu(br, dest, vid)) != <span class="hljs-literal">NULL</span>) {
+        <span class="hljs-comment">// &#x5982;&#x679C;&#x662F;&#x5355;&#x64AD;&#x5730;&#x5740;&#xFF0C;&#x5219;&#x8C03;&#x7528;br_forward&#x5BF9;&#x6307;&#x5B9A;&#x7AEF;&#x53E3;&#x8F6C;&#x53D1;</span>
+        br_forward(dst-&gt;dst, skb, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);
+    } <span class="hljs-keyword">else</span> {
+        br_flood(br, skb, BR_PKT_UNICAST, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);
+    }
+    ...
 }
 </code></pre>
 
@@ -631,7 +781,7 @@ int br_ioctl_deviceless_stub(struct net *net, unsigned int cmd, void __user *uar
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"bridge","level":"1.3.1.5","depth":3,"next":{"title":"负载均衡","level":"1.3.2","depth":2,"path":"network/load_balance.md","ref":"./network/load_balance.md","articles":[{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]}]},"previous":{"title":"tun/tap设备","level":"1.3.1.4","depth":3,"path":"network/basic/tun-tap.md","ref":"./network/basic/tun-tap.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"katex":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/bridge.md","mtime":"2022-01-02T16:15:46.547Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-01-02T16:15:59.150Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"bridge","level":"1.3.1.5","depth":3,"next":{"title":"负载均衡","level":"1.3.2","depth":2,"path":"network/load_balance.md","ref":"./network/load_balance.md","articles":[{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]}]},"previous":{"title":"tun/tap设备","level":"1.3.1.4","depth":3,"path":"network/basic/tun-tap.md","ref":"./network/basic/tun-tap.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"katex":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/bridge.md","mtime":"2022-01-03T06:51:46.284Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-01-03T06:52:42.177Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

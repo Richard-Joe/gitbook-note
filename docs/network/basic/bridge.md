@@ -79,11 +79,11 @@ struct net_bridge_fdb_key {
 
 // 转发数据库的记录项。网桥所学到的每个MAC地址都有这样一个记录。（记录MAC地址和网桥端口的映射关系）
 struct net_bridge_fdb_entry {
-	struct rhash_head		rhnode;		// fdb hash表节点
+	struct rhash_head		rhnode;		// 转发数据库表节点
 	struct net_bridge_port		*dst;	// 网桥端口
 
 	struct net_bridge_fdb_key	key;	// MAC地址
-	struct hlist_node		fdb_node;	// ？
+	struct hlist_node		fdb_node;	// 节点
 	unsigned long			flags;
 	...
 	struct rcu_head			rcu;
@@ -94,15 +94,18 @@ struct net_bridge_port {
 	struct net_bridge		*br;	// 所属网桥设备对象
 	struct net_device		*dev;	// 网络接口设备对象
 	struct list_head		list;	// 链表节点
+	u8				priority;		// 端口优先级
+	u8				state;			// 端口状态
 	u16				port_no;		// 端口号
+	port_id			port_id;		// 端口ID（由priority和port_no计算得到）
 	...
 };
 
 struct net_bridge {
 	struct net_device		*dev;			// 网络接口设备对象
-	struct rhashtable		fdb_hash_tbl;	// fdb hash表（net_bridge_fdb_entry）
-	struct list_head		port_list;		// 端口列表（net_bridge_port）
-	struct hlist_head		fdb_list;		// ？
+	struct rhashtable		fdb_hash_tbl;	// 转发数据库（节点：net_bridge_fdb_entry）
+	struct list_head		port_list;		// 端口列表（节点：net_bridge_port）
+	struct hlist_head		fdb_list;		// fdb_create时，挂不到fdb_hash_tbl上，则会挂到fdb_list上（节点：net_bridge_fdb_entry）
 	...
 };
 ```
@@ -256,5 +259,157 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
 
 static rx_handler_result_t br_handle_frame(struct sk_buff **pskb)
 {
+	struct net_bridge_port *p;
+	...
+	switch (p->state) {
+	// 判断端口状态
+	case BR_STATE_FORWARDING:
+	case BR_STATE_LEARNING:
+		if (ether_addr_equal(p->br->dev->dev_addr, dest))
+			skb->pkt_type = PACKET_HOST;
+		// 执行NF_BR_PRE_ROUTING上的钩子，然后调用br_handle_frame_finish
+		return nf_hook_bridge_pre(skb, pskb);
+	...
+	}
+}
+
+int br_handle_frame_finish(struct net *net, struct sock *sk, struct sk_buff *skb)
+{
+	...
+	// 更新转发数据库
+	if (p->flags & BR_LEARNING)
+		br_fdb_update(br, p, eth_hdr(skb)->h_source, vid, 0);
+
+	switch (pkt_type) {
+	case BR_PKT_MULTICAST:
+		...
+		break;
+	case BR_PKT_UNICAST:
+		// 单播，根据目的MAC地址找到net_bridge_fdb_entry
+		dst = br_fdb_find_rcu(br, eth_hdr(skb)->h_dest, vid);
+		break;
+	...
+	}
+	
+	if (dst) {
+		unsigned long now = jiffies;
+
+		// 如果dst被设置为本地，则直接向上传递处理
+		if (test_bit(BR_FDB_LOCAL, &dst->flags))
+			return br_pass_frame_up(skb);
+
+		// 将数据包转发给指定端口
+		br_forward(dst->dst, skb, local_rcv, false);
+	} else {
+		if (!mcast_hit)
+			// 对网桥上的每个端口扩散数据包
+			br_flood(br, skb, pkt_type, local_rcv, false);
+		else
+			// 对多个目的地址进行扩散数据包
+			br_multicast_flood(mdst, skb, local_rcv, false);
+	}
+
+	if (local_rcv)
+		// 本地接收则向上传递数据包
+		return br_pass_frame_up(skb);
+	...
+}
+```
+
+#### 将数据包转发给指定端口
+
+```c
+void br_forward(const struct net_bridge_port *to,
+		struct sk_buff *skb, bool local_rcv, bool local_orig)
+{
+	...
+	__br_forward(to, skb, local_orig);
+	...
+}
+
+static void __br_forward(const struct net_bridge_port *to,
+			 struct sk_buff *skb, bool local_orig)
+{
+	...
+	indev = skb->dev;
+	// 设置数据包的dev为目的端口dev
+	skb->dev = to->dev;
+	if (!local_orig) {
+		// 数据包不是来自本地，则走forward
+		br_hook = NF_BR_FORWARD;
+		net = dev_net(indev);
+		...
+	} else {
+		// 数据包来自本地，则走local_out
+		br_hook = NF_BR_LOCAL_OUT;
+		net = dev_net(skb->dev);
+		...
+	}
+
+	// 执行对应钩子流程
+	NF_HOOK(NFPROTO_BRIDGE, br_hook,
+		net, NULL, skb, indev, skb->dev,
+		br_forward_finish);
+}
+
+int br_forward_finish(struct net *net, struct sock *sk, struct sk_buff *skb)
+{
+	// 执行NF_BR_POST_ROUTING钩子流程
+	return NF_HOOK(NFPROTO_BRIDGE, NF_BR_POST_ROUTING,
+		       net, sk, skb, NULL, skb->dev,
+		       br_dev_queue_push_xmit);
+
+}
+
+int br_dev_queue_push_xmit(struct net *net, struct sock *sk, struct sk_buff *skb)
+{
+	...
+	// 走队列发送
+	dev_queue_xmit(skb);
+	...
+}
+```
+
+`dev_queue_xmit`最终会调用函数指针`ndo_start_xmit`进行发送，
+- 可能调用NIC设备驱动程序回调
+- 可能调用网桥设备驱动程序回调（br_dev_xmit）
+
+#### 将数据包转发给网桥所有端口
+
+```c
+void br_flood(struct net_bridge *br, struct sk_buff *skb,
+	      enum br_pkt_type pkt_type, bool local_rcv, bool local_orig)
+{
+	struct net_bridge_port *prev = NULL;
+	struct net_bridge_port *p;
+
+	// 遍历网桥上的端口列表
+	list_for_each_entry_rcu(p, &br->port_list, list) {
+		...
+		prev = maybe_deliver(prev, p, skb, local_orig);
+		...
+	}
+	...
+	// 转发包到指定端口
+	__br_forward(prev, skb, local_orig);
+	...
+}
+
+netdev_tx_t br_dev_xmit(struct sk_buff *skb, struct net_device *dev)
+{
+	dest = eth_hdr(skb)->h_dest;
+	if (is_broadcast_ether_addr(dest)) {
+		// 如果是广播地址，则调用br_flood进行数据包扩散
+		br_flood(br, skb, BR_PKT_BROADCAST, false, true);
+	} else if (is_multicast_ether_addr(dest)) {
+		// 如果是多播地址，则调用br_flood进行数据包扩散
+		br_flood(br, skb, BR_PKT_MULTICAST, false, true);
+	} else if ((dst = br_fdb_find_rcu(br, dest, vid)) != NULL) {
+		// 如果是单播地址，则调用br_forward对指定端口转发
+		br_forward(dst->dst, skb, false, true);
+	} else {
+		br_flood(br, skb, BR_PKT_UNICAST, false, true);
+	}
+	...
 }
 ```
