@@ -1,6 +1,7 @@
 {
   "plugins": [
     "intopic-toc",
-    "katex"
+    "katex",
+    "expandable-chapters"
   ]
 }
