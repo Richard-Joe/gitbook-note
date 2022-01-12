@@ -23,4 +23,5 @@
   * 工作负载
     * [Jobs](./Kubernetes/Jobs.md)
     * [CronJob](./Kubernetes/CronJob.md)
+  * [CRD](./Kubernetes/CRD.md)
 
