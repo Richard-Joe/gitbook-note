@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>docker设置代理实现从外网拉取镜像 · GitBook</title>
+        <title>编译安装ovs · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -69,10 +69,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="install-ovs.html" />
     
-    
-    <link rel="prev" href="centos-install-v2ray.html" />
+    <link rel="prev" href="docker-pull-use-proxy.html" />
     
 
     </head>
@@ -431,7 +429,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.1.2" data-path="docker-pull-use-proxy.html">
+        <li class="chapter " data-level="2.1.2" data-path="docker-pull-use-proxy.html">
             
                 <a href="docker-pull-use-proxy.html">
             
@@ -444,7 +442,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.3" data-path="install-ovs.html">
+        <li class="chapter active" data-level="2.1.3" data-path="install-ovs.html">
             
                 <a href="install-ovs.html">
             
@@ -492,7 +490,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >docker设置代理实现从外网拉取镜像</a>
+        <a href=".." >编译安装ovs</a>
     </h1>
 </div>
 
@@ -507,45 +505,196 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="docker&#x8BBE;&#x7F6E;proxy&#x62C9;&#x53D6;&#x5916;&#x7F51;&#x955C;&#x50CF;">docker&#x8BBE;&#x7F6E;PROXY&#x62C9;&#x53D6;&#x5916;&#x7F51;&#x955C;&#x50CF;</h1>
-<p>&#x4FEE;&#x6539;&#x914D;&#x7F6E;</p>
-<pre><code class="lang-bash"><span class="hljs-comment"># mkdir -p /etc/systemd/system/docker.service.d</span>
+                                <h1 id="&#x7F16;&#x8BD1;&#x5B89;&#x88C5;ovs">&#x7F16;&#x8BD1;&#x5B89;&#x88C5;ovs</h1>
+<h2 id="&#x6784;&#x5EFA;">&#x6784;&#x5EFA;</h2>
+<p>&#x73AF;&#x5883;&#xFF1A;Ubuntu20.04</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x5B89;&#x88C5;&#x4F9D;&#x8D56;</span>
+apt-get update
+apt-get -y install build-essential fakeroot
+apt-get -y install graphviz autoconf automake bzip2 debhelper dh-autoreconf libssl-dev libtool openssl
+apt-get -y install procps python3-all python3-sphinx python3-twisted python3-zope.interface libunbound-dev libunwind-dev
 
-<span class="hljs-comment"># vi /etc/systemd/system/docker.service.d/http-proxy.conf</span>
-[Service]
-Environment=<span class="hljs-string">&quot;HTTP_PROXY=127.0.0.1:10809&quot;</span>
+<span class="hljs-comment"># &#x4E0B;&#x8F7D;&#x4EE3;&#x7801;</span>
+git <span class="hljs-built_in">clone</span> https://github.com/openvswitch/ovs.git
+git checkout branch-2.17
 
-<span class="hljs-comment"># vi /etc/systemd/system/docker.service.d/https-proxy.conf</span>
-[Service]
-Environment=<span class="hljs-string">&quot;HTTPS_PROXY=127.0.0.1:10809&quot;</span>
+<span class="hljs-comment"># &#x8FDB;&#x5165;&#x6E90;&#x7801;&#x76EE;&#x5F55;</span>
+<span class="hljs-built_in">cd</span> ovs
+
+<span class="hljs-comment"># &#x68C0;&#x67E5;&#x4F9D;&#x8D56;</span>
+<span class="hljs-comment"># if everything is ok then this should return no output</span>
+dpkg-checkbuilddeps
+
+<span class="hljs-comment"># &#x6784;&#x5EFA;configure&#x811A;&#x672C;</span>
+./boot.sh
+
+<span class="hljs-comment"># &#x914D;&#x7F6E;</span>
+./configure
+
+<span class="hljs-comment"># &#x7F16;&#x8BD1;&#x5E76;&#x5B89;&#x88C5;&#xFF08;&#x9ED8;&#x8BA4;&#x5B89;&#x88C5;&#x5728;/usr/local&#x4E0B;&#xFF09;</span>
+make
+make install
+
+<span class="hljs-comment"># &#x52A0;&#x8F7D;&#x5185;&#x6838;&#x6A21;&#x5757;</span>
+modprobe openvswitch
+
+<span class="hljs-comment"># &#x67E5;&#x770B;&#x6A21;&#x5757;</span>
+lsmod | grep openvswitch
+
+<span class="hljs-comment"># &#x542F;&#x52A8;</span>
+ovs-ctl start
 </code></pre>
-<p>&#x91CD;&#x542F;docker</p>
-<pre><code class="lang-bash"><span class="hljs-comment"># systemctl daemon-reload</span>
-<span class="hljs-comment"># systemctl restart docker</span>
-
-<span class="hljs-comment"># docker info</span>
- HTTP Proxy: 127.0.0.1:10809
- HTTPS Proxy: 127.0.0.1:10809
+<h2 id="&#x9A8C;&#x8BC1;">&#x9A8C;&#x8BC1;</h2>
+<pre><code class="lang-bash">ovs-vsctl add-br br0
+ovs-vsctl show
 </code></pre>
-<p>&#x62C9;&#x53D6;&#x955C;&#x50CF;</p>
-<pre><code class="lang-bash"><span class="hljs-comment"># docker pull k8s.gcr.io/ingress-nginx/controller:v1.1.1</span>
-v1.1.1: Pulling from ingress-nginx/controller
-a0d0a0d46f8b: Pull complete 
-3aae86482564: Pull complete 
-c0d03781abb3: Pull complete 
-0297e2ef8f7f: Pull complete 
-866a68ce3c13: Pull complete 
-95659ee0b3b1: Pull complete 
-004aaf0049fd: Pull complete 
-79acb83cc767: Pull complete 
-152f0f0a27e1: Pull complete 
-256313a1425c: Pull complete 
-81e081df9e03: Pull complete 
-1b6179f6007a: Pull complete 
-3e4300421da9: Pull complete 
-Digest: sha256:0bc88eb15f9e7f84e8e56c14fa5735aaa488b840983f87bd79b1054190e660de
-Status: Downloaded newer image <span class="hljs-keyword">for</span> k8s.gcr.io/ingress-nginx/controller:v1.1.1
-k8s.gcr.io/ingress-nginx/controller:v1.1.1
+<h2 id="&#x6C99;&#x76D2;">&#x6C99;&#x76D2;</h2>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x6A21;&#x62DF;&#x73AF;&#x5883;</span>
+<span class="hljs-built_in">cd</span> ovs
+./tutorial/ovs-sandbox
+----------------------------------------------------------------------
+You are running <span class="hljs-keyword">in</span> a dummy Open vSwitch environment.  You can use
+ovs-vsctl, ovs-ofctl, ovs-appctl, and other tools to work with the
+dummy switch.
+
+Log files, pidfiles, and the configuration database are <span class="hljs-keyword">in</span> the
+<span class="hljs-string">&quot;sandbox&quot;</span> subdirectory.
+
+Exit the shell to <span class="hljs-built_in">kill</span> the running daemons.
+</code></pre>
+<h2 id="&#x642D;&#x5EFA;-faucet">&#x642D;&#x5EFA; Faucet</h2>
+<pre><code class="lang-bash">git <span class="hljs-built_in">clone</span> https://github.com/faucetsdn/faucet.git
+<span class="hljs-built_in">cd</span> faucet
+latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1))
+git checkout <span class="hljs-variable">$latest_tag</span>
+
+<span class="hljs-comment"># &#x6784;&#x5EFA;&#x955C;&#x50CF;</span>
+<span class="hljs-comment"># --- &#x4F1A;&#x5F88;&#x6162;&#xFF0C;&#x4FEE;&#x6539;&#x811A;&#x672C;install-faucet.sh </span>
+<span class="hljs-comment"># --- &#x4FEE;&#x6539;alpine&#x6E90;&#xFF1A;sed -i &apos;s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g&apos; /etc/apk/repositories</span>
+<span class="hljs-comment"># --- &#x4FEE;&#x6539;pip3&#x6E90;&#xFF1A;pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple</span>
+docker build -t faucet/faucet <span class="hljs-_">-f</span> Dockerfile.faucet .
+
+<span class="hljs-comment"># Faucet &#x914D;&#x7F6E;&#x5C06;&#x5199;&#x5165;inst/faucet.yaml&#xFF0C;&#x5176;&#x4E3B;&#x65E5;&#x5FD7;&#x5199;&#x5165;inst/faucet.log</span>
+mkdir inst
+
+<span class="hljs-comment"># &#x521B;&#x5EFA;&#x5BB9;&#x5668;&#x5E76;&#x542F;&#x7528;</span>
+docker run <span class="hljs-_">-d</span> --name faucet --restart=always -v $(<span class="hljs-built_in">pwd</span>)/inst/:/etc/faucet/ -v $(<span class="hljs-built_in">pwd</span>)/inst/:/var/<span class="hljs-built_in">log</span>/faucet/ -p 6653:6653 -p 9302:9302 faucet/faucet
+
+<span class="hljs-comment"># &#x67E5;&#x770B;&#x65E5;&#x5FD7;inst/faucet.log&#xFF08;&#x8FD8;&#x6CA1;&#x521B;&#x5EFA;inst/faucet.yaml&#xFF0C;&#x4F1A;&#x542F;&#x52A8;&#x5931;&#x8D25;&#xFF09;</span>
+
+<span class="hljs-comment"># &#x7F16;&#x5199;&#x914D;&#x7F6E;inst/faucet.yaml</span>
+dps:
+    switch-1:
+        dp_id: 0x1
+        timeout: 3600
+        arp_neighbor_timeout: 1200
+        interfaces:
+            1:
+                native_vlan: 100
+            2:
+                native_vlan: 100
+            3:
+                native_vlan: 100
+            4:
+                native_vlan: 200
+            5:
+                native_vlan: 200
+vlans:
+    100:
+    200:
+
+<span class="hljs-comment"># &#x91CD;&#x542F;faucet&#x5BB9;&#x5668;</span>
+docker restart faucet
+
+<span class="hljs-comment"># &#x67E5;&#x770B;inst/faucet.log</span>
+Feb 27 09:05:51 faucet INFO     Add new datapath DPID 1 (0x1)
+<span class="hljs-comment"># Faucet &#x73B0;&#x5728;&#x6B63;&#x5728;&#x7B49;&#x5F85;&#x6570;&#x636E;&#x8DEF;&#x5F84; ID &#x4E3A; 0x1 &#x7684;&#x4EA4;&#x6362;&#x673A;&#x901A;&#x8FC7; OpenFlow &#x8FDE;&#x63A5;&#x5230;&#x5B83;</span>
+
+<span class="hljs-comment"># &#x4F7F;&#x7528; OVS &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x4EA4;&#x6362;&#x673A;&#x5E76;&#x4F7F;&#x5176;&#x8FDE;&#x63A5;&#x5230; Faucet</span>
+<span class="hljs-comment"># &#x5728;sandbox&#x4E2D;&#xFF0C;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x540D;&#x4E3A; br0 &#x7684;&#x4EA4;&#x6362;&#x673A;&#xFF0C;&#x5C06;&#x5176;&#x6570;&#x636E;&#x8DEF;&#x5F84; ID &#x8BBE;&#x7F6E;&#x4E3A; 0x1&#xFF0C;&#x5411;&#x5176;&#x6DFB;&#x52A0;&#x540D;&#x4E3A;p1~p5&#x7684;&#x6A21;&#x62DF;&#x7AEF;&#x53E3;&#xFF0C;&#x5E76;&#x544A;&#x8BC9;&#x5B83;&#x8FDE;&#x63A5;&#x5230;faucet&#x3002;</span>
+ovs-vsctl add-br br0 \
+         -- <span class="hljs-built_in">set</span> bridge br0 other-config:datapath-id=0000000000000001 \
+         -- add-port br0 p1 -- <span class="hljs-built_in">set</span> interface p1 ofport_request=1 \
+         -- add-port br0 p2 -- <span class="hljs-built_in">set</span> interface p2 ofport_request=2 \
+         -- add-port br0 p3 -- <span class="hljs-built_in">set</span> interface p3 ofport_request=3 \
+         -- add-port br0 p4 -- <span class="hljs-built_in">set</span> interface p4 ofport_request=4 \
+         -- add-port br0 p5 -- <span class="hljs-built_in">set</span> interface p5 ofport_request=5 \
+         -- <span class="hljs-built_in">set</span>-controller br0 tcp:127.0.0.1:6653 \
+         -- <span class="hljs-built_in">set</span> controller br0 connection-mode=out-of-band
+
+<span class="hljs-comment"># &#x67E5;&#x770B;inst/faucet.log&#xFF08;faucet &#x8BC6;&#x522B;&#x5E76;&#x914D;&#x7F6E;&#x4E86;&#x65B0;&#x4EA4;&#x6362;&#x673A;&#x53CA;&#x5176;&#x7AEF;&#x53E3;&#xFF09;</span>
+Feb 27 09:11:43 faucet.valve INFO     DPID 1 (0x1) switch-1 Configuring VLAN 100 vid:100 untagged: Port 1,Port 2,Port 3
+Feb 27 09:11:43 faucet.valve INFO     DPID 1 (0x1) switch-1 Configuring VLAN 200 vid:200 untagged: Port 4,Port 5
+Feb 27 09:17:00 faucet.valve INFO     DPID 1 (0x1) switch-1 Port 1 (1) up
+Feb 27 09:17:00 faucet.valve INFO     DPID 1 (0x1) switch-1 Port 2 (2) up
+Feb 27 09:17:00 faucet.valve INFO     DPID 1 (0x1) switch-1 Port 3 (3) up
+Feb 27 09:17:00 faucet.valve INFO     DPID 1 (0x1) switch-1 Port 4 (4) up
+Feb 27 09:17:00 faucet.valve INFO     DPID 1 (0x1) switch-1 Port 5 (5) up
+
+<span class="hljs-comment"># &#x67E5;&#x770B;sandbox/ovs-vswitchd.log&#xFF08;OpenFlow &#x4F1A;&#x8BDD;&#x8BBE;&#x7F6E;&#x548C; Faucet &#x5BF9;&#x4EA4;&#x6362;&#x673A;&#x7AEF;&#x53E3;&#x548C;&#x529F;&#x80FD;&#x7684;&#x63A2;&#x6D4B;&#xFF09;</span>
+
+<span class="hljs-comment"># &#x76EE;&#x524D;&#x62E5;&#x6709;&#x4EE5;&#x4E0B;&#x8868;</span>
+Table 0 (vlan)
+    Ingress VLAN processing
+Table 1 (eth_src)
+    Ingress L2 processing, MAC learning
+Table 2 (eth_dst)
+    Egress L2 processing
+Table 3 (flood)
+    Flooding
+</code></pre>
+<h3 id="mac-&#x5B66;&#x4E60;">MAC &#x5B66;&#x4E60;</h3>
+<pre><code class="lang-bash">save-flows br0 &gt; flows1
+ovs-appctl ofproto/trace br0 <span class="hljs-keyword">in</span>_port=p1,dl_src=00:11:11:00:00:00,dl_dst=00:22:22:00:00:00 -generate
+diff-flows flows1 br0
+</code></pre>
+<h2 id="&#x8DEF;&#x7531;">&#x8DEF;&#x7531;</h2>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x542F;&#x7528;&#x8DEF;&#x7531;&#xFF0C;&#x7F16;&#x8F91;inst/faucet.yaml</span>
+vlans:
+    100:
+        faucet_vips: [<span class="hljs-string">&quot;10.100.0.254/24&quot;</span>]
+    200:
+        faucet_vips: [<span class="hljs-string">&quot;10.200.0.254/24&quot;</span>]
+routers:
+    router-1:
+        vlans: [100, 200]
+
+<span class="hljs-comment"># &#x91CD;&#x65B0;&#x52A0;&#x8F7D;&#x914D;&#x7F6E;</span>
+docker <span class="hljs-built_in">exec</span> faucet pkill -HUP <span class="hljs-_">-f</span> faucet.faucet
+
+<span class="hljs-comment"># &#x589E;&#x52A0;&#x4E86;FIB&#x548C;VIP&#x8868;</span>
+Table 0 (vlan)
+    Ingress VLAN processing
+Table 1 (eth_src)
+    Ingress L2 processing, MAC learning
+Table 2 (ipv4_fib)
+    L3 forwarding <span class="hljs-keyword">for</span> IPv4
+Table 3 (vip)
+    Virtual IP processing, e.g. <span class="hljs-keyword">for</span> router IP addresses implemented by Faucet
+Table 4 (eth_dst)
+    Egress L2 processing
+Table 5 (flood)
+    Flooding
+
+<span class="hljs-comment"># &#x67E5;&#x770B;&#x6DFB;&#x52A0;&#x4E86;&#x54EA;&#x4E9B;&#x65B0;&#x7684;&#x6D41;&#x89C4;&#x5219;</span>
+diff-flows flows1 br0 | grep +
+</code></pre>
+<h2 id="acl">ACL</h2>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x7F16;&#x8F91;inst/faucet.yaml</span>
+acls:
+    1:
+        - rule:
+            dl_<span class="hljs-built_in">type</span>: 0x800
+            nw_proto: 6
+            tcp_dst: 8080
+            actions:
+                allow: 0
+        - rule:
+            actions:
+                allow: 1
+
+<span class="hljs-comment"># &#x91CD;&#x65B0;&#x52A0;&#x8F7D;&#x914D;&#x7F6E;</span>
+docker <span class="hljs-built_in">exec</span> faucet pkill -HUP <span class="hljs-_">-f</span> faucet.faucet
 </code></pre>
 
                                 
@@ -574,14 +723,10 @@ k8s.gcr.io/ingress-nginx/controller:v1.1.1
 
             
                 
-                <a href="centos-install-v2ray.html" class="navigation navigation-prev " aria-label="Previous page: centos安装v2ray">
+                <a href="docker-pull-use-proxy.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: docker设置代理实现从外网拉取镜像">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="install-ovs.html" class="navigation navigation-next " aria-label="Next page: 编译安装ovs">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -590,7 +735,7 @@ k8s.gcr.io/ingress-nginx/controller:v1.1.1
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"docker设置代理实现从外网拉取镜像","level":"2.1.2","depth":2,"next":{"title":"编译安装ovs","level":"2.1.3","depth":2,"path":"misc/install-ovs.md","ref":"./misc/install-ovs.md","articles":[]},"previous":{"title":"centos安装v2ray","level":"2.1.1","depth":2,"path":"misc/centos-install-v2ray.md","ref":"./misc/centos-install-v2ray.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"misc/docker-pull-use-proxy.md","mtime":"2022-02-16T16:05:48.331Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-27T14:31:48.143Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"编译安装ovs","level":"2.1.3","depth":2,"previous":{"title":"docker设置代理实现从外网拉取镜像","level":"2.1.2","depth":2,"path":"misc/docker-pull-use-proxy.md","ref":"./misc/docker-pull-use-proxy.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"misc/install-ovs.md","mtime":"2022-02-27T12:30:17.818Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-27T14:31:48.143Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
