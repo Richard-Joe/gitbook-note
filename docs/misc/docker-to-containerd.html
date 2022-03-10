@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>gitbook搭建 · GitBook</title>
+        <title>k8s 将docker切换为containerd · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -12,32 +12,32 @@
         
         
     
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../gitbook/style.css">
 
     
             
                 
-                <link rel="stylesheet" href="gitbook-plugin-intopic-toc/style.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-intopic-toc/style.css">
                 
             
                 
-                <link rel="stylesheet" href="gitbook-plugin-katex/katex.min.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
                 
             
                 
-                <link rel="stylesheet" href="gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
                 
             
                 
-                <link rel="stylesheet" href="gitbook-plugin-highlight/website.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
-                <link rel="stylesheet" href="gitbook-plugin-search/search.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
                 
             
                 
-                <link rel="stylesheet" href="gitbook-plugin-fontsettings/website.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
                 
             
         
@@ -65,14 +65,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="images/apple-touch-icon-precomposed-152.png">
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../network/" />
     
-    
-    <link rel="prev" href="../" />
+    <link rel="prev" href="install-ovs.html" />
     
 
     </head>
@@ -114,9 +112,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2" data-path="./">
+        <li class="chapter " data-level="1.2" data-path="../gitbook/">
             
-                <a href="./">
+                <a href="../gitbook/">
             
                     
                     gitbook搭建
@@ -418,9 +416,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.1.1" data-path="../misc/centos-install-v2ray.html">
+        <li class="chapter " data-level="2.1.1" data-path="centos-install-v2ray.html">
             
-                <a href="../misc/centos-install-v2ray.html">
+                <a href="centos-install-v2ray.html">
             
                     
                     centos安装v2ray
@@ -431,9 +429,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.2" data-path="../misc/docker-pull-use-proxy.html">
+        <li class="chapter " data-level="2.1.2" data-path="docker-pull-use-proxy.html">
             
-                <a href="../misc/docker-pull-use-proxy.html">
+                <a href="docker-pull-use-proxy.html">
             
                     
                     docker/containerd设置代理实现从外网拉取镜像
@@ -444,9 +442,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.3" data-path="../misc/install-ovs.html">
+        <li class="chapter " data-level="2.1.3" data-path="install-ovs.html">
             
-                <a href="../misc/install-ovs.html">
+                <a href="install-ovs.html">
             
                     
                     编译安装ovs
@@ -457,9 +455,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.4" data-path="../misc/docker-to-containerd.html">
+        <li class="chapter active" data-level="2.1.4" data-path="docker-to-containerd.html">
             
-                <a href="../misc/docker-to-containerd.html">
+                <a href="docker-to-containerd.html">
             
                     
                     k8s 将docker切换为containerd
@@ -505,7 +503,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >gitbook搭建</a>
+        <a href=".." >k8s 将docker切换为containerd</a>
     </h1>
 </div>
 
@@ -520,62 +518,81 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="gitbook&#x642D;&#x5EFA;">gitbook&#x642D;&#x5EFA;</h1>
-<h2 id="&#x5B89;&#x88C5;-npm">&#x5B89;&#x88C5; npm</h2>
-<pre><code>&#x5B98;&#x7F51;&#x5730;&#x5740;&#xFF1A;https://nodejs.org/en/
+                                <h1 id="k8s-&#x5C06;docker&#x5207;&#x6362;&#x4E3A;containerd">k8s &#x5C06;docker&#x5207;&#x6362;&#x4E3A;containerd</h1>
+<p>master&#x4E0A;&#x64CD;&#x4F5C;</p>
+<pre><code class="lang-bash">// &#x67E5;&#x770B;CONTAINER-RUNTIME
+[root@master ~]<span class="hljs-comment"># kubectl get node -owide</span>
 
-windows&#x5E73;&#x53F0;&#x4F1A;&#x6709;&#x4E00;&#x4E9B;&#x9519;&#x8BEF;&#x95EE;&#x9898;&#xFF0C;&#x6211;&#x9009;&#x62E9;&#x4E86;v12.18&#x7248;&#x672C;
-https://npm.taobao.org/mirrors/node/v12.18.4/node-v12.18.4-x64.msi
-</code></pre><h2 id="&#x5B89;&#x88C5;-gitbook">&#x5B89;&#x88C5; gitbook</h2>
-<pre><code>npm install -g gitbook-cli
+// &#x5207;&#x6362;&#x7684;node&#x6539;&#x4E3A;&#x4E0D;&#x53EF;&#x8C03;&#x5EA6;
+[root@master ~]<span class="hljs-comment"># kubectl cordon node1</span>
 
-gitbook --version
-</code></pre><h2 id="&#x521D;&#x59CB;&#x5316;">&#x521D;&#x59CB;&#x5316;</h2>
-<pre><code>cd gitbook-note
-gitbook init
-</code></pre><h2 id="&#x542F;&#x52A8;&#x672C;&#x5730;&#x670D;&#x52A1;">&#x542F;&#x52A8;&#x672C;&#x5730;&#x670D;&#x52A1;</h2>
-<pre><code>gitbook serve
+// &#x9A71;&#x9010;&#x8BE5;node&#x4E0A;&#x7684;pod&#x8D44;&#x6E90;
+[root@master ~]<span class="hljs-comment"># kubectl drain node1 --delete-local-data --force --ignore-daemonsets</span>
 
-&#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE;http://localhost:4000/
-</code></pre><h2 id="&#x7F16;&#x8BD1;&#x6210;-html">&#x7F16;&#x8BD1;&#x6210; html</h2>
-<pre><code>npm init -y
+// &#x67E5;&#x770B;&#x751F;&#x6548;
+[root@master ~]<span class="hljs-comment"># kubectl get node</span>
+node1    Ready,SchedulingDisabled   &lt;none&gt;                 14m   v1.20.6
+</code></pre>
+<p>node&#x4E0A;&#x64CD;&#x4F5C;</p>
+<pre><code class="lang-bash">// &#x5378;&#x8F7D;docker
+[root@node1 ~]<span class="hljs-comment"># systemctl stop kubelet</span>
+[root@node1 ~]<span class="hljs-comment"># systemctl stop docker</span>
+[root@node1 ~]<span class="hljs-comment"># yum remove -y docker-ce docker-ce-cli</span>
 
-&#x5728;package.json&#x4E2D;&#x4FEE;&#x6539;scripts&#x52A0;&#x4E0A;build
-&quot;scripts&quot;: {
-    &quot;build&quot;: &quot;gitbook build . ./docs&quot;
-}
+// &#x914D;&#x7F6E;&#x5185;&#x6838;&#x6A21;&#x5757;&#x548C;&#x53C2;&#x6570;
+cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/containerd.conf
+overlay
+br_netfilter
+EOF
 
-npm run build
-</code></pre><h2 id="&#x90E8;&#x7F72;&#x5230;-github-pages">&#x90E8;&#x7F72;&#x5230; Github Pages</h2>
-<p>&#x63A8;&#x9001;&#x5230; github &#xFF0C;&#x7136;&#x540E;&#x5230; Github Pages &#x4E00;&#x9879;&#x4E0B;&#x9762;&#x3002;Source &#x4E00;&#x9879;&#x8BBE;&#x7F6E;&#x4E3A; main&#xFF0C;/docs </p>
-<p>&#x7136;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;<a href="https://richard-joe.github.io/gitbook-note/" target="_blank">https://richard-joe.github.io/gitbook-note/</a></p>
-<h2 id="&#x9519;&#x8BEF;&#x53C2;&#x8003;">&#x9519;&#x8BEF;&#x53C2;&#x8003;</h2>
-<p>&#x53EF;&#x80FD;&#x9047;&#x5230;&#x7684;&#x9519;&#x8BEF;&#xFF0C;&#x6BD4;&#x5982;&#xFF1A;</p>
-<ol>
-<li>&#x811A;&#x672C;&#x62A5;&#x9519;</li>
-</ol>
-<pre><code>C:\Users\frank\AppData\Roaming\npm\node_modules\gitbook-cli\node_modules\npm\node_modules\graceful-fs\polyfills.js:287
+modprobe overlay
+modprobe br_netfilter
 
-if (cb) cb.apply(this, arguments)
-</code></pre><p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;
-&#x6253;&#x5F00;polyfills.js&#x6587;&#x4EF6;&#xFF0C;&#x628A;&#x8C03;&#x7528;statFix&#x7684;&#x5730;&#x65B9;&#x6CE8;&#x91CA;&#x6389;&#x3002;
-//fs.stat = statFix(fs.stat)
-//fs.fstat = statFix(fs.fstat)
-//fs.lstat = statFix(fs.lstat)</p>
-<ol>
-<li>gitbook init &#x9519;&#x8BEF;</li>
-</ol>
-<pre><code>&gt; gitbook init
-warn: no summary file in this book
-info: create README.md
-info: create SUMMARY.md
+cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+EOF
 
-TypeError [ERR_INVALID_ARG_TYPE]: The &quot;data&quot; argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received an instance of Promise
-</code></pre><p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;
-&#x9009;&#x62E9;&#x4F4E;&#x7248;&#x672C;&#x7684;node&#xFF0C;
-<a href="https://stackoverflow.com/questions/61538769/gitbook-init-error-typeerror-err-invalid-arg-type-the-data-argument-must-b" target="_blank">https://stackoverflow.com/questions/61538769/gitbook-init-error-typeerror-err-invalid-arg-type-the-data-argument-must-b</a></p>
-<h2 id="gitbook&#x6587;&#x6863;">GitBook&#x6587;&#x6863;</h2>
-<p><a href="https://chrisniael.gitbooks.io/gitbook-documentation/content/index.html" target="_blank">https://chrisniael.gitbooks.io/gitbook-documentation/content/index.html</a></p>
+sysctl --system
+
+// &#x751F;&#x6210;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;
+containerd config default | sudo tee /etc/containerd/config.toml
+
+// &#x4FEE;&#x6539;&#x914D;&#x7F6E;
+// sandbox_image: &#x5C06;&#x955C;&#x50CF;&#x5730;&#x5740;&#x66FF;&#x6362;&#x4E3A;&#x56FD;&#x5185;&#x963F;&#x91CC;&#x4E91;&#x7684;
+// SystemdCgroup: &#x6307;&#x5B9A;&#x4F7F;&#x7528;systemd&#x4F5C;&#x4E3A;Cgroup&#x7684;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;(&#x5728;options&#x4E0B;&#x4E00;&#x884C;&#x6DFB;&#x52A0;&#x7684;&#x5185;&#x5BB9;)
+// endpoint:      &#x4FEE;&#x6539;&#x955C;&#x50CF;&#x52A0;&#x901F;&#x5730;&#x5740;
+[root@node1 ~]<span class="hljs-comment"># cat -n  /etc/containerd/config.toml |egrep &quot;sandbox_image|SystemdCgroup |endpoint &quot;</span>
+    57      sandbox_image = <span class="hljs-string">&quot;registry.aliyuncs.com/google_containers/pause:3.2&quot;</span>   
+    97            SystemdCgroup = <span class="hljs-literal">true</span>
+   106            endpoint = [<span class="hljs-string">&quot;https://x9jcawxv.mirror.aliyuncs.com&quot;</span>]
+
+// &#x91CD;&#x542F;containerd
+[root@node1 ~]<span class="hljs-comment"># systemctl restart containerd.service</span>
+[root@node1 ~]<span class="hljs-comment"># systemctl enable containerd.service</span>
+
+// &#x914D;&#x7F6E;kubelet&#x4F7F;&#x7528;containerd
+[root@node1 ~]<span class="hljs-comment"># cat  /etc/sysconfig/kubelet</span>
+KUBELET_EXTRA_ARGS=<span class="hljs-string">&quot;--container-runtime=remote --container-runtime-endpoint=unix:///run/containerd/containerd.sock --cgroup-driver=systemd&quot;</span>
+
+// &#x91CD;&#x542F;kubelet
+[root@node1 ~]<span class="hljs-comment"># systemctl restart kubelet</span>
+</code></pre>
+<p>master&#x4E0A;&#x64CD;&#x4F5C;</p>
+<pre><code class="lang-bash">// &#x67E5;&#x770B;CONTAINER-RUNTIME&#x662F;&#x5426;&#x5207;&#x6362;&#x4E3A;containerd
+[root@master ~]<span class="hljs-comment"># kubectl get node -owide</span>
+
+// &#x53D6;&#x6D88;node&#x4E0D;&#x53EF;&#x8C03;&#x5EA6;&#x7684;&#x6807;&#x8BB0;
+[root@master ~]<span class="hljs-comment"># kubectl uncordon node1</span>
+</code></pre>
+<p>crictl&#x914D;&#x7F6E;</p>
+<pre><code class="lang-bash">[root@master /]<span class="hljs-comment"># cat /etc/crictl.yaml</span>
+runtime-endpoint: unix:///run/containerd/containerd.sock
+image-endpoint: unix:///run/containerd/containerd.sock
+timeout: 10
+debug: <span class="hljs-literal">false</span>
+</code></pre>
 
                                 
                                 </section>
@@ -603,14 +620,10 @@ TypeError [ERR_INVALID_ARG_TYPE]: The &quot;data&quot; argument must be of type 
 
             
                 
-                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Introduction">
+                <a href="install-ovs.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 编译安装ovs">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="../network/" class="navigation navigation-next " aria-label="Next page: 网络">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -619,53 +632,53 @@ TypeError [ERR_INVALID_ARG_TYPE]: The &quot;data&quot; argument must be of type 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"gitbook搭建","level":"1.2","depth":1,"next":{"title":"网络","level":"1.3","depth":1,"path":"network/index.md","ref":"./network/index.md","articles":[{"title":"网络基础","level":"1.3.1","depth":2,"path":"network/basic/index.md","ref":"./network/basic/index.md","articles":[{"title":"内核是如何接收一个网络包的","level":"1.3.1.1","depth":3,"path":"network/basic/recv_one_package.md","ref":"./network/basic/recv_one_package.md","articles":[]},{"title":"内核DMA机制","level":"1.3.1.2","depth":3,"path":"network/basic/dma.md","ref":"./network/basic/dma.md","articles":[]},{"title":"veth设备","level":"1.3.1.3","depth":3,"path":"network/basic/veth.md","ref":"./network/basic/veth.md","articles":[]},{"title":"tun/tap设备","level":"1.3.1.4","depth":3,"path":"network/basic/tun-tap.md","ref":"./network/basic/tun-tap.md","articles":[]},{"title":"bridge","level":"1.3.1.5","depth":3,"path":"network/basic/bridge.md","ref":"./network/basic/bridge.md","articles":[]}]},{"title":"负载均衡","level":"1.3.2","depth":2,"path":"network/load_balance.md","ref":"./network/load_balance.md","articles":[{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]}]},{"title":"流量控制","level":"1.3.3","depth":2,"path":"network/traffic_control/tc.md","ref":"./network/traffic_control/tc.md","articles":[{"title":"缓冲膨胀","level":"1.3.3.1","depth":3,"path":"network/traffic_control/bufferbloat.md","ref":"./network/traffic_control/bufferbloat.md","articles":[]},{"title":"公平队列控制延迟","level":"1.3.3.2","depth":3,"path":"network/traffic_control/fq_codel.md","ref":"./network/traffic_control/fq_codel.md","articles":[]}]}]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"gitbook/index.md","mtime":"2021-12-01T16:11:34.608Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-10T13:49:25.514Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"k8s 将docker切换为containerd","level":"2.1.4","depth":2,"previous":{"title":"编译安装ovs","level":"2.1.3","depth":2,"path":"misc/install-ovs.md","ref":"./misc/install-ovs.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"misc/docker-to-containerd.md","mtime":"2022-03-10T04:02:01.539Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-10T13:49:25.514Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
 
         
-    <script src="gitbook.js"></script>
-    <script src="theme.js"></script>
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
     
         
-        <script src="gitbook-plugin-intopic-toc/anchor.min.js"></script>
-        
-    
-        
-        <script src="gitbook-plugin-intopic-toc/gumshoe.polyfills.min.js"></script>
+        <script src="../gitbook/gitbook-plugin-intopic-toc/anchor.min.js"></script>
         
     
         
-        <script src="gitbook-plugin-intopic-toc/plugin.js"></script>
+        <script src="../gitbook/gitbook-plugin-intopic-toc/gumshoe.polyfills.min.js"></script>
         
     
         
-        <script src="gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        <script src="../gitbook/gitbook-plugin-intopic-toc/plugin.js"></script>
         
     
         
-        <script src="gitbook-plugin-search/search-engine.js"></script>
+        <script src="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
         
     
         
-        <script src="gitbook-plugin-search/search.js"></script>
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
         
     
         
-        <script src="gitbook-plugin-lunr/lunr.min.js"></script>
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
         
     
         
-        <script src="gitbook-plugin-lunr/search-lunr.js"></script>
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
         
     
         
-        <script src="gitbook-plugin-sharing/buttons.js"></script>
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
         
     
         
-        <script src="gitbook-plugin-fontsettings/fontsettings.js"></script>
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
         
     
 

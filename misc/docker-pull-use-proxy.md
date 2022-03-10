@@ -1,14 +1,17 @@
-# docker设置PROXY拉取外网镜像
+# docker/containerd设置PROXY拉取外网镜像
 
 修改配置
 ```bash
 # mkdir -p /etc/systemd/system/docker.service.d
+# mkdir -p /etc/systemd/system/containerd.service.d
 
 # vi /etc/systemd/system/docker.service.d/http-proxy.conf
+# vi /etc/systemd/system/containerd.service.d/http-proxy.conf
 [Service]
 Environment="HTTP_PROXY=127.0.0.1:10809"
 
 # vi /etc/systemd/system/docker.service.d/https-proxy.conf
+# vi /etc/systemd/system/containerd.service.d/https-proxy.conf
 [Service]
 Environment="HTTPS_PROXY=127.0.0.1:10809"
 ```
@@ -17,6 +20,7 @@ Environment="HTTPS_PROXY=127.0.0.1:10809"
 ```bash
 # systemctl daemon-reload
 # systemctl restart docker
+# systemctl restart containerd
 
 # docker info
  HTTP Proxy: 127.0.0.1:10809
@@ -26,6 +30,7 @@ Environment="HTTPS_PROXY=127.0.0.1:10809"
 拉取镜像
 ```bash
 # docker pull k8s.gcr.io/ingress-nginx/controller:v1.1.1
+# crictl pull k8s.gcr.io/ingress-nginx/controller:v1.1.1
 v1.1.1: Pulling from ingress-nginx/controller
 a0d0a0d46f8b: Pull complete 
 3aae86482564: Pull complete 

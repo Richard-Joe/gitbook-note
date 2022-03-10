@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>docker设置代理实现从外网拉取镜像 · GitBook</title>
+        <title>docker/containerd设置代理实现从外网拉取镜像 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -436,7 +436,7 @@
                 <a href="docker-pull-use-proxy.html">
             
                     
-                    docker设置代理实现从外网拉取镜像
+                    docker/containerd设置代理实现从外网拉取镜像
             
                 </a>
             
@@ -450,6 +450,19 @@
             
                     
                     编译安装ovs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.4" data-path="docker-to-containerd.html">
+            
+                <a href="docker-to-containerd.html">
+            
+                    
+                    k8s 将docker切换为containerd
             
                 </a>
             
@@ -492,7 +505,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >docker设置代理实现从外网拉取镜像</a>
+        <a href=".." >docker/containerd设置代理实现从外网拉取镜像</a>
     </h1>
 </div>
 
@@ -507,21 +520,25 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="docker&#x8BBE;&#x7F6E;proxy&#x62C9;&#x53D6;&#x5916;&#x7F51;&#x955C;&#x50CF;">docker&#x8BBE;&#x7F6E;PROXY&#x62C9;&#x53D6;&#x5916;&#x7F51;&#x955C;&#x50CF;</h1>
+                                <h1 id="dockercontainerd&#x8BBE;&#x7F6E;proxy&#x62C9;&#x53D6;&#x5916;&#x7F51;&#x955C;&#x50CF;">docker/containerd&#x8BBE;&#x7F6E;PROXY&#x62C9;&#x53D6;&#x5916;&#x7F51;&#x955C;&#x50CF;</h1>
 <p>&#x4FEE;&#x6539;&#x914D;&#x7F6E;</p>
 <pre><code class="lang-bash"><span class="hljs-comment"># mkdir -p /etc/systemd/system/docker.service.d</span>
+<span class="hljs-comment"># mkdir -p /etc/systemd/system/containerd.service.d</span>
 
 <span class="hljs-comment"># vi /etc/systemd/system/docker.service.d/http-proxy.conf</span>
+<span class="hljs-comment"># vi /etc/systemd/system/containerd.service.d/http-proxy.conf</span>
 [Service]
 Environment=<span class="hljs-string">&quot;HTTP_PROXY=127.0.0.1:10809&quot;</span>
 
 <span class="hljs-comment"># vi /etc/systemd/system/docker.service.d/https-proxy.conf</span>
+<span class="hljs-comment"># vi /etc/systemd/system/containerd.service.d/https-proxy.conf</span>
 [Service]
 Environment=<span class="hljs-string">&quot;HTTPS_PROXY=127.0.0.1:10809&quot;</span>
 </code></pre>
 <p>&#x91CD;&#x542F;docker</p>
 <pre><code class="lang-bash"><span class="hljs-comment"># systemctl daemon-reload</span>
 <span class="hljs-comment"># systemctl restart docker</span>
+<span class="hljs-comment"># systemctl restart containerd</span>
 
 <span class="hljs-comment"># docker info</span>
  HTTP Proxy: 127.0.0.1:10809
@@ -529,6 +546,7 @@ Environment=<span class="hljs-string">&quot;HTTPS_PROXY=127.0.0.1:10809&quot;</s
 </code></pre>
 <p>&#x62C9;&#x53D6;&#x955C;&#x50CF;</p>
 <pre><code class="lang-bash"><span class="hljs-comment"># docker pull k8s.gcr.io/ingress-nginx/controller:v1.1.1</span>
+<span class="hljs-comment"># crictl pull k8s.gcr.io/ingress-nginx/controller:v1.1.1</span>
 v1.1.1: Pulling from ingress-nginx/controller
 a0d0a0d46f8b: Pull complete 
 3aae86482564: Pull complete 
@@ -590,7 +608,7 @@ k8s.gcr.io/ingress-nginx/controller:v1.1.1
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"docker设置代理实现从外网拉取镜像","level":"2.1.2","depth":2,"next":{"title":"编译安装ovs","level":"2.1.3","depth":2,"path":"misc/install-ovs.md","ref":"./misc/install-ovs.md","articles":[]},"previous":{"title":"centos安装v2ray","level":"2.1.1","depth":2,"path":"misc/centos-install-v2ray.md","ref":"./misc/centos-install-v2ray.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"misc/docker-pull-use-proxy.md","mtime":"2022-02-16T16:05:48.331Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-27T14:31:48.143Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"docker/containerd设置代理实现从外网拉取镜像","level":"2.1.2","depth":2,"next":{"title":"编译安装ovs","level":"2.1.3","depth":2,"path":"misc/install-ovs.md","ref":"./misc/install-ovs.md","articles":[]},"previous":{"title":"centos安装v2ray","level":"2.1.1","depth":2,"path":"misc/centos-install-v2ray.md","ref":"./misc/centos-install-v2ray.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"misc/docker-pull-use-proxy.md","mtime":"2022-03-10T03:39:53.708Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-10T13:49:25.514Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
