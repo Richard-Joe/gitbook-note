@@ -1,0 +1,791 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>XDP · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-intopic-toc/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="../Kubernetes/Operator.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../gitbook/">
+            
+                <a href="../gitbook/">
+            
+                    
+                    gitbook搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../network/">
+            
+                <a href="../network/">
+            
+                    
+                    网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../network/basic/">
+            
+                <a href="../network/basic/">
+            
+                    
+                    网络基础
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../network/basic/recv_one_package.html">
+            
+                <a href="../network/basic/recv_one_package.html">
+            
+                    
+                    内核是如何接收一个网络包的
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../network/basic/dma.html">
+            
+                <a href="../network/basic/dma.html">
+            
+                    
+                    内核DMA机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="../network/basic/veth.html">
+            
+                <a href="../network/basic/veth.html">
+            
+                    
+                    veth设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="../network/basic/tun-tap.html">
+            
+                <a href="../network/basic/tun-tap.html">
+            
+                    
+                    tun/tap设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="../network/basic/bridge.html">
+            
+                <a href="../network/basic/bridge.html">
+            
+                    
+                    bridge
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../network/load_balance.md">
+            
+                <span>
+            
+                    
+                    负载均衡
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../network/lb/LVS.html">
+            
+                <a href="../network/lb/LVS.html">
+            
+                    
+                    LVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../network/traffic_control/tc.html">
+            
+                <a href="../network/traffic_control/tc.html">
+            
+                    
+                    流量控制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="../network/traffic_control/bufferbloat.html">
+            
+                <a href="../network/traffic_control/bufferbloat.html">
+            
+                    
+                    缓冲膨胀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="../network/traffic_control/fq_codel.html">
+            
+                <a href="../network/traffic_control/fq_codel.html">
+            
+                    
+                    公平队列控制延迟
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Kubernetes/">
+            
+                <a href="../Kubernetes/">
+            
+                    
+                    Kubernetes
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" >
+            
+                <span>
+            
+                    
+                    工作负载
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.1" data-path="../Kubernetes/Jobs.html">
+            
+                <a href="../Kubernetes/Jobs.html">
+            
+                    
+                    Jobs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.2" data-path="../Kubernetes/CronJob.html">
+            
+                <a href="../Kubernetes/CronJob.html">
+            
+                    
+                    CronJob
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../Kubernetes/CRD.html">
+            
+                <a href="../Kubernetes/CRD.html">
+            
+                    
+                    CRD
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../Kubernetes/Operator.html">
+            
+                <a href="../Kubernetes/Operator.html">
+            
+                    
+                    Operator
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    XDP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" >
+            
+                <span>
+            
+                    
+                    杂项
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="../misc/centos-install-v2ray.html">
+            
+                <a href="../misc/centos-install-v2ray.html">
+            
+                    
+                    centos安装v2ray
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="../misc/docker-pull-use-proxy.html">
+            
+                <a href="../misc/docker-pull-use-proxy.html">
+            
+                    
+                    docker/containerd设置代理实现从外网拉取镜像
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" data-path="../misc/install-ovs.html">
+            
+                <a href="../misc/install-ovs.html">
+            
+                    
+                    编译安装ovs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.4" data-path="../misc/docker-to-containerd.html">
+            
+                <a href="../misc/docker-to-containerd.html">
+            
+                    
+                    k8s 将docker切换为containerd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >XDP</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="express-data-path">eXpress Data Path</h1>
+<p>XDP&#xFF08;eXpress Data Path&#xFF09;&#x4E3A;Linux&#x5185;&#x6838;&#x63D0;&#x4F9B;&#x4E86;&#x9AD8;&#x6027;&#x80FD;&#x3001;&#x53EF;&#x7F16;&#x7A0B;&#x7684;&#x7F51;&#x7EDC;&#x6570;&#x636E;&#x8DEF;&#x5F84;&#x3002;&#x7531;&#x4E8E;&#x7F51;&#x7EDC;&#x5305;&#x5728;&#x8FD8;&#x672A;&#x8FDB;&#x5165;&#x7F51;&#x7EDC;&#x534F;&#x8BAE;&#x6808;&#x4E4B;&#x524D;&#x5C31;&#x5904;&#x7406;&#xFF0C;&#x5B83;&#x7ED9;Linux&#x7F51;&#x7EDC;&#x5E26;&#x6765;&#x4E86;&#x5DE8;&#x5927;&#x7684;&#x6027;&#x80FD;&#x63D0;&#x5347;&#x3002;</p>
+<p>XDP&#x4E3B;&#x8981;&#x7684;&#x7279;&#x6027;&#x5305;&#x62EC;&#xFF1A;</p>
+<ul>
+<li>&#x57FA;&#x4E8E;eBPF</li>
+<li>&#x5728;&#x7F51;&#x7EDC;&#x534F;&#x8BAE;&#x6808;&#x524D;&#x5904;&#x7406;</li>
+<li>&#x65E0;&#x9501;&#x8BBE;&#x8BA1;</li>
+<li>&#x6279;&#x91CF;I/O&#x64CD;&#x4F5C;</li>
+<li>&#x8F6E;&#x8BE2;&#x5F0F;</li>
+<li>&#x76F4;&#x63A5;&#x961F;&#x5217;&#x8BBF;&#x95EE;</li>
+<li>&#x4E0D;&#x9700;&#x8981;&#x5206;&#x914D;skbuff</li>
+<li>&#x652F;&#x6301;&#x7F51;&#x7EDC;&#x5378;&#x8F7D;</li>
+<li>DDIO</li>
+<li>XDP&#x7A0B;&#x5E8F;&#x5FEB;&#x901F;&#x6267;&#x884C;&#x5E76;&#x7ED3;&#x675F;&#xFF0C;&#x6CA1;&#x6709;&#x5FAA;&#x73AF;</li>
+<li>Packeting steering</li>
+</ul>
+<h2 id="&#x5DE5;&#x4F5C;&#x6A21;&#x5F0F;">&#x5DE5;&#x4F5C;&#x6A21;&#x5F0F;</h2>
+<p>XDP&#x652F;&#x6301;3&#x79CD;&#x5DE5;&#x4F5C;&#x6A21;&#x5F0F;&#xFF0C;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528;native&#x6A21;&#x5F0F;&#xFF1A;</p>
+<ul>
+<li><code>Native XDP</code>&#xFF1A;&#x5728;native&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;XDP BPF&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x5728;&#x7F51;&#x7EDC;&#x9A71;&#x52A8;&#x7684;&#x65E9;&#x671F;&#x63A5;&#x6536;&#x8DEF;&#x5F84;&#x4E0A;&#xFF08;RX&#x961F;&#x5217;&#xFF09;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x4F7F;&#x7528;&#x8BE5;&#x6A21;&#x5F0F;&#x65F6;&#x9700;&#x8981;&#x7F51;&#x5361;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x652F;&#x6301;&#x3002;</li>
+<li><code>Offloaded XDP</code>&#xFF1A;&#x5728;Offloaded&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;XDP BFP&#x7A0B;&#x5E8F;&#x76F4;&#x63A5;&#x5728;NIC&#xFF08;Network Interface Controller&#xFF09;&#x4E2D;&#x5904;&#x7406;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x800C;&#x4E0D;&#x4F7F;&#x7528;&#x4E3B;&#x673A;CPU&#xFF0C;&#x76F8;&#x6BD4;native&#x6A21;&#x5F0F;&#xFF0C;&#x6027;&#x80FD;&#x66F4;&#x9AD8;&#x3002;</li>
+<li><code>Generic XDP</code>&#xFF1A;Generic&#x6A21;&#x5F0F;&#x4E3B;&#x8981;&#x63D0;&#x4F9B;&#x7ED9;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x6D4B;&#x8BD5;&#x4F7F;&#x7528;&#xFF0C;&#x5BF9;&#x4E8E;&#x7F51;&#x5361;&#x6216;&#x9A71;&#x52A8;&#x65E0;&#x6CD5;&#x652F;&#x6301;native&#x6216;offloaded&#x6A21;&#x5F0F;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x5185;&#x6838;&#x63D0;&#x4F9B;&#x4E86;&#x901A;&#x7528;&#x7684;generic&#x6A21;&#x5F0F;&#xFF0C;&#x8FD0;&#x884C;&#x5728;&#x534F;&#x8BAE;&#x6808;&#x4E2D;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x5BF9;&#x9A71;&#x52A8;&#x505A;&#x4EFB;&#x4F55;&#x4FEE;&#x6539;&#x3002;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x4E2D;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;native&#x6216;offloaded&#x6A21;&#x5F0F;&#x3002;</li>
+</ul>
+<h2 id="&#x5305;&#x5904;&#x7406;&#x6D41;&#x7A0B;">&#x5305;&#x5904;&#x7406;&#x6D41;&#x7A0B;</h2>
+<p>&#x57FA;&#x4E8E;&#x5185;&#x6838;&#x7684;eBPF&#x7A0B;&#x5E8F;&#x5904;&#x7406;&#x5305;&#xFF0C;&#x6BCF;&#x4E2A;RX&#x961F;&#x5217;&#x5206;&#x914D;&#x4E00;&#x4E2A;CPU&#xFF0C;&#x4E14;&#x4EE5;&#x6BCF;&#x4E2A;&#x7F51;&#x7EDC;&#x5305;&#x4E00;&#x4E2A;Page&#xFF08;packet-page&#xFF09;&#x7684;&#x65B9;&#x5F0F;&#x907F;&#x514D;&#x5206;&#x914D;skbuff&#x3002;</p>
+<p><img src="images/packet-processor.png" alt="packet-processor"></p>
+<p><img src="images/xdp.jpg" alt="xdp"></p>
+<p><img src="images/Netfilter-packet-flow.png" alt="Netfilter-packet-flow"></p>
+<h2 id="&#x5185;&#x6838;&#x6E90;&#x7801;">&#x5185;&#x6838;&#x6E90;&#x7801;</h2>
+<p>&#x53EA;&#x6709;&#x90E8;&#x5206;&#x7F51;&#x5361;&#x9A71;&#x52A8;&#x652F;&#x6301;&#x4E86;XDP&#xFF0C;&#x6BD4;&#x5982;Inter e1000&#x4E0D;&#x652F;&#x6301;&#xFF0C;Broadcom bnxt&#x652F;&#x6301;&#x3002;
+&#x627E;&#x5230;&#x5185;&#x6838;&#x4EE3;&#x7801;&#x8DEF;&#x5F84;&#xFF1A;<code>drivers/net/ethernet/broadcom/bnxt/</code></p>
+<pre><code class="lang-c"><span class="hljs-comment">// &#x521D;&#x59CB;&#x5316;&#x9636;&#x6BB5;&#x6307;&#x5B9A;poll&#x56DE;&#x8C03;&#xFF08;bnxt_poll&#xFF09;</span>
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">bnxt_init_napi</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> bnxt *bp)</span>
+</span>{
+    <span class="hljs-keyword">struct</span> bnxt_napi *bnapi;
+
+    bnapi = bp-&gt;bnapi[<span class="hljs-number">0</span>];
+    netif_napi_add(bp-&gt;dev, &amp;bnapi-&gt;napi, bnxt_poll, <span class="hljs-number">64</span>);
+}
+
+<span class="hljs-comment">// poll&#x56DE;&#x8C03;</span>
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">bnxt_poll</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> napi_struct *napi, <span class="hljs-keyword">int</span> budget)</span>
+</span>{
+    ...
+    work_done += bnxt_poll_work(bp, cpr, budget - work_done);
+    ...
+}
+
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> __bnxt_poll_work(<span class="hljs-keyword">struct</span> bnxt *bp, <span class="hljs-keyword">struct</span> bnxt_cp_ring_info *cpr, <span class="hljs-keyword">int</span> budget)
+{
+    <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) {
+        ...
+        rc = bnxt_rx_pkt(bp, cpr, &amp;raw_cons, &amp;event);
+        ...
+    }
+
+    <span class="hljs-keyword">if</span> (event &amp; BNXT_REDIRECT_EVENT)
+        xdp_do_flush_map();
+}
+
+<span class="hljs-comment">// &#x6536;&#x5305;&#x5904;&#x7406;</span>
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">bnxt_rx_pkt</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> bnxt *bp, <span class="hljs-keyword">struct</span> bnxt_cp_ring_info *cpr, u32 *raw_cons, u8 *event)</span>
+</span>{
+    <span class="hljs-comment">// xdp&#x5904;&#x7406;</span>
+    <span class="hljs-keyword">if</span> (bnxt_rx_xdp(bp, rxr, cons, data, &amp;data_ptr, &amp;len, event)) {
+        rc = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">goto</span> next_rx;
+    }
+
+    <span class="hljs-comment">// &#x5206;&#x914D;skb</span>
+
+    <span class="hljs-comment">// &#x4F20;&#x9012;&#x6570;&#x636E;&#x5305;&#x5230;&#x534F;&#x8BAE;&#x6808;</span>
+    bnxt_deliver_skb(bp, bnapi, skb);
+
+next_rx:
+    ...
+}
+
+<span class="hljs-comment">/* returns the following:
+ * true    - packet consumed by XDP and new buffer is allocated.
+ * false   - packet should be passed to the stack.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">bnxt_rx_xdp</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> bnxt *bp, <span class="hljs-keyword">struct</span> bnxt_rx_ring_info *rxr, u16 cons, <span class="hljs-keyword">struct</span> page *page, u8 **data_ptr, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> *len, u8 *event)</span>
+</span>{
+    <span class="hljs-keyword">struct</span> bpf_prog *xdp_prog = READ_ONCE(rxr-&gt;xdp_prog);
+    <span class="hljs-keyword">struct</span> xdp_buff xdp;
+    u32 act;
+
+    <span class="hljs-comment">// &#x6267;&#x884C;bpf&#x7A0B;&#x5E8F;</span>
+    act = bpf_prog_run_xdp(xdp_prog, &amp;xdp);
+
+    <span class="hljs-keyword">switch</span> (act) {
+    <span class="hljs-comment">// &#x5C06;&#x6570;&#x636E;&#x5305;&#x4F20;&#x9012;&#x5230;&#x534F;&#x8BAE;&#x6808;&#x5904;&#x7406;</span>
+    <span class="hljs-keyword">case</span> XDP_PASS:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+
+    <span class="hljs-comment">// &#x8F6C;&#x53D1;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x5C06;&#x63A5;&#x6536;&#x5230;&#x7684;&#x6570;&#x636E;&#x5305;&#x53D1;&#x9001;&#x56DE;&#x6570;&#x636E;&#x5305;&#x5230;&#x8FBE;&#x7684;&#x540C;&#x4E00;&#x7F51;&#x5361;</span>
+    <span class="hljs-keyword">case</span> XDP_TX:
+        ...
+        *event = BNXT_TX_EVENT;
+        __bnxt_xmit_xdp(bp, txr, mapping + offset, *len,
+                NEXT_RX(rxr-&gt;rx_prod));
+        bnxt_reuse_rx_data(rxr, cons, page);
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+
+    <span class="hljs-comment">// &#x91CD;&#x5B9A;&#x5411;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x5C06;&#x6570;&#x636E;&#x5305;&#x9001;&#x5230;&#x53E6;&#x4E00;&#x5757;&#x7F51;&#x5361;&#x6216;&#x4F20;&#x5165;&#x5230;BPF&#x7684;cpumap&#x4E2D;</span>
+    <span class="hljs-keyword">case</span> XDP_REDIRECT:
+        ...
+        <span class="hljs-keyword">if</span> (xdp_do_redirect(bp-&gt;dev, &amp;xdp, xdp_prog)) {
+            trace_xdp_exception(bp-&gt;dev, xdp_prog, act);
+            page_pool_recycle_direct(rxr-&gt;page_pool, page);
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        }
+
+        *event |= BNXT_REDIRECT_EVENT;
+        <span class="hljs-keyword">break</span>;
+
+    <span class="hljs-comment">// eBPF&#x7A0B;&#x5E8F;&#x53D1;&#x751F;&#x9519;&#x8BEF;&#xFF0C;&#x5E76;&#x5BFC;&#x81F4;&#x6570;&#x636E;&#x5305;&#x88AB;&#x4E22;&#x5F03;</span>
+    <span class="hljs-keyword">case</span> XDP_ABORTED:
+        trace_xdp_exception(bp-&gt;dev, xdp_prog, act);
+        fallthrough;
+
+    <span class="hljs-comment">// &#x4E22;&#x5F03;&#x6570;&#x636E;&#x5305;</span>
+    <span class="hljs-keyword">case</span> XDP_DROP:
+        bnxt_reuse_rx_data(rxr, cons, page);
+        <span class="hljs-keyword">break</span>;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+}
+</code></pre>
+<h2 id="4&#x5C42;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x7684;&#x4F8B;&#x5B50;">4&#x5C42;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x7684;&#x4F8B;&#x5B50;</h2>
+<p>&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x53C2;&#x8003;&#xFF1A;<a href="https://github.com/Netronome/bpf-samples/blob/master/l4lb/l4lb_xdp.c" target="_blank">https://github.com/Netronome/bpf-samples/blob/master/l4lb/l4lb_xdp.c</a></p>
+<pre><code class="lang-c"><span class="hljs-keyword">static</span> __<span class="hljs-function">always_inline <span class="hljs-keyword">int</span> <span class="hljs-title">process_packet</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> xdp_md *ctx, __u64 off)</span>
+</span>{
+    <span class="hljs-keyword">struct</span> pkt_meta pkt = {};
+    <span class="hljs-keyword">struct</span> dest_info *tnl;
+    ...
+    <span class="hljs-comment">// &#x89E3;&#x6790;&#x6570;&#x636E;&#x5305;&#x5143;&#x6570;&#x636E;</span>
+    pkt.src = iph-&gt;saddr;
+    pkt.dst = iph-&gt;daddr;
+    <span class="hljs-comment">/* obtain port numbers for UDP and TCP traffic */</span>
+    <span class="hljs-keyword">if</span> (protocol == IPPROTO_TCP) {
+        <span class="hljs-keyword">if</span> (!parse_tcp(data, off, data_end, &amp;pkt))
+            <span class="hljs-keyword">return</span> XDP_DROP;
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (protocol == IPPROTO_UDP) {
+        <span class="hljs-keyword">if</span> (!parse_udp(data, off, data_end, &amp;pkt))
+            <span class="hljs-keyword">return</span> XDP_DROP;
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> XDP_PASS;
+    }
+
+    <span class="hljs-comment">// &#x6839;&#x636E;&#x5143;&#x6570;&#x636E;&#x8BA1;&#x7B97;hash&#x503C;&#xFF0C;&#x5E76;&#x4F7F;&#x7528;hash&#x503C;&#x9009;&#x62E9;server</span>
+    tnl = hash_get_dest(&amp;pkt);
+
+    <span class="hljs-comment">// &#x4FEE;&#x6539;&#x6570;&#x636E;&#x5305;</span>
+    ...
+    iph_tnl.daddr = tnl-&gt;daddr;
+    iph_tnl.saddr = tnl-&gt;saddr;
+    ...
+    *iph = iph_tnl;
+    ...
+
+    <span class="hljs-comment">// &#x8F6C;&#x53D1;</span>
+    <span class="hljs-keyword">return</span> XDP_TX;
+}
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../Kubernetes/Operator.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Operator">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"XDP","level":"1.5","depth":1,"next":{"title":"杂项","level":"2.1","depth":1,"ref":"","articles":[{"title":"centos安装v2ray","level":"2.1.1","depth":2,"path":"misc/centos-install-v2ray.md","ref":"./misc/centos-install-v2ray.md","articles":[]},{"title":"docker/containerd设置代理实现从外网拉取镜像","level":"2.1.2","depth":2,"path":"misc/docker-pull-use-proxy.md","ref":"./misc/docker-pull-use-proxy.md","articles":[]},{"title":"编译安装ovs","level":"2.1.3","depth":2,"path":"misc/install-ovs.md","ref":"./misc/install-ovs.md","articles":[]},{"title":"k8s 将docker切换为containerd","level":"2.1.4","depth":2,"path":"misc/docker-to-containerd.md","ref":"./misc/docker-to-containerd.md","articles":[]}]},"previous":{"title":"Operator","level":"1.4.3","depth":2,"path":"Kubernetes/Operator.md","ref":"./Kubernetes/Operator.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"XDP/index.md","mtime":"2022-03-14T13:07:58.580Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-14T13:11:01.836Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-intopic-toc/anchor.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-intopic-toc/gumshoe.polyfills.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-intopic-toc/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
