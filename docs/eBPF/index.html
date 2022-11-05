@@ -1,0 +1,829 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>eBPF · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-intopic-toc/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../XDP/" />
+    
+    
+    <link rel="prev" href="../OVS/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../gitbook/">
+            
+                <a href="../gitbook/">
+            
+                    
+                    gitbook搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../network/">
+            
+                <a href="../network/">
+            
+                    
+                    网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../network/basic/">
+            
+                <a href="../network/basic/">
+            
+                    
+                    网络基础
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../network/basic/recv_one_package.html">
+            
+                <a href="../network/basic/recv_one_package.html">
+            
+                    
+                    内核是如何接收一个网络包的
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../network/basic/dma.html">
+            
+                <a href="../network/basic/dma.html">
+            
+                    
+                    内核DMA机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="../network/basic/veth.html">
+            
+                <a href="../network/basic/veth.html">
+            
+                    
+                    veth设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="../network/basic/tun-tap.html">
+            
+                <a href="../network/basic/tun-tap.html">
+            
+                    
+                    tun/tap设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="../network/basic/bridge.html">
+            
+                <a href="../network/basic/bridge.html">
+            
+                    
+                    bridge
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../network/load_balance.md">
+            
+                <span>
+            
+                    
+                    负载均衡
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../network/lb/LVS.html">
+            
+                <a href="../network/lb/LVS.html">
+            
+                    
+                    LVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../network/traffic_control/tc.html">
+            
+                <a href="../network/traffic_control/tc.html">
+            
+                    
+                    流量控制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="../network/traffic_control/bufferbloat.html">
+            
+                <a href="../network/traffic_control/bufferbloat.html">
+            
+                    
+                    缓冲膨胀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="../network/traffic_control/fq_codel.html">
+            
+                <a href="../network/traffic_control/fq_codel.html">
+            
+                    
+                    公平队列控制延迟
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Kubernetes/">
+            
+                <a href="../Kubernetes/">
+            
+                    
+                    Kubernetes
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" >
+            
+                <span>
+            
+                    
+                    工作负载
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.1" data-path="../Kubernetes/Jobs.html">
+            
+                <a href="../Kubernetes/Jobs.html">
+            
+                    
+                    Jobs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.2" data-path="../Kubernetes/CronJob.html">
+            
+                <a href="../Kubernetes/CronJob.html">
+            
+                    
+                    CronJob
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../Kubernetes/CRD.html">
+            
+                <a href="../Kubernetes/CRD.html">
+            
+                    
+                    CRD
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../Kubernetes/Operator.html">
+            
+                <a href="../Kubernetes/Operator.html">
+            
+                    
+                    Operator
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../OVS/">
+            
+                <a href="../OVS/">
+            
+                    
+                    OVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    eBPF
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../XDP/">
+            
+                <a href="../XDP/">
+            
+                    
+                    XDP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" >
+            
+                <span>
+            
+                    
+                    杂项
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../misc/centos-install-v2ray.html">
+            
+                <a href="../misc/centos-install-v2ray.html">
+            
+                    
+                    centos安装v2ray
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../misc/docker-pull-use-proxy.html">
+            
+                <a href="../misc/docker-pull-use-proxy.html">
+            
+                    
+                    docker/containerd设置代理实现从外网拉取镜像
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../misc/install-ovs.html">
+            
+                <a href="../misc/install-ovs.html">
+            
+                    
+                    编译安装ovs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../misc/docker-to-containerd.html">
+            
+                <a href="../misc/docker-to-containerd.html">
+            
+                    
+                    k8s 将docker切换为containerd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >eBPF</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p><img src="images/ebee.png" alt="ebee"></p>
+<h1 id="bpf-&#x548C;-ebpf">BPF &#x548C; eBPF</h1>
+<h2 id="bpf">BPF</h2>
+<p>BPF&#xFF08;Berkeley Packet Filter&#xFF09;&#x7531;Steven McCanne &#x548C; Van Jacobson&#x7684;&#x4E00;&#x7BC7;&#x8BBA;&#x6587;&#x63D0;&#x51FA;&#xFF0C;&#x8BBA;&#x6587;&#x4E2D;&#x63D0;&#x5230;&#xFF1A;&#x7528;&#x6237;&#x7EA7;&#x522B;&#x7684;&#x6570;&#x636E;&#x5305;&#x6355;&#x83B7;&#x529F;&#x80FD;&#x9700;&#x8981;&#x8DE8;&#x5185;&#x6838;&#x548C;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x6765;&#x590D;&#x5236;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x7ED3;&#x679C;&#x5BFC;&#x81F4;&#x6027;&#x80FD;&#x4E0B;&#x964D;&#x3002;</p>
+<p>&#x4E8E;&#x662F;&#x63D0;&#x51FA;&#x4E86;&#x4E00;&#x79CD;&#x65B0;&#x7684;&#x6846;&#x67B6;&#xFF0C;&#x76F4;&#x63A5;&#x5728;&#x5185;&#x6838;&#x4E2D;&#x8FDB;&#x884C;&#x8FC7;&#x6EE4;&#x6570;&#x636E;&#x5305;&#x3002;BPF&#x6839;&#x636E;&#x7528;&#x6237;&#x7F16;&#x5199;&#x7684;&#x8FC7;&#x6EE4;&#x89C4;&#x5219;&#x5BF9;&#x6570;&#x636E;&#x5305;&#x8FDB;&#x884C;&#x5339;&#x914D;&#xFF0C;&#x5982;&#x679C;&#x7B26;&#x5408;&#x5C31;&#x653E;&#x5230;&#x63A5;&#x6536;&#x961F;&#x5217;&#x3002;&#x7136;&#x540E;&#x7528;&#x6237;&#x518D;&#x628A;&#x63A5;&#x6536;&#x961F;&#x5217;&#x7684;&#x6570;&#x636E;&#x5305;&#x4ECE;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x62F7;&#x8D1D;&#x5230;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x51CF;&#x5C11;&#x4E86;&#x65E0;&#x7528;&#x7684;&#x6570;&#x636E;&#x5305;&#x62F7;&#x8D1D;&#x3002;</p>
+<p><img src="images/BPF.png" alt="BPF"></p>
+<p>&#x673A;&#x5668;&#x7801;&#x53EF;&#x4EE5;&#x5728;&#x7269;&#x7406;&#x673A;&#x4E0A;&#x76F4;&#x63A5;&#x6267;&#x884C;&#xFF0C;&#x4F2A;&#x673A;&#x5668;&#x7801;&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x6267;&#x884C;&#xFF0C;&#x9700;&#x8981;&#x5728;&#x865A;&#x62DF;&#x673A;&#x4E0A;&#x6267;&#x884C;&#x3002;</p>
+<p>BPF&#x6307;&#x4EE4;&#x96C6;&#x662F;&#x4F2A;&#x673A;&#x5668;&#x7801;&#xFF0C;&#x865A;&#x62DF;&#x673A;&#x4E0A;&#x9700;&#x8981;&#x4E00;&#x6761;&#x6761;&#x89E3;&#x6790;&#x4E3A;&#x673A;&#x5668;&#x7801;&#x624D;&#x80FD;&#x591F;&#x6267;&#x884C;&#xFF0C;&#x6240;&#x4EE5;&#x6267;&#x884C;&#x6548;&#x7387;&#x5F88;&#x4F4E;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4E86;JIT&#xFF08;Just In Time&#xFF09;&#xFF0C;&#x5C31;&#x80FD;&#x76F4;&#x63A5;&#x628A;BPF&#x7F16;&#x8BD1;&#x6210;&#x673A;&#x5668;&#x7801;&#xFF0C;&#x80FD;&#x5927;&#x5927;&#x52A0;&#x5FEB;BPF&#x7A0B;&#x5E8F;&#x7684;&#x6267;&#x884C;&#x901F;&#x5EA6;&#x3002;</p>
+<p><img src="images/bpf_jit.png" alt="BPF"></p>
+<p>tcpdump&#x7B49;&#x5DE5;&#x5177;&#x5C31;&#x662F;&#x57FA;&#x4E8E;BPF&#x6846;&#x67B6;&#x5B9E;&#x73B0;&#x7684;&#x3002;</p>
+<h2 id="ebpf">eBPF</h2>
+<p>&#x4ECE;&#x5185;&#x6838;3.18&#x7248;&#x672C;&#x5F00;&#x59CB;&#xFF0C;Linux&#x5185;&#x6838;&#x63D0;&#x4F9B;&#x4E86;eBPF&#xFF08;extended BPF&#xFF09;&#xFF0C;&#x9664;&#x4E86;&#x7F51;&#x7EDC;&#x6570;&#x636E;&#x5305;&#x8FC7;&#x6EE4;&#xFF0C;&#x5B83;&#x8FD8;&#x80FD;&#x591F;&#x7528;&#x4E8E;&#x975E;&#x7F51;&#x7EDC;&#x76F8;&#x5173;&#x7684;&#x529F;&#x80FD;&#xFF08;&#x6BD4;&#x5982;perf_events&#x3001;kprobes&#x3001;uprobes&#x3001;tracepoints&#xFF09;&#x3002;</p>
+<p>&#x4F20;&#x7EDF;&#x7684;BPF&#xFF0C;&#x88AB;&#x79F0;&#x4E3A;cBPF&#xFF08;classical BPF&#xFF09;&#x3002;&#x9664;&#x975E;&#x7279;&#x522B;&#x8BF4;&#x660E;&#xFF0C;BPF&#x6307;&#x7684;&#x662F;cBPF&#x548C;eBPF&#x7684;&#x7EDF;&#x79F0;&#x3002;</p>
+<p>&#x5F00;&#x53D1;&#x5DE5;&#x5177;&#x94FE;&#xFF1A;BCC&#x3001;bpftrace&#x3001;ebpf-go&#x3001;libbpf</p>
+<h3 id="1-ebpf&#x53EF;&#x4EE5;&#x505A;&#x4EC0;&#x4E48;&#xFF1F;">1. eBPF&#x53EF;&#x4EE5;&#x505A;&#x4EC0;&#x4E48;&#xFF1F;</h3>
+<ul>
+<li>&#x53EF;&#x4EE5;&#x6267;&#x884C;&#x9AD8;&#x6027;&#x80FD;&#x6570;&#x636E;&#x5305;&#x5904;&#x7406;&#xFF08;&#x6BD4;&#x5982;XDP&#xFF09;</li>
+<li>&#x53EF;&#x4EE5;&#x9650;&#x5236;&#x8FDB;&#x7A0B;&#x80FD;&#x5426;&#x4F7F;&#x7528;&#x4E00;&#x4E9B;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#xFF08;&#x6BD4;&#x5982;seccomp&#xFF09;</li>
+<li>&#x53EF;&#x4EE5;&#x8C03;&#x8BD5;&#x5185;&#x6838;&#x3001;&#x6027;&#x80FD;&#x5206;&#x6790;&#xFF08;&#x6BD4;&#x5982;kprobes&#x3001;perf&#xFF09;</li>
+</ul>
+<h3 id="2-ebpf-&#x9A8C;&#x8BC1;">2. eBPF &#x9A8C;&#x8BC1;</h3>
+<p>&#x5728;&#x52A0;&#x8F7D;&#x6BCF;&#x4E2A;BPF&#x7A0B;&#x5E8F;&#x4E4B;&#x524D;&#xFF0C;&#x90FD;&#x4F1A;&#x6267;&#x884C;&#x4E00;&#x4E9B;&#x68C0;&#x67E5;&#xFF1A;</p>
+<ul>
+<li>&#x6743;&#x9650;</li>
+<li>&#x6709;&#x754C;&#x5FAA;&#x73AF;</li>
+<li>&#x4E0D;&#x5F97;&#x4F7F;&#x7528;&#x672A;&#x521D;&#x59CB;&#x5316;&#x53D8;&#x91CF;</li>
+<li>&#x8D8A;&#x754C;&#x8BBF;&#x95EE;</li>
+<li>eBPF&#x7A0B;&#x5E8F;&#x5927;&#x5C0F;&#x9650;&#x5236;</li>
+<li>&#x6839;&#x636E;&#x7A0B;&#x5E8F;&#x7C7B;&#x578B;&#xFF0C;&#x9650;&#x5236;&#x53EF;&#x4EE5;&#x8C03;&#x7528;&#x54EA;&#x4E9B;&#x5185;&#x6838;&#x51FD;&#x6570;&#x3001;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x54EA;&#x4E9B;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x3001;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x7F51;&#x7EDC;&#x6570;&#x636E;&#x5305;&#x5185;&#x5BB9;</li>
+</ul>
+<p><img src="images/bpf_verification.png" alt="BPF"></p>
+<h3 id="3-ebpf-&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x547D;&#x4EE4;">3. eBPF &#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x547D;&#x4EE4;</h3>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;linux/bpf.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">bpf</span><span class="hljs-params">(<span class="hljs-keyword">int</span> cmd, <span class="hljs-keyword">union</span> bpf_attr *attr, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> size)</span></span>;
+</code></pre>
+<pre><code class="lang-c"><span class="hljs-keyword">enum</span> bpf_cmd {
+    BPF_MAP_CREATE,    <span class="hljs-comment">// &#x521B;&#x5EFA;&#x4E00;&#x4E2A;map&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x5176;&#x5173;&#x8054;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x3002;&#xFF08;&#x4F1A;&#x81EA;&#x52A8;&#x6253;&#x5F00;close-on-exec&#x6807;&#x5FD7;&#xFF09;</span>
+    BPF_MAP_LOOKUP_ELEM,
+    BPF_MAP_UPDATE_ELEM,
+    BPF_MAP_DELETE_ELEM,
+    BPF_MAP_GET_NEXT_KEY,
+    BPF_PROG_LOAD,    <span class="hljs-comment">// &#x9A8C;&#x8BC1;&#x5E76;&#x52A0;&#x8F7D;eBPF&#x7A0B;&#x5E8F;&#xFF0C;&#x8FD4;&#x56DE;&#x5176;&#x5173;&#x8054;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x3002;&#xFF08;&#x4F1A;&#x81EA;&#x52A8;&#x6253;&#x5F00;close-on-exec&#x6807;&#x5FD7;&#xFF09;</span>
+    BPF_OBJ_PIN,    <span class="hljs-comment">// &#x5C06;eBPF&#x7A0B;&#x5E8F;&#x6216;map&#x56FA;&#x5B9A;&#x5230;&#x6307;&#x5B9A;&#x7684;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#x4E0A;</span>
+    BPF_OBJ_GET,
+    BPF_PROG_ATTACH, <span class="hljs-comment">// &#x9644;&#x52A0;eBPF&#x7A0B;&#x5E8F;&#x5230;&#x6307;&#x5B9A;&#x9644;&#x52A0;&#x7C7B;&#x578B;&#x7684;Hook&#x4E0A;</span>
+    ...
+    BPF_PROG_QUERY,    <span class="hljs-comment">// &#x83B7;&#x53D6;&#x4E0E;&#x6307;&#x5B9A;&#x9644;&#x52A0;&#x7C7B;&#x578B;&#x7684;Hook&#x5173;&#x8054;&#x7684;eBPF&#x7A0B;&#x5E8F;&#x7684;&#x4FE1;&#x606F;</span>
+    BPF_BTF_LOAD,    <span class="hljs-comment">// &#x9A8C;&#x8BC1;&#x5E76;&#x52A0;&#x8F7D; BTF&#xFF08;BPF Type Format&#xFF09;&#x5143;&#x6570;&#x636E;&#x5230;&#x5185;&#x6838;&#xFF0C;&#x8FD4;&#x56DE;&#x5176;&#x5173;&#x8054;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;</span>
+    ...
+    BPF_LINK_CREATE, <span class="hljs-comment">// &#x9644;&#x52A0;eBPF&#x7A0B;&#x5E8F;&#x5230;&#x6307;&#x5B9A;&#x9644;&#x52A0;&#x7C7B;&#x578B;&#x7684;Hook&#x4E0A;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x53E5;&#x67C4;&#xFF0C;&#x7528;&#x4E8E;&#x7BA1;&#x7406;link</span>
+    ...
+    BPF_PROG_BIND_MAP, <span class="hljs-comment">// &#x7ED1;&#x5B9A;map&#x5230;eBPF&#x7A0B;&#x5E8F;</span>
+};
+</code></pre>
+<h3 id="4-ebpf-&#x672F;&#x8BED;">4. eBPF &#x672F;&#x8BED;</h3>
+<ul>
+<li><strong>&#x52A0;&#x8F7D;&#xFF08;Load&#xFF09;</strong></li>
+</ul>
+<p>&#x52A0;&#x8F7D;&#x7A0B;&#x5E8F;&#x6307;&#x901A;&#x8FC7;&#x7CFB;&#x7EDF;&#x8C03;&#x7528; <code>bpf&#xFF08;BPF_PROG_LOAD&#xFF0C;...&#xFF09;</code> &#x5C06;&#x5176;&#x6307;&#x4EE4;&#x6CE8;&#x5165;&#x5230;&#x5185;&#x6838;&#x3002;</p>
+<p>&#x6CE8;&#x5165;&#x524D;&#x901A;&#x8FC7;&#x4E86;&#x9A8C;&#x8BC1;&#x7A0B;&#x5E8F;&#xFF0C;&#x5982;&#x679C;&#x542F;&#x7528;&#x4E86; JIT &#x7F16;&#x8BD1;&#xFF0C;&#x7A0B;&#x5E8F;&#x53EF;&#x80FD;&#x4F1A;&#x88AB;JIT&#x7F16;&#x8BD1;&#x3002;</p>
+<p>&#x6CE8;&#x5165;&#x540E;&#xFF0C;&#x7A0B;&#x5E8F;&#x4F4D;&#x4E8E;&#x5185;&#x6838;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x5B83;&#x6709;&#x4E00;&#x4E2A;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x5668;&#xFF0C;&#x5185;&#x6838;&#x4E00;&#x76F4;&#x4FDD;&#x5B58;&#x5B83;&#xFF0C;&#x76F4;&#x5230;&#x8BA1;&#x6570;&#x5668;&#x53D8;&#x4E3A;&#x96F6;&#x3002;</p>
+<ul>
+<li><strong>&#x9644;&#x52A0;&#xFF08;Attach&#xFF09;</strong></li>
+</ul>
+<p>eBPF&#x7A0B;&#x5E8F;&#x88AB;&#x9644;&#x52A0;&#x5230;&#x6307;&#x5B9A;<code>&#x9644;&#x52A0;&#x7C7B;&#x578B;</code>&#x7684;Hook&#x4E0A;&#x3002;</p>
+<p><code>&#x9644;&#x52A0;&#x7C7B;&#x578B;</code>&#x53D6;&#x51B3;&#x4E8E;&#x7A0B;&#x5E8F;&#x7C7B;&#x578B;&#xFF0C;&#x53EA;&#x6709;&#x90E8;&#x5206;&#x7A0B;&#x5E8F;&#x7C7B;&#x578B;&#xFF08;cgroup&#x3001;flow dissector&#x3001;LIRC&#x3001;sockmap&#x3001;sock_ops&#xFF09;&#x6709;&#x8FD9;&#x4E2A;&#x6982;&#x5FF5;&#x3002;</p>
+<p>&#x67D0;&#x4E9B;&#x9644;&#x52A0;&#x7A0B;&#x5E8F;&#xFF08;&#x7F51;&#x7EDC;&#x3001;cgroup&#xFF09;&#x4F1A;&#x589E;&#x52A0;&#x5176;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#xFF0C;&#x4EE5;&#x4FBF;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x9000;&#x51FA;&#x800C;&#x4E0D;&#x4F1A;&#x4ECE;&#x5185;&#x6838;&#x5220;&#x9664;eBPF&#x7A0B;&#x5E8F;&#x3002;</p>
+<ul>
+<li><strong>&#x56FA;&#x5B9A;&#xFF08;Pin&#xFF09;</strong></li>
+</ul>
+<p>&#x56FA;&#x5B9A;&#x662F;&#x4FDD;&#x5B58;&#x5BF9;eBPF&#x5BF9;&#x8C61;&#xFF08;prog&#x3001;map&#x3001;link&#xFF09;&#x7684;&#x5F15;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x53EA;&#x8981;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x88AB;&#x56FA;&#x5B9A;&#xFF0C;&#x5B83;&#x5C31;&#x4FDD;&#x7559;&#x5728;&#x5185;&#x6838;&#x4E2D;&#x3002;&#x56FA;&#x5B9A;&#x7A0B;&#x5E8F;&#x53EF;&#x4EE5;&#x9632;&#x6B62;&#x88AB;&#x5220;&#x9664;&#xFF0C;&#x4F46;&#x4E0D;&#x4F1A;&#x8FD0;&#x884C;&#x3002;</p>
+<ul>
+<li><strong>&#x94FE;&#x63A5;&#xFF08;Link&#xFF09;</strong></li>
+</ul>
+<p>&#x9996;&#x5148;&#xFF0C;&#x4E0D;&#x8981;&#x8DDF; <code>ELF&#x76EE;&#x6807;&#x6587;&#x4EF6;&#x7684;&#x94FE;&#x63A5;</code> &#x6DF7;&#x6DC6;&#xFF0C;&#x5B8C;&#x5168;&#x662F;&#x65E0;&#x5173;&#x7684;&#x4E1C;&#x897F;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;XDP&#x7A0B;&#x5E8F;&#xFF0C;&#x7528;&#x6237;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x53EF;&#x4EE5;&#x9644;&#x52A0;&#x7A0B;&#x5E8F;&#x5E76;&#x5B89;&#x5168;&#x7EC8;&#x6B62;&#xFF0C;&#x7531;&#x4E8E;&#x589E;&#x52A0;&#x4E86;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#xFF0C;&#x7A0B;&#x5E8F;&#x80FD;&#x591F;&#x4E00;&#x76F4;&#x4FDD;&#x6301;&#x9644;&#x52A0;&#x548C;&#x52A0;&#x8F7D;&#x72B6;&#x6001;&#xFF0C;&#x800C;&#x4E0D;&#x4F1A;&#x4ECE;&#x5185;&#x6838;&#x5220;&#x9664;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x8DDF;&#x8E2A;&#xFF0C;&#x901A;&#x5E38;&#x8C03;&#x7528;<code>perf_event_open</code>&#x5F97;&#x5230;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#xFF0C;&#x8FDB;&#x884C;&#x9700;&#x8981;&#x4FDD;&#x6301;&#x8FD0;&#x884C;&#x624D;&#x80FD;&#x4FDD;&#x6301;&#x6B64;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x6253;&#x5F00;&#x3002;&#x5F53;&#x7A0B;&#x5E8F;&#x9000;&#x51FA;&#xFF0C;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x88AB;&#x5173;&#x95ED;&#xFF0C;&#x7A0B;&#x5E8F;&#x88AB;&#x5220;&#x9664;&#x3002;</p>
+<p>&#x5F15;&#x5165;<code>eBPF&#x94FE;&#x63A5;</code>&#x6765;&#x9644;&#x52A0;&#x7A0B;&#x5E8F;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF0C;&#x4F7F;&#x5176;&#x66F4;&#x5BB9;&#x5668;&#x4FDD;&#x6301;&#x9644;&#x52A0;&#x3002;&#x5F53;&#x7528;&#x6237;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7EC8;&#x6B62;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>&#x56FA;&#x5B9A;&#x94FE;&#x63A5;</code>&#x6765;&#x4FDD;&#x6301;&#x6301;&#x4E45;&#x6027;&#x3002;</p>
+<h3 id="5-ebpf-&#x7A0B;&#x5E8F;&#x7C7B;&#x578B;">5. eBPF &#x7A0B;&#x5E8F;&#x7C7B;&#x578B;</h3>
+<p>&#x4F7F;&#x7528;BPF_PROG_LOAD&#x52A0;&#x8F7D;&#x7684;&#x7A0B;&#x5E8F;&#x7C7B;&#x578B;&#x51B3;&#x5B9A;&#x4E86;&#xFF1A;</p>
+<ul>
+<li>&#x7A0B;&#x5E8F;&#x53EF;&#x4EE5;&#x9644;&#x52A0;&#x5230;&#x54EA;&#x91CC;</li>
+<li>&#x7A0B;&#x5E8F;&#x5141;&#x8BB8;&#x8C03;&#x7528;&#x54EA;&#x4E9B;&#x5185;&#x6838;&#x8F85;&#x52A9;&#x51FD;&#x6570;</li>
+<li>&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8BBF;&#x95EE;&#x7F51;&#x7EDC;&#x6570;&#x636E;&#x5305;</li>
+</ul>
+<pre><code class="lang-c"><span class="hljs-keyword">enum</span> bpf_prog_type {
+    BPF_PROG_TYPE_UNSPEC,
+    BPF_PROG_TYPE_SOCKET_FILTER, <span class="hljs-comment">// &#x7F51;&#x7EDC;&#x6570;&#x636E;&#x5305;&#x8FC7;&#x6EE4;&#x5668;</span>
+    BPF_PROG_TYPE_KPROBE,        <span class="hljs-comment">// &#x662F;&#x5426;&#x89E6;&#x53D1;kprobe</span>
+    BPF_PROG_TYPE_SCHED_CLS,    <span class="hljs-comment">// TC classifier</span>
+    BPF_PROG_TYPE_SCHED_ACT,    <span class="hljs-comment">// TC action</span>
+    BPF_PROG_TYPE_TRACEPOINT,    <span class="hljs-comment">// &#x662F;&#x5426;&#x89E6;&#x53D1;tracepoint</span>
+    BPF_PROG_TYPE_XDP,            <span class="hljs-comment">// XDP</span>
+    BPF_PROG_TYPE_PERF_EVENT,    <span class="hljs-comment">// &#x662F;&#x5426;&#x89E6;&#x53D1;perf&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7A0B;&#x5E8F;</span>
+    BPF_PROG_TYPE_CGROUP_SKB,    <span class="hljs-comment">// cgroup &#x7684;&#x7F51;&#x7EDC;&#x6570;&#x636E;&#x5305;&#x8FC7;&#x6EE4;&#x5668;</span>
+    BPF_PROG_TYPE_CGROUP_SOCK,    <span class="hljs-comment">// cgroup &#x7684;&#x7F51;&#x7EDC;&#x6570;&#x636E;&#x5305;&#x8FC7;&#x6EE4;&#x5668;&#xFF0C;&#x53EF;&#x4FEE;&#x6539;&#x5957;&#x63A5;&#x5B57;&#x9009;&#x9879;</span>
+    BPF_PROG_TYPE_LWT_IN,        <span class="hljs-comment">// LWT_* &#x8F7B;&#x91CF;&#x7EA7;&#x96A7;&#x9053;&#x7684;&#x7F51;&#x7EDC;&#x6570;&#x636E;&#x5305;&#x8FC7;&#x6EE4;&#x5668;</span>
+    BPF_PROG_TYPE_LWT_OUT,
+    BPF_PROG_TYPE_LWT_XMIT,
+    BPF_PROG_TYPE_SOCK_OPS,        <span class="hljs-comment">// &#x8BBE;&#x7F6E;socket&#x53C2;&#x6570;&#x7684;&#x7A0B;&#x5E8F;</span>
+    BPF_PROG_TYPE_SK_SKB,        <span class="hljs-comment">// &#x5957;&#x63A5;&#x5B57;&#x4E4B;&#x95F4;&#x7684;&#x6570;&#x636E;&#x5305;&#x8FC7;&#x6EE4;&#x5668;</span>
+    BPF_PROG_TYPE_CGROUP_DEVICE,
+    BPF_PROG_TYPE_SK_MSG,
+    BPF_PROG_TYPE_RAW_TRACEPOINT,
+    BPF_PROG_TYPE_CGROUP_SOCK_ADDR,
+    BPF_PROG_TYPE_LWT_SEG6LOCAL,
+    BPF_PROG_TYPE_LIRC_MODE2,
+    BPF_PROG_TYPE_SK_REUSEPORT,
+    BPF_PROG_TYPE_FLOW_DISSECTOR,
+    BPF_PROG_TYPE_CGROUP_SYSCTL,
+    BPF_PROG_TYPE_RAW_TRACEPOINT_WRITABLE,
+    BPF_PROG_TYPE_CGROUP_SOCKOPT,
+    BPF_PROG_TYPE_TRACING,
+    BPF_PROG_TYPE_STRUCT_OPS,
+    BPF_PROG_TYPE_EXT,
+    BPF_PROG_TYPE_LSM,
+    BPF_PROG_TYPE_SK_LOOKUP,
+    BPF_PROG_TYPE_SYSCALL, <span class="hljs-comment">/* a program that can execute syscalls */</span>
+};
+</code></pre>
+<h3 id="6-ebpf-map&#x7C7B;&#x578B;">6. eBPF Map&#x7C7B;&#x578B;</h3>
+<p>eBPF&#x7A0B;&#x5E8F;&#x4F7F;&#x7528;&#x7684;&#x4E3B;&#x8981;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x662F;map&#xFF0C;&#x8FD9;&#x662F;&#x4E00;&#x79CD;&#x901A;&#x7528;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x5141;&#x8BB8;&#x6570;&#x636E;&#x5728;&#x5185;&#x6838;&#x548C;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x76F4;&#x63A5;&#x6765;&#x56DE;&#x4F20;&#x9012;&#x3002;</p>
+<p><img src="images/bpf_map.png" alt="BPF"></p>
+<pre><code class="lang-c"><span class="hljs-keyword">enum</span> bpf_map_type {
+    BPF_MAP_TYPE_UNSPEC,
+    BPF_MAP_TYPE_HASH,    <span class="hljs-comment">// &#x54C8;&#x5E0C;&#x8868;</span>
+    BPF_MAP_TYPE_ARRAY,    <span class="hljs-comment">// &#x6570;&#x7EC4;</span>
+    BPF_MAP_TYPE_PROG_ARRAY,    <span class="hljs-comment">// eBPF&#x7A0B;&#x5E8F;&#x5BF9;&#x5E94;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x6570;&#x7EC4;&#xFF1B;&#x7528;&#x4E8E;&#x5B9E;&#x73B0;&#x8DF3;&#x8F6C;&#x8868;&#x548C;&#x5B50;&#x7A0B;&#x5E8F;&#x6765;&#x5904;&#x7406;&#x7279;&#x5B9A;&#x7684;&#x6570;&#x636E;&#x5305;&#x534F;&#x8BAE;</span>
+    BPF_MAP_TYPE_PERF_EVENT_ARRAY,    <span class="hljs-comment">// &#x5B58;&#x50A8;&#x6307;&#x5411;struct perf_event&#x7684;&#x6307;&#x9488;&#xFF0C;&#x7528;&#x4E8E;&#x8BFB;&#x53D6;&#x548C;&#x5B58;&#x50A8;perf&#x4E8B;&#x4EF6;&#x8BA1;&#x6570;&#x5668;</span>
+    BPF_MAP_TYPE_PERCPU_HASH,    <span class="hljs-comment">// percpu &#x54C8;&#x5E0C;&#x8868;</span>
+    BPF_MAP_TYPE_PERCPU_ARRAY,    <span class="hljs-comment">// percpu &#x6570;&#x7EC4;</span>
+    BPF_MAP_TYPE_STACK_TRACE,    <span class="hljs-comment">// &#x5B58;&#x50A8;&#x5806;&#x6808;&#x8DDF;&#x8E2A;</span>
+    BPF_MAP_TYPE_CGROUP_ARRAY,
+    BPF_MAP_TYPE_LRU_HASH,            <span class="hljs-comment">// LRU &#x54C8;&#x5E0C;&#x8868;</span>
+    BPF_MAP_TYPE_LRU_PERCPU_HASH,    <span class="hljs-comment">// LRU percpu &#x54C8;&#x5E0C;&#x8868;</span>
+    BPF_MAP_TYPE_LPM_TRIE,        <span class="hljs-comment">// &#x6700;&#x957F;&#x524D;&#x7F00;&#x5339;&#x914D;&#x6811;&#xFF0C;&#x7528;&#x4E8E;&#x5C06;IP&#x5730;&#x5740;&#x5339;&#x914D;&#x5230;&#x67D0;&#x4E2A;&#x8303;&#x56F4;</span>
+    BPF_MAP_TYPE_ARRAY_OF_MAPS,    <span class="hljs-comment">// array in map</span>
+    BPF_MAP_TYPE_HASH_OF_MAPS,    <span class="hljs-comment">// hash in map</span>
+    BPF_MAP_TYPE_DEVMAP,        <span class="hljs-comment">// &#x7528;&#x4E8E;&#x5B58;&#x50A8;&#x548C;&#x67E5;&#x627E;&#x7F51;&#x7EDC;&#x8BBE;&#x5907;</span>
+    BPF_MAP_TYPE_SOCKMAP,        <span class="hljs-comment">// &#x7528;&#x4E8E;&#x5B58;&#x50A8;&#x548C;&#x67E5;&#x627E;&#x5957;&#x63A5;&#x5B57;</span>
+    BPF_MAP_TYPE_CPUMAP,
+    BPF_MAP_TYPE_XSKMAP,
+    BPF_MAP_TYPE_SOCKHASH,
+    BPF_MAP_TYPE_CGROUP_STORAGE,
+    BPF_MAP_TYPE_REUSEPORT_SOCKARRAY,
+    BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE,
+    BPF_MAP_TYPE_QUEUE,
+    BPF_MAP_TYPE_STACK,
+    BPF_MAP_TYPE_SK_STORAGE,
+    BPF_MAP_TYPE_DEVMAP_HASH,
+    BPF_MAP_TYPE_STRUCT_OPS,
+    BPF_MAP_TYPE_RINGBUF,        <span class="hljs-comment">// &#x73AF;&#x5F62;&#x7F13;&#x51B2;&#x533A;</span>
+    BPF_MAP_TYPE_INODE_STORAGE,
+    BPF_MAP_TYPE_TASK_STORAGE,
+};
+</code></pre>
+<h2 id="&#x53C2;&#x8003;&#x6587;&#x6863;">&#x53C2;&#x8003;&#x6587;&#x6863;</h2>
+<ul>
+<li><a href="https://www.tcpdump.org/papers/bpf-usenix93.pdf" target="_blank">&#x63D0;&#x51FA;BPF&#x7684;&#x8BBA;&#x6587;</a></li>
+<li><a href="https://docs.cilium.io/en/stable/bpf/" target="_blank">BPF&#x548C;XDP&#x53C2;&#x8003;&#x6307;&#x5357;</a></li>
+<li><a href="https://www.kernel.org/doc/html/latest/bpf/" target="_blank">&#x5185;&#x6838;BPF&#x6587;&#x6863;</a></li>
+<li><a href="https://github.com/torvalds/linux/blob/master/Documentation/bpf/bpf_design_QA.rst" target="_blank">BPF&#x8BBE;&#x8BA1;&#x95EE;&#x7B54;</a></li>
+<li><a href="https://ebpf.io/what-is-ebpf" target="_blank">eBPF&#x662F;&#x4EC0;&#x4E48;</a></li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../OVS/" class="navigation navigation-prev " aria-label="Previous page: OVS">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../XDP/" class="navigation navigation-next " aria-label="Next page: XDP">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"eBPF","level":"2.2","depth":1,"next":{"title":"XDP","level":"2.3","depth":1,"path":"XDP/index.md","ref":"./XDP/index.md","articles":[]},"previous":{"title":"OVS","level":"2.1","depth":1,"path":"OVS/index.md","ref":"./OVS/index.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"eBPF/index.md","mtime":"2022-11-05T12:06:55.547Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-11-05T12:07:56.557Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-intopic-toc/anchor.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-intopic-toc/gumshoe.polyfills.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-intopic-toc/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Jobs · GitBook</title>
+        <title>OVS · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -69,8 +69,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CronJob.html" />
+    <link rel="next" href="../eBPF/" />
     
+    
+    <link rel="prev" href="../Kubernetes/Operator.html" />
     
 
     </head>
@@ -305,9 +307,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="./">
+        <li class="chapter " data-level="1.4" data-path="../Kubernetes/">
             
-                <a href="./">
+                <a href="../Kubernetes/">
             
                     
                     Kubernetes
@@ -333,9 +335,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.4.1.1" data-path="Jobs.html">
+        <li class="chapter " data-level="1.4.1.1" data-path="../Kubernetes/Jobs.html">
             
-                <a href="Jobs.html">
+                <a href="../Kubernetes/Jobs.html">
             
                     
                     Jobs
@@ -346,9 +348,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.1.2" data-path="CronJob.html">
+        <li class="chapter " data-level="1.4.1.2" data-path="../Kubernetes/CronJob.html">
             
-                <a href="CronJob.html">
+                <a href="../Kubernetes/CronJob.html">
             
                     
                     CronJob
@@ -364,9 +366,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="CRD.html">
+        <li class="chapter " data-level="1.4.2" data-path="../Kubernetes/CRD.html">
             
-                <a href="CRD.html">
+                <a href="../Kubernetes/CRD.html">
             
                     
                     CRD
@@ -377,9 +379,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.3" data-path="Operator.html">
+        <li class="chapter " data-level="1.4.3" data-path="../Kubernetes/Operator.html">
             
-                <a href="Operator.html">
+                <a href="../Kubernetes/Operator.html">
             
                     
                     Operator
@@ -402,9 +404,9 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="../OVS/">
+        <li class="chapter active" data-level="2.1" data-path="./">
             
-                <a href="../OVS/">
+                <a href="./">
             
                     
                     OVS
@@ -549,7 +551,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Jobs</a>
+        <a href=".." >OVS</a>
     </h1>
 </div>
 
@@ -564,90 +566,28 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="jobs">Jobs</h1>
-<p><code>Job</code> &#x548C; <code>Replication Controllers</code>&#x662F;&#x5F7C;&#x6B64;&#x4E92;&#x8865;&#x7684;&#x3002;RC&#x7BA1;&#x7406;&#x7684;&#x662F;&#x90A3;&#x4E9B;&#x4E0D;&#x5E0C;&#x671B;&#x88AB;&#x7EC8;&#x6B62;&#x7684;Pod&#xFF0C; Job &#x7BA1;&#x7406;&#x7684;&#x662F;&#x90A3;&#x4E9B;&#x5E0C;&#x671B;&#x88AB;&#x7EC8;&#x6B62;&#x7684; Pod&#x3002;</p>
-<h2 id="&#x975E;&#x5E76;&#x884C;-job">&#x975E;&#x5E76;&#x884C; Job</h2>
-<p>&#x793A;&#x4F8B;&#xFF1A;<code>job.yaml</code></p>
-<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> batch/v1
-<span class="hljs-attr">kind:</span> Job
-<span class="hljs-attr">metadata:</span>
-<span class="hljs-attr">  name:</span> pi
-<span class="hljs-attr">spec:</span>
-<span class="hljs-attr">  template:</span>
-<span class="hljs-attr">    spec:</span>
-<span class="hljs-attr">      containers:</span>
-<span class="hljs-attr">      - name:</span> pi
-<span class="hljs-attr">        image:</span> perl
-<span class="hljs-attr">        command:</span> [<span class="hljs-string">&quot;perl&quot;</span>,  <span class="hljs-string">&quot;-Mbignum=bpi&quot;</span>, <span class="hljs-string">&quot;-wle&quot;</span>, <span class="hljs-string">&quot;print bpi(2000)&quot;</span>]
-<span class="hljs-attr">      restartPolicy:</span> Never        <span class="hljs-comment"># &#x91CD;&#x542F;&#x7B56;&#x7565;&#xFF08;&#x5BF9;&#x5E94;&#x7684;&#x662F;Pod&#xFF0C;&#x4E0D;&#x662F;Job&#xFF09;</span>
-<span class="hljs-attr">  backoffLimit:</span> <span class="hljs-number">4</span>                <span class="hljs-comment"># &#x91CD;&#x8BD5;&#x6B21;&#x6570;&#x9650;&#x5236;</span>
-</code></pre>
-<pre><code class="lang-shell"># &#x521B;&#x5EFA;Job
-kubectl apply -f job.yaml
-
-# &#x67E5;&#x770B;Job&#x7684;&#x72B6;&#x6001;
-kubectl describe jobs/pi
-
-# &#x67E5;&#x770B;Job&#x5BF9;&#x5E94;&#x7684;Pods
-kubectl get pods --selector=job-name=pi
-
-# &#x67E5;&#x770B;Pod&#x7684;&#x8F93;&#x51FA;
-kubectl logs pi-s4qzr
-</code></pre>
-<p>&#x7F16;&#x5199;&#x89C4;&#x8303;&#xFF1A;</p>
+                                <p><img src="images/vswitch.png" alt="OVS"></p>
+<h1 id="open-vswitch">Open vSwitch</h1>
+<h2 id="why-open-vswitch&#xFF1F;">Why Open vSwitch&#xFF1F;</h2>
+<p>Open vSwitch &#x7684;&#x8BBE;&#x8BA1;&#x76EE;&#x6807;&#x4E0E;&#x4EE5;&#x524D;&#x7684;&#x7A0B;&#x5E8F;&#x7F51;&#x7EDC;&#x5806;&#x6808;&#x4E0D;&#x540C;&#xFF0C;&#x5B83;&#x4E13;&#x6CE8;&#x4E8E; Linux &#x5927;&#x89C4;&#x6A21;&#x865A;&#x62DF;&#x5316;&#x73AF;&#x5883;&#x4E2D;&#x5BF9;&#x81EA;&#x52A8;&#x5316;&#x548C;&#x52A8;&#x6001;&#x7F51;&#x7EDC;&#x63A7;&#x5236;&#x7684;&#x9700;&#x6C42;&#x3002;</p>
+<p>&#x5728;&#x4F20;&#x7EDF;&#x6570;&#x636E;&#x4E2D;&#x5FC3;&#x4E2D;&#xFF0C;&#x7F51;&#x7EDC;&#x7BA1;&#x7406;&#x5458;&#x901A;&#x8FC7;&#x5BF9;&#x4EA4;&#x6362;&#x673A;&#x7684;&#x7AEF;&#x53E3;&#x8FDB;&#x884C;&#x4E00;&#x5B9A;&#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x53EF;&#x4EE5;&#x5F88;&#x597D;&#x5730;&#x63A7;&#x5236;&#x7269;&#x7406;&#x673A;&#x7684;&#x7F51;&#x7EDC;&#x63A5;&#x5165;&#xFF0C;&#x5B8C;&#x6210;&#x7F51;&#x7EDC;&#x9694;&#x79BB;&#x3001;&#x6D41;&#x91CF;&#x76D1;&#x63A7;&#x3001;&#x6570;&#x636E;&#x5305;&#x5206;&#x6790;&#x3001;Qos&#x914D;&#x7F6E;&#x3001;&#x6D41;&#x91CF;&#x4F18;&#x5316;&#x7B49;&#x4E00;&#x7CFB;&#x5217;&#x5DE5;&#x4F5C;&#x3002;</p>
+<p>&#x4F46;&#x662F;&#x5728;&#x4E91;&#x73AF;&#x5883;&#x4E2D;&#xFF0C;&#x4EC5;&#x51ED;&#x7269;&#x7406;&#x4EA4;&#x6362;&#x673A;&#x7684;&#x652F;&#x6301;&#xFF0C;&#x7BA1;&#x7406;&#x5458;&#x65E0;&#x6CD5;&#x533A;&#x5206;&#x88AB;&#x6865;&#x63A5;&#x7684;&#x7269;&#x7406;&#x7F51;&#x5361;&#x4E0A;&#x6D41;&#x6DCC;&#x7684;&#x6570;&#x636E;&#x5305;&#x5C5E;&#x4E8E;&#x54EA;&#x4E2A;VM&#x3001;&#x54EA;&#x4E2A;OS&#x53CA;&#x54EA;&#x4E2A;&#x7528;&#x6237;&#xFF0C;Open vSwitch&#x7684;&#x5F15;&#x5165;&#x5219;&#x4F7F;&#x4E91;&#x73AF;&#x5883;&#x4E2D;&#x865A;&#x62DF;&#x7F51;&#x7EDC;&#x7684;&#x7BA1;&#x7406;&#x4EE5;&#x53CA;&#x5BF9;&#x7F51;&#x7EDC;&#x72B6;&#x6001;&#x548C;&#x6D41;&#x91CF;&#x7684;&#x76D1;&#x63A7;&#x53D8;&#x5F97;&#x5BB9;&#x6613;&#x3002;</p>
+<h2 id="what-is-open-vswitch&#xFF1F;">What is Open vSwitch&#xFF1F;</h2>
+<p><img src="images/overview.png" alt="OVS"></p>
+<p>&#x4E3B;&#x8981;&#x7EC4;&#x6210;&#x90E8;&#x5206;&#xFF1A;</p>
 <ul>
-<li>Job &#x4E2D; Pod &#x7684; <code>restartPolicy</code> &#x53EA;&#x80FD;&#x8BBE;&#x7F6E;&#x4E3A;<code>Never</code>&#x6216;<code>OnFailure</code>&#x4E4B;&#x4E00;&#x3002;</li>
-<li>Job &#x5728;&#x8FD0;&#x884C;&#x7684;&#x65F6;&#x5019;&#x4E0D;&#x53EF;&#x80FD;&#x53BB;&#x65E0;&#x9650;&#x7684;&#x91CD;&#x8BD5;&#xFF0C; <code>backoffLimit</code> &#x5C31;&#x662F;&#x6765;&#x4FDD;&#x8BC1;&#x4E00;&#x4E2A; Job &#x6700;&#x591A;&#x80FD;&#x91CD;&#x8BD5;&#x591A;&#x5C11;&#x6B21;&#x3002;</li>
+<li>ovs-vswitchd&#xFF0C;&#x4E00;&#x4E2A;&#x5B88;&#x62A4;&#x8FDB;&#x7A0B;&#xFF0C;&#x6700;&#x91CD;&#x8981;&#x7684;&#x6A21;&#x5757;&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;&#x865A;&#x62DF;&#x673A;&#x4EA4;&#x6362;&#x673A;&#x7684;&#x540E;&#x53F0;&#x3002;</li>
+<li>ovsdb-server&#xFF0C;&#x4E00;&#x4E2A;&#x8F7B;&#x91CF;&#x7EA7;&#x7684;&#x6570;&#x636E;&#x5E93;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x901A;&#x8FC7; ovs-vswitchd &#x67E5;&#x8BE2;&#x6765;&#x83B7;&#x53D6;&#x5176;&#x914D;&#x7F6E;&#x3002;</li>
+<li>ovsdb-client&#xFF0C;ovsdb-server&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x547D;&#x4EE4;&#x884C;&#x5DE5;&#x5177;&#x3002;</li>
+<li>ovs-vsctl&#xFF0C;&#x7528;&#x4E8E;&#x67E5;&#x8BE2;&#x548C;&#x66F4;&#x65B0; ovs-vswitchd &#x914D;&#x7F6E;&#x3002;</li>
+<li>ovs-dpctl&#xFF0C;&#x7528;&#x4E8E;&#x914D;&#x7F6E;&#x5185;&#x6838;&#x6A21;&#x5757;&#x4E2D;&#x7684;datapath&#x3002;</li>
+<li>ovs-appctl&#xFF0C;&#x4E00;&#x4E2A;&#x5411;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684; Open vSwitch &#x5B88;&#x62A4;&#x8FDB;&#x7A0B;&#x53D1;&#x9001;&#x547D;&#x4EE4;&#x7684;&#x5B9E;&#x7528;&#x7A0B;&#x5E8F;&#x3002;
+&#x5DE5;&#x5177;&#xFF1A;</li>
+<li>ovs-ofctl&#xFF0C;&#x901A;&#x8FC7;OpenFlow&#x534F;&#x8BAE;&#x67E5;&#x8BE2;&#x548C;&#x63A7;&#x5236;OpenFlow&#x4EA4;&#x6362;&#x673A;&#x548C;&#x63A7;&#x5236;&#x5668;&#x3002;</li>
+<li>ovs-pki&#xFF0C;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x521B;&#x5EFA;&#x548C;&#x7BA1;&#x7406; OpenFlow &#x4EA4;&#x6362;&#x673A;&#x7684;&#x516C;&#x94A5;&#x57FA;&#x7840;&#x8BBE;&#x65BD;&#x7684;&#x5B9E;&#x7528;&#x7A0B;&#x5E8F;&#x3002;</li>
+<li>ovs-testcontroller&#xFF0C;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684; OpenFlow &#x63A7;&#x5236;&#x5668;&#xFF0C;&#x53EF;&#x80FD;&#x5BF9;&#x6D4B;&#x8BD5;&#x6709;&#x7528;</li>
+<li>tcpdump &#x7684;&#x8865;&#x4E01;&#xFF0C;&#x4F7F;&#x5176;&#x80FD;&#x591F;&#x89E3;&#x6790; OpenFlow &#x6D88;&#x606F;&#x3002;</li>
 </ul>
-<h2 id="&#x5E76;&#x884C;-job">&#x5E76;&#x884C; Job</h2>
-<p>&#x793A;&#x4F8B;&#xFF1A;<code>paral.yaml</code></p>
-<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> batch/v1
-<span class="hljs-attr">kind:</span> Job
-<span class="hljs-attr">metadata:</span>
-<span class="hljs-attr">  name:</span> paral
-<span class="hljs-attr">spec:</span>
-<span class="hljs-attr">  template:</span>
-<span class="hljs-attr">    spec:</span>
-<span class="hljs-attr">      containers:</span>
-<span class="hljs-attr">      - name:</span> paral
-<span class="hljs-attr">        image:</span> ubuntu
-<span class="hljs-attr">        command:</span> [<span class="hljs-string">&quot;/bin/sh&quot;</span>]
-<span class="hljs-attr">        args:</span> [<span class="hljs-string">&quot;-c&quot;</span>, <span class="hljs-string">&quot;sleep 10; date&quot;</span>]
-<span class="hljs-attr">      restartPolicy:</span> OnFailure
-<span class="hljs-attr">  completions:</span> <span class="hljs-number">8</span>        <span class="hljs-comment"># Pod&#x961F;&#x5217;&#x6267;&#x884C;&#x6B21;&#x6570;</span>
-<span class="hljs-attr">  parallelism:</span> <span class="hljs-number">2</span>        <span class="hljs-comment"># &#x5E76;&#x884C;&#x6267;&#x884C;&#x7684;&#x4E2A;&#x6570;</span>
-</code></pre>
-<pre><code class="lang-shell"># &#x521B;&#x5EFA;&#x5E76;&#x884C;Job
-kubectl apply -f paral.yaml
-
-# &#x89C2;&#x5BDF;Pod&#x8FD0;&#x884C;&#x72B6;&#x51B5;
-watch kubectl get pods --selector=job-name=paral
-</code></pre>
-<p>&#x5BF9;&#x4E8E;&#x975E;&#x5E76;&#x884C;Job&#xFF0C;&#x53EF;&#x4EE5;&#x4E0D;&#x8BBE;&#x7F6E;<code>completions</code>&#x548C;<code>parallelism</code>&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x5C5E;&#x6027;&#x4E0D;&#x8BBE;&#x7F6E;&#x65F6;&#xFF0C;&#x5747;&#x53D6;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;1&#x3002;</p>
-<h2 id="&#x5B8C;&#x6210;&#x6A21;&#x5F0F;">&#x5B8C;&#x6210;&#x6A21;&#x5F0F;</h2>
-<p><code>completionMode</code>&#x6307;&#x5B9A;&#x4E86;&#x5B8C;&#x6210;&#x6A21;&#x5F0F;&#xFF1A;</p>
-<ul>
-<li><code>NonIndexed</code>&#xFF08;&#x9ED8;&#x8BA4;&#x503C;&#xFF09;&#xFF1A;&#x6210;&#x529F;&#x5B8C;&#x6210;&#x7684; Pod &#x4E2A;&#x6570;&#x8FBE;&#x5230; completions &#x6240;&#x8BBE;&#x503C;&#x65F6;&#x8BA4;&#x4E3A; Job &#x5DF2;&#x7ECF;&#x5B8C;&#x6210;&#x3002;</li>
-<li><code>Indexed</code>&#xFF1A;Job &#x7684; Pod &#x4F1A;&#x83B7;&#x5F97;&#x5BF9;&#x5E94;&#x7684;&#x5B8C;&#x6210;&#x7D22;&#x5F15;&#xFF0C;&#x53D6;&#x503C;&#x4E3A; 0 &#x5230; completions-1&#x3002;&#x5F53;&#x6BCF;&#x4E2A;&#x7D22;&#x5F15;&#x90FD;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;&#x5B8C;&#x6210;&#x5B8C;&#x6210;&#x7684; Pod &#x65F6;&#xFF0C;Job &#x88AB;&#x8BA4;&#x4E3A;&#x662F;&#x5DF2;&#x5B8C;&#x6210;&#x7684;&#x3002;</li>
-</ul>
-<h2 id="backofflimit-&#x7B56;&#x7565;">backoffLimit &#x7B56;&#x7565;</h2>
-<p>&#x80CC;&#x666F;&#xFF1A;&#x5E0C;&#x671B; Job &#x5728;&#x7ECF;&#x5386;&#x82E5;&#x5E72;&#x6B21;&#x91CD;&#x8BD5;&#x4E4B;&#x540E;&#x76F4;&#x63A5;&#x8FDB;&#x5165;&#x5931;&#x8D25;&#x72B6;&#x6001;&#x3002;</p>
-<p><code>backoffLimit</code>&#xFF1A;Job &#x5931;&#x8D25;&#x4E4B;&#x524D;&#x7684;&#x91CD;&#x8BD5;&#x6B21;&#x6570;&#x3002;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;6&#x3002;</p>
-<p>&#x91CD;&#x8BD5;&#x65F6;&#x95F4;&#x5C06;&#x4F1A;&#x6309;&#x6307;&#x6570;&#x589E;&#x957F; &#xFF08;&#x4ECE; 10 &#x79D2;&#x3001;20 &#x79D2;&#x5230; 40 &#x79D2;&#xFF09;&#x6700;&#x591A;&#x81F3; 6 &#x5206;&#x949F;&#x3002;</p>
-<p>&#x5F53; Job &#x7684; Pod &#x88AB;&#x5220;&#x9664;&#x65F6;&#xFF0C;&#x6216;&#x8005; Pod &#x6210;&#x529F;&#x65F6;&#x6CA1;&#x6709;&#x5176;&#x5B83; Pod &#x5904;&#x4E8E;&#x5931;&#x8D25;&#x72B6;&#x6001;&#xFF0C;&#x5931;&#x6548;&#x7684;&#x6B21;&#x6570;&#x4E5F;&#x4F1A;&#x88AB;&#x91CD;&#x7F6E;&#xFF08;&#x4E3A; 0&#xFF09;&#x3002;</p>
-<h2 id="job-&#x7EC8;&#x6B62;&#x4E0E;&#x6E05;&#x7406;">Job &#x7EC8;&#x6B62;&#x4E0E;&#x6E05;&#x7406;</h2>
-<p>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>kubectl</code>&#x6765;&#x5220;&#x9664;Job&#x3002;</p>
-<p>&#x7EC8;&#x6B62;Job&#x7684;&#x53E6;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#x662F;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x6D3B;&#x8DC3;&#x671F;&#x9650;<code>activeDeadlineSeconds</code>&#x3002;</p>
-<p>&#x4E00;&#x65E6; Job &#x8FD0;&#x884C;&#x65F6;&#x95F4;&#x8FBE;&#x5230; activeDeadlineSeconds &#x79D2;&#xFF0C;&#x5176;&#x6240;&#x6709;&#x8FD0;&#x884C;&#x4E2D;&#x7684; Pod &#x90FD;&#x4F1A;&#x88AB;&#x7EC8;&#x6B62;&#xFF0C;&#x5E76;&#x4E14; Job &#x7684;&#x72B6;&#x6001;&#x66F4;&#x65B0;&#x4E3A; type: Failed &#x53CA; reason: DeadlineExceeded&#x3002;</p>
-<p>&#x6CE8;&#x610F;&#xFF1A; <strong>Job &#x7684; activeDeadlineSeconds &#x4F18;&#x5148;&#x7EA7;&#x9AD8;&#x4E8E;&#x5176; backoffLimit &#x8BBE;&#x7F6E;&#x3002;</strong></p>
-<p>&#x901A;&#x8FC7;&#x8BBE;&#x7F6E; Job &#x7684; <code>ttlSecondsAfterFinished</code> &#x5B57;&#x6BB5;&#xFF0C;&#x53EF;&#x4EE5;&#x8BA9;TTL&#x63A7;&#x5236;&#x5668;&#x6E05;&#x7406;&#x6389; &#x5DF2;&#x7ED3;&#x675F;&#x7684;&#x8D44;&#x6E90;&#xFF08;&#x72B6;&#x6001;&#x4E3A;<code>Complete</code> &#x6216; <code>Failed</code>&#xFF09;&#x3002;</p>
-<h2 id="&#x6302;&#x8D77;-job">&#x6302;&#x8D77; Job</h2>
-<p>&#x8981;&#x6302;&#x8D77;&#x4E00;&#x4E2A; Job&#xFF0C;&#x53EF;&#x4EE5;&#x5C06; Job &#x7684; <code>suspend</code> &#x5B57;&#x6BB5;&#x66F4;&#x65B0;&#x4E3A; true&#x3002;
-&#x5F53;&#x6062;&#x590D;&#x5176;&#x6267;&#x884C;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06; Job &#x7684; <code>suspend</code> &#x5B57;&#x6BB5;&#x66F4;&#x65B0;&#x4E3A; false&#x3002;</p>
-<p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A; <code>suspend</code> &#x88AB;&#x8BBE;&#x7F6E;&#x4E3A; true &#x7684; Job &#x672C;&#x8D28;&#x4E0A;&#x4F1A;&#x5C06;&#x5176;&#x521B;&#x5EFA;&#x4E3A;&#x88AB;&#x6302;&#x8D77;&#x72B6;&#x6001;&#x3002;</p>
-<p>&#x5F53; Job &#x88AB;&#x4ECE;&#x6302;&#x8D77;&#x72B6;&#x6001;&#x6062;&#x590D;&#x6267;&#x884C;&#x65F6;&#xFF0C;&#x5176;<code>.status.startTime</code> &#x5B57;&#x6BB5;&#x4F1A;&#x88AB;&#x91CD;&#x7F6E;&#x4E3A; <code>&#x5F53;&#x524D;&#x7684;&#x65F6;&#x95F4;</code>&#x3002;&#x8FD9;&#x610F;&#x5473;&#x7740; <code>activeDeadlineSeconds</code> &#x8BA1;&#x65F6;&#x5668;&#x4F1A;&#x5728; Job &#x6302;&#x8D77;&#x65F6; &#x88AB;&#x505C;&#x6B62;&#xFF0C;&#x5E76;&#x5728; Job &#x6062;&#x590D;&#x6267;&#x884C;&#x65F6;&#x590D;&#x4F4D;&#x3002;</p>
-<p>&#x6302;&#x8D77; Job &#x4F1A;&#x5220;&#x9664;&#x5176;&#x6240;&#x6709;&#x6D3B;&#x8DC3;&#x7684; Pod&#x3002;&#x5F53; Job &#x88AB;&#x6302;&#x8D77;&#x65F6;&#xFF0C; Pod &#x4F1A; &#x6536;&#x5230; SIGTERM &#x4FE1;&#x53F7;&#x800C;&#x88AB;&#x7EC8;&#x6B62;&#x3002;
-Pod &#x4EE5;&#x8FD9;&#x79CD;&#x5F62;&#x5F0F;&#x7EC8;&#x6B62;&#x65F6;&#xFF0C;&#x4E0D;&#x4F1A;&#x88AB;&#x8BB0;&#x5165; Job &#x7684; <code>completions</code> &#x8BA1;&#x6570;&#x3002;</p>
 
                                 
                                 </section>
@@ -675,8 +615,12 @@ Pod &#x4EE5;&#x8FD9;&#x79CD;&#x5F62;&#x5F0F;&#x7EC8;&#x6B62;&#x65F6;&#xFF0C;&#x4
 
             
                 
+                <a href="../Kubernetes/Operator.html" class="navigation navigation-prev " aria-label="Previous page: Operator">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="CronJob.html" class="navigation navigation-next navigation-unique" aria-label="Next page: CronJob">
+                
+                <a href="../eBPF/" class="navigation navigation-next " aria-label="Next page: eBPF">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -687,7 +631,7 @@ Pod &#x4EE5;&#x8FD9;&#x79CD;&#x5F62;&#x5F0F;&#x7EC8;&#x6B62;&#x65F6;&#xFF0C;&#x4
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Jobs","level":"1.4.1.1","depth":3,"next":{"title":"CronJob","level":"1.4.1.2","depth":3,"path":"Kubernetes/CronJob.md","ref":"./Kubernetes/CronJob.md","articles":[]},"previous":{"title":"工作负载","level":"1.4.1","depth":2,"ref":"","articles":[{"title":"Jobs","level":"1.4.1.1","depth":3,"path":"Kubernetes/Jobs.md","ref":"./Kubernetes/Jobs.md","articles":[]},{"title":"CronJob","level":"1.4.1.2","depth":3,"path":"Kubernetes/CronJob.md","ref":"./Kubernetes/CronJob.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Kubernetes/Jobs.md","mtime":"2022-01-08T09:28:26.134Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-11-05T12:07:56.557Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"OVS","level":"2.1","depth":1,"next":{"title":"eBPF","level":"2.2","depth":1,"path":"eBPF/index.md","ref":"./eBPF/index.md","articles":[]},"previous":{"title":"Operator","level":"1.4.3","depth":2,"path":"Kubernetes/Operator.md","ref":"./Kubernetes/Operator.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"OVS/index.md","mtime":"2022-04-23T05:16:17.859Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-11-05T12:07:56.557Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
