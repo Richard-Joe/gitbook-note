@@ -88,6 +88,8 @@ enum bpf_cmd {
 
 eBPF程序被附加到指定`附加类型`的Hook上。
 
+**用户将eBPF程序attach到某个事件上，当这个事件触发的时候，就会执行这个eBPF程序。**（所以eBPF是基于事件触发的）
+
 `附加类型`取决于程序类型，只有部分程序类型（cgroup、flow dissector、LIRC、sockmap、sock_ops）有这个概念。
 
 某些附加程序（网络、cgroup）会增加其引用计数，以便应用程序退出而不会从内核删除eBPF程序。
