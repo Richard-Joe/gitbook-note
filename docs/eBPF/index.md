@@ -196,6 +196,91 @@ enum bpf_map_type {
 };
 ```
 
+## 实验
+
+内核源码目录 [samples/bpf] 下面有很多例子可供学习。
+
+```bash
+# 安装依赖组件
+$ apt install build-essential git make libelf-dev clang llvm strace tar bpfcc-tools linux-headers-$(uname -r) gcc-multilib  flex  bison libssl-dev -y
+
+# 下载内核源码
+$ apt search linux-source
+$ apt install linux-source-5.4.0
+
+# 解压
+$ tar -jxvf /usr/src/linux-source-5.4.0.tar.bz2 -C /workspace
+$ cd /workspace/linux-source-5.4.0
+
+# 编译
+$ make headers_install
+$ make menuconfig
+$ make M=samples/bpf # 如果配置出错，可以使用 make oldconfig && make prepare 修复
+```
+
+### 1. Hello eBPF
+
+功能：跟踪系统调用execve
+
+内核态程序 `hello_kern.c`
+```c
+#include <linux/bpf.h>
+#include "bpf_helpers.h"
+
+#define SEC(NAME) __attribute__((section(NAME), used))
+
+SEC("tracepoint/syscalls/sys_enter_execve")
+int bpf_prog(void *ctx)
+{
+	char msg[] = "Hello eBPF!\n";
+	bpf_trace_printk(msg, sizeof(msg));
+	return 0;
+}
+
+char _license[] SEC("license") = "GPL";
+```
+
+用户态程序 `hello_user.c`
+```c
+#include <stdio.h>
+#include "bpf_load.h"
+
+int main(int argc, char **argv)
+{
+	if( load_bpf_file("hello_kern.o") != 0)
+	{
+		printf("The kernel didn't load BPF program\n");
+		return -1;
+	}
+
+	read_trace_pipe();
+	return 0;
+}
+```
+
+修改`Makefile`，对应位置添加
+```Makefile
+hostprogs-y += hello
+hello-objs := bpf_load.o hello_user.o
+always += hello_kern.o
+```
+
+编译并运行
+```bash
+$ make M=samples/bpf
+
+# 要求root权限
+$ sudo ./hello
+           <...>-2299 [001] ....  299.270775: 0: Hello eBPF!
+           <...>-2327 [002] ....  301.887165: 0: Hello eBPF!
+```
+
+注意，内核针对一些漏洞（利用eBPF进行容器逃逸、Rootkit攻击）收敛了相关权限。如果安装过cilium，cilium会设置 `/proc/sys/kernel/unprivileged_bpf_disabled` 为1。`bpf`系统调用首先会先检查该参数。
+
+- 值为0表示允许非特权用户调用bpf
+- 值为1表示禁止非特权用户调用bpf且该值不可再修改，只能重启后修改
+- 值为2表示禁止非特权用户调用bpf，可以再次修改为0或1
+
 ## 参考文档
 
 - [提出BPF的论文](https://www.tcpdump.org/papers/bpf-usenix93.pdf)
