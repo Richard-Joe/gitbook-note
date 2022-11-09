@@ -1,0 +1,827 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>vxlan · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-intopic-toc/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../load_balance.md" />
+    
+    
+    <link rel="prev" href="bridge.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../gitbook/">
+            
+                <a href="../../gitbook/">
+            
+                    
+                    gitbook搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    网络基础
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="recv_one_package.html">
+            
+                <a href="recv_one_package.html">
+            
+                    
+                    内核是如何接收一个网络包的
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="dma.html">
+            
+                <a href="dma.html">
+            
+                    
+                    内核DMA机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="veth.html">
+            
+                <a href="veth.html">
+            
+                    
+                    veth设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="tun-tap.html">
+            
+                <a href="tun-tap.html">
+            
+                    
+                    tun/tap设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="bridge.html">
+            
+                <a href="bridge.html">
+            
+                    
+                    bridge
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.1.6" data-path="vxlan.html">
+            
+                <a href="vxlan.html">
+            
+                    
+                    vxlan
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../load_balance.md">
+            
+                <span>
+            
+                    
+                    负载均衡
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../lb/LVS.html">
+            
+                <a href="../lb/LVS.html">
+            
+                    
+                    LVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../traffic_control/tc.html">
+            
+                <a href="../traffic_control/tc.html">
+            
+                    
+                    流量控制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="../traffic_control/bufferbloat.html">
+            
+                <a href="../traffic_control/bufferbloat.html">
+            
+                    
+                    缓冲膨胀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="../traffic_control/fq_codel.html">
+            
+                <a href="../traffic_control/fq_codel.html">
+            
+                    
+                    公平队列控制延迟
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../../Kubernetes/">
+            
+                <a href="../../Kubernetes/">
+            
+                    
+                    Kubernetes
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" >
+            
+                <span>
+            
+                    
+                    工作负载
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.1" data-path="../../Kubernetes/Jobs.html">
+            
+                <a href="../../Kubernetes/Jobs.html">
+            
+                    
+                    Jobs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.2" data-path="../../Kubernetes/CronJob.html">
+            
+                <a href="../../Kubernetes/CronJob.html">
+            
+                    
+                    CronJob
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../../Kubernetes/CRD.html">
+            
+                <a href="../../Kubernetes/CRD.html">
+            
+                    
+                    CRD
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../../Kubernetes/Operator.html">
+            
+                <a href="../../Kubernetes/Operator.html">
+            
+                    
+                    Operator
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../../OVS/">
+            
+                <a href="../../OVS/">
+            
+                    
+                    OVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../../eBPF/">
+            
+                <a href="../../eBPF/">
+            
+                    
+                    eBPF
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../../XDP/">
+            
+                <a href="../../XDP/">
+            
+                    
+                    XDP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" >
+            
+                <span>
+            
+                    
+                    杂项
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../../misc/centos-install-v2ray.html">
+            
+                <a href="../../misc/centos-install-v2ray.html">
+            
+                    
+                    centos安装v2ray
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../../misc/docker-pull-use-proxy.html">
+            
+                <a href="../../misc/docker-pull-use-proxy.html">
+            
+                    
+                    docker/containerd设置代理实现从外网拉取镜像
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../../misc/install-ovs.html">
+            
+                <a href="../../misc/install-ovs.html">
+            
+                    
+                    编译安装ovs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../../misc/docker-to-containerd.html">
+            
+                <a href="../../misc/docker-to-containerd.html">
+            
+                    
+                    k8s 将docker切换为containerd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >vxlan</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="vxlan">VXLAN</h1>
+<h2 id="1-&#x591A;&#x64AD;&#x6A21;&#x5F0F;&#x4E0B;&#x7684;vxlan">1. &#x591A;&#x64AD;&#x6A21;&#x5F0F;&#x4E0B;&#x7684;VXLAN</h2>
+<p><img src="vxlan-images/vxlan-with-multicast.png" alt="vxlan-with-multicast"></p>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x6DFB;&#x52A0;vxlan&#x8BBE;&#x5907;&#xFF08;&#x8BBE;&#x5907;&#x540D;&#x79F0;&#x4E3A;vxlan0&#xFF0C;VNI&#x4E3A;100&#xFF0C;&#x591A;&#x64AD;&#x7EC4;&#x4E3A;239.1.1.1&#xFF0C;vtep&#x901A;&#x4FE1;&#x7684;&#x8BBE;&#x5907;&#x4E3A;eth1 [&#x540C;local&#x53C2;&#x6570;]&#xFF09;</span>
+<span class="hljs-comment"># &#x6CE8;&#x610F;&#xFF1A;&#x8FD9;&#x91CC;&apos;dstport 0&apos;&#xFF0C;&#x8868;&#x793A;&#x4F7F;&#x7528;&#x5185;&#x6838;&#x9ED8;&#x8BA4;&#x7AEF;&#x53E3;8472&#xFF08;&#x975E;&#x6807;&#x51C6;&#xFF09;&#xFF1B;&#x901A;&#x5E38;&#x4F7F;&#x7528;IANA&#x5206;&#x914D;&#x7684;&#x7AEF;&#x53E3;&apos;dstport 4789&apos;&#xFF1B;&#x65B9;&#x4FBF;wireshark&#x89E3;&#x6790;&#xFF0C;&#x8FD9;&#x91CC;&#x4F7F;&#x7528;4789</span>
+$ ip link add vxlan0 <span class="hljs-built_in">type</span> vxlan id 100 dstport 4789 group 239.1.1.1 dev eth1
+
+<span class="hljs-comment"># &#x5206;&#x914D;IP&#x5730;&#x5740;&#x5E76;&#x5F00;&#x542F;</span>
+$ ip addr add 20.0.0.1/24 dev vxlan0
+$ ip link <span class="hljs-built_in">set</span> vxlan0 up
+</code></pre>
+<p>&#x914D;&#x7F6E;&#x5230;&#x8FD9;&#x91CC;&#xFF0C;VTEP&#x901A;&#x8FC7;IGMP&#x52A0;&#x5165;&#x540C;&#x4E00;&#x4E2A;&#x591A;&#x64AD;&#x7F51;&#x7EDC;&#x3002;</p>
+<p><img src="vxlan-images/igmp.png" alt="igmp"></p>
+<pre><code class="lang-bash">$ ping 20.0.0.2
+</code></pre>
+<p>&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li>ping 20.0.0.2&#xFF0C;&#x5148;&#x67E5;&#x8DEF;&#x7531;&#x8868;&#xFF0C;&#x62A5;&#x6587;&#x4F1A;&#x4ECE; vxlan0 &#x53D1;&#x51FA;&#x53BB;&#x3002;<pre><code class="lang-bash">$ ip r
+20.0.0.0/24 dev vxlan0 proto kernel scope link src 20.0.0.1
+</code></pre>
+</li>
+<li><p>&#x5185;&#x6838;&#x53D1;&#x73B0; 20.0.0.2 &#x548C; vxlan0 &#x5904;&#x4E8E;&#x540C;&#x4E00;&#x4E2A;2&#x5C42;&#x7F51;&#x7EDC;&#xFF0C;&#x9700;&#x8981;&#x77E5;&#x9053;&#x5BF9;&#x65B9;&#x7684;MAC&#x5730;&#x5740;&#xFF0C;&#x56E0;&#x6B64;&#x4F1A;&#x53D1;&#x9001;ARP&#x8BF7;&#x6C42;&#x62A5;&#x6587;&#x67E5;&#x8BE2;&#x3002;
+ <img src="vxlan-images/arp_req.png" alt="arp_req"></p>
+<blockquote>
+<p>&#x591A;&#x64AD;MAC&#x5730;&#x5740;&#x8868;
+<img src="vxlan-images/mac_address_table.png" alt="mac_address_table"></p>
+</blockquote>
+</li>
+<li><p>&#x591A;&#x64AD;&#x7EC4;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x4E3B;&#x673A;&#x90FD;&#x4F1A;&#x6536;&#x5230;&#x8FD9;&#x4E2A;&#x62A5;&#x6587;&#xFF0C;&#x5185;&#x6838;&#x53D1;&#x73B0;&#x662F;vxlan&#x62A5;&#x6587;&#xFF0C;&#x4F1A;&#x6839;&#x636E;VNI&#x53D1;&#x9001;&#x7ED9;&#x5BF9;&#x5E94;&#x7684;vtep&#x3002;</p>
+</li>
+<li><p>vtep&#x53BB;&#x6389;vxlan&#x5934;&#x90E8;&#xFF0C;&#x53D6;&#x51FA;&#x5185;&#x5C42;&#x7684;ARP&#x8BF7;&#x6C42;&#x62A5;&#x6587;&#x3002;&#x540C;&#x65F6; vtep &#x4F1A;&#x8BB0;&#x5F55; <code>&lt;&#x6E90; MAC &#x5730;&#x5740; - vtep &#x6240;&#x5728;&#x4E3B;&#x673A; IP &#x5730;&#x5740;&gt;</code> &#x4FE1;&#x606F;&#x5230; fdb &#x8868;&#x4E2D;&#x3002;</p>
+</li>
+<li><p>&#x5982;&#x679C;&#x53D1;&#x73B0;ARP&#x4E0D;&#x662F;&#x53D1;&#x7ED9;&#x81EA;&#x5DF1;&#x7684;&#xFF0C;&#x76F4;&#x63A5;&#x4E22;&#x5F03;&#xFF1B;&#x5982;&#x679C;&#x662F;&#x53D1;&#x7ED9;&#x81EA;&#x5DF1;&#x7684;&#xFF0C;&#x5219;&#x751F;&#x6210;ARP&#x5E94;&#x7B54;&#x62A5;&#x6587;&#x3002;
+ <img src="vxlan-images/arp_rep.png" alt="arp_rep"></p>
+</li>
+<li><p>ARP&#x5E94;&#x7B54;&#x62A5;&#x6587;&#x76F4;&#x63A5;&#x5355;&#x64AD;&#x7ED9;&#x8BF7;&#x6C42;&#x65B9;&#xFF0C;&#x89E3;&#x5305;&#x540E;&#x6DFB;&#x52A0;ARP&#x7F13;&#x5B58;&#x5230;&#x5185;&#x6838;&#x3002;&#x5E76;&#x628A;&#x5B66;&#x4E60;&#x5230;&#x76EE;&#x7684;vtep&#x7684;&#x4E3B;&#x673A;&#x5730;&#x5740;&#x6DFB;&#x52A0;&#x5230;fdb&#x8868;&#x4E2D;&#x3002;
+```bash
+$ ip a
+20.0.0.2 dev vxlan0 lladdr b2:4d:ba:f7:e0:70 STALE</p>
+</li>
+</ol>
+<p>$ bridge fdb
+b2:4d:ba:f7:e0:70 dev vxlan0 dst 192.168.0.107 self</p>
+<pre><code>
+7. vetp&#x5DF2;&#x7ECF;&#x77E5;&#x9053;&#x6240;&#x6709;&#x4FE1;&#x606F;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;ICMP&#x62A5;&#x6587;&#x76F4;&#x63A5;&#x5355;&#x64AD;&#x53D1;&#x9001;&#x3002;
+![icmp](vxlan-images/icmp.png)
+
+## 2. &#x5BB9;&#x5668;&#x7F51;&#x7EDC;&#x4E0B;&#x7684;VXLAN&#xFF08;&#x4F7F;&#x7528;&#x591A;&#x64AD;&#xFF09;
+
+![vxlan-with-bridge-multicast](vxlan-images/vxlan-with-bridge-multicast.png)
+
+&#x521B;&#x5EFA;&#x811A;&#x672C;&#xFF1A;
+```bash
+#!/bin/bash
+
+CONTAINER_ADDR=${1}
+
+# Usage: ./vxlan_with_bridge.sh [container ip]
+#   example: ./vxlan_with_bridge.sh 20.0.0.1
+
+# clean
+ip link del veth1 2&gt; /dev/null || true
+ip netns del ns1 2&gt; /dev/null || true
+ip link del vxlan0 2&gt; /dev/null || true
+ip link del br0 2&gt; /dev/null || true
+
+# add vxlan
+ip link add vxlan0 type vxlan id 100 dstport 4789 group 239.1.1.1 dev eth1
+
+# add bridge
+ip link add br0 type bridge
+ip link set vxlan0 master br0
+ip link set vxlan0 up
+ip link set br0 up
+
+# add namespace and veth pair
+ip netns add ns1
+ip link add veth1 type veth peer name veth1-peer
+ip link set dev veth1 master br0
+ip link set dev veth1 up
+ip link set dev veth1-peer netns ns1
+ip netns exec ns1 ip link set veth1-peer name eth0
+ip netns exec ns1 ip link set lo up
+ip netns exec ns1 ip addr add $CONTAINER_ADDR/24 dev eth0
+ip netns exec ns1 ip link set eth0 up
+</code></pre><p>&#x6D4B;&#x8BD5;&#xFF1A;</p>
+<pre><code class="lang-bash">ip netns <span class="hljs-built_in">exec</span> ns1 ping 20.0.0.2
+</code></pre>
+<p>&#x6D41;&#x7A0B;&#x8DDF;&#x4E0A;&#x9762;&#x7C7B;&#x4F3C;&#xFF0C;&#x53EA;&#x4E0D;&#x8FC7;&#x5C01;&#x5305;&#x524D;&#x591A;&#x8D70;&#x4E86;&#x7F51;&#x6865;&#x3002;&#x6570;&#x636E;&#x6D41;&#x5982;&#x7EA2;&#x7EBF;&#x6240;&#x793A;&#x3002;</p>
+<p>&#x65B9;&#x6848;&#x7F3A;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x4E0D;&#x662F;&#x6240;&#x6709;&#x5E95;&#x5C42;&#x7F51;&#x7EDC;&#x90FD;&#x652F;&#x6301;&#x591A;&#x64AD;&#xFF1B;</li>
+<li>&#x591A;&#x64AD;&#x4F1A;&#x5BFC;&#x81F4;&#x5927;&#x91CF;&#x7684;&#x65E0;&#x7528;&#x62A5;&#x6587;&#x5728;&#x7F51;&#x7EDC;&#x4E2D;&#x51FA;&#x73B0;&#x3002;</li>
+</ul>
+<p>&#x5F88;&#x591A;&#x4E91;&#x8BA1;&#x7B97;&#x7684;&#x7F51;&#x7EDC;&#x90FD;&#x4F1A;&#x901A;&#x8FC7;&#x81EA;&#x52A8;&#x5316;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x6784;&#x5EFA;vxlan&#x7F51;&#x7EDC;&#xFF08;&#x5B66;&#x4E60;VETP&#x548C;MAC&#x4FE1;&#x606F;&#xFF09;&#x3002;</p>
+<h2 id="3-&#x5BB9;&#x5668;&#x7F51;&#x7EDC;&#x4E0B;&#x7684;vxlan&#xFF08;&#x624B;&#x52A8;&#x7EF4;&#x62A4;&#xFF09;">3. &#x5BB9;&#x5668;&#x7F51;&#x7EDC;&#x4E0B;&#x7684;VXLAN&#xFF08;&#x624B;&#x52A8;&#x7EF4;&#x62A4;&#xFF09;</h2>
+<p><img src="vxlan-images/vxlan-with-bridge-manual.png" alt="vxlan-with-bridge-manual"></p>
+<p>&#x4FEE;&#x6539;&#x4E0A;&#x9762;&#x811A;&#x672C;&#xFF1A;</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># nolearning &#x53C2;&#x6570;&#x544A;&#x8BC9; vtep &#x4E0D;&#x8981;&#x901A;&#x8FC7;&#x6536;&#x5230;&#x7684;&#x62A5;&#x6587;&#x6765;&#x5B66;&#x4E60; fdb &#x8868;&#x9879;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x6211;&#x4EEC;&#x4F1A;&#x81EA;&#x52A8;&#x7EF4;&#x62A4;&#x8FD9;&#x4E2A;&#x8868;&#x3002;</span>
+<span class="hljs-comment"># proxy &#x53C2;&#x6570;&#x544A;&#x8BC9; vtep &#x627F;&#x62C5; ARP &#x4EE3;&#x7406;&#x7684;&#x529F;&#x80FD;&#x3002;&#x5982;&#x679C;&#x6536;&#x5230; ARP &#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x4E14;&#x81EA;&#x5DF1;&#x77E5;&#x9053;&#x7ED3;&#x679C;&#x5C31;&#x76F4;&#x63A5;&#x4F5C;&#x51FA;&#x5E94;&#x7B54;&#x3002;</span>
+$ ip link add vxlan0 <span class="hljs-built_in">type</span> vxlan id 100 dstport 4789 dev eth1 nolearning proxy
+</code></pre>
+<p>106 &#x4E3B;&#x673A;&#x4E0A;&#x6267;&#x884C;&#xFF1A;</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x6DFB;&#x52A0;fdb&#x8868;</span>
+$ bridge fdb append 00:00:00:00:00:00 dev vxlan0 dst 192.168.0.107
+$ bridge fdb append ca:e4:02:13:01:bf dev vxlan0 dst 192.168.0.107
+
+<span class="hljs-comment"># &#x6DFB;&#x52A0;arp&#x8868;</span>
+$ ip neigh add 20.0.0.2 lladdr ca:e4:02:13:01:bf dev vxlan0
+</code></pre>
+<p>107 &#x4E3B;&#x673A;&#x4E0A;&#x6267;&#x884C;&#xFF1A;</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x6DFB;&#x52A0;fdb&#x8868;</span>
+$ bridge fdb append 00:00:00:00:00:00 dev vxlan0 dst 192.168.0.106
+$ bridge fdb append 3a:23:80:36:a7:75 dev vxlan0 dst 192.168.0.106
+
+<span class="hljs-comment"># &#x6DFB;&#x52A0;arp&#x8868;</span>
+$ ip neigh add 20.0.0.1 lladdr 3a:23:80:36:a7:75 dev vxlan0
+</code></pre>
+<p>&#x6D4B;&#x8BD5;&#xFF1A;</p>
+<pre><code class="lang-bash">ip netns <span class="hljs-built_in">exec</span> ns1 ping 20.0.0.2
+</code></pre>
+<p><img src="vxlan-images/icmp2.png" alt="icmp2"></p>
+<h2 id="4-&#x5BB9;&#x5668;&#x7F51;&#x7EDC;&#x4E0B;&#x7684;vxlan&#xFF08;&#x52A8;&#x6001;&#x66F4;&#x65B0;&#xFF09;">4. &#x5BB9;&#x5668;&#x7F51;&#x7EDC;&#x4E0B;&#x7684;VXLAN&#xFF08;&#x52A8;&#x6001;&#x66F4;&#x65B0;&#xFF09;</h2>
+<p>&#x624B;&#x52A8;&#x7EF4;&#x62A4;&#x8981;&#x60F3;&#x6B63;&#x5E38;&#x5DE5;&#x4F5C;&#xFF0C;&#x5FC5;&#x987B;&#x4E3A;&#x6240;&#x6709;&#x901A;&#x4FE1;&#x5BB9;&#x5668;&#x63D0;&#x524D;&#x6DFB;&#x52A0;&#x597D;arp&#x548C;fdb&#x8868;&#xFF0C;&#x4F46;&#x5E76;&#x4E0D;&#x662F;&#x6240;&#x6709;&#x5BB9;&#x5668;&#x90FD;&#x4F1A;&#x4E92;&#x76F8;&#x901A;&#x4FE1;&#xFF0C;&#x6DFB;&#x52A0;&#x7684;&#x90E8;&#x5206;&#x8868;&#x9879;&#x53EF;&#x80FD;&#x662F;&#x7528;&#x4E0D;&#x5230;&#x7684;&#x3002;</p>
+<p>Linux&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x79CD;&#x65B9;&#x6CD5;&#xFF0C;&#x5185;&#x6838;&#x53D1;&#x73B0;&#x9700;&#x8981;&#x7684; arp &#x6216;&#x8005; fdb &#x8868;&#x9879;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x4F1A;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#x7ED9;&#x8BA2;&#x9605;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#xFF0C;&#x8FD9;&#x6837;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x62FF;&#x5230;&#x8FD9;&#x4E9B;&#x4FE1;&#x606F;&#x518D;&#x66F4;&#x65B0;&#x8868;&#x9879;&#xFF0C;&#x505A;&#x66F4;&#x7CBE;&#x786E;&#x7684;&#x63A7;&#x5236;&#x3002;</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># l2miss &#x901A;&#x8FC7; MAC &#x5730;&#x5740;&#x627E;&#x4E0D;&#x5230; VTEP &#x5730;&#x5740;&#x65F6;&#xFF0C;&#x5C31;&#x53D1;&#x9001;&#x901A;&#x77E5;&#x4E8B;&#x4EF6;</span>
+<span class="hljs-comment"># l3miss &#x901A;&#x8FC7; IP &#x5730;&#x5740;&#x627E;&#x4E0D;&#x5230; MAC &#x5730;&#x5740;&#x65F6;&#xFF0C;&#x5C31;&#x53D1;&#x9001;&#x901A;&#x77E5;&#x4E8B;&#x4EF6;</span>
+$ ip link add vxlan0 <span class="hljs-built_in">type</span> vxlan id 100 dstport 4789 dev eth1 nolearning proxy l2miss l3miss
+</code></pre>
+<p>&#x6267;&#x884C; <code>ip netns exec ns1 ping 20.0.0.2</code></p>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x4F7F;&#x7528;ip monitor&#x76D1;&#x542C;&#x4E8B;&#x4EF6;</span>
+$ ip monitor all dev vxlan0
+[NEIGH]miss 20.0.0.2  STALE     <span class="hljs-comment"># &#x5148;&#x53D1;&#x751F; l3 miss</span>
+</code></pre>
+<p>&#x9700;&#x8981;&#x6DFB;&#x52A0;arp&#x8BB0;&#x5F55;&#xFF1A;</p>
+<pre><code class="lang-bash">$ ip neigh replace 20.0.0.2 lladdr ca:e4:02:13:01:bf dev vxlan0 nud reachable
+
+<span class="hljs-comment"># &#x6DFB;&#x52A0;&#x540E;&#xFF0C;&#x51FA;&#x73B0;l2miss&#x4E8B;&#x4EF6;</span>
+$ ip monitor all dev vxlan0
+[NEIGH]miss lladdr ca:e4:02:13:01:bf STALE     <span class="hljs-comment"># &#x518D;&#x53D1;&#x751F; l2 miss</span>
+</code></pre>
+<p>&#x9700;&#x8981;&#x6DFB;&#x52A0;fdb&#x8BB0;&#x5F55;&#xFF1A;</p>
+<pre><code class="lang-bash">$ bridge fdb add ca:e4:02:13:01:bf dst 192.168.0.107 dev vxlan0
+</code></pre>
+<p>&#x7136;&#x540E;&#x5728;&#x53E6;&#x5916;&#x4E00;&#x53F0;&#x8BBE;&#x5907;&#x4E0A;&#x6267;&#x884C;&#x7C7B;&#x4F3C;&#x64CD;&#x4F5C;&#xFF0C;&#x5373;&#x53EF;ping&#x901A;&#x3002;</p>
+<pre><code class="lang-bash">$ ip neigh replace 20.0.0.1 lladdr 2a:5c:14:0b:e7:10 dev vxlan0 nud reachable
+$ bridge fdb add 2a:5c:14:0b:e7:10 dst 192.168.0.106 dev vxlan0
+</code></pre>
+<h2 id="5-vxlan&#x6A21;&#x5F0F;&#x4E0B;&#x7684;flannel&#x662F;&#x5982;&#x4F55;&#x7EF4;&#x62A4;&#x8868;&#x9879;&#x7684;">5. VXLAN&#x6A21;&#x5F0F;&#x4E0B;&#x7684;flannel&#x662F;&#x5982;&#x4F55;&#x7EF4;&#x62A4;&#x8868;&#x9879;&#x7684;</h2>
+<h2 id="6-vxlan&#x5185;&#x6838;&#x6E90;&#x7801;&#x5206;&#x6790;">6. VXLAN&#x5185;&#x6838;&#x6E90;&#x7801;&#x5206;&#x6790;</h2>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="bridge.html" class="navigation navigation-prev " aria-label="Previous page: bridge">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../load_balance.md" class="navigation navigation-next " aria-label="Next page: 负载均衡">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"vxlan","level":"1.3.1.6","depth":3,"next":{"title":"负载均衡","level":"1.3.2","depth":2,"path":"network/load_balance.md","ref":"./network/load_balance.md","articles":[{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]}]},"previous":{"title":"bridge","level":"1.3.1.5","depth":3,"path":"network/basic/bridge.md","ref":"./network/basic/bridge.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/vxlan.md","mtime":"2022-11-09T15:07:18.638Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-11-09T15:07:47.549Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-intopic-toc/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-intopic-toc/gumshoe.polyfills.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-intopic-toc/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

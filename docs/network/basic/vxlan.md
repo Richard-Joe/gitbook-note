@@ -92,6 +92,10 @@ ip netns exec ns1 ip link set lo up
 ip netns exec ns1 ip addr add $CONTAINER_ADDR/24 dev eth0
 ip netns exec ns1 ip link set eth0 up
 ```
+测试：
+```bash
+ip netns exec ns1 ping 20.0.0.2
+```
 
 流程跟上面类似，只不过封包前多走了网桥。数据流如红线所示。
 
@@ -104,3 +108,82 @@ ip netns exec ns1 ip link set eth0 up
 
 ## 3. 容器网络下的VXLAN（手动维护）
 
+![vxlan-with-bridge-manual](vxlan-images/vxlan-with-bridge-manual.png)
+
+修改上面脚本：
+```bash
+# nolearning 参数告诉 vtep 不要通过收到的报文来学习 fdb 表项的内容，我们会自动维护这个表。
+# proxy 参数告诉 vtep 承担 ARP 代理的功能。如果收到 ARP 请求，并且自己知道结果就直接作出应答。
+$ ip link add vxlan0 type vxlan id 100 dstport 4789 dev eth1 nolearning proxy
+```
+
+106 主机上执行：
+
+```bash
+# 添加fdb表
+$ bridge fdb append 00:00:00:00:00:00 dev vxlan0 dst 192.168.0.107
+$ bridge fdb append ca:e4:02:13:01:bf dev vxlan0 dst 192.168.0.107
+
+# 添加arp表
+$ ip neigh add 20.0.0.2 lladdr ca:e4:02:13:01:bf dev vxlan0
+```
+
+107 主机上执行：
+```bash
+# 添加fdb表
+$ bridge fdb append 00:00:00:00:00:00 dev vxlan0 dst 192.168.0.106
+$ bridge fdb append 3a:23:80:36:a7:75 dev vxlan0 dst 192.168.0.106
+
+# 添加arp表
+$ ip neigh add 20.0.0.1 lladdr 3a:23:80:36:a7:75 dev vxlan0
+```
+
+测试：
+```bash
+ip netns exec ns1 ping 20.0.0.2
+```
+
+![icmp2](vxlan-images/icmp2.png)
+
+## 4. 容器网络下的VXLAN（动态更新）
+
+手动维护要想正常工作，必须为所有通信容器提前添加好arp和fdb表，但并不是所有容器都会互相通信，添加的部分表项可能是用不到的。
+
+Linux提供了一种方法，内核发现需要的 arp 或者 fdb 表项不存在，会发送事件给订阅的应用程序，这样应用程序拿到这些信息再更新表项，做更精确的控制。
+
+```bash
+# l2miss 通过 MAC 地址找不到 VTEP 地址时，就发送通知事件
+# l3miss 通过 IP 地址找不到 MAC 地址时，就发送通知事件
+$ ip link add vxlan0 type vxlan id 100 dstport 4789 dev eth1 nolearning proxy l2miss l3miss
+```
+
+执行 `ip netns exec ns1 ping 20.0.0.2`
+```bash
+# 使用ip monitor监听事件
+$ ip monitor all dev vxlan0
+[NEIGH]miss 20.0.0.2  STALE     # 先发生 l3 miss
+```
+
+需要添加arp记录：
+```bash
+$ ip neigh replace 20.0.0.2 lladdr ca:e4:02:13:01:bf dev vxlan0 nud reachable
+
+# 添加后，出现l2miss事件
+$ ip monitor all dev vxlan0
+[NEIGH]miss lladdr ca:e4:02:13:01:bf STALE     # 再发生 l2 miss
+```
+
+需要添加fdb记录：
+```bash
+$ bridge fdb add ca:e4:02:13:01:bf dst 192.168.0.107 dev vxlan0
+```
+
+然后在另外一台设备上执行类似操作，即可ping通。
+```bash
+$ ip neigh replace 20.0.0.1 lladdr 2a:5c:14:0b:e7:10 dev vxlan0 nud reachable
+$ bridge fdb add 2a:5c:14:0b:e7:10 dst 192.168.0.106 dev vxlan0
+```
+
+## 5. VXLAN模式下的flannel是如何维护表项的
+
+## 6. VXLAN内核源码分析

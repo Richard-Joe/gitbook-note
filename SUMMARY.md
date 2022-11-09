@@ -11,6 +11,7 @@
     * [veth设备](./network/basic/veth.md)
     * [tun/tap设备](./network/basic/tun-tap.md)
     * [bridge](./network/basic/bridge.md)
+    * [vxlan](./network/basic/vxlan.md)
 
   * [负载均衡](./network/load_balance.md)
     * [LVS](./network/lb/LVS.md)
