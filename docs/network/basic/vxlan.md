@@ -24,14 +24,18 @@ $ ping 20.0.0.2
 流程如下：
 
 1. ping 20.0.0.2，先查路由表，报文会从 vxlan0 发出去。
+
 ```bash
 $ ip r
 20.0.0.0/24 dev vxlan0 proto kernel scope link src 20.0.0.1
 ```
+
 2. 内核发现 20.0.0.2 和 vxlan0 处于同一个2层网络，需要知道对方的MAC地址，因此会发送ARP请求报文查询。
-    ![arp_req](vxlan-images/arp_req.png)
+
+![arp_req](vxlan-images/arp_req.png)
 
   > 多播MAC地址表
+  > 
   > ![mac_address_table](vxlan-images/mac_address_table.png)
 
 3. 多播组中的所有主机都会收到这个报文，内核发现是vxlan报文，会根据VNI发送给对应的vtep。
@@ -39,9 +43,11 @@ $ ip r
 4. vtep去掉vxlan头部，取出内层的ARP请求报文。同时 vtep 会记录 `<源 MAC 地址 - vtep 所在主机 IP 地址>` 信息到 fdb 表中。
 
 5. 如果发现ARP不是发给自己的，直接丢弃；如果是发给自己的，则生成ARP应答报文。
-    ![arp_rep](vxlan-images/arp_rep.png)
+
+![arp_rep](vxlan-images/arp_rep.png)
 
 6. ARP应答报文直接单播给请求方，解包后添加ARP缓存到内核。并把学习到目的vtep的主机地址添加到fdb表中。
+
 ```bash
 $ ip a
 20.0.0.2 dev vxlan0 lladdr b2:4d:ba:f7:e0:70 STALE
@@ -51,6 +57,7 @@ b2:4d:ba:f7:e0:70 dev vxlan0 dst 192.168.0.107 self
 ```
 
 7. vetp已经知道所有信息，接下来ICMP报文直接单播发送。
+
 ![icmp](vxlan-images/icmp.png)
 
 ## 2. 容器网络下的VXLAN（使用多播）
@@ -63,8 +70,8 @@ b2:4d:ba:f7:e0:70 dev vxlan0 dst 192.168.0.107 self
 
 CONTAINER_ADDR=${1}
 
-# Usage: ./vxlan_with_bridge.sh [container ip]
-#   example: ./vxlan_with_bridge.sh 20.0.0.1
+# Usage: ./vxlan.sh [container ip]
+#   example: ./vxlan.sh 20.0.0.1
 
 # clean
 ip link del veth1 2> /dev/null || true
