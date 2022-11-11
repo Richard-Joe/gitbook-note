@@ -241,7 +241,7 @@ $ ip r
 
 ## 6. VXLAN内核源码分析
 
-## 6.1. 发包
+### 6.1. 发包
 
 ```c
 static netdev_tx_t vxlan_xmit(struct sk_buff *skb, struct net_device *dev)
@@ -283,7 +283,7 @@ static void vxlan_xmit_one(struct sk_buff *skb, struct net_device *dev,
 }
 ```
 
-## 6.2. 收包
+### 6.2. 收包
 
 ```c
 static int udp_queue_rcv_one_skb(struct sock *sk, struct sk_buff *skb)
