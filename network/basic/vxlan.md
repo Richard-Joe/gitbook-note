@@ -5,7 +5,7 @@
 ![vxlan-with-multicast](vxlan-images/vxlan-with-multicast.png)
 
 ```bash
-# 添加vxlan设备（设备名称为vxlan0，VNI为100，多播组为239.1.1.1，vtep通信的设备为eth1 [同local参数]）
+# 添加vxlan设备（设备名称为vxlan0，VNI为100，多播组为239.1.1.1，用于vtep通信的网卡设备为eth1 [同local参数]）
 # 注意：这里'dstport 0'，表示使用内核默认端口8472（非标准）；通常使用IANA分配的端口'dstport 4789'；方便wireshark解析，这里使用4789
 $ ip link add vxlan0 type vxlan id 100 dstport 4789 group 239.1.1.1 dev eth1
 
@@ -193,4 +193,126 @@ $ bridge fdb add 2a:5c:14:0b:e7:10 dst 192.168.0.106 dev vxlan0
 
 ## 5. VXLAN模式下的flannel是如何维护表项的
 
+首先从代码注释中得知，flannel的vxlan实现经历了三个版本：（使用L2miss和L3miss） -> （去掉L3miss） -> （去掉L2miss）。
+
+每增加一个远程节点，只需要针对它配置：一条路由、一条arp表项、一条fdb表项。
+
+```c
+// The first versions of vxlan for flannel registered the flannel daemon as a handler for both "L2" and "L3" misses
+
+// The second version of flannel vxlan removed the need for the L3MISS callout. When a new remote host is found (either during startup or when it's created), flannel simply adds the required entries so that no further lookup/callout is required.
+
+// The latest version of the vxlan backend  removes the need for the L2MISS too, which means that the flannel deamon is not listening for any netlink messages anymore. This improves reliability (no problems with timeouts if flannel crashes or restarts) and simplifies upgrades.
+
+// How it works:
+// Create the vxlan device but don't register for any L2MISS or L3MISS messages
+// Then, as each remote host is discovered (either on startup or when they are added), do the following
+// 1) Create routing table entry for the remote subnet. It goes via the vxlan device but also specifies a next hop (of the remote flannel host).
+// 2) Create a static ARP entry for the remote flannel host IP address (and the VTEP MAC)
+// 3) Create an FDB entry with the VTEP MAC and the public IP of the remote flannel daemon.
+//
+// In this scheme the scaling of table entries is linear to the number of remote hosts - 1 route, 1 arp entry and 1 FDB entry per host
+```
+
+默认情况下，flannel.1配置了：`dstport 8472`，`nolearning`。
+
+环境搭建如下：
+
+![vxlan-with-flannel](vxlan-images/vxlan-with-flannel.png)
+
+针对 `37` 这个节点，flannel添加了如下配置：
+```bash
+$ ip n
+# arp记录 [IP地址 -> MAC地址]
+10.10.1.0 dev flannel.1 lladdr 3a:6d:f0:b4:a6:2b PERMANENT
+
+$ bridge fdb
+# fdb记录 [MAC地址 -> VETP所在主机的IP]
+3a:6d:f0:b4:a6:2b dev flannel.1 dst 10.128.132.40 self permanent
+
+$ ip r
+# 路由
+10.10.1.0/24 via 10.10.1.0 dev flannel.1 onlink
+```
+
+从 `10.10.0.21` ping `10.10.1.8`，数据包流程如下：
+
+![vxlan-flannel-skb](vxlan-images/vxlan-flannel-skb.png)
+
 ## 6. VXLAN内核源码分析
+
+## 6.1. 发包
+
+```c
+static netdev_tx_t vxlan_xmit(struct sk_buff *skb, struct net_device *dev)
+{
+	...
+	if (vxlan->cfg.flags & VXLAN_F_PROXY) {  // 如果开启了ARP代理
+		if (ntohs(eth->h_proto) == ETH_P_ARP)	// 数据包是arp包
+			return arp_reduce(dev, skb, vni);	// arp表查得到，就回复arp应答包；查不到且开启了l3miss，就发送l3miss通知。
+	}
+	
+	// 查fdb表
+	f = vxlan_find_mac(vxlan, eth->h_dest, vni);
+	if (f == NULL) {
+		f = vxlan_find_mac(vxlan, all_zeros_mac, vni);
+		if (f == NULL) {
+			if ((vxlan->cfg.flags & VXLAN_F_L2MISS) &&
+			    !is_multicast_ether_addr(eth->h_dest))
+			    // 查不到就发送l2miss通知
+				vxlan_fdb_miss(vxlan, eth->h_dest);
+			...
+			return NETDEV_TX_OK;
+	...
+	
+	vxlan_xmit_one(skb, dev, vni, fdst, did_rsc);
+}
+
+static void vxlan_xmit_one(struct sk_buff *skb, struct net_device *dev,
+			   __be32 default_vni, struct vxlan_rdst *rdst,
+			   bool did_rsc)
+{
+	...
+	// 根据skb，哈希出udp头的源端口
+	src_port = udp_flow_src_port(dev_net(dev), skb, vxlan->cfg.port_min,
+				     vxlan->cfg.port_max, true);
+	vxlan_build_skb		// 封vxlan头
+	udp_tunnel_xmit_skb  // 封udp头
+		iptunnel_xmit	// 封IP头
+			ip_local_out // 走 local_out 出去
+}
+```
+
+## 6.2. 收包
+
+```c
+static int udp_queue_rcv_one_skb(struct sock *sk, struct sk_buff *skb)
+{
+	// 判断是封包
+	if (static_branch_unlikely(&udp_encap_needed_key) && up->encap_type) {
+		int (*encap_rcv)(struct sock *sk, struct sk_buff *skb);
+		encap_rcv = READ_ONCE(up->encap_rcv);
+		if (encap_rcv) {
+			// 回调vxlan_sock注册的收包回调：vxlan_rcv
+			ret = encap_rcv(sk, skb);
+		}
+	}
+}
+
+static int vxlan_rcv(struct sock *sk, struct sk_buff *skb)
+{
+	// 获取vxlan头中的VNI
+	vni = vxlan_vni(vxlan_hdr(skb)->vx_vni);
+	// 根据VNI找vxlan设备
+	vxlan = vxlan_vs_find_vni(vs, skb->dev->ifindex, vni);
+	if (!vxlan)
+		goto drop;
+	
+	// 重新设置下数据包的网卡设备
+	skb->dev = vxlan->dev;
+	
+	gro_cells_receive(&vxlan->gro_cells, skb);
+		// 把数据包入队
+		__skb_queue_tail(&cell->napi_skbs, skb);
+}
+```

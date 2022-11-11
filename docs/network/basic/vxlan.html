@@ -582,7 +582,7 @@
                                 <h1 id="vxlan">VXLAN</h1>
 <h2 id="1-&#x591A;&#x64AD;&#x6A21;&#x5F0F;&#x4E0B;&#x7684;vxlan">1. &#x591A;&#x64AD;&#x6A21;&#x5F0F;&#x4E0B;&#x7684;VXLAN</h2>
 <p><img src="vxlan-images/vxlan-with-multicast.png" alt="vxlan-with-multicast"></p>
-<pre><code class="lang-bash"><span class="hljs-comment"># &#x6DFB;&#x52A0;vxlan&#x8BBE;&#x5907;&#xFF08;&#x8BBE;&#x5907;&#x540D;&#x79F0;&#x4E3A;vxlan0&#xFF0C;VNI&#x4E3A;100&#xFF0C;&#x591A;&#x64AD;&#x7EC4;&#x4E3A;239.1.1.1&#xFF0C;vtep&#x901A;&#x4FE1;&#x7684;&#x8BBE;&#x5907;&#x4E3A;eth1 [&#x540C;local&#x53C2;&#x6570;]&#xFF09;</span>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x6DFB;&#x52A0;vxlan&#x8BBE;&#x5907;&#xFF08;&#x8BBE;&#x5907;&#x540D;&#x79F0;&#x4E3A;vxlan0&#xFF0C;VNI&#x4E3A;100&#xFF0C;&#x591A;&#x64AD;&#x7EC4;&#x4E3A;239.1.1.1&#xFF0C;&#x7528;&#x4E8E;vtep&#x901A;&#x4FE1;&#x7684;&#x7F51;&#x5361;&#x8BBE;&#x5907;&#x4E3A;eth1 [&#x540C;local&#x53C2;&#x6570;]&#xFF09;</span>
 <span class="hljs-comment"># &#x6CE8;&#x610F;&#xFF1A;&#x8FD9;&#x91CC;&apos;dstport 0&apos;&#xFF0C;&#x8868;&#x793A;&#x4F7F;&#x7528;&#x5185;&#x6838;&#x9ED8;&#x8BA4;&#x7AEF;&#x53E3;8472&#xFF08;&#x975E;&#x6807;&#x51C6;&#xFF09;&#xFF1B;&#x901A;&#x5E38;&#x4F7F;&#x7528;IANA&#x5206;&#x914D;&#x7684;&#x7AEF;&#x53E3;&apos;dstport 4789&apos;&#xFF1B;&#x65B9;&#x4FBF;wireshark&#x89E3;&#x6790;&#xFF0C;&#x8FD9;&#x91CC;&#x4F7F;&#x7528;4789</span>
 $ ip link add vxlan0 <span class="hljs-built_in">type</span> vxlan id 100 dstport 4789 group 239.1.1.1 dev eth1
 
@@ -718,7 +718,112 @@ $ ip monitor all dev vxlan0
 $ bridge fdb add 2a:5c:14:0b:e7:10 dst 192.168.0.106 dev vxlan0
 </code></pre>
 <h2 id="5-vxlan&#x6A21;&#x5F0F;&#x4E0B;&#x7684;flannel&#x662F;&#x5982;&#x4F55;&#x7EF4;&#x62A4;&#x8868;&#x9879;&#x7684;">5. VXLAN&#x6A21;&#x5F0F;&#x4E0B;&#x7684;flannel&#x662F;&#x5982;&#x4F55;&#x7EF4;&#x62A4;&#x8868;&#x9879;&#x7684;</h2>
+<p>&#x9996;&#x5148;&#x4ECE;&#x4EE3;&#x7801;&#x6CE8;&#x91CA;&#x4E2D;&#x5F97;&#x77E5;&#xFF0C;flannel&#x7684;vxlan&#x5B9E;&#x73B0;&#x7ECF;&#x5386;&#x4E86;&#x4E09;&#x4E2A;&#x7248;&#x672C;&#xFF1A;&#xFF08;&#x4F7F;&#x7528;L2miss&#x548C;L3miss&#xFF09; -&gt; &#xFF08;&#x53BB;&#x6389;L3miss&#xFF09; -&gt; &#xFF08;&#x53BB;&#x6389;L2miss&#xFF09;&#x3002;</p>
+<p>&#x6BCF;&#x589E;&#x52A0;&#x4E00;&#x4E2A;&#x8FDC;&#x7A0B;&#x8282;&#x70B9;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x9488;&#x5BF9;&#x5B83;&#x914D;&#x7F6E;&#xFF1A;&#x4E00;&#x6761;&#x8DEF;&#x7531;&#x3001;&#x4E00;&#x6761;arp&#x8868;&#x9879;&#x3001;&#x4E00;&#x6761;fdb&#x8868;&#x9879;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-comment">// The first versions of vxlan for flannel registered the flannel daemon as a handler for both &quot;L2&quot; and &quot;L3&quot; misses</span>
+
+<span class="hljs-comment">// The second version of flannel vxlan removed the need for the L3MISS callout. When a new remote host is found (either during startup or when it&apos;s created), flannel simply adds the required entries so that no further lookup/callout is required.</span>
+
+<span class="hljs-comment">// The latest version of the vxlan backend  removes the need for the L2MISS too, which means that the flannel deamon is not listening for any netlink messages anymore. This improves reliability (no problems with timeouts if flannel crashes or restarts) and simplifies upgrades.</span>
+
+<span class="hljs-comment">// How it works:</span>
+<span class="hljs-comment">// Create the vxlan device but don&apos;t register for any L2MISS or L3MISS messages</span>
+<span class="hljs-comment">// Then, as each remote host is discovered (either on startup or when they are added), do the following</span>
+<span class="hljs-comment">// 1) Create routing table entry for the remote subnet. It goes via the vxlan device but also specifies a next hop (of the remote flannel host).</span>
+<span class="hljs-comment">// 2) Create a static ARP entry for the remote flannel host IP address (and the VTEP MAC)</span>
+<span class="hljs-comment">// 3) Create an FDB entry with the VTEP MAC and the public IP of the remote flannel daemon.</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// In this scheme the scaling of table entries is linear to the number of remote hosts - 1 route, 1 arp entry and 1 FDB entry per host</span>
+</code></pre>
+<p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;flannel.1&#x914D;&#x7F6E;&#x4E86;&#xFF1A;<code>dstport 8472</code>&#xFF0C;<code>nolearning</code>&#x3002;</p>
+<p>&#x73AF;&#x5883;&#x642D;&#x5EFA;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="vxlan-images/vxlan-with-flannel.png" alt="vxlan-with-flannel"></p>
+<p>&#x9488;&#x5BF9; <code>37</code> &#x8FD9;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;flannel&#x6DFB;&#x52A0;&#x4E86;&#x5982;&#x4E0B;&#x914D;&#x7F6E;&#xFF1A;</p>
+<pre><code class="lang-bash">$ ip n
+<span class="hljs-comment"># arp&#x8BB0;&#x5F55; [IP&#x5730;&#x5740; -&gt; MAC&#x5730;&#x5740;]</span>
+10.10.1.0 dev flannel.1 lladdr 3a:6d:f0:b4:a6:2b PERMANENT
+
+$ bridge fdb
+<span class="hljs-comment"># fdb&#x8BB0;&#x5F55; [MAC&#x5730;&#x5740; -&gt; VETP&#x6240;&#x5728;&#x4E3B;&#x673A;&#x7684;IP]</span>
+3a:6d:f0:b4:a6:2b dev flannel.1 dst 10.128.132.40 self permanent
+
+$ ip r
+<span class="hljs-comment"># &#x8DEF;&#x7531;</span>
+10.10.1.0/24 via 10.10.1.0 dev flannel.1 onlink
+</code></pre>
+<p>&#x4ECE; <code>10.10.0.21</code> ping <code>10.10.1.8</code>&#xFF0C;&#x6570;&#x636E;&#x5305;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="vxlan-images/vxlan-flannel-skb.png" alt="vxlan-flannel-skb"></p>
 <h2 id="6-vxlan&#x5185;&#x6838;&#x6E90;&#x7801;&#x5206;&#x6790;">6. VXLAN&#x5185;&#x6838;&#x6E90;&#x7801;&#x5206;&#x6790;</h2>
+<h2 id="61-&#x53D1;&#x5305;">6.1. &#x53D1;&#x5305;</h2>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">static</span> netdev_tx_t <span class="hljs-title">vxlan_xmit</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> sk_buff *skb, <span class="hljs-keyword">struct</span> net_device *dev)</span>
+</span>{
+    ...
+    <span class="hljs-keyword">if</span> (vxlan-&gt;cfg.flags &amp; VXLAN_F_PROXY) {  <span class="hljs-comment">// &#x5982;&#x679C;&#x5F00;&#x542F;&#x4E86;ARP&#x4EE3;&#x7406;</span>
+        <span class="hljs-keyword">if</span> (ntohs(eth-&gt;h_proto) == ETH_P_ARP)    <span class="hljs-comment">// &#x6570;&#x636E;&#x5305;&#x662F;arp&#x5305;</span>
+            <span class="hljs-keyword">return</span> arp_reduce(dev, skb, vni);    <span class="hljs-comment">// arp&#x8868;&#x67E5;&#x5F97;&#x5230;&#xFF0C;&#x5C31;&#x56DE;&#x590D;arp&#x5E94;&#x7B54;&#x5305;&#xFF1B;&#x67E5;&#x4E0D;&#x5230;&#x4E14;&#x5F00;&#x542F;&#x4E86;l3miss&#xFF0C;&#x5C31;&#x53D1;&#x9001;l3miss&#x901A;&#x77E5;&#x3002;</span>
+    }
+
+    <span class="hljs-comment">// &#x67E5;fdb&#x8868;</span>
+    f = vxlan_find_mac(vxlan, eth-&gt;h_dest, vni);
+    <span class="hljs-keyword">if</span> (f == <span class="hljs-literal">NULL</span>) {
+        f = vxlan_find_mac(vxlan, all_zeros_mac, vni);
+        <span class="hljs-keyword">if</span> (f == <span class="hljs-literal">NULL</span>) {
+            <span class="hljs-keyword">if</span> ((vxlan-&gt;cfg.flags &amp; VXLAN_F_L2MISS) &amp;&amp;
+                !is_multicast_ether_addr(eth-&gt;h_dest))
+                <span class="hljs-comment">// &#x67E5;&#x4E0D;&#x5230;&#x5C31;&#x53D1;&#x9001;l2miss&#x901A;&#x77E5;</span>
+                vxlan_fdb_miss(vxlan, eth-&gt;h_dest);
+            ...
+            <span class="hljs-keyword">return</span> NETDEV_TX_OK;
+    ...
+
+    vxlan_xmit_one(skb, dev, vni, fdst, did_rsc);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">vxlan_xmit_one</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> sk_buff *skb, <span class="hljs-keyword">struct</span> net_device *dev,
+               __be32 default_vni, <span class="hljs-keyword">struct</span> vxlan_rdst *rdst,
+               <span class="hljs-keyword">bool</span> did_rsc)</span>
+</span>{
+    ...
+    <span class="hljs-comment">// &#x6839;&#x636E;skb&#xFF0C;&#x54C8;&#x5E0C;&#x51FA;udp&#x5934;&#x7684;&#x6E90;&#x7AEF;&#x53E3;</span>
+    src_port = udp_flow_src_port(dev_net(dev), skb, vxlan-&gt;cfg.port_min,
+                     vxlan-&gt;cfg.port_max, <span class="hljs-literal">true</span>);
+    vxlan_build_skb        <span class="hljs-comment">// &#x5C01;vxlan&#x5934;</span>
+    udp_tunnel_xmit_skb  <span class="hljs-comment">// &#x5C01;udp&#x5934;</span>
+        iptunnel_xmit    <span class="hljs-comment">// &#x5C01;IP&#x5934;</span>
+            ip_local_out <span class="hljs-comment">// &#x8D70; local_out &#x51FA;&#x53BB;</span>
+}
+</code></pre>
+<h2 id="62-&#x6536;&#x5305;">6.2. &#x6536;&#x5305;</h2>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">udp_queue_rcv_one_skb</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> sock *sk, <span class="hljs-keyword">struct</span> sk_buff *skb)</span>
+</span>{
+    <span class="hljs-comment">// &#x5224;&#x65AD;&#x662F;&#x5C01;&#x5305;</span>
+    <span class="hljs-keyword">if</span> (static_branch_unlikely(&amp;udp_encap_needed_key) &amp;&amp; up-&gt;encap_type) {
+        <span class="hljs-keyword">int</span> (*encap_rcv)(<span class="hljs-keyword">struct</span> sock *sk, <span class="hljs-keyword">struct</span> sk_buff *skb);
+        encap_rcv = READ_ONCE(up-&gt;encap_rcv);
+        <span class="hljs-keyword">if</span> (encap_rcv) {
+            <span class="hljs-comment">// &#x56DE;&#x8C03;vxlan_sock&#x6CE8;&#x518C;&#x7684;&#x6536;&#x5305;&#x56DE;&#x8C03;&#xFF1A;vxlan_rcv</span>
+            ret = encap_rcv(sk, skb);
+        }
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">vxlan_rcv</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> sock *sk, <span class="hljs-keyword">struct</span> sk_buff *skb)</span>
+</span>{
+    <span class="hljs-comment">// &#x83B7;&#x53D6;vxlan&#x5934;&#x4E2D;&#x7684;VNI</span>
+    vni = vxlan_vni(vxlan_hdr(skb)-&gt;vx_vni);
+    <span class="hljs-comment">// &#x6839;&#x636E;VNI&#x627E;vxlan&#x8BBE;&#x5907;</span>
+    vxlan = vxlan_vs_find_vni(vs, skb-&gt;dev-&gt;ifindex, vni);
+    <span class="hljs-keyword">if</span> (!vxlan)
+        <span class="hljs-keyword">goto</span> drop;
+
+    <span class="hljs-comment">// &#x91CD;&#x65B0;&#x8BBE;&#x7F6E;&#x4E0B;&#x6570;&#x636E;&#x5305;&#x7684;&#x7F51;&#x5361;&#x8BBE;&#x5907;</span>
+    skb-&gt;dev = vxlan-&gt;dev;
+
+    gro_cells_receive(&amp;vxlan-&gt;gro_cells, skb);
+        <span class="hljs-comment">// &#x628A;&#x6570;&#x636E;&#x5305;&#x5165;&#x961F;</span>
+        __skb_queue_tail(&amp;cell-&gt;napi_skbs, skb);
+}
+</code></pre>
 
                                 
                                 </section>
@@ -762,7 +867,7 @@ $ bridge fdb add 2a:5c:14:0b:e7:10 dst 192.168.0.106 dev vxlan0
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"vxlan","level":"1.3.1.6","depth":3,"next":{"title":"负载均衡","level":"1.3.2","depth":2,"path":"network/load_balance.md","ref":"./network/load_balance.md","articles":[{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]}]},"previous":{"title":"bridge","level":"1.3.1.5","depth":3,"path":"network/basic/bridge.md","ref":"./network/basic/bridge.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/vxlan.md","mtime":"2022-11-09T15:21:02.324Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-11-09T15:21:11.689Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"vxlan","level":"1.3.1.6","depth":3,"next":{"title":"负载均衡","level":"1.3.2","depth":2,"path":"network/load_balance.md","ref":"./network/load_balance.md","articles":[{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]}]},"previous":{"title":"bridge","level":"1.3.1.5","depth":3,"path":"network/basic/bridge.md","ref":"./network/basic/bridge.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/vxlan.md","mtime":"2022-11-11T14:07:48.588Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-11-11T14:09:02.773Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
