@@ -271,23 +271,39 @@ static ssize_t tun_get_user(struct tun_struct *tun, struct tun_file *tfile,
 	skb_probe_transport_header(skb);
 	skb_record_rx_queue(skb, tfile->queue_index);
 
-	// 发送skb（会走到收包软中断回调，丢给协议栈处理了）
+	// 发送skb
 	netif_rx_ni(skb);
 }
 ```
 
 ### tun设备发包
 
-协议栈处理完成后，最终会调用设备注册的发包回调。回调实现里面可以看到，最终把数据包丢给了`socket`。
-
 ```c
 static netdev_tx_t tun_net_xmit(struct sk_buff *skb, struct net_device *dev)
 {
 	...
-	/* Notify and wake up reader process */
+	// 将数据包放入ring队列中
+	if (ptr_ring_produce(&tfile->tx_ring, skb))
+		goto drop;
+	// 唤醒读进程去处理数据包
 	if (tfile->flags & TUN_FASYNC)
 		kill_fasync(&tfile->fasync, SIGIO, POLL_IN);
 	tfile->socket.sk->sk_data_ready(tfile->socket.sk);
 	...
 }
 ```
+
+### 流程总结：
+
+协议栈如何把包传递给应用程序：
+
+1. 协议栈回调ndo_start_xmit函数指针，调用到tun_net_xmit；
+2. tun_net_xmit 将数据包放入 ring 队列，并唤醒进程去处理数据包；
+3. 应用程序调用 read/recvmsg系统调用， 会陷入到内核函数 tun_do_read；
+4. tun_do_read 从 ring 队列中取出数据包，把数据包拷贝到用户空间。
+
+应用程序如何把包传递给协议栈：
+
+1. 应用程序调用 write/sendmsg 系统调用，会陷入到内核函数 tun_get_user；
+2. tun_get_user 从用户空间拷贝数据包到内核空间，并调用 netif_rx_ni 接收处理数据包；
+3. netif_rx_ni 的流程不再赘述。

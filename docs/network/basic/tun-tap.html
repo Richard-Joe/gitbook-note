@@ -821,22 +821,38 @@ PING 1.2.3.4 (1.2.3.4) 56(84) bytes of data.
     skb_probe_transport_header(skb);
     skb_record_rx_queue(skb, tfile-&gt;queue_index);
 
-    <span class="hljs-comment">// &#x53D1;&#x9001;skb&#xFF08;&#x4F1A;&#x8D70;&#x5230;&#x6536;&#x5305;&#x8F6F;&#x4E2D;&#x65AD;&#x56DE;&#x8C03;&#xFF0C;&#x4E22;&#x7ED9;&#x534F;&#x8BAE;&#x6808;&#x5904;&#x7406;&#x4E86;&#xFF09;</span>
+    <span class="hljs-comment">// &#x53D1;&#x9001;skb</span>
     netif_rx_ni(skb);
 }
 </code></pre>
 <h3 id="tun&#x8BBE;&#x5907;&#x53D1;&#x5305;">tun&#x8BBE;&#x5907;&#x53D1;&#x5305;</h3>
-<p>&#x534F;&#x8BAE;&#x6808;&#x5904;&#x7406;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x6700;&#x7EC8;&#x4F1A;&#x8C03;&#x7528;&#x8BBE;&#x5907;&#x6CE8;&#x518C;&#x7684;&#x53D1;&#x5305;&#x56DE;&#x8C03;&#x3002;&#x56DE;&#x8C03;&#x5B9E;&#x73B0;&#x91CC;&#x9762;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x6700;&#x7EC8;&#x628A;&#x6570;&#x636E;&#x5305;&#x4E22;&#x7ED9;&#x4E86;<code>socket</code>&#x3002;</p>
 <pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">static</span> netdev_tx_t <span class="hljs-title">tun_net_xmit</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> sk_buff *skb, <span class="hljs-keyword">struct</span> net_device *dev)</span>
 </span>{
     ...
-    <span class="hljs-comment">/* Notify and wake up reader process */</span>
+    <span class="hljs-comment">// &#x5C06;&#x6570;&#x636E;&#x5305;&#x653E;&#x5165;ring&#x961F;&#x5217;&#x4E2D;</span>
+    <span class="hljs-keyword">if</span> (ptr_ring_produce(&amp;tfile-&gt;tx_ring, skb))
+        <span class="hljs-keyword">goto</span> drop;
+    <span class="hljs-comment">// &#x5524;&#x9192;&#x8BFB;&#x8FDB;&#x7A0B;&#x53BB;&#x5904;&#x7406;&#x6570;&#x636E;&#x5305;</span>
     <span class="hljs-keyword">if</span> (tfile-&gt;flags &amp; TUN_FASYNC)
         kill_fasync(&amp;tfile-&gt;fasync, SIGIO, POLL_IN);
     tfile-&gt;socket.sk-&gt;sk_data_ready(tfile-&gt;socket.sk);
     ...
 }
 </code></pre>
+<h3 id="&#x6D41;&#x7A0B;&#x603B;&#x7ED3;&#xFF1A;">&#x6D41;&#x7A0B;&#x603B;&#x7ED3;&#xFF1A;</h3>
+<p>&#x534F;&#x8BAE;&#x6808;&#x5982;&#x4F55;&#x628A;&#x5305;&#x4F20;&#x9012;&#x7ED9;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#xFF1A;</p>
+<ol>
+<li>&#x534F;&#x8BAE;&#x6808;&#x56DE;&#x8C03;ndo_start_xmit&#x51FD;&#x6570;&#x6307;&#x9488;&#xFF0C;&#x8C03;&#x7528;&#x5230;tun_net_xmit&#xFF1B;</li>
+<li>tun_net_xmit &#x5C06;&#x6570;&#x636E;&#x5305;&#x653E;&#x5165; ring &#x961F;&#x5217;&#xFF0C;&#x5E76;&#x5524;&#x9192;&#x8FDB;&#x7A0B;&#x53BB;&#x5904;&#x7406;&#x6570;&#x636E;&#x5305;&#xFF1B;</li>
+<li>&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x8C03;&#x7528; read/recvmsg&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#xFF0C; &#x4F1A;&#x9677;&#x5165;&#x5230;&#x5185;&#x6838;&#x51FD;&#x6570; tun_do_read&#xFF1B;</li>
+<li>tun_do_read &#x4ECE; ring &#x961F;&#x5217;&#x4E2D;&#x53D6;&#x51FA;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x628A;&#x6570;&#x636E;&#x5305;&#x62F7;&#x8D1D;&#x5230;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x3002;</li>
+</ol>
+<p>&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5982;&#x4F55;&#x628A;&#x5305;&#x4F20;&#x9012;&#x7ED9;&#x534F;&#x8BAE;&#x6808;&#xFF1A;</p>
+<ol>
+<li>&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x8C03;&#x7528; write/sendmsg &#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#xFF0C;&#x4F1A;&#x9677;&#x5165;&#x5230;&#x5185;&#x6838;&#x51FD;&#x6570; tun_get_user&#xFF1B;</li>
+<li>tun_get_user &#x4ECE;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x62F7;&#x8D1D;&#x6570;&#x636E;&#x5305;&#x5230;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#xFF0C;&#x5E76;&#x8C03;&#x7528; netif_rx_ni &#x63A5;&#x6536;&#x5904;&#x7406;&#x6570;&#x636E;&#x5305;&#xFF1B;</li>
+<li>netif_rx_ni &#x7684;&#x6D41;&#x7A0B;&#x4E0D;&#x518D;&#x8D58;&#x8FF0;&#x3002;</li>
+</ol>
 
                                 
                                 </section>
@@ -880,7 +896,7 @@ PING 1.2.3.4 (1.2.3.4) 56(84) bytes of data.
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"tun/tap设备","level":"1.3.1.4","depth":3,"next":{"title":"bridge","level":"1.3.1.5","depth":3,"path":"network/basic/bridge.md","ref":"./network/basic/bridge.md","articles":[]},"previous":{"title":"veth设备","level":"1.3.1.3","depth":3,"path":"network/basic/veth.md","ref":"./network/basic/veth.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/tun-tap.md","mtime":"2021-12-25T11:13:20.979Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-11-11T14:12:19.550Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"tun/tap设备","level":"1.3.1.4","depth":3,"next":{"title":"bridge","level":"1.3.1.5","depth":3,"path":"network/basic/bridge.md","ref":"./network/basic/bridge.md","articles":[]},"previous":{"title":"veth设备","level":"1.3.1.3","depth":3,"path":"network/basic/veth.md","ref":"./network/basic/veth.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/tun-tap.md","mtime":"2022-11-16T12:57:53.295Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-11-16T12:58:23.987Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
