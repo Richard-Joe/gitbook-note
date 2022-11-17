@@ -58,14 +58,26 @@ L3 是逻辑地址，它可以被随意改变。某些情况下，L3 地址到L2
 NUD：Network Unreachability Detection 网络不可到达性探测
 
 - NUD_NONE：新创建的邻居项，还没有状态可用。
-- 
+- NUD_INCOMPLETE：请求已经被发出，但还没有收到应答。这个状态下，不使用任何硬件地址。
+- NUD_REACHABLE：邻居的地址已被缓存，并且知道该邻居是可到达的。
+- NUD_FAILED：请求失败，将邻居标记为不可到达。
+- NUD_STALE：缓存中包含一个邻居的地址，但该地址已经有一端时间没有进行确认了。当下一次有封包要到达这个邻居时，需要启动可到达性确认过程。
+- NUD_DELAY：表示一种优化方式，减少 Solicitation 请求发送的次数。当发送封包到一个邻居，且其缓存项处于 NUD_STALE 状态时，就进入 NUD_DELAY 状态。该状态有时间窗口，这期间内内核不发出请求，作为一个优化方式。时间窗口内得到确认，缓存项状态就转为NUD_REACHABLE；得不到确认，就进入 NUD_PROBE 状态。
+- NUD_PROBE：进入 NUD_PROBE 状态后，就开始进入 Solicitation 请求逻辑。
 
 下面两个状态一旦被指定永远不会改变：
 
 - NUD_PERMANENT：邻居的 L2 地址是静态配置（比如 ip neigh 命令下发），不需要邻居协议进行地址解析。
 - NUD_NOARP：用于标记不要任何协议进行 L3 到 L2 地址映射的邻居。
 
-## ARP高速缓存
+### 1.7. 可到达性确认
+
+两种方式：
+
+- 来自单播的  Solicitation 应答。（处理广播应答时，缓存项状态会转移到 NUD_STALE ）
+- 外部认证。（L4 调用dst_confirm_neigh函数，回调confirm_neigh函数指针，这其中只更新了neighbour->confirmed的时间戳；当邻居进入 NUD_DELAY 状态时，定时器负责将邻居状态更新为 NUD_REACHABLE 状态。）
+
+## 2. 基础结构
 
 ## ARP分组格式
 
