@@ -1,0 +1,1332 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>邻居子系统 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-intopic-toc/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="route.html" />
+    
+    
+    <link rel="prev" href="vxlan.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../gitbook/">
+            
+                <a href="../../gitbook/">
+            
+                    
+                    gitbook搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    网络基础
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="recv_one_package.html">
+            
+                <a href="recv_one_package.html">
+            
+                    
+                    内核是如何接收一个网络包的
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="dma.html">
+            
+                <a href="dma.html">
+            
+                    
+                    内核DMA机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="veth.html">
+            
+                <a href="veth.html">
+            
+                    
+                    veth设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="tun-tap.html">
+            
+                <a href="tun-tap.html">
+            
+                    
+                    tun/tap设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="bridge.html">
+            
+                <a href="bridge.html">
+            
+                    
+                    bridge
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.6" data-path="vxlan.html">
+            
+                <a href="vxlan.html">
+            
+                    
+                    vxlan
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.1.7" data-path="neighbor.html">
+            
+                <a href="neighbor.html">
+            
+                    
+                    邻居子系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.8" data-path="route.html">
+            
+                <a href="route.html">
+            
+                    
+                    路由子系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../load_balance.md">
+            
+                <span>
+            
+                    
+                    负载均衡
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../lb/LVS.html">
+            
+                <a href="../lb/LVS.html">
+            
+                    
+                    LVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../traffic_control/tc.html">
+            
+                <a href="../traffic_control/tc.html">
+            
+                    
+                    流量控制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="../traffic_control/bufferbloat.html">
+            
+                <a href="../traffic_control/bufferbloat.html">
+            
+                    
+                    缓冲膨胀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="../traffic_control/fq_codel.html">
+            
+                <a href="../traffic_control/fq_codel.html">
+            
+                    
+                    公平队列控制延迟
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../../Kubernetes/">
+            
+                <a href="../../Kubernetes/">
+            
+                    
+                    Kubernetes
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" >
+            
+                <span>
+            
+                    
+                    工作负载
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.1" data-path="../../Kubernetes/Jobs.html">
+            
+                <a href="../../Kubernetes/Jobs.html">
+            
+                    
+                    Jobs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.2" data-path="../../Kubernetes/CronJob.html">
+            
+                <a href="../../Kubernetes/CronJob.html">
+            
+                    
+                    CronJob
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../../Kubernetes/CRD.html">
+            
+                <a href="../../Kubernetes/CRD.html">
+            
+                    
+                    CRD
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../../Kubernetes/Operator.html">
+            
+                <a href="../../Kubernetes/Operator.html">
+            
+                    
+                    Operator
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../../OVS/">
+            
+                <a href="../../OVS/">
+            
+                    
+                    OVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../../eBPF/">
+            
+                <a href="../../eBPF/">
+            
+                    
+                    eBPF
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../../XDP/">
+            
+                <a href="../../XDP/">
+            
+                    
+                    XDP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" >
+            
+                <span>
+            
+                    
+                    杂项
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../../misc/centos-install-v2ray.html">
+            
+                <a href="../../misc/centos-install-v2ray.html">
+            
+                    
+                    centos安装v2ray
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../../misc/docker-pull-use-proxy.html">
+            
+                <a href="../../misc/docker-pull-use-proxy.html">
+            
+                    
+                    docker/containerd设置代理实现从外网拉取镜像
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../../misc/install-ovs.html">
+            
+                <a href="../../misc/install-ovs.html">
+            
+                    
+                    编译安装ovs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../../misc/docker-to-containerd.html">
+            
+                <a href="../../misc/docker-to-containerd.html">
+            
+                    
+                    k8s 将docker切换为containerd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >邻居子系统</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x90BB;&#x5C45;&#x5B50;&#x7CFB;&#x7EDF;">&#x90BB;&#x5C45;&#x5B50;&#x7CFB;&#x7EDF;</h1>
+<p>&#x7ED9;&#x4E00;&#x4E2A; L3 &#x5730;&#x5740;&#xFF0C;&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684; L2 &#x5730;&#x5740;&#xFF0C;&#x79F0;&#x4E3A; &#x201C;L3&#x5730;&#x5740;&#x7684;&#x89E3;&#x6790;&#x201D;&#x3002;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x662F;&#x7531; <code>&#x90BB;&#x5C45;&#x534F;&#x8BAE;</code> &#x5B8C;&#x6210;&#x7684;&#x3002;</p>
+<ul>
+<li>IPv4 &#x4E2D;&#x4F7F;&#x7528; ARP &#xFF08;Address Resolution Protocol&#xFF0C;&#x5730;&#x5740;&#x89E3;&#x6790;&#x534F;&#x8BAE;&#xFF09;</li>
+<li>IPv6 &#x4E2D;&#x4F7F;&#x7528; NDP &#xFF08;Neighbor Discovery Protocol&#xFF0C;&#x90BB;&#x5C45;&#x53D1;&#x73B0;&#x534F;&#x8BAE;&#xFF09;</li>
+</ul>
+<h2 id="1-&#x6982;&#x5FF5;">1. &#x6982;&#x5FF5;</h2>
+<h3 id="11-&#x4EC0;&#x4E48;&#x662F;&#x90BB;&#x5C45;">1.1. &#x4EC0;&#x4E48;&#x662F;&#x90BB;&#x5C45;</h3>
+<p>&#x8FDE;&#x63A5;&#x5728;&#x540C;&#x4E00;&#x4E2A;LAN&#x4E0A;&#xFF0C;&#x4E14;&#x62E5;&#x6709;&#x76F8;&#x540C;&#x7684; L3 &#x7F51;&#x7EDC;&#x914D;&#x7F6E;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x4E92;&#x4E3A;&#x90BB;&#x5C45;&#x3002;</p>
+<h3 id="12-&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x90BB;&#x5C45;&#x534F;&#x8BAE;&#xFF1F;">1.2. &#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x90BB;&#x5C45;&#x534F;&#x8BAE;&#xFF1F;</h3>
+<p>L3 &#x662F;&#x903B;&#x8F91;&#x5730;&#x5740;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x88AB;&#x968F;&#x610F;&#x6539;&#x53D8;&#x3002;&#x67D0;&#x4E9B;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;L3 &#x5730;&#x5740;&#x5230;L2 &#x5730;&#x5740;&#x7684;&#x6620;&#x5C04;&#x5173;&#x7CFB;&#x4F1A;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x3002;&#x6BD4;&#x5982; &#x52A8;&#x6001;&#x914D;&#x7F6E;&#xFF08;DHCP&#xFF09;&#x3001;&#x66FF;&#x6362;&#x4E3B;&#x673A;NIC&#xFF08;L2 &#x53D8;&#x5316;&#xFF09;&#x3001;L3 &#x5730;&#x5740;&#x7684;&#x79FB;&#x52A8;&#xFF08;&#x9AD8;&#x53EF;&#x7528;&#xFF09;&#x3002;</p>
+<h3 id="13-&#x4EC0;&#x4E48;&#x60C5;&#x51B5;&#x4E0B;&#x4E0D;&#x9700;&#x8981;&#x90BB;&#x5C45;&#x534F;&#x8BAE;&#xFF1F;">1.3. &#x4EC0;&#x4E48;&#x60C5;&#x51B5;&#x4E0B;&#x4E0D;&#x9700;&#x8981;&#x90BB;&#x5C45;&#x534F;&#x8BAE;&#xFF1F;</h3>
+<p>&#x6709;&#x65F6;&#x5019; L3 &#x5730;&#x5740;&#x5230; L2 &#x5730;&#x5740;&#x7684;&#x6620;&#x5C04;&#x4E0D;&#x9700;&#x8981;&#x4EFB;&#x4F55;&#x534F;&#x8BAE;&#x5C31;&#x80FD;&#x5B8C;&#x6210;&#xFF1A;</p>
+<ul>
+<li>&#x70B9;&#x5BF9;&#x70B9;&#x4ECB;&#x8D28;&#x8FDE;&#x63A5;</li>
+<li>&#x591A;&#x64AD;&#x5730;&#x5740;&#xFF08;&#x53EF;&#x53C2;&#x8003;&#x51FD;&#x6570;arp_mc_map&#x3001;ip_eth_mc_map&#x4E2D;&#x7684;&#x5B9E;&#x73B0;&#xFF09;</li>
+<li>&#x5E7F;&#x64AD;&#x5730;&#x5740;&#xFF08;FF:FF:FF:FF:FF:FF&#xFF09;</li>
+</ul>
+<p>&#x591A;&#x64AD; IP -&gt; MAC &#x89C4;&#x5219;&#xFF1A;&#xFF08;&#x6BD4;&#x5982; 239.1.1.1 -&gt;  01:00:5E:01:01:01&#xFF09;</p>
+<ul>
+<li>&#x6700;&#x9AD8; 24 &#x4F4D;&#x6307;&#x5B9A;&#x7531;IANA&#x5206;&#x914D;&#x7684;&#x9759;&#x6001;&#x5730;&#x5740; 01:00:5E</li>
+<li>&#x4F4E; 24 &#x4F4D;&#x7684;&#x6700;&#x9AD8;&#x4F4D;&#x8BBE;&#x4E3A; 0</li>
+<li>&#x5269;&#x4F59;&#x7684;&#x4F4E; 23 &#x4F4D;&#x76F4;&#x63A5;&#x590D;&#x5236;&#x76F8;&#x5E94;IP&#x5730;&#x5740;&#x7684;&#x4F4E; 23 &#x4F4D;</li>
+</ul>
+<h3 id="14-&#x8BF7;&#x6C42;&#x548C;&#x5E94;&#x7B54;">1.4. &#x8BF7;&#x6C42;&#x548C;&#x5E94;&#x7B54;</h3>
+<p>&#x8BF7;&#x6C42;&#xFF08;Neighbor Solicitation&#xFF09;&#xFF1A;&#x53EF;&#x4EE5;&#x5355;&#x64AD;&#x3001;&#x591A;&#x64AD;&#x3001;&#x5E7F;&#x64AD;&#x3002;
+&#x5E94;&#x7B54;&#xFF08;Neighbor Advertisement&#xFF09;&#xFF1A;&#x901A;&#x5E38;&#x4E3A;&#x5355;&#x64AD;&#x3002;&#x7279;&#x6B8A;&#x60C5;&#x51B5;&#xFF0C;&#x53EF;&#x5E7F;&#x64AD;&#x3002;</p>
+<h3 id="15-&#x901A;&#x7528;&#x90BB;&#x5C45;&#x534F;&#x8BAE;&#x9700;&#x8981;&#x505A;&#x54EA;&#x4E9B;&#x4E8B;&#x60C5;&#xFF1F;">1.5. &#x901A;&#x7528;&#x90BB;&#x5C45;&#x534F;&#x8BAE;&#x9700;&#x8981;&#x505A;&#x54EA;&#x4E9B;&#x4E8B;&#x60C5;&#xFF1F;</h3>
+<ol>
+<li>&#x7F13;&#x5B58;&#xFF0C;&#x5B58;&#x50A8; L3 -&gt; L2 &#x6620;&#x5C04;&#xFF1B;</li>
+<li>&#x7F13;&#x5B58;&#x652F;&#x6301; add&#x3001;del&#x3001;update&#x3001;get &#x7B49;&#x51FD;&#x6570;&#xFF0C;&#x67E5;&#x627E;&#x5FC5;&#x987B;&#x8981;&#x5FEB;&#xFF1B;</li>
+<li>&#x7F13;&#x5B58;&#x7684;&#x6620;&#x5C04;&#x9879;&#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x8001;&#x5316;&#x673A;&#x5236;&#xFF1B;</li>
+<li>&#x7F13;&#x5B58;&#x6EE1;&#x65F6;&#x4E14;&#x6B63;&#x597D;&#x521B;&#x5EFA;&#x65B0;&#x7684;&#x6620;&#x5C04;&#x9879;&#xFF0C;&#x63D0;&#x4F9B;&#x9009;&#x62E9;&#x66FF;&#x6362;&#x7B56;&#x7565;&#xFF1B;</li>
+<li>&#x4E3A;&#x6BCF;&#x4E2A;&#x90BB;&#x5C45;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x961F;&#x5217;&#x3002;&#x8BF7;&#x6C42;&#x5C01;&#x5305;&#x9700;&#x8981;&#x653E;&#x5165;&#x7F13;&#x51B2;&#x533A;&#xFF0C;&#x76F4;&#x5230;&#x53D1;&#x51FA;&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x6536;&#x5230;&#x5E94;&#x7B54;&#x3002;</li>
+</ol>
+<h3 id="16-&#x90BB;&#x5C45;&#x534F;&#x8BAE;&#x4EE3;&#x7406;">1.6. &#x90BB;&#x5C45;&#x534F;&#x8BAE;&#x4EE3;&#x7406;</h3>
+<p>&#x5E76;&#x4E0D;&#x662F;&#x6240;&#x6709;&#x7684; Solicitation &#x8BF7;&#x6C42;&#x90FD;&#x4F1A;&#x88AB;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x5904;&#x7406;&#x3002;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x53EA;&#x6709;&#x5728;&#x6EE1;&#x8DB3;&#x4E0B;&#x5217;&#x6761;&#x4EF6;&#x624D;&#x4F1A;&#x5E94;&#x7B54;&#xFF1A;</p>
+<ul>
+<li>&#x8BF7;&#x6C42;&#x7684;&#x5730;&#x5740;&#x548C;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x6536;&#x5230;&#x8BF7;&#x6C42;&#x7684;&#x63A5;&#x53E3;&#x4E0A;&#x7684;&#x914D;&#x7F6E;&#x7684;&#x5730;&#x5740;&#x4E0D;&#x5C5E;&#x4E8E;&#x540C;&#x4E00;&#x4E2A;&#x5B50;&#x7F51;&#x3002;&#x5426;&#x5219;&#x76EE;&#x7684;&#x4E3B;&#x673A;&#x548C;&#x4EE3;&#x7406;&#x540C;&#x65F6;&#x5E94;&#x7B54;&#xFF0C;&#x53D1;&#x51FA;&#x65B9;&#x4E0D;&#x77E5;&#x9053;&#x5E94;&#x5F53;&#x9009;&#x62E9;&#x54EA;&#x4E00;&#x4E2A;&#x3002;</li>
+<li>&#x5FC5;&#x987B;&#x542F;&#x7528;&#x4EE3;&#x7406;&#x529F;&#x80FD;&#x3002;</li>
+</ul>
+<p>&#x57FA;&#x4E8E;&#x8BBE;&#x5907;&#xFF1A;&#x8BE5;&#x8BBE;&#x5907;&#x63A5;&#x6536;&#x7684;&#x6240;&#x6709;&#x6E38;&#x620F;&#x8BF7;&#x6C42;&#x90FD;&#x4F1A;&#x88AB;&#x5904;&#x7406;&#x3002;</p>
+<p>&#x57FA;&#x4E8E;&#x76EE;&#x7684;&#x5730;&#x5740;&#xFF1A;&#x4EE3;&#x7406;&#x53EF;&#x4EE5;&#x5BF9;&#x9009;&#x5B9A;IP&#x5730;&#x5740;&#x7684;&#x8BF7;&#x6C42;&#x505A;&#x51FA;&#x5E94;&#x7B54;&#x3002;</p>
+<h3 id="17-nud-&#x72B6;&#x6001;&#x8F6C;&#x6362;">1.7. NUD &#x72B6;&#x6001;&#x8F6C;&#x6362;</h3>
+<p>NUD&#xFF1A;Network Unreachability Detection &#x7F51;&#x7EDC;&#x4E0D;&#x53EF;&#x5230;&#x8FBE;&#x6027;&#x63A2;&#x6D4B;</p>
+<ul>
+<li>NUD_NONE&#xFF1A;&#x65B0;&#x521B;&#x5EFA;&#x7684;&#x90BB;&#x5C45;&#x9879;&#xFF0C;&#x8FD8;&#x6CA1;&#x6709;&#x72B6;&#x6001;&#x53EF;&#x7528;&#x3002;</li>
+<li>NUD_INCOMPLETE&#xFF1A;&#x8BF7;&#x6C42;&#x5DF2;&#x7ECF;&#x88AB;&#x53D1;&#x51FA;&#xFF0C;&#x4F46;&#x8FD8;&#x6CA1;&#x6709;&#x6536;&#x5230;&#x5E94;&#x7B54;&#x3002;&#x8FD9;&#x4E2A;&#x72B6;&#x6001;&#x4E0B;&#xFF0C;&#x4E0D;&#x4F7F;&#x7528;&#x4EFB;&#x4F55;&#x786C;&#x4EF6;&#x5730;&#x5740;&#x3002;</li>
+<li>NUD_REACHABLE&#xFF1A;&#x90BB;&#x5C45;&#x7684;&#x5730;&#x5740;&#x5DF2;&#x88AB;&#x7F13;&#x5B58;&#xFF0C;&#x5E76;&#x4E14;&#x77E5;&#x9053;&#x8BE5;&#x90BB;&#x5C45;&#x662F;&#x53EF;&#x5230;&#x8FBE;&#x7684;&#x3002;</li>
+<li>NUD_FAILED&#xFF1A;&#x8BF7;&#x6C42;&#x5931;&#x8D25;&#xFF0C;&#x5C06;&#x90BB;&#x5C45;&#x6807;&#x8BB0;&#x4E3A;&#x4E0D;&#x53EF;&#x5230;&#x8FBE;&#x3002;</li>
+<li>NUD_STALE&#xFF1A;&#x7F13;&#x5B58;&#x4E2D;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x90BB;&#x5C45;&#x7684;&#x5730;&#x5740;&#xFF0C;&#x4F46;&#x8BE5;&#x5730;&#x5740;&#x5DF2;&#x7ECF;&#x6709;&#x4E00;&#x7AEF;&#x65F6;&#x95F4;&#x6CA1;&#x6709;&#x8FDB;&#x884C;&#x786E;&#x8BA4;&#x4E86;&#x3002;&#x5F53;&#x4E0B;&#x4E00;&#x6B21;&#x6709;&#x5C01;&#x5305;&#x8981;&#x5230;&#x8FBE;&#x8FD9;&#x4E2A;&#x90BB;&#x5C45;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x542F;&#x52A8;&#x53EF;&#x5230;&#x8FBE;&#x6027;&#x786E;&#x8BA4;&#x8FC7;&#x7A0B;&#x3002;</li>
+<li>NUD_DELAY&#xFF1A;&#x8868;&#x793A;&#x4E00;&#x79CD;&#x4F18;&#x5316;&#x65B9;&#x5F0F;&#xFF0C;&#x51CF;&#x5C11; Solicitation &#x8BF7;&#x6C42;&#x53D1;&#x9001;&#x7684;&#x6B21;&#x6570;&#x3002;&#x5F53;&#x53D1;&#x9001;&#x5C01;&#x5305;&#x5230;&#x4E00;&#x4E2A;&#x90BB;&#x5C45;&#xFF0C;&#x4E14;&#x5176;&#x7F13;&#x5B58;&#x9879;&#x5904;&#x4E8E; NUD_STALE &#x72B6;&#x6001;&#x65F6;&#xFF0C;&#x5C31;&#x8FDB;&#x5165; NUD_DELAY &#x72B6;&#x6001;&#x3002;&#x8BE5;&#x72B6;&#x6001;&#x6709;&#x65F6;&#x95F4;&#x7A97;&#x53E3;&#xFF0C;&#x8FD9;&#x671F;&#x95F4;&#x5185;&#x5185;&#x6838;&#x4E0D;&#x53D1;&#x51FA;&#x8BF7;&#x6C42;&#xFF0C;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x4F18;&#x5316;&#x65B9;&#x5F0F;&#x3002;&#x65F6;&#x95F4;&#x7A97;&#x53E3;&#x5185;&#x5F97;&#x5230;&#x786E;&#x8BA4;&#xFF0C;&#x7F13;&#x5B58;&#x9879;&#x72B6;&#x6001;&#x5C31;&#x8F6C;&#x4E3A;NUD_REACHABLE&#xFF1B;&#x5F97;&#x4E0D;&#x5230;&#x786E;&#x8BA4;&#xFF0C;&#x5C31;&#x8FDB;&#x5165; NUD_PROBE &#x72B6;&#x6001;&#x3002;</li>
+<li>NUD_PROBE&#xFF1A;&#x8FDB;&#x5165; NUD_PROBE &#x72B6;&#x6001;&#x540E;&#xFF0C;&#x5C31;&#x5F00;&#x59CB;&#x8FDB;&#x5165; Solicitation &#x8BF7;&#x6C42;&#x903B;&#x8F91;&#x3002;</li>
+</ul>
+<p>&#x4E0B;&#x9762;&#x4E24;&#x4E2A;&#x72B6;&#x6001;&#x4E00;&#x65E6;&#x88AB;&#x6307;&#x5B9A;&#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x6539;&#x53D8;&#xFF1A;</p>
+<ul>
+<li>NUD_PERMANENT&#xFF1A;&#x90BB;&#x5C45;&#x7684; L2 &#x5730;&#x5740;&#x662F;&#x9759;&#x6001;&#x914D;&#x7F6E;&#xFF08;&#x6BD4;&#x5982; ip neigh &#x547D;&#x4EE4;&#x4E0B;&#x53D1;&#xFF09;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x90BB;&#x5C45;&#x534F;&#x8BAE;&#x8FDB;&#x884C;&#x5730;&#x5740;&#x89E3;&#x6790;&#x3002;</li>
+<li>NUD_NOARP&#xFF1A;&#x7528;&#x4E8E;&#x6807;&#x8BB0;&#x4E0D;&#x8981;&#x4EFB;&#x4F55;&#x534F;&#x8BAE;&#x8FDB;&#x884C; L3 &#x5230; L2 &#x5730;&#x5740;&#x6620;&#x5C04;&#x7684;&#x90BB;&#x5C45;&#x3002;</li>
+</ul>
+<h3 id="17-&#x53EF;&#x5230;&#x8FBE;&#x6027;&#x786E;&#x8BA4;">1.7. &#x53EF;&#x5230;&#x8FBE;&#x6027;&#x786E;&#x8BA4;</h3>
+<p>&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<ul>
+<li>&#x6765;&#x81EA;&#x5355;&#x64AD;&#x7684;  Solicitation &#x5E94;&#x7B54;&#x3002;&#xFF08;&#x5904;&#x7406;&#x5E7F;&#x64AD;&#x5E94;&#x7B54;&#x65F6;&#xFF0C;&#x7F13;&#x5B58;&#x9879;&#x72B6;&#x6001;&#x4F1A;&#x8F6C;&#x79FB;&#x5230; NUD_STALE &#xFF09;</li>
+<li>&#x5916;&#x90E8;&#x8BA4;&#x8BC1;&#x3002;&#xFF08;L4 &#x8C03;&#x7528;dst_confirm_neigh&#x51FD;&#x6570;&#xFF0C;&#x56DE;&#x8C03;confirm_neigh&#x51FD;&#x6570;&#x6307;&#x9488;&#xFF0C;&#x8FD9;&#x5176;&#x4E2D;&#x53EA;&#x66F4;&#x65B0;&#x4E86;neighbour-&gt;confirmed&#x7684;&#x65F6;&#x95F4;&#x6233;&#xFF1B;&#x5F53;&#x90BB;&#x5C45;&#x8FDB;&#x5165; NUD_DELAY &#x72B6;&#x6001;&#x65F6;&#xFF0C;&#x5B9A;&#x65F6;&#x5668;&#x8D1F;&#x8D23;&#x5C06;&#x90BB;&#x5C45;&#x72B6;&#x6001;&#x66F4;&#x65B0;&#x4E3A; NUD_REACHABLE &#x72B6;&#x6001;&#x3002;&#xFF09;</li>
+</ul>
+<p>&#x6240;&#x4EE5;&#x4E00;&#x4E2A;&#x90BB;&#x5C45;&#x8FDB;&#x5165; NUD_REACHABLE &#x6709;&#x4EE5;&#x4E0B;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<ul>
+<li>&#x6536;&#x5230;&#x4E00;&#x4E2A; Solicitation &#x5E94;&#x7B54;</li>
+<li>L4 &#x8BA4;&#x8BC1;</li>
+<li>&#x4EBA;&#x5DE5;&#x914D;&#x7F6E;</li>
+</ul>
+<h2 id="2-&#x57FA;&#x7840;&#x7ED3;&#x6784;">2. &#x57FA;&#x7840;&#x7ED3;&#x6784;</h2>
+<h3 id="21-&#x6570;&#x636E;&#x7ED3;&#x6784;">2.1. &#x6570;&#x636E;&#x7ED3;&#x6784;</h3>
+<p><code>neighbour</code> &#x5B58;&#x50A8;&#x90BB;&#x5C45;&#x7684;&#x6709;&#x5173;&#x4FE1;&#x606F;&#x3002;&#x5B83;&#x4E0E;&#x4E00;&#x4E2A; L3 &#x5730;&#x5740;&#x76F8;&#x5173;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> neighbour {
+    <span class="hljs-keyword">struct</span> neighbour __rcu    *next;
+    <span class="hljs-keyword">struct</span> neigh_table    *tbl;
+    <span class="hljs-keyword">struct</span> neigh_parms    *parms;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>        confirmed;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>        updated;
+    <span class="hljs-keyword">rwlock_t</span>        lock;
+    <span class="hljs-keyword">refcount_t</span>        refcnt;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>        arp_queue_len_bytes;
+    <span class="hljs-keyword">struct</span> sk_buff_head    arp_queue;
+    <span class="hljs-keyword">struct</span> timer_list    timer;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>        used;
+    <span class="hljs-keyword">atomic_t</span>        probes;
+    __u8            flags;
+    __u8            nud_state; <span class="hljs-comment">// NUD&#x72B6;&#x6001;</span>
+    __u8            type;
+    __u8            dead;
+    u8            protocol;
+    <span class="hljs-keyword">seqlock_t</span>        ha_lock;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span>        ha[ALIGN(MAX_ADDR_LEN, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>))] __aligned(<span class="hljs-number">8</span>); <span class="hljs-comment">// L2 &#x5730;&#x5740;</span>
+    <span class="hljs-keyword">struct</span> hh_cache        hh;
+    <span class="hljs-keyword">int</span>            (*output)(<span class="hljs-keyword">struct</span> neighbour *, <span class="hljs-keyword">struct</span> sk_buff *);
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> neigh_ops    *ops;
+    <span class="hljs-keyword">struct</span> list_head    gc_list;
+    <span class="hljs-keyword">struct</span> rcu_head        rcu;
+    <span class="hljs-keyword">struct</span> net_device    *dev;     <span class="hljs-comment">// &#x8BBF;&#x95EE;&#x8BE5;&#x90BB;&#x5C45;&#x7ECF;&#x8FC7;&#x7684;&#x8BBE;&#x5907;</span>
+    u8            primary_key[<span class="hljs-number">0</span>];   <span class="hljs-comment">// L3 &#x5730;&#x5740;</span>
+} __randomize_layout;
+</code></pre>
+<p><code>neigh_table</code> &#x63CF;&#x8FF0;&#x4E00;&#x79CD;&#x90BB;&#x5C45;&#x534F;&#x8BAE;&#x7684;&#x53C2;&#x6570;&#x548C;&#x6240;&#x7528;&#x51FD;&#x6570;&#x3002;&#x6BCF;&#x4E2A;&#x90BB;&#x5C45;&#x534F;&#x8BAE;&#xFF08;ARP&#x3001;ND&#x3001;DECnet&#xFF09;&#x90FD;&#x6709;&#x8BE5;&#x7ED3;&#x6784;&#x7684;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x3002;&#x6240;&#x6709;&#x5B9E;&#x4F8B;&#x90FD;&#x63D2;&#x5165;&#x5230;&#x4E00;&#x4E2A;&#x9759;&#x6001;&#x53D8;&#x91CF; <code>neigh_tables</code> &#x6307;&#x5411;&#x7684;&#x5168;&#x5C40;&#x8868;&#x4E2D;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> neigh_table {
+    <span class="hljs-keyword">int</span>            family; <span class="hljs-comment">// &#x5730;&#x5740;&#x65CF;&#xFF0C;AF_INET&#x3001;AF_INET6&#x3001;AF_DECnet</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>        entry_size;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>        key_len;
+    __be16            protocol;
+    __u32            (*hash)(<span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span> *pkey,
+                    <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> net_device *dev,
+                    __u32 *hash_rnd);
+    <span class="hljs-keyword">bool</span>            (*key_eq)(<span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> neighbour *, <span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span> *pkey);
+    <span class="hljs-keyword">int</span>            (*constructor)(<span class="hljs-keyword">struct</span> neighbour *);
+    <span class="hljs-keyword">int</span>            (*pconstructor)(<span class="hljs-keyword">struct</span> pneigh_entry *);
+    <span class="hljs-keyword">void</span>            (*pdestructor)(<span class="hljs-keyword">struct</span> pneigh_entry *);
+    <span class="hljs-keyword">void</span>            (*proxy_redo)(<span class="hljs-keyword">struct</span> sk_buff *skb);
+    <span class="hljs-keyword">int</span>            (*is_multicast)(<span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span> *pkey);
+    <span class="hljs-keyword">bool</span>            (*allow_add)(<span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> net_device *dev,
+                         <span class="hljs-keyword">struct</span> netlink_ext_ack *extack);
+    <span class="hljs-keyword">char</span>            *id;
+    <span class="hljs-keyword">struct</span> neigh_parms    parms;
+    <span class="hljs-keyword">struct</span> list_head    parms_list;
+    <span class="hljs-keyword">int</span>            gc_interval;
+    <span class="hljs-keyword">int</span>            gc_thresh1;
+    <span class="hljs-keyword">int</span>            gc_thresh2;
+    <span class="hljs-keyword">int</span>            gc_thresh3;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>        last_flush;
+    <span class="hljs-keyword">struct</span> delayed_work    gc_work;
+    <span class="hljs-keyword">struct</span> timer_list     proxy_timer;
+    <span class="hljs-keyword">struct</span> sk_buff_head    proxy_queue;
+    <span class="hljs-keyword">atomic_t</span>        entries;
+    <span class="hljs-keyword">atomic_t</span>        gc_entries;
+    <span class="hljs-keyword">struct</span> list_head    gc_list;
+    <span class="hljs-keyword">rwlock_t</span>        lock;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>        last_rand;
+    <span class="hljs-keyword">struct</span> neigh_statistics    __percpu *stats;
+    <span class="hljs-keyword">struct</span> neigh_hash_table __rcu *nht;
+    <span class="hljs-keyword">struct</span> pneigh_entry    **phash_buckets;
+};
+
+<span class="hljs-keyword">enum</span> {
+    NEIGH_ARP_TABLE = <span class="hljs-number">0</span>,
+    NEIGH_ND_TABLE = <span class="hljs-number">1</span>,
+    NEIGH_DN_TABLE = <span class="hljs-number">2</span>,
+    NEIGH_NR_TABLES,
+    NEIGH_LINK_TABLE = NEIGH_NR_TABLES <span class="hljs-comment">/* Pseudo table for neigh_xmit */</span>
+};
+
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">struct</span> neigh_table *neigh_tables[NEIGH_NR_TABLES] __read_mostly;
+</code></pre>
+<p><code>neigh_parms</code> &#x5BF9;&#x6BCF;&#x4E2A;&#x8BBE;&#x5907;&#x4E0A;&#x90BB;&#x5C45;&#x534F;&#x8BAE;&#x884C;&#x4E3A;&#x8FDB;&#x884C;&#x8C03;&#x6574;&#x7684;&#x4E00;&#x7EC4;&#x53C2;&#x6570;&#x3002;&#x4E00;&#x4E2A; net_device &#x7ED3;&#x6784;&#x53EF;&#x4EE5;&#x5173;&#x8054;&#x591A;&#x4E2A; neigh_parms &#x7ED3;&#x6784;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> neigh_parms {
+    <span class="hljs-keyword">possible_net_t</span> net;
+    <span class="hljs-keyword">struct</span> net_device *dev;
+    <span class="hljs-keyword">struct</span> list_head <span class="hljs-built_in">list</span>;
+    <span class="hljs-keyword">int</span>    (*neigh_setup)(<span class="hljs-keyword">struct</span> neighbour *);
+    <span class="hljs-keyword">struct</span> neigh_table *tbl;
+
+    <span class="hljs-keyword">void</span>    *sysctl_table;
+
+    <span class="hljs-keyword">int</span> dead;
+    <span class="hljs-keyword">refcount_t</span> refcnt;
+    <span class="hljs-keyword">struct</span> rcu_head rcu_head;
+
+    <span class="hljs-keyword">int</span>    reachable_time;
+    <span class="hljs-keyword">int</span>    data[NEIGH_VAR_DATA_MAX];
+    DECLARE_BITMAP(data_state, NEIGH_VAR_DATA_MAX);
+};
+</code></pre>
+<p><code>neigh_ops</code> &#x4E00;&#x7EC4;&#x51FD;&#x6570;&#xFF0C;&#x7528;&#x6765;&#x8868;&#x793A; L3 &#x534F;&#x8BAE;&#x548C; dev_queue_xmit &#x4E4B;&#x95F4;&#x7684;&#x63A5;&#x53E3;&#x3002;&#x8FD9;&#x4E9B;&#x865A;&#x62DF;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x5B83;&#x4EEC;&#x4F7F;&#x7528;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;&#x6765;&#x6539;&#x53D8;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> neigh_ops {
+    <span class="hljs-keyword">int</span>            family;
+    <span class="hljs-keyword">void</span>            (*solicit)(<span class="hljs-keyword">struct</span> neighbour *, <span class="hljs-keyword">struct</span> sk_buff *);
+    <span class="hljs-keyword">void</span>            (*error_report)(<span class="hljs-keyword">struct</span> neighbour *, <span class="hljs-keyword">struct</span> sk_buff *);
+    <span class="hljs-keyword">int</span>            (*output)(<span class="hljs-keyword">struct</span> neighbour *, <span class="hljs-keyword">struct</span> sk_buff *);
+    <span class="hljs-keyword">int</span>            (*connected_output)(<span class="hljs-keyword">struct</span> neighbour *, <span class="hljs-keyword">struct</span> sk_buff *);
+};
+</code></pre>
+<p><code>hh_cache</code> &#x7F13;&#x5B58;&#x94FE;&#x8DEF;&#x5C42;&#x5934;&#x90E8;&#x4FE1;&#x606F;&#xFF0C;&#x7528;&#x4E8E;&#x52A0;&#x5FEB;&#x4F20;&#x8F93;&#x901F;&#x5EA6;&#x3002;&#x4E00;&#x6B21;&#x5C06;&#x4E00;&#x4E2A;&#x7F13;&#x5B58;&#x7684;&#x5934;&#x90E8;&#x4FE1;&#x606F;&#x590D;&#x5236;&#x5230;&#x53D1;&#x9001;&#x7F13;&#x5B58;&#x533A;&#x4E2D;&#x6BD4;&#x6309;&#x4F4D;&#x586B;&#x5145;&#x5934;&#x90E8;&#x4FE1;&#x606F;&#x8981;&#x5FEB;&#x7684;&#x591A;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> hh_cache {
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>    hh_len;
+    <span class="hljs-keyword">seqlock_t</span>    hh_lock;
+
+    <span class="hljs-comment">/* cached hardware header; allow for machine alignment needs.        */</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> HH_DATA_MOD    16</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> HH_DATA_OFF(__len) \
+    (HH_DATA_MOD - (((__len - 1) &amp; (HH_DATA_MOD - 1)) + 1))</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> HH_DATA_ALIGN(__len) \
+    (((__len)+(HH_DATA_MOD-1))&amp;~(HH_DATA_MOD - 1))</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>    hh_data[HH_DATA_ALIGN(LL_MAX_HEADER) / <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">long</span>)];
+};
+</code></pre>
+<p><code>rtable</code> &#x8868;&#x793A; IPv4 &#x8DEF;&#x7531;&#x7F13;&#x5B58;&#x7ED3;&#x6784;&#x3002;&#x6BCF;&#x4E2A; rtable &#x5B9E;&#x4F8B;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;&#x4E0D;&#x540C;&#x7684; IP &#x5730;&#x5740;&#x3002;</p>
+<p>&#x5F53;&#x4E3B;&#x673A;&#x9700;&#x8981;&#x8DEF;&#x7531;&#x4E00;&#x4E2A;&#x5C01;&#x5305;&#x65F6;&#xFF0C;&#x9996;&#x5148;&#x4F1A;&#x67E5;&#x8BE2;&#x81EA;&#x5DF1;&#x7684;&#x8DEF;&#x7531;&#x7F13;&#x5B58;&#x4E2D;&#x7684;&#x76EE;&#x7684;&#x4E3B;&#x673A;&#x4FE1;&#x606F;&#xFF0C;&#x5728;&#x7F13;&#x5B58;&#x4E0D;&#x547D;&#x4E2D;&#x65F6;&#xFF0C;&#x63A5;&#x7740;&#x624D;&#x4F1A;&#x67E5;&#x8BE2;&#x8DEF;&#x7531;&#x8868;&#x3002;&#x6BCF;&#x6B21;&#x67E5;&#x8BE2;&#x8DEF;&#x7531;&#x8868;&#x65F6;&#xFF0C;&#x90FD;&#x4F1A;&#x5C06;&#x7ED3;&#x679C;&#x4FDD;&#x5B58;&#x5728;&#x8DEF;&#x7531;&#x7F13;&#x5B58;&#x4E2D;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> rtable {
+    <span class="hljs-keyword">struct</span> dst_entry    dst;
+
+    <span class="hljs-keyword">int</span>            rt_genid;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>        rt_flags;
+    __u16            rt_type;
+    __u8            rt_is_input;
+    __u8            rt_uses_gateway;
+
+    <span class="hljs-keyword">int</span>            rt_iif;
+
+    u8            rt_gw_family;
+    <span class="hljs-comment">/* Info on neighbour */</span>
+    <span class="hljs-keyword">union</span> {
+        __be32        rt_gw4;        <span class="hljs-comment">// &#x7F51;&#x5173;&#x5730;&#x5740;</span>
+        <span class="hljs-keyword">struct</span> in6_addr    rt_gw6;
+    };
+
+    <span class="hljs-comment">/* Miscellaneous cached information */</span>
+    u32            rt_mtu_locked:<span class="hljs-number">1</span>,
+                rt_pmtu:<span class="hljs-number">31</span>;
+
+    <span class="hljs-keyword">struct</span> list_head    rt_uncached;
+    <span class="hljs-keyword">struct</span> uncached_list    *rt_uncached_list;
+};
+
+<span class="hljs-keyword">struct</span> dst_entry {
+    <span class="hljs-keyword">struct</span> net_device       *dev;
+    <span class="hljs-keyword">struct</span>  dst_ops            *ops;
+    ...
+};
+</code></pre>
+<p>&#x3010;&#x8865;&#x5145;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x5173;&#x7CFB;&#x56FE;&#x3011;</p>
+<h3 id="22-&#x901A;&#x7528;&#x63A5;&#x53E3;-neighops">2.2. &#x901A;&#x7528;&#x63A5;&#x53E3; neigh_ops</h3>
+<p>&#x865A;&#x62DF;&#x51FD;&#x6570;&#x7684;&#x7075;&#x6D3B;&#x6027;&#x4F7F;&#x5F97;&#x4E0D;&#x540C; L3 &#x534F;&#x8BAE;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x90BB;&#x5C45;&#x534F;&#x8BAE;&#x3002;&#x5F53;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x90BB;&#x5C45;&#x65F6;&#xFF0C;&#x5176; neighbour-&gt;ops &#x5B57;&#x6BB5;&#x88AB;&#x521D;&#x59CB;&#x5316;&#x4E3A;&#x9002;&#x5F53;&#x7684; neigh_ops &#x7ED3;&#x6784;&#xFF0C;&#x8FD9;&#x79CD;&#x8BBE;&#x5B9A;&#x5173;&#x7CFB;&#x5728;&#x90BB;&#x5C45;&#x751F;&#x5B58;&#x5468;&#x671F;&#x5185;&#x662F;&#x4E0D;&#x4F1A;&#x6539;&#x53D8;&#x7684;&#x3002;&#x4F46; neigh-&gt;output &#x5728;&#x90BB;&#x5C45;&#x751F;&#x5B58;&#x5468;&#x671F;&#x5185;&#x53EF;&#x4EE5;&#x591A;&#x6B21;&#x6539;&#x53D8;&#x4E3A;&#x4E0D;&#x540C;&#x7684;&#x51FD;&#x6570;&#x3002;</p>
+<p>&#x67D0;&#x4E9B;&#x7279;&#x6B8A;&#x60C5;&#x51B5;&#xFF0C;&#x662F;&#x4E0D;&#x9700;&#x8981;&#x8FDB;&#x884C; L3 &#x5730;&#x5740;&#x5230; L2 &#x5730;&#x5740;&#x7684;&#x6620;&#x5C04;&#x3002;&#x8FD9;&#x6837;&#x53EF;&#x4EE5;&#x7ED5;&#x8FC7;&#x90BB;&#x5C45;&#x5B50;&#x7CFB;&#x7EDF;&#xFF0C;&#x4EE5;&#x52A0;&#x5FEB;&#x4F20;&#x8F93;&#x901F;&#x5EA6;&#x3002;</p>
+<p>&#x6BCF;&#x4E2A;&#x534F;&#x8BAE;&#x90FD;&#x63D0;&#x4F9B;&#x4E86;&#x4E0D;&#x540C;&#x7684; neigh_ops &#x5B9E;&#x4F8B;&#xFF1A;</p>
+<ul>
+<li>xxx_generic_ops&#xFF1A;&#x901A;&#x7528;&#x8868;&#xFF0C;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x90A3;&#x4E9B;&#x9700;&#x8981;&#x5BF9; L2 &#x5730;&#x5740;&#x8FDB;&#x884C;&#x89E3;&#x6790;&#x7684;&#x90BB;&#x5C45;&#x3002;</li>
+<li>xxx_hh_ops&#xFF1A;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x63D0;&#x4F9B;&#x5B83;&#x81EA;&#x5DF1;&#x7684;&#x4E00;&#x7EC4;&#x51FD;&#x6570;&#x6765;&#x5904;&#x7406; L2 &#x5E27;&#x5934;&#xFF0C;&#x80FD;&#x591F;&#x52A0;&#x5FEB;&#x7F13;&#x5B58;&#x5E27;&#x5934;&#x7684;&#x4F7F;&#x7528;&#x3002;</li>
+<li>xxx_direct_ops&#xFF1A;&#x5F53;&#x8BBE;&#x5907;&#x4E0D;&#x9700;&#x8981;&#x5BF9;  L3 &#x5730;&#x5740;&#x5230; L2 &#x5730;&#x5740;&#x7684;&#x6620;&#x5C04;&#x3002;</li>
+</ul>
+<pre><code class="lang-c"><span class="hljs-comment">// net/ipv4/arp.c</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> neigh_ops arp_generic_ops;
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> neigh_ops arp_hh_ops;
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> neigh_ops arp_direct_ops;
+
+<span class="hljs-comment">// net/ipv6/ndisc.c</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> neigh_ops ndisc_generic_ops;
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> neigh_ops ndisc_hh_ops;
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> neigh_ops ndisc_direct_ops;
+
+<span class="hljs-comment">// net/decnet/dn_neigh.c</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> neigh_ops dn_neigh_ops;
+</code></pre>
+<p>&#x90BB;&#x5C45;&#x8FDB;&#x5165;&#x5230; NUD_REACHABLE &#x72B6;&#x6001;&#xFF0C;&#x5C31;&#x4F1A;&#x8C03;&#x7528; neigh_connect&#x3002;</p>
+<p>&#x90BB;&#x5C45;&#x4ECE; NUD_REACHABLE &#x72B6;&#x6001; &#x8F6C;&#x79FB;&#x5230; NUD_STALE &#x6216; NUD_DELAY &#x6001;&#xFF0C;&#x6216;&#x8005;&#x521D;&#x59CB;&#x5316;&#x5230; &#x975E; NUD_CONNECTED &#x72B6;&#x6001;&#xFF0C;&#x5185;&#x6838;&#x5C31;&#x4F1A;&#x8C03;&#x7528; neigh_suspect &#x6267;&#x884C;&#x53EF;&#x8FBE;&#x6027;&#x786E;&#x8BA4;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-comment">/* Neighbour state is suspicious;
+   disable fast path.
+
+   Called with write_locked neigh.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">neigh_suspect</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> neighbour *neigh)</span>
+</span>{
+    neigh_dbg(<span class="hljs-number">2</span>, <span class="hljs-string">&quot;neigh %p is suspected\n&quot;</span>, neigh);
+
+    neigh-&gt;output = neigh-&gt;ops-&gt;output;
+}
+
+<span class="hljs-comment">/* Neighbour state is OK;
+   enable fast path.
+
+   Called with write_locked neigh.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">neigh_connect</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> neighbour *neigh)</span>
+</span>{
+    neigh_dbg(<span class="hljs-number">2</span>, <span class="hljs-string">&quot;neigh %p is connected\n&quot;</span>, neigh);
+
+    neigh-&gt;output = neigh-&gt;ops-&gt;connected_output;
+}
+</code></pre>
+<p>neigh-&gt;output &#x53EF;&#x80FD;&#x4F1A;&#x4F7F;&#x7528;&#x7684;&#x51FD;&#x6570;&#xFF1A;</p>
+<ul>
+<li>neigh_direct_output&#xFF1A;&#x76F4;&#x63A5;&#x8C03;&#x7528; dev_queue_xmit&#x3002;</li>
+<li>neigh_connected_output&#xFF1A;&#x586B;&#x5145; L2 &#x5E27;&#x5934;&#xFF0C;&#x7136;&#x540E;&#x8C03;&#x7528; dev_queue_xmit&#x3002;</li>
+<li>neigh_resolve_output&#xFF1A;&#x5728;&#x6570;&#x636E;&#x4F20;&#x8F93;&#x524D;&#x5C06; L3 &#x5730;&#x5740;&#x89E3;&#x6790;&#x4E3A; L2 &#x5730;&#x5740;&#x3002;&#x7136;&#x540E;&#x586B;&#x5145; L2 &#x5E27;&#x5934;&#xFF0C;&#x8C03;&#x7528; dev_queue_xmit&#x3002;</li>
+<li>neigh_blackhole&#xFF1A;&#x8C03;&#x7528;kfree_skb&#xFF0C;&#x4E22;&#x5F03;&#x4EFB;&#x4F55;&#x5C01;&#x5305;&#x3002;&#x6BD4;&#x5982;&#x5220;&#x9664;&#x90BB;&#x5C45;&#x65F6;&#x3002;</li>
+</ul>
+<h3 id="23-neighupdate">2.3. neigh_update</h3>
+<h3 id="24-&#x7F13;&#x5B58;">2.4. &#x7F13;&#x5B58;</h3>
+<p>&#x90BB;&#x5C45;&#x5C42;&#x5B9E;&#x73B0;&#x4E86;&#x4E24;&#x79CD;&#x7F13;&#x5B58;&#xFF1A;</p>
+<ul>
+<li>&#x90BB;&#x5C45;&#x6620;&#x5C04;&#xFF1A;&#x7ECF;&#x5E38;&#x9700;&#x8981;&#x6839;&#x636E; L3 &#x67E5;&#x627E;&#x5BF9;&#x5E94;&#x7684; L2&#xFF0C;&#x7F13;&#x5B58;L3 &#x5230; L2 &#x7684;&#x6620;&#x5C04;&#x3002;</li>
+<li>L2 &#x5E27;&#x5934;&#xFF1A;&#x7F13;&#x5B58; L2 &#x5E27;&#x5934;&#xFF0C;&#x53EF;&#x4EE5;&#x7F29;&#x77ED; &#x5C01;&#x5305;&#x65F6;&#x95F4;&#x3002;L2 &#x5C01;&#x5305;&#x65F6;&#x76F4;&#x63A5;&#x62F7;&#x8D1D;&#x6574;&#x4E2A;&#x5E27;&#x5934;&#xFF0C;&#x5426;&#x5219;&#x8981;&#x586B;&#x5145;L2&#x5934;&#x90E8;&#x7684;&#x6BCF;&#x4E2A;&#x5B57;&#x6BB5;&#x3002;</li>
+</ul>
+<p><img src="neighbor-images/cache.png" alt="&#x7F13;&#x5B58;"></p>
+<p>&#x67E5;&#x627E;&#x90BB;&#x5C45;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code class="lang-c">static inline struct neighbour *___neigh_lookup_noref(
+    struct neigh_table *tbl,
+    bool (*key_eq)(const struct neighbour *n, const void *pkey),
+    __u32 (*hash)(const void *pkey,
+              const struct net_device *dev,
+              __u32 *hash_rnd),
+    const void *pkey,
+    struct net_device *dev)
+{
+    struct neigh_hash_table *nht = rcu_dereference_bh(tbl-&gt;nht);
+    struct neighbour *n;
+    u32 hash_val;
+
+    hash_val = hash(pkey, dev, nht-&gt;hash_rnd) &gt;&gt; (32 - nht-&gt;hash_shift);
+    for (n = rcu_dereference_bh(nht-&gt;hash_buckets[hash_val]);
+         n != NULL;
+         n = rcu_dereference_bh(n-&gt;next)) {
+        if (n-&gt;dev == dev &amp;&amp; key_eq(n, pkey))
+            return n;
+    }
+
+    return NULL;
+}
+</code></pre>
+<p>L2 &#x5E27;&#x5934;&#x7F13;&#x5B58;&#xFF1A;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> neighbour {
+    <span class="hljs-keyword">struct</span> hh_cache        hh;    <span class="hljs-comment">// L2 &#x5E27;&#x5934;&#x7F13;&#x5B58;</span>
+};
+
+<span class="hljs-keyword">struct</span> hh_cache {
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>    hh_len;
+    <span class="hljs-keyword">seqlock_t</span>    hh_lock;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>    hh_data[HH_DATA_ALIGN(LL_MAX_HEADER) / <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">long</span>)];
+};
+</code></pre>
+<p>&#x4ECE;&#x4E00;&#x53F0;&#x4E3B;&#x673A;&#x53D1;&#x5F80;&#x53E6;&#x4E00;&#x53F0;&#x4E3B;&#x673A;&#x7684;&#x6240;&#x6709;&#x5C01;&#x5305;&#x7684;L2 &#x5E27;&#x5934;&#x90FD;&#x662F;&#x76F8;&#x540C;&#x7684;&#x3002;&#xFF08;&#x5927;&#x90E8;&#x5206;&#x534F;&#x8BAE;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x590D;&#x6742;&#x7684;L2&#x534F;&#x8BAE;&#x53EF;&#x80FD;&#x4E0D;&#x4E00;&#x81F4;&#xFF09;&#x3002;&#x7531;&#x51FA;&#x53E3;&#x8BBE;&#x5907;&#x7684;<code>&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;</code>&#x652F;&#x6301;&#x3002;</p>
+<p>L2 &#x5E27;&#x5934;&#x7F13;&#x5B58;&#x548C;&#x5728;L3&#x8DEF;&#x7531;&#x5B50;&#x7CFB;&#x7EDF;&#x7F13;&#x5B58;&#x6709;&#x7D27;&#x5BC6;&#x8054;&#x7CFB;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> rtable {
+    <span class="hljs-keyword">struct</span> dst_entry    dst;
+    ...
+    <span class="hljs-comment">/* Info on neighbour */</span>
+    <span class="hljs-keyword">union</span> {
+        __be32        rt_gw4;        <span class="hljs-comment">// &#x5B58;&#x653E;&#x4E86;&#x7F51;&#x5173;&#x5730;&#x5740;</span>
+        <span class="hljs-keyword">struct</span> in6_addr    rt_gw6;
+    };
+};
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">ip_finish_output2</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> net *net, <span class="hljs-keyword">struct</span> sock *sk, <span class="hljs-keyword">struct</span> sk_buff *skb)</span>
+</span>{
+    ...
+    <span class="hljs-comment">// &#x6839;&#x636E;&#x7F51;&#x5173;&#x5730;&#x5740;&#x67E5;&#x627E;neighbour&#x7ED3;&#x6784;</span>
+    neigh = ip_neigh_for_gw(rt, skb, &amp;is_v6gw);
+    <span class="hljs-keyword">if</span> (!IS_ERR(neigh)) {
+        ...
+        <span class="hljs-comment">/* if crossing protocols, can not use the cached header */</span>
+        res = neigh_output(neigh, skb, is_v6gw);
+        <span class="hljs-keyword">return</span> res;
+    }
+    ...
+}
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-keyword">int</span> <span class="hljs-title">neigh_output</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> neighbour *n, <span class="hljs-keyword">struct</span> sk_buff *skb,
+                   <span class="hljs-keyword">bool</span> skip_cache)</span>
+</span>{
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> hh_cache *hh = &amp;n-&gt;hh;
+
+    <span class="hljs-keyword">if</span> ((n-&gt;nud_state &amp; NUD_CONNECTED) &amp;&amp; hh-&gt;hh_len &amp;&amp; !skip_cache)
+        <span class="hljs-comment">// &#x5982;&#x679C;&#x90BB;&#x5C45;&#x53EF;&#x8FBE;&#xFF0C;&#x4E14;&#x6709;&#x7F13;&#x5B58;L2&#x5E27;&#x5934;&#xFF0C;&#x5219;&#x8FDB;&#x884C;&#x62F7;&#x8D1D;L2&#x5E27;&#x5934;&#x5230;skb&#x4E2D;&#xFF0C;&#x4E4B;&#x540E;&#x76F4;&#x63A5;&#x53D1;&#x9001;</span>
+        <span class="hljs-keyword">return</span> neigh_hh_output(hh, skb);
+    <span class="hljs-keyword">else</span>
+        <span class="hljs-keyword">return</span> n-&gt;output(n, skb);
+}
+</code></pre>
+<p>&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x7EC4;&#x51FD;&#x6570;&#xFF0C;&#x6765;&#x7F13;&#x5B58;L2 &#x5E27;&#x5934;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> header_ops {
+    <span class="hljs-keyword">int</span>    (*create) (<span class="hljs-keyword">struct</span> sk_buff *skb, <span class="hljs-keyword">struct</span> net_device *dev,
+               <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">short</span> type, <span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span> *daddr,
+               <span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span> *saddr, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> len);
+    <span class="hljs-keyword">int</span>    (*parse)(<span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> sk_buff *skb, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> *haddr);
+    <span class="hljs-keyword">int</span>    (*cache)(<span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> neighbour *neigh, <span class="hljs-keyword">struct</span> hh_cache *hh, __be16 type);
+    <span class="hljs-keyword">void</span>    (*cache_update)(<span class="hljs-keyword">struct</span> hh_cache *hh,
+                <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> net_device *dev,
+                <span class="hljs-keyword">const</span> <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> *haddr);
+    <span class="hljs-keyword">bool</span>    (*validate)(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *ll_header, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> len);
+    __be16    (*parse_protocol)(<span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> sk_buff *skb);
+};
+
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> header_ops eth_header_ops ____cacheline_aligned = {
+    .create        = eth_header,    <span class="hljs-comment">// &#x6309;&#x5B57;&#x6BB5;&#x586B;&#x5145; L2 &#x5E27;&#x5934;</span>
+    .parse        = eth_header_parse,    <span class="hljs-comment">// &#x4ECE;&#x6570;&#x636E;&#x5305;&#x4E2D;&#x83B7;&#x53D6; L2 &#x5730;&#x5740;</span>
+    .cache        = eth_header_cache, <span class="hljs-comment">// &#x7F13;&#x5B58; L2 &#x5E27;&#x5934;</span>
+    .cache_update    = eth_header_cache_update, <span class="hljs-comment">// &#x66F4;&#x65B0; L2 &#x5E27;&#x5934;&#x7F13;&#x5B58;</span>
+    .parse_protocol    = eth_header_parse_protocol, <span class="hljs-comment">// &#x4ECE;&#x6570;&#x636E;&#x5305;L2&#x5934;&#x90E8;&#x83B7;&#x53D6;&#x534F;&#x8BAE;</span>
+};
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ether_setup</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> net_device *dev)</span>
+</span>{
+    dev-&gt;header_ops        = &amp;eth_header_ops;
+    ...
+}
+</code></pre>
+<h3 id="25-&#x5B9A;&#x65F6;&#x5668;">2.5. &#x5B9A;&#x65F6;&#x5668;</h3>
+<ul>
+<li>&#x90BB;&#x5C45;&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x5B9A;&#x65F6;&#x5668;&#xFF08;neighbour-&gt;timer&#xFF09;:<ul>
+<li>&#x4ECE; NUD_REACHABLE &#x72B6;&#x6001;&#x5230; NUD_DELAY &#x6216; NUD_STALE &#x72B6;&#x6001;</li>
+<li>&#x4ECE; NUD_DELAY&#x72B6;&#x6001;&#x5230; NUD_PROBE &#x6216; NUD_REACHABLE &#x72B6;&#x6001;</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-c">neigh_alloc&#x4F1A;&#x521D;&#x59CB;&#x5316;timer&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;
+    timer_setup(&amp;n-&gt;timer, neigh_timer_handler, <span class="hljs-number">0</span>);
+</code></pre>
+<ul>
+<li><p>&#x5931;&#x8D25;&#x7684; Solicitation &#x8BF7;&#x6C42;&#x7684;&#x5B9A;&#x65F6;&#x5668;&#xFF1A;
+  &#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x5185;&#x6CA1;&#x6709;&#x6536;&#x5230;&#x5E94;&#x7B54;&#xFF0C;&#x5C31;&#x518D;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x65B0;&#x7684; Solicitation &#x8BF7;&#x6C42;&#x3002;&#x53D1;&#x9001;&#x7684;&#x6B21;&#x6570;&#x8BB0;&#x5F55;&#x5728; neighbour-&gt;probes &#x4E2D;&#xFF0C;&#x6700;&#x5927;&#x6B21;&#x6570;&#x5728; neigh_parms-&gt;data &#x4E2D;&#x3002;&#x5F53;&#x6700;&#x540E;&#x4E00;&#x6B21;&#x53D1;&#x9001;&#x5C1D;&#x8BD5;&#x5931;&#x8D25;&#x540E;&#xFF0C;&#x90BB;&#x5C45;&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x5230; NUD_FAILED &#x72B6;&#x6001;&#xFF0C;&#x4E4B;&#x540E;&#x4F1A;&#x7531;&#x5783;&#x573E;&#x56DE;&#x6536;&#x5B9A;&#x65F6;&#x5668;&#x6765;&#x6E05;&#x9664;&#x90BB;&#x5C45;&#x3002;</p>
+</li>
+<li><p>&#x5783;&#x573E;&#x56DE;&#x6536;&#x5DE5;&#x4F5C;&#x961F;&#x5217;&#xFF08;neigh_table-&gt;gc_work&#xFF09;&#xFF1A;</p>
+</li>
+</ul>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">neigh_table_init</span><span class="hljs-params">(<span class="hljs-keyword">int</span> index, <span class="hljs-keyword">struct</span> neigh_table *tbl)</span>
+</span>{
+    INIT_DEFERRABLE_WORK(&amp;tbl-&gt;gc_work, neigh_periodic_work);
+    queue_delayed_work(system_power_efficient_wq, &amp;tbl-&gt;gc_work,
+            tbl-&gt;parms.reachable_time);
+}
+</code></pre>
+<ul>
+<li>Proxy &#x5B9A;&#x65F6;&#x5668; &#xFF08;neigh_table-&gt;proxy_timer&#xFF09;&#xFF1A;&#x63A8;&#x8FDF;&#x5904;&#x7406; Solicitation &#x8BF7;&#x6C42;&#x3002;</li>
+</ul>
+<h3 id="26-&#x90BB;&#x5C45;&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;">2.6. &#x90BB;&#x5C45;&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;</h3>
+<p>&#x90BB;&#x5C45;&#x7ED3;&#x6784;&#x4E2D;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x5668;&#xFF1A;neighbour-&gt;refcnt</p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">neigh_release</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> neighbour *neigh)</span>
+</span>{
+    <span class="hljs-keyword">if</span> (refcount_dec_and_test(&amp;neigh-&gt;refcnt))
+        neigh_destroy(neigh);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-keyword">struct</span> neighbour * <span class="hljs-title">neigh_clone</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> neighbour *neigh)</span>
+</span>{
+    <span class="hljs-keyword">if</span> (neigh)
+        refcount_inc(&amp;neigh-&gt;refcnt);
+    <span class="hljs-keyword">return</span> neigh;
+}
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> neigh_hold(n)    refcount_inc(&amp;(n)-&gt;refcnt)</span>
+</code></pre>
+<ul>
+<li>&#x8DEF;&#x7531;&#x8868;&#x5F15;&#x7528;</li>
+<li>&#x6BCF;&#x6B21;&#x90BB;&#x5C45;&#x5B9A;&#x65F6;&#x5668;&#x542F;&#x52A8;&#x65F6;&#xFF0C;&#x90FD;&#x4F1A;&#x8C03;&#x7528; neigh_hold &#x4F7F;&#x5F15;&#x7528;&#x52A0;1</li>
+</ul>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">neigh_add_timer</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> neighbour *n, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> when)</span>
+</span>{
+    neigh_hold(n);
+    <span class="hljs-keyword">if</span> (unlikely(mod_timer(&amp;n-&gt;timer, when))) {
+        printk(<span class="hljs-string">&quot;NEIGH: BUG, double timer add, state is %x\n&quot;</span>,
+               n-&gt;nud_state);
+        dump_stack();
+    }
+}
+</code></pre>
+<h3 id="27-&#x521B;&#x5EFA;&#x90BB;&#x5C45;">2.7. &#x521B;&#x5EFA;&#x90BB;&#x5C45;</h3>
+<ul>
+<li>&#x4F20;&#x8F93;&#x8BF7;&#x6C42;&#x65F6; L2 &#x5730;&#x5740;&#x672A;&#x77E5;&#xFF08;&#x53D1;&#x51FA; Solicitation &#x8BF7;&#x6C42;&#xFF09;</li>
+<li>&#x6536;&#x5230; Solicitation &#x8BF7;&#x6C42;</li>
+<li>&#x624B;&#x5DE5;&#x6DFB;&#x52A0;</li>
+</ul>
+<h3 id="27-&#x5220;&#x9664;&#x90BB;&#x5C45;">2.7. &#x5220;&#x9664;&#x90BB;&#x5C45;</h3>
+<ul>
+<li>&#x4F01;&#x56FE;&#x5411;&#x4E0D;&#x53EF;&#x8FBE;&#x7684;&#x4E3B;&#x673A;&#x53D1;&#x9001;&#x5C01;&#x5305;&#xFF0C;&#x90BB;&#x5C45;&#x7ED3;&#x6784;&#x8F6C;&#x79FB;&#x5230; NUD_FAILED &#x72B6;&#x6001;&#xFF0C;&#x4E4B;&#x540E;&#x8FDB;&#x884C;&#x5F02;&#x6B65;&#x5220;&#x9664;&#x3002;</li>
+<li>&#x4E0E;&#x90BB;&#x5C45;&#x7ED3;&#x6784;&#x5173;&#x8054;&#x7684;&#x4E3B;&#x673A;&#x7684; L2 &#x5730;&#x5740;&#x53D1;&#x9001;&#x53D8;&#x5316;&#xFF0C;L3 &#x5730;&#x5740;&#x6CA1;&#x6709;&#x53D8;&#x5316;&#x3002;&#x90BB;&#x5C45;&#x7ED3;&#x6784;&#x8F6C;&#x79FB;&#x5230; NUD_FAILED &#x72B6;&#x6001;&#xFF0C;&#x7136;&#x540E;&#x91CD;&#x65B0;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x90BB;&#x5C45;&#x7ED3;&#x6784;&#x3002;</li>
+<li>&#x90BB;&#x5C45;&#x5B58;&#x5728;&#x65F6;&#x95F4;&#x592A;&#x957F;&#xFF0C;&#x5185;&#x6838;&#x9700;&#x8981;&#x56DE;&#x6536;&#x5185;&#x5B58;&#xFF0C;&#x5783;&#x573E;&#x56DE;&#x6536;&#x5C06;&#x5176;&#x5220;&#x9664;&#x3002;</li>
+</ul>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">neigh_release</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> neighbour *neigh)</span>
+</span>{
+    <span class="hljs-keyword">if</span> (refcount_dec_and_test(&amp;neigh-&gt;refcnt))
+        neigh_destroy(neigh);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">neigh_destroy</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> neighbour *neigh)</span>
+</span>{
+    <span class="hljs-comment">// &#x505C;&#x6B62;&#x5B9A;&#x65F6;&#x5668;</span>
+    <span class="hljs-keyword">if</span> (neigh_del_timer(neigh))
+        pr_warn(<span class="hljs-string">&quot;Impossible event\n&quot;</span>);
+
+    <span class="hljs-comment">// &#x6E05;&#x7A7A;&#x51FA;&#x53E3;&#x961F;&#x5217;</span>
+    __skb_queue_purge(&amp;neigh-&gt;arp_queue);
+
+    <span class="hljs-comment">// &#x56DE;&#x8C03;&#x534F;&#x8BAE;&#x81EA;&#x8EAB;&#x63D0;&#x4F9B;&#x7684;&#x6E05;&#x7406;&#x90BB;&#x5C45;&#x9879;&#x7684;&#x65B9;&#x6CD5;</span>
+    <span class="hljs-keyword">if</span> (dev-&gt;netdev_ops-&gt;ndo_neigh_destroy)
+        dev-&gt;netdev_ops-&gt;ndo_neigh_destroy(dev, neigh);
+
+    <span class="hljs-comment">// &#x91CA;&#x653E;&#x5185;&#x5B58;</span>
+    kfree_rcu(neigh, rcu);
+}
+</code></pre>
+<h3 id="28-&#x5783;&#x573E;&#x56DE;&#x6536;">2.8. &#x5783;&#x573E;&#x56DE;&#x6536;</h3>
+<ul>
+<li>&#x540C;&#x6B65;&#x6E05;&#x7406;&#xFF1A;&#x5206;&#x914D;&#x65B0;&#x7684;&#x90BB;&#x5C45;&#x7ED3;&#x6784;&#x65F6;&#xFF0C;&#x5F53;&#x90BB;&#x5C45;&#x6570;&#x91CF;&#x8D85;&#x8FC7;&#x9608;&#x503C;&#xFF0C;&#x5219;&#x6267;&#x884C;&#x5F3A;&#x5236;GC&#x3002;</li>
+</ul>
+<pre><code class="lang-c">static struct neighbour *neigh_alloc(struct neigh_table *tbl, struct net_device *dev, bool exempt_from_gc)
+{
+    entries = atomic_inc_return(&amp;tbl-&gt;gc_entries) - 1;
+    if (entries &gt;= tbl-&gt;gc_thresh3 ||
+        (entries &gt;= tbl-&gt;gc_thresh2 &amp;&amp;
+         time_after(now, tbl-&gt;last_flush + 5 * HZ))) {
+        // &#x4F1A;&#x6E05;&#x9664;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x4E3A;1&#xFF0C;&#x4E14;&#x975E;NUD_PERMANENT&#x6001;
+        neigh_forced_gc(tbl);
+    ...
+}
+</code></pre>
+<ul>
+<li>&#x5F02;&#x6B65;&#x6E05;&#x7406;&#xFF1A;&#x5468;&#x671F;&#x6027;&#x6267;&#x884C;&#xFF0C;&#x5220;&#x9664;&#x67D0;&#x6BB5;&#x65F6;&#x95F4;&#x5185;&#x6CA1;&#x6709;&#x7528;&#x8FC7;&#x7684;&#x90BB;&#x5C45;&#x7ED3;&#x6784;&#x3002;</li>
+</ul>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">neigh_periodic_work</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> work_struct *work)</span>
+</span>{
+    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span> ; i &lt; (<span class="hljs-number">1</span> &lt;&lt; nht-&gt;hash_shift); i++) {
+        np = &amp;nht-&gt;hash_buckets[i];
+
+        <span class="hljs-keyword">while</span> ((n = rcu_dereference_protected(*np,
+                lockdep_is_held(&amp;tbl-&gt;lock))) != <span class="hljs-literal">NULL</span>) {
+            ...
+            <span class="hljs-keyword">if</span> (refcount_read(&amp;n-&gt;refcnt) == <span class="hljs-number">1</span> &amp;&amp;
+                (state == NUD_FAILED ||
+                 time_after(jiffies, n-&gt;used + NEIGH_VAR(n-&gt;parms, GC_STALETIME)))) {
+                *np = n-&gt;next;
+                neigh_mark_dead(n);
+                neigh_cleanup_and_release(n);
+                <span class="hljs-keyword">continue</span>;
+            }
+            ...
+        }
+    }
+}
+</code></pre>
+<h3 id="29-&#x62C5;&#x4EFB;&#x4EE3;&#x7406;">2.9. &#x62C5;&#x4EFB;&#x4EE3;&#x7406;</h3>
+<p>&#x524D;&#x9762;&#x8BF4;&#x8FC7;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x4E24;&#x79CD;&#x4EE3;&#x7406;&#xFF1A;</p>
+<ul>
+<li>&#x6309;&#x8BBE;&#x5907;&#x4EE3;&#x7406;</li>
+<li>&#x6309;&#x76EE;&#x7684;&#x5730;&#x4EE3;&#x7406;</li>
+</ul>
+<p>&#x76F8;&#x5173;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF1A;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> neigh_table {
+    <span class="hljs-comment">// &#x5904;&#x7406;&#x51FA;&#x961F;&#x8BF7;&#x6C42;&#x7684;&#x51FD;&#x6570;&#x56DE;&#x8C03;</span>
+    <span class="hljs-keyword">void</span>            (*proxy_redo)(<span class="hljs-keyword">struct</span> sk_buff *skb);
+    <span class="hljs-keyword">struct</span> timer_list     proxy_timer;    <span class="hljs-comment">// &#x7528;&#x4E8E;&#x6267;&#x884C;&#x5EF6;&#x8FDF;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#x7684;&#x5B9A;&#x65F6;&#x5668;</span>
+    <span class="hljs-keyword">struct</span> sk_buff_head    proxy_queue;    <span class="hljs-comment">// Solicitation &#x8BF7;&#x6C42;&#x961F;&#x5217;</span>
+    <span class="hljs-keyword">struct</span> pneigh_entry    **phash_buckets;    <span class="hljs-comment">// &#x6309;&#x76EE;&#x7684;&#x5730;&#x4EE3;&#x7406;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x4FDD;&#x5B58;&#x88AB;&#x4EE3;&#x7406;&#x7684;&#x5730;&#x5740;&#xFF08;L3&#x5730;&#x5740;&#xFF09;</span>
+};
+
+<span class="hljs-comment">// neigh_parms</span>
+<span class="hljs-keyword">enum</span> {
+    ...
+    NEIGH_VAR_PROXY_QLEN,    <span class="hljs-comment">// &#x961F;&#x5217;&#x7684;&#x6700;&#x5927;&#x957F;&#x5EA6;</span>
+    ...
+    NEIGH_VAR_PROXY_DELAY,    <span class="hljs-comment">// &#x542F;&#x52A8;&#x5B9A;&#x65F6;&#x5668;&#x7684;&#x53EF;&#x914D;&#x7F6E;&#x5EF6;&#x8FDF;</span>
+    ...
+};
+</code></pre>
+<h3 id="210-&#x534F;&#x8BAE;&#x521D;&#x59CB;&#x5316;&#x548C;&#x6E05;&#x7406;">2.10. &#x534F;&#x8BAE;&#x521D;&#x59CB;&#x5316;&#x548C;&#x6E05;&#x7406;</h3>
+<pre><code class="lang-c"><span class="hljs-comment">// ARP: arp_init</span>
+<span class="hljs-comment">// ND: ndisc_init&#x3001;ndisc_cleanup</span>
+<span class="hljs-comment">// DECnet: dn_neigh_init&#x3001;dn_neigh_cleanup</span>
+<span class="hljs-comment">// CLIP&#xFF1A;atm_clip_init&#x3001;atm_clip_exit</span>
+</code></pre>
+<p>&#x4E0D;&#x8003;&#x8651;CLIP&#xFF0C;&#x53E6;&#x5916;&#x4E09;&#x4E2A;&#x534F;&#x8BAE;&#x90FD;&#x9700;&#x8981;&#x8C03;&#x7528; neigh_table_init &#x521D;&#x59CB;&#x5316; neigh_table &#x7ED3;&#x6784;&#xFF0C;&#x4E3B;&#x8981;&#x5B8C;&#x6210;&#x4EE5;&#x4E0B;&#x5DE5;&#x4F5C;&#xFF1A;</p>
+<ul>
+<li>&#x5206;&#x914D; neigh_statistics &#x7ED3;&#x6784;&#x6765;&#x6536;&#x96C6;&#x534F;&#x8BAE;&#x7684;&#x7EDF;&#x8BA1;&#x4FE1;&#x606F;&#x3002;</li>
+<li>/proc/net/stat/&#x4E0B;&#x5EFA;&#x7ACB;&#x6587;&#x4EF6;&#xFF0C;&#x7528;&#x4E8E;&#x8F6C;&#x50A8;&#x7EDF;&#x8BA1;&#x4FE1;&#x606F;&#x3002;</li>
+<li>&#x5206;&#x914D;&#x4E24;&#x4E2A; hash &#x8868;&#xFF1A;hash_buckets&#xFF08;&#x90BB;&#x5C45;&#x7F13;&#x5B58;&#xFF09;&#x3001;phash_buckets&#xFF08;&#x4EE3;&#x7406;&#x7684;&#x5730;&#x5740;&#x6570;&#x636E;&#x5E93;&#xFF09;&#x3002;</li>
+<li>&#x542F; &#x5783;&#x573E;&#x56DE;&#x6536;&#x4EFB;&#x52A1; gc_work&#x3002;</li>
+<li>&#x521D;&#x59CB;&#x5316;&#x4EE3;&#x7406;&#x5B9A;&#x65F6;&#x5668; proxy_timer &#x548C; &#x4EE3;&#x7406;&#x961F;&#x5217; proxy_queue&#x3002;</li>
+<li>&#x6DFB;&#x52A0; neigh_table &#x7ED3;&#x6784;&#x5230;&#x5168;&#x5C40;&#x5217;&#x8868; neigh_tables &#x4E2D;&#x3002;</li>
+</ul>
+<h3 id="211-&#x4E8B;&#x4EF6;">2.11. &#x4E8B;&#x4EF6;</h3>
+<p>&#x8DDF;&#x90BB;&#x5C45;&#x5B50;&#x7CFB;&#x7EDF;&#x6709;&#x8054;&#x7CFB;&#x7684;&#x5176;&#x4ED6;&#x5B50;&#x7CFB;&#x7EDF;&#xFF1A;</p>
+<ul>
+<li>&#x8DEF;&#x7531; &#xFF08;&#x8DEF;&#x7531;&#x7F13;&#x5B58;&#x548C;&#x90BB;&#x5C45;&#x7684;L2&#x7F13;&#x5B58;&#xFF09;</li>
+<li>&#x6D41;&#x91CF;&#x5747;&#x8861;&#xFF08;TEQL&#xFF09;</li>
+<li>IPsec</li>
+<li>Netfilter&#xFF08;&#x6BD4;&#x5982;Netfilter&#x63D0;&#x4F9B;&#x8DDF;ARP&#x76F8;&#x5173;&#x7684;&#x94A9;&#x5B50;&#x70B9;&#xFF1A;NF_ARP_IN&#x3001;NF_ARP_OUT&#x3001;NF_ARP_FORWARD&#x3002;&#x540C;&#x6837;&#x5728;IPv6&#x4E2D;&#xFF0C;&#x8DDF;ND&#x4E5F;&#x6709;&#x7C7B;&#x4F3C;&#x94A9;&#x5B50;&#x70B9;&#x3002;&#xFF09;</li>
+</ul>
+<p>&#x90BB;&#x5C45;&#x5C42;&#x4EA7;&#x751F;&#x7684;&#x4E8B;&#x4EF6;&#xFF1A;</p>
+<ul>
+<li>&#x90BB;&#x5C45;&#x8FDB;&#x5165;NUD_FAILED&#x72B6;&#x6001;&#xFF0C;&#x4F1A;&#x6267;&#x884C;neigh-&gt;ops-&gt;error_report(neigh, skb) &#x62A5;&#x544A;&#x4E0D;&#x53EF;&#x8FBE;&#x3002;</li>
+<li><code>__neigh_notify</code>&#x53D1;&#x9001;netlink&#x6D88;&#x606F;</li>
+</ul>
+<p>&#x90BB;&#x5C45;&#x5C42;&#x63A5;&#x6536;&#x7684;&#x4E8B;&#x4EF6;&#xFF1A;</p>
+<ul>
+<li>neigh_ifdown</li>
+<li>neigh_changeaddr</li>
+</ul>
+<h3 id="211-&#x6392;&#x961F;">2.11. &#x6392;&#x961F;</h3>
+<p>ip_finish_output2 &#x4E2D;&#x53D1;&#x5305;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x76EE;&#x7684;&#x5730;L2&#x5730;&#x5740;&#x8FD8;&#x672A;&#x88AB;&#x89E3;&#x6790;&#xFF0C;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x6570;&#x636E;&#x5305;&#x9700;&#x8981;&#x653E;&#x5230;&#x90BB;&#x5C45;&#x7684;&#x961F;&#x5217;&#x4E2D;&#x7B49;&#x5F85;&#x5730;&#x5740;&#x89E3;&#x6790;&#x3002;</p>
+<pre><code class="lang-c">ip_finish_output2
+    <span class="hljs-comment">// &#x6839;&#x636E;&#x7F51;&#x5173;&#x5730;&#x5740;&#x67E5;&#x627E;neighbour&#x7ED3;&#x6784;&#xFF0C;&#x67E5;&#x627E;&#x4E0D;&#x5230;&#x4F1A;&#x7ACB;&#x5373;&#x521B;&#x5EFA;&#x65B0;&#x7684;neighbour&#x7ED3;&#x6784;</span>
+    neigh = ip_neigh_for_gw(rt, skb, &amp;is_v6gw);
+    res = neigh_output(neigh, skb, is_v6gw);
+
+neigh_output
+    <span class="hljs-comment">// &#x8C03;&#x7528;&#x89E3;&#x6790;&#xFF1A;neigh_resolve_output</span>
+    neigh_resolve_output
+        neigh_event_send
+            <span class="hljs-comment">// &#x5C06;&#x6570;&#x636E;&#x5305;&#x5165;&#x961F;&#x7B49;&#x5F85;&#x89E3;&#x6790;</span>
+            __skb_queue_tail(&amp;neigh-&gt;arp_queue, skb);
+            <span class="hljs-comment">// &#x53D1;&#x9001; Solicitation &#x8BF7;&#x6C42;</span>
+            neigh-&gt;ops-&gt;solicit(neigh, skb);
+
+arp_process
+    <span class="hljs-comment">// &#x90BB;&#x5C45;&#x72B6;&#x6001;&#x53D8;&#x4E3A; NUD_REACHABLE&#xFF0C;&#x66F4;&#x65B0;&#x90BB;&#x5C45;</span>
+    neigh_update
+        <span class="hljs-comment">// &#x5C06;&#x6570;&#x636E;&#x5305;&#x51FA;&#x961F;</span>
+        skb = __skb_dequeue(&amp;neigh-&gt;arp_queue)
+        <span class="hljs-comment">// &#x4F1A;&#x56DE;&#x8C03;neigh_connected_output&#xFF08;&#x586B;&#x5145;L2&#x5934;&#xFF0C;&#x8C03;&#x7528;xmit&#x53D1;&#x5305;&#xFF09;</span>
+        n1-&gt;output(n1, skb);
+</code></pre>
+<h2 id="3-arp">3. ARP</h2>
+<h3 id="31-&#x62A5;&#x6587;">3.1. &#x62A5;&#x6587;</h3>
+<p><img src="neighbor-images/arp.png" alt="&#x62A5;&#x6587;&#x683C;&#x5F0F;"></p>
+<h3 id="32-&#x65E0;&#x7AEF;arp">3.2. &#x65E0;&#x7AEF;ARP</h3>
+<p>&#x5F53;&#x53D1;&#x9001;&#x65B9;&#x7684;ARPOP_REQUEST&#x6D88;&#x606F;&#xFF0C;&#x662F;&#x4E3A;&#x4E86;&#x901A;&#x77E5;&#x63A5;&#x6536;&#x65B9;&#x4E00;&#x4E9B;&#x4FE1;&#x606F;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x8BF7;&#x6C42;&#x4FE1;&#x606F;&#x3002;&#x8FD9;&#x79CD;&#x5C01;&#x5305;&#x79F0;&#x4E3A;<code>&#x65E0;&#x7AEF;ARP</code>&#x3002;&#x6709;&#x4EE5;&#x4E0B;&#x60C5;&#x51B5;&#xFF1A;</p>
+<ul>
+<li>L2 &#x5730;&#x5740;&#x53D1;&#x751F;&#x53D8;&#x5316;</li>
+<li>&#x91CD;&#x590D;&#x5730;&#x5740;&#x63A2;&#x6D4B;&#xFF08;DHCP&#x670D;&#x52A1;&#x5668;&#x5728;&#x5C06;&#x4E00;&#x4E2A;&#x5730;&#x5740;&#x6388;&#x6743;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#x524D;&#xFF0C;&#x901A;&#x5E38;&#x4F1A;&#x53D1;&#x51FA;&#x8BF7;&#x6C42;&#x68C0;&#x6D4B;&#x5730;&#x5740;&#x662F;&#x5426;&#x91CD;&#x590D;&#xFF1B;ifup&#x547D;&#x4EE4;&#x542F;&#x52A8;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x65F6;&#xFF0C;&#x4F1A;&#x7528;arping&#x6765;&#x68C0;&#x6D4B;&#x91CD;&#x590D;&#x5730;&#x5740;&#xFF1B;Linux&#x5185;&#x6838;&#x672C;&#x8EAB;&#x4E0D;&#x4F1A;&#x751F;&#x6210;&#x4EFB;&#x4F55;&#x65E0;&#x7AEF;ARP&#x3002;&#xFF09;</li>
+<li>&#x865A;&#x62DF;IP&#xFF08;&#x6545;&#x969C;&#x8F6C;&#x79FB;&#xFF09;</li>
+</ul>
+<h3 id="33-&#x591A;&#x4E2A;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x5E94;&#x7B54;">3.3. &#x591A;&#x4E2A;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x5E94;&#x7B54;</h3>
+<p>Linux &#x901A;&#x5E38;&#x8BA4;&#x4E3A;&#x4E00;&#x4E2A;IP&#x5730;&#x5740;&#x5C5E;&#x4E8E;&#x4E00;&#x4E2A;&#x4E3B;&#x673A;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5C5E;&#x4E8E;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#x3002;</p>
+<p>&#x5047;&#x8BBE;&#x5728;&#x540C;&#x4E00;&#x4E2A;LAN&#x4E2D;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x4E3B;&#x673A;&#x4E0A;&#x6709;&#x4E24;&#x5757;NIC&#xFF0C;&#x5E76;&#x4E14;&#x53E6;&#x5916;&#x4E00;&#x53F0;&#x4E3B;&#x673A;&#x5411;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x5730;&#x5740;&#x53D1;&#x9001;ARP&#x8BF7;&#x6C42;&#x3002;&#x8FD9;&#x4E24;&#x4E2A;&#x63A5;&#x53E3;&#x4E0A;&#x90FD;&#x4F1A;&#x6536;&#x5230;&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x4E14;&#x8FD9;&#x4E24;&#x4E2A;&#x63A5;&#x53E3;&#x90FD;&#x4F1A;&#x505A;&#x51FA;&#x5E94;&#x7B54;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x53D1;&#x51FA;&#x8BF7;&#x6C42;&#x7684;&#x4E3B;&#x673A;&#x4F1A;&#x6536;&#x5230;&#x4E24;&#x4E2A;&#x5E94;&#x7B54;&#xFF0C;&#x8FD9;&#x4F1A;&#x5F15;&#x8D77;<code>ARP flux</code>&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x4E00;&#x4E9B;/proc&#x9009;&#x9879;&#xFF1A;</p>
+<ul>
+<li>ARP_ANNOUNCE&#xFF1A;&#x5F53;&#x4EA7;&#x751F; Solicitation &#x8BF7;&#x6C42;&#x7684;&#x4E3B;&#x673A;&#x6709;&#x591A;&#x4E2A;IP&#x5730;&#x5740;&#xFF0C;&#x8FD9;&#x4E2A;&#x9009;&#x9879;&#x63A7;&#x5236;&#x54EA;&#x4E2A;&#x5730;&#x5740;&#x5E94;&#x88AB;&#x653E;&#x5230;&#x8BF7;&#x6C42;&#x7684;ARP&#x5934;&#x4E2D;&#x3002;</li>
+<li>ARP_IGNORE&#xFF1A;&#x8FD9;&#x4E2A;&#x9009;&#x9879;&#x63A7;&#x5236;&#x5224;&#x65AD;&#x662F;&#x5426;&#x5904;&#x7406;ARP_REQUEST&#x5C01;&#x5305;&#x7684;&#x6761;&#x4EF6;&#x3002;</li>
+<li>ARP_FILTER&#xFF1A;&#x6BD4;&#x5982;&#x4E0A;&#x9762;&#x4E3B;&#x673A;&#x4E0A;&#x6536;&#x5230;&#x4E24;&#x4E2A;&#x8BF7;&#x6C42;&#xFF0C;&#x901A;&#x8FC7;&#x8DEF;&#x7531;&#x8868;&#x8FC7;&#x6EE4;&#xFF0C;&#x53EA;&#x5E94;&#x7B54;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x3002;</li>
+</ul>
+<h3 id="34-arp&#x6536;&#x53D1;&#x5305;">3.4. ARP&#x6536;&#x53D1;&#x5305;</h3>
+<p>&#x53D1;&#x5305;&#xFF1A;arp_solicit</p>
+<p>&#x6536;&#x5305;&#xFF1A;arp_rcv</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="vxlan.html" class="navigation navigation-prev " aria-label="Previous page: vxlan">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="route.html" class="navigation navigation-next " aria-label="Next page: 路由子系统">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"邻居子系统","level":"1.3.1.7","depth":3,"next":{"title":"路由子系统","level":"1.3.1.8","depth":3,"path":"network/basic/route.md","ref":"./network/basic/route.md","articles":[]},"previous":{"title":"vxlan","level":"1.3.1.6","depth":3,"path":"network/basic/vxlan.md","ref":"./network/basic/vxlan.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/neighbor.md","mtime":"2022-12-11T06:59:22.850Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-12-11T09:43:33.817Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-intopic-toc/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-intopic-toc/gumshoe.polyfills.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-intopic-toc/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
