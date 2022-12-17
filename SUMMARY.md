@@ -39,7 +39,12 @@
 
 * 杂项
   * [centos安装v2ray](./misc/centos-install-v2ray.md)
+  
   * [docker/containerd设置代理实现从外网拉取镜像](./misc/docker-pull-use-proxy.md)
+  
   * [编译安装ovs](./misc/install-ovs.md)
+  
   * [k8s 将docker切换为containerd](./misc/docker-to-containerd.md)
 
+
+* [时间线](./gitbook/KEEP.md)
