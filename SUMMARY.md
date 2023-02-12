@@ -36,6 +36,7 @@
 
 * [XDP](./XDP/index.md)
 
+* [cilium](./cilium/index.md)
 
 * 杂项
   * [centos安装v2ray](./misc/centos-install-v2ray.md)
@@ -47,4 +48,4 @@
   * [k8s 将docker切换为containerd](./misc/docker-to-containerd.md)
 
 
-* [时间线](./gitbook/KEEP.md)
+* [时间线](KEEP.md)

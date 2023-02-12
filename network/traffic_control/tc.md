@@ -4,6 +4,10 @@
 
 这些操作包含了排队、监管、分类、调度、整形、丢弃。
 
+TC 在内核的位置：
+
+![tc-images/tc-hook.png](tc-images/tc-hook.png)
+
 ## 一、基本概念
 
 1. 队列（Queues）
@@ -18,7 +22,7 @@
 ## 二、传统元素
 
 1. 整形（Shaping）
-	- 整形是在输出队列中传输之前延迟数据包以满足所需输出速率的机制
+	- 整形是在**`输出队列`**中传输之前延迟数据包以满足所需输出速率的机制
 2. 调度（Scheduling）
 	- 调度是在特定队列的输入和输出之间排列（或重新排列）数据包的机制
 3. 分类（Classifying）
@@ -30,7 +34,6 @@
 6. 标记（Marking）
 	- 标记是一种改变数据包的机制
 	- 这个不是`fwmark`。iptables的MARK是用来改变数据包的元数据，不是数据包本身
-	- ❓不太明白区别是啥❓
 
 ## 三、组件
 
@@ -46,17 +49,19 @@
 
 任何`class`也可以附加任意数量的`fitler`。
 
-叶子`class`包含了一个`qdisc`，并且永远不会包含子`class`。
-
 `class`和子`class`的类型必须一致。`HTB qdisc`只能将`HTB class`作为子级。
 
-### fitler
+一个`class`的 parent 可以是一个`qdisc`，也可以是另一个`class`。
 
-过滤器
+叶子`class`包含了一个`qdisc`，并且永远不会包含子`class`。
+
+### filter
+
+过滤器：包含很多判断条件。通过过滤器来完成分类。
 
 ### classifier
 
-分类器
+分类器：每个`classful qdisc`需要判断每个包应该放到哪个`class`。
 
 ### policer
 
@@ -562,3 +567,25 @@ dev_hard_start_xmit -> xmit_one -> netdev_start_xmit -> ndo_start_xmit
 ## 八、总结
 
 ![tc-images/htb-class.png](tc-images/htb-class.png)
+
+```bash
+$ tc qdisc add dev eth0 root handle 1: htb default 30
+
+$ tc class add dev eth0 parent 1: classid 1:1 htb rate 6mbit burst 15k
+
+$ tc class add dev eth0 parent 1:1 classid 1:10 htb rate 5mbit burst 15k
+$ tc class add dev eth0 parent 1:1 classid 1:20 htb rate 3mbit ceil 6mbit burst 15k
+$ tc class add dev eth0 parent 1:1 classid 1:30 htb rate 1kbit ceil 6mbit burst 15k
+
+$ tc qdisc add dev eth0 parent 1:10 handle 10: sfq perturb 10
+$ tc qdisc add dev eth0 parent 1:20 handle 20: sfq perturb 10
+$ tc qdisc add dev eth0 parent 1:30 handle 30: sfq perturb 10
+
+$ tc filter add dev eth0 protocol ip parent 1:0 prio 1 u32 match ip dport 80 0xffff flowid 1:10
+$ tc filter add dev eth0 protocol ip parent 1:0 prio 1 u32 match ip sport 25 0xffff flowid 1:20
+```
+
+## 九、资料
+
+https://arthurchiao.art/blog/lartc-qdisc-zh/
+https://mp.weixin.qq.com/s/9mibp6KCwPjy1r2wTr73uA
