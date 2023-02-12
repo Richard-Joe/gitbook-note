@@ -7,5 +7,7 @@
 
 ---
 
-[(2023-2-12 ) cilium 流量路径](https://richard-joe.github.io/gitbook-note/cilium)
+[(2023-2-11 ) cilium 流量路径](https://richard-joe.github.io/gitbook-note/cilium)
+
+[(2023-2-12 ) Maglev](https://richard-joe.github.io/gitbook-note/network/lb/Maglev.html)
 
