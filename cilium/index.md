@@ -1,3 +1,3 @@
 # Cilium
 
-![cilium](_img/cilium.png)
+![cilium](images/cilium.png)
