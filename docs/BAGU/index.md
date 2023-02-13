@@ -1,3 +1,4 @@
 # 收录
 
-* [一致性哈希](consistent_hash.md)
+[1. 一致性哈希](https://richard-joe.github.io/gitbook-note/BAGU/consistent_hash.html)
+
