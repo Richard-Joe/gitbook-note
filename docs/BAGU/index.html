@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>CronJob · GitBook</title>
+        <title>八股 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -69,10 +69,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="CRD.html" />
     
-    
-    <link rel="prev" href="Jobs.html" />
+    <link rel="prev" href="../cilium/" />
     
 
     </head>
@@ -359,9 +357,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="./">
+        <li class="chapter " data-level="1.4" data-path="../Kubernetes/">
             
-                <a href="./">
+                <a href="../Kubernetes/">
             
                     
                     Kubernetes
@@ -387,9 +385,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1.1" data-path="Jobs.html">
+        <li class="chapter " data-level="1.4.1.1" data-path="../Kubernetes/Jobs.html">
             
-                <a href="Jobs.html">
+                <a href="../Kubernetes/Jobs.html">
             
                     
                     Jobs
@@ -400,9 +398,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4.1.2" data-path="CronJob.html">
+        <li class="chapter " data-level="1.4.1.2" data-path="../Kubernetes/CronJob.html">
             
-                <a href="CronJob.html">
+                <a href="../Kubernetes/CronJob.html">
             
                     
                     CronJob
@@ -418,9 +416,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="CRD.html">
+        <li class="chapter " data-level="1.4.2" data-path="../Kubernetes/CRD.html">
             
-                <a href="CRD.html">
+                <a href="../Kubernetes/CRD.html">
             
                     
                     CRD
@@ -431,9 +429,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.3" data-path="Operator.html">
+        <li class="chapter " data-level="1.4.3" data-path="../Kubernetes/Operator.html">
             
-                <a href="Operator.html">
+                <a href="../Kubernetes/Operator.html">
             
                     
                     Operator
@@ -508,9 +506,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.5" data-path="../BAGU/">
+        <li class="chapter active" data-level="2.5" data-path="./">
             
-                <a href="../BAGU/">
+                <a href="./">
             
                     
                     八股
@@ -642,7 +640,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >CronJob</a>
+        <a href=".." >八股</a>
     </h1>
 </div>
 
@@ -657,58 +655,11 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="cronjob">CronJob</h1>
-<p>CronJob &#x5468;&#x671F;&#x6027;&#x5730;&#x5728;&#x7ED9;&#x5B9A;&#x7684;&#x8C03;&#x5EA6;&#x65F6;&#x95F4;&#x6267;&#x884C; Job&#x3002;</p>
-<p>CronJob &#x4EC5;&#x8D1F;&#x8D23;&#x521B;&#x5EFA;&#x4E0E;&#x5176;&#x8C03;&#x5EA6;&#x65F6;&#x95F4;&#x76F8;&#x5339;&#x914D;&#x7684; Job&#xFF0C;&#x800C; Job &#x53C8;&#x8D1F;&#x8D23;&#x7BA1;&#x7406;&#x5176;&#x4EE3;&#x8868;&#x7684; Pod&#x3002;</p>
-<p>&#x793A;&#x4F8B;&#xFF1A;<code>cronjob.yaml</code></p>
-<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> batch/v1
-<span class="hljs-attr">kind:</span> CronJob
-<span class="hljs-attr">metadata:</span>
-<span class="hljs-attr">  name:</span> hello
-<span class="hljs-attr">spec:</span>
-<span class="hljs-attr">  schedule:</span> <span class="hljs-string">&quot;*/1 * * * *&quot;</span>
-<span class="hljs-attr">  jobTemplate:</span>
-<span class="hljs-attr">    spec:</span>
-<span class="hljs-attr">      template:</span>
-<span class="hljs-attr">        spec:</span>
-<span class="hljs-attr">          containers:</span>
-<span class="hljs-attr">          - name:</span> hello
-<span class="hljs-attr">            image:</span> busybox
-<span class="hljs-attr">            imagePullPolicy:</span> IfNotPresent
-<span class="hljs-attr">            command:</span>
-<span class="hljs-bullet">            -</span> /bin/sh
-<span class="hljs-bullet">            -</span> -c
-<span class="hljs-bullet">            -</span> date; echo Hello from the Kubernetes cluster
-<span class="hljs-attr">          restartPolicy:</span> OnFailure
-<span class="hljs-attr">  startingDeadlineSeconds:</span> <span class="hljs-number">10</span>
-<span class="hljs-attr">  concurrencyPolicy:</span> Allow
-<span class="hljs-attr">  successfulJobsHistoryLimit:</span> <span class="hljs-number">3</span>
-</code></pre>
+                                <h1 id="&#x6536;&#x5F55;">&#x6536;&#x5F55;</h1>
 <ul>
-<li><code>schedule</code>&#xFF1A;&#x65F6;&#x95F4;&#x90FD;&#x662F;&#x57FA;&#x4E8E;<code>kube-controller-manager</code>&#x7684;&#x65F6;&#x533A;&#x3002;</li>
-<li><code>startingDeadlineSeconds</code>&#xFF1A;&#x6BCF;&#x6B21;&#x8FD0;&#x884C; Job &#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5B83;&#x6700;&#x957F;&#x53EF;&#x4EE5;&#x7B49;&#x591A;&#x957F;&#x65F6;&#x95F4;&#x3002;
-  &#xFF08;&#x6709;&#x65F6;&#x8FD9;&#x4E2A; Job &#x53EF;&#x80FD;&#x8FD0;&#x884C;&#x5F88;&#x957F;&#x65F6;&#x95F4;&#x4E5F;&#x4E0D;&#x4F1A;&#x542F;&#x52A8;&#x3002;&#x6240;&#x4EE5;&#x8FD9;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x8D85;&#x8FC7;&#x8F83;&#x957F;&#x65F6;&#x95F4;&#x7684;&#x8BDD;&#xFF0C;CronJob &#x5C31;&#x4F1A;&#x505C;&#x6B62;&#x8FD9;&#x4E2A; Job&#xFF09;</li>
-<li><code>concurrencyPolicy</code>&#xFF1A;&#x662F;&#x5426;&#x5141;&#x8BB8;&#x5E76;&#x884C;&#x8FD0;&#x884C;&#x3002;
-  &#xFF08;&#x5982;&#x679C;&#x8FD9;&#x4E2A; policy &#x8BBE;&#x7F6E;&#x4E3A; <code>Allow</code> &#x7684;&#x8BDD;&#xFF0C;&#x90A3;&#x4E48;&#x4E0D;&#x7BA1;&#x4F60;&#x524D;&#x9762;&#x7684; Job &#x662F;&#x5426;&#x8FD0;&#x884C;&#x5B8C;&#x6210;&#xFF0C;&#x5230;&#x70B9;&#x5C31;&#x4F1A;&#x53BB;&#x6267;&#x884C;&#xFF1B;&#x5982;&#x679C;&#x662F; <code>Forbid</code>&#xFF0C;&#x5B83;&#x5C31;&#x4F1A;&#x7B49;&#x4E0A;&#x4E00;&#x4E2A; Job &#x8FD0;&#x884C;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#x624D;&#x4F1A;&#x8FD0;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;&#xFF1B;&#xFF09;</li>
-<li><code>successfulJobsHistoryLimit</code>&#xFF1A;&#x6BCF;&#x4E00;&#x6B21; CronJob &#x8FD0;&#x884C;&#x5B8C;&#x4E4B;&#x540E;&#xFF0C;&#x5B83;&#x90FD;&#x4F1A;&#x9057;&#x7559;&#x4E0A;&#x4E00;&#x4E2A; Job &#x7684;&#x8FD0;&#x884C;&#x5386;&#x53F2;&#x3001;&#x67E5;&#x770B;&#x65F6;&#x95F4;&#x3002;&#x5F53;&#x7136;&#x4E0D;&#x80FD;&#x662F;&#x65E0;&#x9650;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x8BBE;&#x7F6E;&#x4E00;&#x4E0B;&#x5386;&#x53F2;&#x5B58;&#x7559;&#x6570;&#x3002;</li>
+<li><a href="consistent_hash.md">&#x4E00;&#x81F4;&#x6027;&#x54C8;&#x5E0C;</a></li>
 </ul>
-<pre><code class="lang-bash"><span class="hljs-comment"># &#x521B;&#x5EFA;CronJob</span>
-kubectl apply <span class="hljs-_">-f</span> cronjob.yaml
 
-<span class="hljs-comment"># &#x89C2;&#x5BDF;&#x8FD0;&#x884C;&#x60C5;&#x51B5;</span>
-watch kubectl get <span class="hljs-built_in">jobs</span>
-</code></pre>
-<h2 id="cron&#x65F6;&#x95F4;&#x8868;&#x8BED;&#x6CD5;">cron&#x65F6;&#x95F4;&#x8868;&#x8BED;&#x6CD5;</h2>
-<pre><code># &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; &#x5206;&#x949F; (0 - 59)
-# &#x2502; &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; &#x5C0F;&#x65F6; (0 - 23)
-# &#x2502; &#x2502; &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; &#x6708;&#x7684;&#x67D0;&#x5929; (1 - 31)
-# &#x2502; &#x2502; &#x2502; &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; &#x6708;&#x4EFD; (1 - 12)
-# &#x2502; &#x2502; &#x2502; &#x2502; &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; &#x5468;&#x7684;&#x67D0;&#x5929; (0 - 6)&#xFF08;&#x5468;&#x65E5;&#x5230;&#x5468;&#x4E00;&#xFF1B;&#x5728;&#x67D0;&#x4E9B;&#x7CFB;&#x7EDF;&#x4E0A;&#xFF0C;7 &#x4E5F;&#x662F;&#x661F;&#x671F;&#x65E5;&#xFF09;
-# &#x2502; &#x2502; &#x2502; &#x2502; &#x2502;
-# &#x2502; &#x2502; &#x2502; &#x2502; &#x2502;
-# &#x2502; &#x2502; &#x2502; &#x2502; &#x2502;
-# * * * * *
-</code></pre>
                                 
                                 </section>
                             
@@ -735,14 +686,10 @@ watch kubectl get <span class="hljs-built_in">jobs</span>
 
             
                 
-                <a href="Jobs.html" class="navigation navigation-prev " aria-label="Previous page: Jobs">
+                <a href="../cilium/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: cilium">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="CRD.html" class="navigation navigation-next " aria-label="Next page: CRD">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -751,7 +698,7 @@ watch kubectl get <span class="hljs-built_in">jobs</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"CronJob","level":"1.4.1.2","depth":3,"next":{"title":"CRD","level":"1.4.2","depth":2,"path":"Kubernetes/CRD.md","ref":"./Kubernetes/CRD.md","articles":[]},"previous":{"title":"Jobs","level":"1.4.1.1","depth":3,"path":"Kubernetes/Jobs.md","ref":"./Kubernetes/Jobs.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Kubernetes/CronJob.md","mtime":"2022-01-08T09:27:48.219Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-13T15:44:48.063Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"八股","level":"2.5","depth":1,"next":{"title":"杂项","level":"2.6","depth":1,"ref":"","articles":[{"title":"centos安装v2ray","level":"2.6.1","depth":2,"path":"misc/centos-install-v2ray.md","ref":"./misc/centos-install-v2ray.md","articles":[]},{"title":"docker/containerd设置代理实现从外网拉取镜像","level":"2.6.2","depth":2,"path":"misc/docker-pull-use-proxy.md","ref":"./misc/docker-pull-use-proxy.md","articles":[]},{"title":"编译安装ovs","level":"2.6.3","depth":2,"path":"misc/install-ovs.md","ref":"./misc/install-ovs.md","articles":[]},{"title":"k8s 将docker切换为containerd","level":"2.6.4","depth":2,"path":"misc/docker-to-containerd.md","ref":"./misc/docker-to-containerd.md","articles":[]}]},"previous":{"title":"cilium","level":"2.4","depth":1,"path":"cilium/index.md","ref":"./cilium/index.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BAGU/index.md","mtime":"2023-02-13T15:42:24.312Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-13T15:44:48.063Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

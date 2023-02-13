@@ -39,7 +39,9 @@
 
 * [cilium](./cilium/index.md)
 
-* 杂项
+* [八股](./BAGU/index.md)
+
+* [杂项]()
   * [centos安装v2ray](./misc/centos-install-v2ray.md)
   
   * [docker/containerd设置代理实现从外网拉取镜像](./misc/docker-pull-use-proxy.md)
