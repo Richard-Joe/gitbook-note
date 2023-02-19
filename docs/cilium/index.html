@@ -69,8 +69,6 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../kernel/" />
-    
     
     <link rel="prev" href="../XDP/" />
     
@@ -264,9 +262,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.2" data-path="../network/load_balance.md">
+        <li class="chapter " data-level="1.3.2" data-path="../network/lb/">
             
-                <span>
+                <a href="../network/lb/">
             
                     
                     负载均衡
@@ -373,21 +371,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" >
-            
-                <span>
-            
-                    
-                    工作负载
-            
-                </span>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.4.1.1" data-path="../Kubernetes/Jobs.html">
+        <li class="chapter " data-level="1.4.1" data-path="../Kubernetes/Jobs.html">
             
                 <a href="../Kubernetes/Jobs.html">
             
@@ -400,7 +384,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.1.2" data-path="../Kubernetes/CronJob.html">
+        <li class="chapter " data-level="1.4.2" data-path="../Kubernetes/CronJob.html">
             
                 <a href="../Kubernetes/CronJob.html">
             
@@ -413,12 +397,7 @@
             
         </li>
     
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="1.4.2" data-path="../Kubernetes/CRD.html">
+        <li class="chapter " data-level="1.4.3" data-path="../Kubernetes/CRD.html">
             
                 <a href="../Kubernetes/CRD.html">
             
@@ -431,12 +410,25 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.3" data-path="../Kubernetes/Operator.html">
+        <li class="chapter " data-level="1.4.4" data-path="../Kubernetes/Operator.html">
             
                 <a href="../Kubernetes/Operator.html">
             
                     
                     Operator
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../Kubernetes/kubelet.html">
+            
+                <a href="../Kubernetes/kubelet.html">
+            
+                    
+                    kubelet
             
                 </a>
             
@@ -501,14 +493,14 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9" data-path="../kernel/">
+        <li class="chapter " data-level="1.9" >
             
-                <a href="../kernel/">
+                <span>
             
                     
                     内核
             
-                </a>
+                </span>
             
 
             
@@ -724,14 +716,10 @@
 
             
                 
-                <a href="../XDP/" class="navigation navigation-prev " aria-label="Previous page: XDP">
+                <a href="../XDP/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: XDP">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="../kernel/" class="navigation navigation-next " aria-label="Next page: 内核">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -740,7 +728,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"cilium","level":"1.8","depth":1,"next":{"title":"内核","level":"1.9","depth":1,"path":"kernel/index.md","ref":"./kernel/index.md","articles":[{"title":"进程调度","level":"1.9.1","depth":2,"path":"kernel/进程调度.md","ref":"./kernel/进程调度.md","articles":[]},{"title":"内存管理","level":"1.9.2","depth":2,"path":"kernel/内存管理.md","ref":"./kernel/内存管理.md","articles":[]}]},"previous":{"title":"XDP","level":"1.7","depth":1,"path":"XDP/index.md","ref":"./XDP/index.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"cilium/index.md","mtime":"2023-02-12T06:29:12.572Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-19T13:45:42.544Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"cilium","level":"1.8","depth":1,"next":{"title":"内核","level":"1.9","depth":1,"ref":"","articles":[{"title":"进程调度","level":"1.9.1","depth":2,"path":"kernel/进程调度.md","ref":"./kernel/进程调度.md","articles":[]},{"title":"内存管理","level":"1.9.2","depth":2,"path":"kernel/内存管理.md","ref":"./kernel/内存管理.md","articles":[]}]},"previous":{"title":"XDP","level":"1.7","depth":1,"path":"XDP/index.md","ref":"./XDP/index.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"cilium/index.md","mtime":"2023-02-12T06:29:12.572Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-19T13:50:27.182Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

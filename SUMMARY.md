@@ -15,7 +15,7 @@
     * [邻居子系统](./network/basic/neighbor.md)
     * [路由子系统](./network/basic/route.md)
 
-  * [负载均衡](./network/load_balance.md)
+  * [负载均衡](./network/lb/index.md)
     * [LVS](./network/lb/LVS.md)
     * [Maglev](./network/lb/Maglev.md)
 
@@ -24,11 +24,11 @@
     * [公平队列控制延迟](./network/traffic_control/fq_codel.md)
 
 * [Kubernetes](./Kubernetes/index.md)
-  * 工作负载
-    * [Jobs](./Kubernetes/Jobs.md)
-    * [CronJob](./Kubernetes/CronJob.md)
+  * [Jobs](./Kubernetes/Jobs.md)
+  * [CronJob](./Kubernetes/CronJob.md)
   * [CRD](./Kubernetes/CRD.md)
   * [Operator](./Kubernetes/Operator.md)
+  * [kubelet](./Kubernetes/kubelet.md)
 
 * [OVS](./OVS/index.md)
 
@@ -38,7 +38,7 @@
 
 * [cilium](./cilium/index.md)
 
-* [内核](./kernel/index.md)
+* [内核]()
   * [进程调度](./kernel/进程调度.md)
   * [内存管理](./kernel/内存管理.md)
 
