@@ -1,0 +1,1372 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>内存管理 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-intopic-toc/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../BAGU/" />
+    
+    
+    <link rel="prev" href="进程调度.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../gitbook/">
+            
+                <a href="../gitbook/">
+            
+                    
+                    gitbook搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../network/">
+            
+                <a href="../network/">
+            
+                    
+                    网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../network/basic/">
+            
+                <a href="../network/basic/">
+            
+                    
+                    网络基础
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../network/basic/recv_one_package.html">
+            
+                <a href="../network/basic/recv_one_package.html">
+            
+                    
+                    内核是如何接收一个网络包的
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../network/basic/dma.html">
+            
+                <a href="../network/basic/dma.html">
+            
+                    
+                    内核DMA机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="../network/basic/veth.html">
+            
+                <a href="../network/basic/veth.html">
+            
+                    
+                    veth设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="../network/basic/tun-tap.html">
+            
+                <a href="../network/basic/tun-tap.html">
+            
+                    
+                    tun/tap设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="../network/basic/bridge.html">
+            
+                <a href="../network/basic/bridge.html">
+            
+                    
+                    bridge
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.6" data-path="../network/basic/vxlan.html">
+            
+                <a href="../network/basic/vxlan.html">
+            
+                    
+                    vxlan
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.7" data-path="../network/basic/neighbor.html">
+            
+                <a href="../network/basic/neighbor.html">
+            
+                    
+                    邻居子系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.8" data-path="../network/basic/route.html">
+            
+                <a href="../network/basic/route.html">
+            
+                    
+                    路由子系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../network/load_balance.md">
+            
+                <span>
+            
+                    
+                    负载均衡
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../network/lb/LVS.html">
+            
+                <a href="../network/lb/LVS.html">
+            
+                    
+                    LVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../network/lb/Maglev.html">
+            
+                <a href="../network/lb/Maglev.html">
+            
+                    
+                    Maglev
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../network/traffic_control/tc.html">
+            
+                <a href="../network/traffic_control/tc.html">
+            
+                    
+                    流量控制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="../network/traffic_control/bufferbloat.html">
+            
+                <a href="../network/traffic_control/bufferbloat.html">
+            
+                    
+                    缓冲膨胀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="../network/traffic_control/fq_codel.html">
+            
+                <a href="../network/traffic_control/fq_codel.html">
+            
+                    
+                    公平队列控制延迟
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Kubernetes/">
+            
+                <a href="../Kubernetes/">
+            
+                    
+                    Kubernetes
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" >
+            
+                <span>
+            
+                    
+                    工作负载
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.1" data-path="../Kubernetes/Jobs.html">
+            
+                <a href="../Kubernetes/Jobs.html">
+            
+                    
+                    Jobs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.2" data-path="../Kubernetes/CronJob.html">
+            
+                <a href="../Kubernetes/CronJob.html">
+            
+                    
+                    CronJob
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../Kubernetes/CRD.html">
+            
+                <a href="../Kubernetes/CRD.html">
+            
+                    
+                    CRD
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../Kubernetes/Operator.html">
+            
+                <a href="../Kubernetes/Operator.html">
+            
+                    
+                    Operator
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../OVS/">
+            
+                <a href="../OVS/">
+            
+                    
+                    OVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../eBPF/">
+            
+                <a href="../eBPF/">
+            
+                    
+                    eBPF
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../XDP/">
+            
+                <a href="../XDP/">
+            
+                    
+                    XDP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../cilium/">
+            
+                <a href="../cilium/">
+            
+                    
+                    cilium
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    内核
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="进程调度.html">
+            
+                <a href="进程调度.html">
+            
+                    
+                    进程调度
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.9.2" data-path="内存管理.html">
+            
+                <a href="内存管理.html">
+            
+                    
+                    内存管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../BAGU/">
+            
+                <a href="../BAGU/">
+            
+                    
+                    八股
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" >
+            
+                <span>
+            
+                    
+                    杂项
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../misc/centos-install-v2ray.html">
+            
+                <a href="../misc/centos-install-v2ray.html">
+            
+                    
+                    centos安装v2ray
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../misc/docker-pull-use-proxy.html">
+            
+                <a href="../misc/docker-pull-use-proxy.html">
+            
+                    
+                    docker/containerd设置代理实现从外网拉取镜像
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../misc/install-ovs.html">
+            
+                <a href="../misc/install-ovs.html">
+            
+                    
+                    编译安装ovs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../misc/docker-to-containerd.html">
+            
+                <a href="../misc/docker-to-containerd.html">
+            
+                    
+                    k8s 将docker切换为containerd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../KEEP.html">
+            
+                <a href="../KEEP.html">
+            
+                    
+                    时间线
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >内存管理</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x5185;&#x5B58;&#x7BA1;&#x7406;">&#x5185;&#x5B58;&#x7BA1;&#x7406;</h1>
+<h2 id="1-&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x7684;&#x53D1;&#x5C55;">1. &#x5185;&#x5B58;&#x7BA1;&#x7406;&#x7684;&#x53D1;&#x5C55;</h2>
+<h3 id="11-&#x65E9;&#x671F;&#x5185;&#x5B58;&#x7BA1;&#x7406;">1.1. &#x65E9;&#x671F;&#x5185;&#x5B58;&#x7BA1;&#x7406;</h3>
+<p>&#x65E9;&#x671F;&#x7684;&#x5185;&#x5B58;&#x7BA1;&#x7406;&#xFF0C;&#x5927;&#x5BB6;&#x90FD;&#x8FD0;&#x884C;&#x5728;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E0A;&#xFF0C;&#x5185;&#x6838;&#x548C;&#x8FDB;&#x7A0B;&#x8FD0;&#x884C;&#x5728;&#x4E00;&#x4E2A;&#x7A7A;&#x95F4;&#x4E2D;&#x3002;
+&#x5185;&#x5B58;&#x5206;&#x914D;&#x7B97;&#x6CD5;&#x6709;&#xFF1A;&#x9996;&#x6B21;&#x9002;&#x5E94;&#x7B97;&#x6CD5;&#xFF08;FirstFit&#xFF09;&#x3001;&#x6700;&#x4F73;&#x9002;&#x5E94;&#x7B97;&#x6CD5;&#xFF08;BestFit&#xFF09;&#x3001;&#x6700;&#x5DEE;&#x9002;&#x5E94;&#x7B97;&#x6CD5;&#xFF08;WorstFit&#xFF09;</p>
+<p>&#x5B58;&#x5728;&#x7684;&#x95EE;&#x9898;&#xFF1A;</p>
+<ul>
+<li>&#x5185;&#x6838;&#x548C;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x6CA1;&#x6709;&#x9694;&#x79BB;&#xFF0C;&#x8FDB;&#x7A0B;&#x53EF;&#x4EE5;&#x968F;&#x610F;&#x8BBF;&#x95EE;&#x5185;&#x6838;&#x6570;&#x636E;&#x3002;</li>
+<li>&#x5185;&#x6838;&#x548C;&#x8FDB;&#x7A0B;&#x6CA1;&#x6709;&#x6743;&#x9650;&#x7684;&#x533A;&#x5206;&#xFF0C;&#x8FDB;&#x7A0B;&#x53EF;&#x4EE5;&#x968F;&#x610F;&#x505A;&#x654F;&#x611F;&#x64CD;&#x4F5C;&#x3002;</li>
+<li>&#x5F53;&#x65F6;&#x7269;&#x7406;&#x5185;&#x5B58;&#x975E;&#x5E38;&#x5C11;&#xFF0C;&#x80FD;&#x540C;&#x65F6;&#x8FD0;&#x884C;&#x7684;&#x8FDB;&#x7A0B;&#x5C11;</li>
+</ul>
+<h3 id="12-&#x5206;&#x6BB5;&#x5185;&#x5B58;&#x7BA1;&#x7406;">1.2. &#x5206;&#x6BB5;&#x5185;&#x5B58;&#x7BA1;&#x7406;</h3>
+<p>&#x5728;&#x5206;&#x6BB5;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x8F6F;&#x4EF6;&#x628A;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5206;&#x6210;&#x4E00;&#x4E2A;&#x4E00;&#x4E2A;&#x7684;&#x6BB5;&#xFF0C;&#x6BCF;&#x4E2A;&#x6BB5;&#x90FD;&#x6709;&#x6BB5;&#x57FA;&#x5740;&#x548C;&#x6BB5;&#x9650;&#x957F;&#xFF0C;&#x8FD8;&#x6709;&#x6BB5;&#x7C7B;&#x578B;&#x548C;&#x6BB5;&#x6743;&#x9650;&#x3002;</p>
+<p><code>&#x6BB5;&#x57FA;&#x5740;&#x548C;&#x6BB5;&#x9650;&#x957F;</code>&#x786E;&#x5B9A;&#x4E00;&#x4E2A;&#x6BB5;&#x7684;&#x8303;&#x56F4;&#xFF0C;&#x9632;&#x6B62;&#x5185;&#x5B58;&#x8BBF;&#x95EE;&#x8D8A;&#x754C;&#x3002;
+<code>&#x6BB5;&#x7C7B;&#x578B;</code>&#x5206;&#x4E3A;&#x4EE3;&#x7801;&#x6BB5;&#x548C;&#x6570;&#x636E;&#x6BB5;&#x3002;&#x4EE3;&#x7801;&#x6BB5;&#x662F;&#x53EA;&#x8BFB;&#x548C;&#x53EF;&#x6267;&#x884C;&#x7684;&#xFF1B;&#x6570;&#x636E;&#x6BB5;&#x5206;&#x4E3A;&#x53EA;&#x8BFB;&#x6570;&#x636E;&#x6BB5;&#x548C;&#x8BFB;&#x5199;&#x6570;&#x636E;&#x6BB5;&#x3002;
+<code>&#x6BB5;&#x6743;&#x9650;</code>&#x5206;&#x4E3A;&#x6709;&#x7279;&#x6743;&#xFF08;&#x5185;&#x6838;&#x6743;&#x9650;&#xFF09;&#x548C;&#x65E0;&#x7279;&#x6743;&#xFF08;&#x7528;&#x6237;&#x6743;&#x9650;&#xFF09;&#x3002;</p>
+<p>&#x5206;&#x6BB5;&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x89E3;&#x51B3;&#x7684;&#x95EE;&#x9898;&#xFF1A;</p>
+<ul>
+<li>&#x5185;&#x6838;&#x548C;&#x8FDB;&#x7A0B;&#x7684;&#x9694;&#x79BB;&#x5B9E;&#x73B0;&#x4E86;&#x3002;</li>
+<li>CPU&#x7279;&#x6743;&#x5B9E;&#x73B0;&#x4E86;&#xFF0C;&#x8FDB;&#x7A0B;&#x65E0;&#x6CD5;&#x518D;&#x6267;&#x884C;&#x654F;&#x611F;&#x6307;&#x4EE4;&#x4E86;&#x3002;</li>
+<li>&#x5185;&#x5B58;&#x8BBF;&#x95EE;&#x5B89;&#x5168;&#x6027;&#x63D0;&#x9AD8;&#x4E86;&#xFF0C;&#x4E00;&#x5B9A;&#x7A0B;&#x5EA6;&#x4E0A;&#x904F;&#x5236;&#x4E86;&#x8D8A;&#x754C;&#x8BBF;&#x95EE;&#x3002;</li>
+</ul>
+<p>&#x5B58;&#x5728;&#x7684;&#x95EE;&#x9898;&#xFF1A;</p>
+<ul>
+<li><strong>&#x7269;&#x7406;&#x5185;&#x5B58;&#x975E;&#x5E38;&#x5C11;</strong>&#xFF08;&#x5F53;&#x65F6;&#x662F;&#x8BA9;&#x8FDB;&#x7A0B;&#x81EA;&#x5DF1;&#x89E3;&#x51B3;&#xFF0C;&#x7F16;&#x5199;&#x7A0B;&#x5E8F;&#x65F6;&#x8981;&#x60F3;&#x597D;&#x8BA9;&#x5173;&#x8054;&#x4E0D;&#x5927;&#x7684;&#x6A21;&#x5757;&#x5360;&#x7528;&#x76F8;&#x540C;&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;&#xFF0C;&#x7136;&#x540E;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x5F85;&#x8FD0;&#x884C;&#x7684;&#x6A21;&#x5757;&#xFF09;</li>
+</ul>
+<h3 id="13-&#x5206;&#x9875;&#x5185;&#x5B58;&#x7BA1;&#x7406;">1.3. &#x5206;&#x9875;&#x5185;&#x5B58;&#x7BA1;&#x7406;</h3>
+<p>&#x4E5F;&#x53EB;<strong>&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7BA1;&#x7406;</strong>&#x3002;</p>
+<p><strong><u>&#x3010;Q&#xFF1A;&#x4EC0;&#x4E48;&#x662F;&#x865A;&#x62DF;&#x5185;&#x5B58;&#xFF1F;&#x89E3;&#x51B3;&#x4E86;&#x4EC0;&#x4E48;&#x95EE;&#x9898;&#xFF1F;&#x3011;</u></strong></p>
+<p>&#x5728;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;CPU&#x8BBF;&#x95EE;&#x4EFB;&#x4F55;&#x5185;&#x5B58;&#x90FD;&#x662F;&#x901A;&#x8FC7;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x5730;&#x5740;&#x8BBF;&#x95EE;&#x7684;&#xFF0C;&#x4F46;&#x5B9E;&#x9645;&#x4E0A;&#x6700;&#x7EC8;&#x8BBF;&#x95EE;&#x5185;&#x5B58;&#x8FD8;&#x662F;&#x7528;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5730;&#x5740;&#x3002;&#x6240;&#x4EE5;&#x5728;CPU&#x4E2D;&#x5B58;&#x5728;&#x4E00;&#x4E2A;MMU&#xFF0C;&#x8D1F;&#x8D23;&#x628A;&#x865A;&#x62DF;&#x5730;&#x5740;&#x8F6C;&#x5316;&#x4E3A;&#x7269;&#x7406;&#x5730;&#x5740;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x53BB;&#x8BBF;&#x95EE;&#x5185;&#x5B58;&#x3002;</p>
+<p>MMU&#x628A;&#x865A;&#x62DF;&#x5730;&#x5740;&#x8F6C;&#x5316;&#x4E3A;&#x7269;&#x7406;&#x5730;&#x5740;&#xFF0C;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x9875;&#x8868;&#xFF0C;&#x9875;&#x8868;&#x662F;&#x7531;&#x5185;&#x6838;&#x8D1F;&#x8D23;&#x521B;&#x5EFA;&#x548C;&#x7EF4;&#x62A4;&#x7684;&#x3002;</p>
+<p>&#x3010;&#x5B9E;&#x73B0;&#x4E86; &#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x9694;&#x79BB;&#x3011;</p>
+<p>&#x4E00;&#x5957;&#x9875;&#x8868;&#x7528;&#x6765;&#x8868;&#x8FBE;&#x4E00;&#x4E2A;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#xFF0C;&#x4E0D;&#x540C;&#x7684;&#x8FDB;&#x7A0B;&#x53EF;&#x4EE5;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x9875;&#x8868;&#x96C6;&#xFF0C;&#x9875;&#x8868;&#x96C6;&#x53EF;&#x4EE5;&#x4E0D;&#x505C;&#x7684;&#x5207;&#x6362;&#xFF0C;&#x54EA;&#x4E2A;&#x8FDB;&#x7A0B;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x5C31;&#x5207;&#x6362;&#x5230;&#x54EA;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x9875;&#x8868;&#x96C6;&#x3002;&#x6240;&#x4EE5;<strong>&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5C31;&#x53EA;&#x80FD;&#x8BBF;&#x95EE;&#x81EA;&#x5DF1;&#x7684;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#xFF0C;&#x800C;&#x8BBF;&#x95EE;&#x4E0D;&#x4E86;&#x522B;&#x4EBA;&#x7684;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x3002;</strong></p>
+<p>&#x3010;&#x5B9E;&#x73B0;&#x4E86; &#x5185;&#x6838;&#x548C;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x9694;&#x79BB;&#x3011;</p>
+<p>&#x4E00;&#x4E2A;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x5206;&#x4E3A;&#x4E24;&#x90E8;&#x5206;&#xFF1A;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x548C;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x3002;
+&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#xFF0C;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x6709;N&#x4E2A;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x90FD;&#x5171;&#x4EAB;&#x540C;&#x4E00;&#x4E2A;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x3002;&#x5185;&#x6838;&#x8FD0;&#x884C;&#x5728;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#xFF0C;&#x8FDB;&#x7A0B;&#x8FD0;&#x884C;&#x5728;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#xFF0C;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6709;&#x7279;&#x6743;&#xFF0C;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x65E0;&#x7279;&#x6743;&#xFF0C;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0D;&#x80FD;&#x968F;&#x610F;&#x8BBF;&#x95EE;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x3002;</p>
+<p>&#x3010;&#x5B9E;&#x73B0;&#x4E86; &#x6743;&#x9650;&#x7BA1;&#x7406;&#x3011;</p>
+<p>CPU&#x8FD0;&#x884C;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x4EE3;&#x7801;&#x65F6;&#xFF0C;&#x4F1A;&#x628A;&#x81EA;&#x5DF1;&#x8BBE;&#x7F6E;&#x4E3A;&#x7279;&#x6743;&#x6A21;&#x5F0F;&#xFF0C;&#x53EF;&#x4EE5;&#x6267;&#x884C;&#x6240;&#x6709;&#x6307;&#x4EE4;&#x3002;CPU&#x8FD0;&#x884C;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4EE3;&#x7801;&#x65F6;&#xFF0C;&#x628A;&#x81EA;&#x5DF1;&#x8BBE;&#x7F6E;&#x4E3A;&#x7528;&#x6237;&#x6A21;&#x5F0F;&#xFF0C;&#x53EA;&#x80FD;&#x6267;&#x884C;&#x666E;&#x901A;&#x6307;&#x4EE4;&#x3002;</p>
+<p>&#x3010;&#x89E3;&#x51B3;&#x4E86; &#x7269;&#x7406;&#x5185;&#x5B58;&#x4E0D;&#x8DB3;&#x3011;</p>
+<p>&#x7CFB;&#x7EDF;&#x521A;&#x542F;&#x52A8;&#x65F6;&#x8FD0;&#x884C;&#x5728;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E0A;&#x7684;&#xFF0C;&#x5185;&#x6838;&#x4E5F;&#x88AB;&#x5168;&#x90E8;&#x52A0;&#x8F7D;&#x5230;&#x7269;&#x7406;&#x5185;&#x5B58;&#x3002;&#x7136;&#x540E;&#x5185;&#x6838;&#x5EFA;&#x7ACB;&#x9875;&#x8868;&#x4F53;&#x7CFB;&#x5E76;&#x5F00;&#x542F;&#x5206;&#x9875;&#x673A;&#x5236;&#xFF0C;&#x5185;&#x6838;&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;&#x548C;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x5C31;&#x5EFA;&#x7ACB;&#x6620;&#x5C04;&#x4E86;&#xFF0C;&#x6574;&#x4E2A;&#x7CFB;&#x7EDF;&#x5C31;&#x8FD0;&#x884C;&#x5728;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x4E0A;&#x4E86;&#x3002;</p>
+<p>&#x5185;&#x6838;&#x4F1A;&#x8BB0;&#x5F55;&#x8FDB;&#x7A0B;&#x7684;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x5206;&#x914D;&#x60C5;&#x51B5;&#xFF0C;&#x4F46;&#x662F;&#x5E76;&#x4E0D;&#x4F1A;&#x9A6C;&#x4E0A;&#x5206;&#x914D;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5EFA;&#x7ACB;&#x9875;&#x8868;&#x6620;&#x5C04;&#xFF0C;&#x800C;&#x662F;&#x8BA9;&#x8FDB;&#x7A0B;&#x5148;&#x8FD0;&#x884C;&#x7740;&#x3002;
+&#x8FDB;&#x7A0B;&#x8FD0;&#x884C;&#x7684;&#x65F6;&#x5019;&#xFF0C;CPU&#x901A;&#x8FC7;MMU&#x8BBF;&#x95EE;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x65F6;&#xFF0C;MMU&#x4F1A;&#x7528;&#x9875;&#x8868;&#x53BB;&#x89E3;&#x6790;&#x865A;&#x62DF;&#x5185;&#x5B58;&#xFF0C;&#x5982;&#x679C;&#x627E;&#x5230;&#x4E86;&#x5BF9;&#x5E94;&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;&#x5C31;&#x76F4;&#x63A5;&#x8BBF;&#x95EE;&#xFF0C;&#x5982;&#x679C;&#x9875;&#x8868;&#x9879;&#x662F;&#x7A7A;&#x7684;&#xFF0C;&#x5C31;&#x4F1A;&#x89E6;&#x53D1;<strong>&#x7F3A;&#x9875;&#x5F02;&#x5E38;</strong>&#xFF0C;&#x5728;&#x7F3A;&#x9875;&#x5F02;&#x5E38;&#x4E2D;&#x4F1A;&#x53BB;&#x5206;&#x914D;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5E76;&#x5EFA;&#x7ACB;&#x9875;&#x8868;&#x6620;&#x5C04;&#x3002;&#x7136;&#x540E;&#x91CD;&#x65B0;&#x6267;&#x884C;&#x6307;&#x4EE4;&#xFF0C;CPU&#x901A;&#x8FC7;MMU&#x8BBF;&#x95EE;&#x5230;&#x7269;&#x7406;&#x5185;&#x5B58;&#x3002;
+&#x5F53;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E0D;&#x8DB3;&#x65F6;&#xFF0C;&#x5185;&#x6838;&#x8FD8;&#x4F1A;&#x628A;&#x4E00;&#x90E8;&#x5206;&#x7269;&#x7406;&#x5185;&#x5B58;&#x89E3;&#x9664;&#x6620;&#x5C04;&#xFF0C;&#x628A;&#x5176;&#x5185;&#x5BB9;&#x653E;&#x5230;&#x5916;&#x5B58;&#x4E2D;&#xFF0C;&#x7B49;&#x5176;&#x518D;&#x6B21;&#x9700;&#x8981;&#x7684;&#x65F6;&#x5019;&#x518D;&#x52A0;&#x8F7D;&#x56DE;&#x6765;&#x3002;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x8FD0;&#x884C;&#x7684;&#x65F6;&#x5019;&#x5E76;&#x4E0D;&#x9700;&#x8981;&#x7ACB;&#x9A6C;&#x52A0;&#x8F7D;&#x5176;&#x5168;&#x90E8;&#x5185;&#x5BB9;&#x5230;&#x7269;&#x7406;&#x5185;&#x5B58;&#xFF0C;&#x8FDB;&#x7A0B;&#x53EA;&#x9700;&#x8981;&#x5C11;&#x91CF;&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5C31;&#x80FD;&#x987A;&#x5229;&#x5730;&#x8FD0;&#x884C;&#xFF0C;&#x4E8E;&#x662F;&#x7CFB;&#x7EDF;&#x8FD0;&#x884C;&#x8FDB;&#x7A0B;&#x7684;&#x541E;&#x5410;&#x91CF;&#x5C31;&#x5927;&#x5927;&#x63D0;&#x9AD8;&#x4E86;&#x3002;</p>
+<h3 id="14-&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x7684;&#x76EE;&#x6807;">1.4. &#x5185;&#x5B58;&#x7BA1;&#x7406;&#x7684;&#x76EE;&#x6807;</h3>
+<ul>
+<li>&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x9694;&#x79BB;</li>
+<li>&#x5185;&#x6838;&#x4E0E;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x9694;&#x79BB;</li>
+<li>&#x51CF;&#x5C11;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5E76;&#x53D1;&#x4F7F;&#x7528;&#x7684;&#x6570;&#x91CF;</li>
+<li>&#x51CF;&#x5C11;&#x5185;&#x5B58;&#x788E;&#x7247;&#x3002;&#xFF08;&#x5305;&#x62EC;&#x5916;&#x90E8;&#x788E;&#x7247;&#x548C;&#x5185;&#x90E8;&#x788E;&#x7247;&#xFF09;<ul>
+<li>&#x5916;&#x90E8;&#x788E;&#x7247;&#xFF1A;&#x6307;&#x8FD8;&#x5728;&#x5185;&#x5B58;&#x5206;&#x914D;&#x5668;&#x4E2D;&#x7684;&#x788E;&#x7247;&#xFF0C;&#x7531;&#x4E8E;&#x6BD4;&#x8F83;&#x5206;&#x6563;&#xFF0C;&#x65E0;&#x6CD5;&#x6EE1;&#x8DB3;&#x5927;&#x5757;&#x8FDE;&#x7EED;&#x5185;&#x5B58;&#x5206;&#x914D;&#x3002;</li>
+<li>&#x5185;&#x90E8;&#x788E;&#x7247;&#xFF1A;&#x6307;&#x4F60;&#x7533;&#x8BF7;&#x4E86;5&#x4E2A;&#x5B57;&#x8282;&#xFF0C;&#x5206;&#x914D;&#x5668;&#x7ED9;&#x4F60;&#x5206;&#x914D;&#x4E86;8&#x4E2A;&#x5B57;&#x8282;&#x7684;&#x5185;&#x5B58;&#x3002;&#x8FD9;3&#x4E2A;&#x5B57;&#x8282;&#x662F;&#x5185;&#x90E8;&#x788E;&#x7247;&#x3002;</li>
+</ul>
+</li>
+<li>&#x5185;&#x5B58;&#x5206;&#x914D;&#x63A5;&#x53E3;&#x8981;&#x7075;&#x6D3B;&#x591A;&#x6837;&#x3002;&#xFF08;&#x65E2;&#x80FD;&#x6EE1;&#x8DB3;&#x5927;&#x5757;&#x8FDE;&#x7EED;&#x5185;&#x5B58;&#x5206;&#x914D;&#xFF0C;&#x53C8;&#x80FD;&#x6EE1;&#x8DB3;&#x5C0F;&#x5757;&#x96F6;&#x788E;&#x5185;&#x5B58;&#x5206;&#x914D;&#xFF09;</li>
+<li>&#x5185;&#x5B58;&#x5206;&#x914D;&#x6548;&#x7387;&#x8981;&#x9AD8;&#x3002;</li>
+<li>&#x63D0;&#x4F9B;&#x7269;&#x7406;&#x5185;&#x5B58;&#x7684;&#x5229;&#x7528;&#x7387;&#x3002;&#xFF08;&#x53CA;&#x65F6;&#x56DE;&#x6536;&#x7269;&#x7406;&#x5185;&#x5B58;&#xFF0C;&#x5185;&#x5B58;&#x538B;&#x7F29;&#xFF09;</li>
+</ul>
+<h3 id="14-&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x4F53;&#x7CFB;">1.4. &#x5185;&#x5B58;&#x7BA1;&#x7406;&#x4F53;&#x7CFB;</h3>
+<p><img src="_img/mm_1.png" alt="&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x4F53;&#x7CFB;"></p>
+<p>&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x5206;&#x4E3A;&#x4E24;&#x90E8;&#x5206;&#xFF1A;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x548C;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>&#x5185;&#x6838;&#x7A7A;&#x95F4;</th>
+<th>&#x7528;&#x6237;&#x7A7A;&#x95F4;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x4E2A;&#x6570;</td>
+<td>1&#x4E2A;</td>
+<td>N&#x4E2A;</td>
+</tr>
+<tr>
+<td>&#x9875;&#x8868;&#x6620;&#x5C04;</td>
+<td>&#x5728;&#x5185;&#x6838;&#x542F;&#x52A8;&#x7684;&#x65E9;&#x671F;&#x5EFA;&#x7ACB;</td>
+<td>&#x5728;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#x901A;&#x8FC7;&#x7F3A;&#x9875;&#x5F02;&#x5E38;&#x9010;&#x6B65;&#x5EFA;&#x7ACB;</td>
+</tr>
+<tr>
+<td>&#x6620;&#x5C04;&#x65B9;&#x5F0F;</td>
+<td>&#x7EBF;&#x6027;&#x6620;&#x5C04;</td>
+<td>&#x968F;&#x673A;&#x6620;&#x5C04;&#xFF08;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x9875;&#x8868;&#x662F;&#x8FD0;&#x884C;&#x65F6;&#x52A8;&#x6001;&#x521B;&#x5EFA;&#x7684;&#xFF09;</td>
+</tr>
+<tr>
+<td>&#x662F;&#x5426;&#x6362;&#x9875;</td>
+<td>&#x4E0D;&#x6362;&#x9875;</td>
+<td>&#x4F1A;&#x6362;&#x9875;</td>
+</tr>
+</tbody>
+</table>
+<p>&#x6362;&#x9875;&#x662F;&#x5185;&#x5B58;&#x56DE;&#x6536;&#x4E2D;&#x7684;&#x64CD;&#x4F5C;&#x3002;&#x5185;&#x6838;&#x9875;&#x8868;&#x5EFA;&#x7ACB;&#x597D;&#x4E4B;&#x540E;&#x5C31;&#x4E0D;&#x4F1A;&#x53D6;&#x6D88;&#x4E86;&#xFF0C;&#x7528;&#x6237;&#x9875;&#x8868;&#x53EF;&#x80FD;&#x4F1A;&#x56E0;&#x4E3A;&#x5185;&#x5B58;&#x56DE;&#x6536;&#x800C;&#x53D6;&#x6D88;&#x3002;</p>
+<h2 id="2-&#x7269;&#x7406;&#x5185;&#x5B58;&#x533A;&#x5212;">2. &#x7269;&#x7406;&#x5185;&#x5B58;&#x533A;&#x5212;</h2>
+<p>&#x4E09;&#x7EA7;&#x533A;&#x5212;&#xFF1A;<code>Node -&gt; Zone -&gt; Page</code></p>
+<p><img src="_img/mm_5.png" alt="MM"></p>
+<h3 id="21-&#x8282;&#x70B9;">2.1. &#x8282;&#x70B9;</h3>
+<p><img src="_img/mm_2.png" alt="UMA"></p>
+<p><img src="_img/mm_3.png" alt="UMA"></p>
+<p><img src="_img/mm_4.png" alt="NUMA"></p>
+<p><strong><u>&#x3010;Q&#xFF1A;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E3A;&#x4EC0;&#x4E48;&#x5212;&#x5206;&#x8282;&#x70B9;&#xFF1F;&#x3011;</u></strong></p>
+<p>&#x5F53;&#x4E00;&#x4E2A;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;CPU&#x3001;&#x5185;&#x5B58;&#x8D8A;&#x6765;&#x8D8A;&#x591A;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5185;&#x5B58;&#x603B;&#x7EBF;&#x5C31;&#x4F1A;&#x6210;&#x4E3A;&#x4E00;&#x4E2A;&#x7CFB;&#x7EDF;&#x7684;&#x74F6;&#x9888;&#x3002;&#x4E8E;&#x662F;&#x53EF;&#x4EE5;&#x628A;&#x4E00;&#x90E8;&#x5206;CPU&#x548C;&#x4E00;&#x90E8;&#x5206;&#x5185;&#x5B58;&#x76F4;&#x8FDE;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x6784;&#x6210;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x4E0D;&#x540C;&#x8282;&#x70B9;&#x4E4B;&#x524D;CPU&#x8BBF;&#x95EE;&#x5185;&#x5B58;&#x91C7;&#x7528;&#x95F4;&#x63A5;&#x65B9;&#x5F0F;&#x3002;&#x8282;&#x70B9;&#x5185;&#x7684;&#x5185;&#x5B58;&#x8BBF;&#x95EE;&#x901F;&#x5EA6;&#x5C31;&#x4F1A;&#x5F88;&#x5FEB;&#xFF0C;&#x8282;&#x70B9;&#x4E4B;&#x95F4;&#x7684;&#x5185;&#x5B58;&#x8BBF;&#x95EE;&#x867D;&#x7136;&#x6162;&#xFF0C;&#x4F46;&#x53EF;&#x4EE5;&#x5C3D;&#x91CF;&#x51CF;&#x5C11;&#x8282;&#x70B9;&#x4E4B;&#x95F4;&#x7684;&#x5185;&#x5B58;&#x8BBF;&#x95EE;&#xFF0C;&#x8FD9;&#x6837;&#x7CFB;&#x7EDF;&#x603B;&#x7684;&#x5185;&#x5B58;&#x8BBF;&#x95EE;&#x901F;&#x5EA6;&#x5C31;&#x4F1A;&#x5F88;&#x5FEB;&#x3002;</p>
+<p>Linux&#x4EE3;&#x7801;&#x4E2D;&#x5BF9;UMA&#x548C;NUMA&#x662F;&#x7EDF;&#x4E00;&#x5904;&#x7406;&#x7684;&#xFF0C;&#x628A;UMA&#x770B;&#x6210;&#x4E00;&#x4E2A;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x7684;NUMA&#x3002;&#x63A7;&#x5236;&#x5185;&#x6838;&#x7F16;&#x8BD1;&#x9009;&#x9879;CONFIG_NUMA&#x6765;&#x5B9A;&#x4E49;&#x652F;&#x6301;&#x60C5;&#x51B5;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-comment">// &#x8282;&#x70B9;&#x63CF;&#x8FF0;&#x7B26;</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> pglist_data {
+} <span class="hljs-keyword">pg_data_t</span>;
+
+<span class="hljs-comment">// &#x5BF9;&#x4E8E;UMA&#xFF0C;&#x5B9A;&#x4E49;&#x552F;&#x4E00;&#x7684;&#x4E00;&#x4E2A;&#x8282;&#x70B9;</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> CONFIG_NUMA</span>
+<span class="hljs-keyword">struct</span> pglist_data __refdata contig_page_data;
+EXPORT_SYMBOL(contig_page_data);
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-keyword">struct</span> pglist_data *<span class="hljs-title">NODE_DATA</span><span class="hljs-params">(<span class="hljs-keyword">int</span> nid)</span>
+</span>{
+ <span class="hljs-keyword">return</span> &amp;contig_page_data;
+}
+
+<span class="hljs-comment">// &#x5BF9;&#x4E8E;NUMA&#xFF0C;&#x5B9A;&#x4E49;&#x8282;&#x70B9;&#x6307;&#x9488;&#x6570;&#x7EC4;</span>
+<span class="hljs-keyword">struct</span> pglist_data *node_data[MAX_NUMNODES] __read_mostly;
+EXPORT_SYMBOL(node_data);
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> NODE_DATA(nid)  (node_data[nid])</span>
+</code></pre>
+<h3 id="22-&#x533A;&#x57DF;">2.2. &#x533A;&#x57DF;</h3>
+<p><strong><u>&#x3010;Q&#xFF1A;&#x5185;&#x5B58;&#x8282;&#x70B9;&#x4E3A;&#x4EC0;&#x4E48;&#x5212;&#x5206;&#x533A;&#x57DF;&#xFF1F;&#x3011;</u></strong></p>
+<p>&#x4E3B;&#x8981;&#x662F;&#x56E0;&#x4E3A;&#x5404;&#x79CD;&#x8F6F;&#x786C;&#x4EF6;&#x7684;&#x9650;&#x5236;&#x3002;Linux&#x76EE;&#x524D;&#x6700;&#x591A;&#x6709;6&#x4E2A;&#x533A;&#x57DF;&#xFF0C;&#x5E76;&#x4E0D;&#x662F;&#x6BCF;&#x4E2A;&#x533A;&#x57DF;&#x90FD;&#x5FC5;&#x7136;&#x5B58;&#x5728;&#x3002;</p>
+<ul>
+<li><strong><code>ZONE_DMA</code></strong>&#xFF1A;&#x7531;CONFIG_ZONE_DMA&#x51B3;&#x5B9A;&#x662F;&#x5426;&#x5B58;&#x5728;&#x3002;&#x65E9;&#x671F;ISA&#x603B;&#x7EBF;&#x4E0A;&#x7684;DMA&#x63A7;&#x5236;&#x5668;&#x53EA;&#x6709;24&#x6839;&#x5730;&#x5740;&#x603B;&#x7EBF;&#xFF0C;&#x53EA;&#x80FD;&#x8BBF;&#x95EE;16M&#x7269;&#x7406;&#x5185;&#x5B58;&#x3002;&#x4E3A;&#x4E86;&#x517C;&#x5BB9;&#x8001;&#x8BBE;&#x5907;&#xFF0C;&#x4E13;&#x95E8;&#x5F00;&#x8F9F;&#x524D;16M&#x7269;&#x7406;&#x5185;&#x5B58;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x533A;&#x57DF;&#x3002;</li>
+<li><strong><code>ZONE_DMA32</code></strong>&#xFF1A;&#x7531;CONFIG_ZONE_DMA32&#x51B3;&#x5B9A;&#x662F;&#x5426;&#x5B58;&#x5728;&#x3002;&#x540E;&#x6765;DMA&#x63A7;&#x5236;&#x5668;&#x6709;32&#x6839;&#x5730;&#x5740;&#x603B;&#x7EBF;&#xFF0C;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;4G&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E86;&#x3002;&#x4F46;32&#x4F4D;&#x7CFB;&#x7EDF;&#x4E0A;&#x6700;&#x591A;&#x53EA;&#x652F;&#x6301;4G&#x7269;&#x7406;&#x5185;&#x5B58;&#xFF0C;&#x6240;&#x4EE5;&#x6CA1;&#x5FC5;&#x8981;&#x4E13;&#x95E8;&#x5212;&#x5206;&#x4E00;&#x4E2A;&#x533A;&#x57DF;&#x3002;&#x4F46;64&#x4F4D;&#x7CFB;&#x7EDF;&#x7684;&#x65F6;&#x5019;&#xFF0C;CPU&#x652F;&#x6301;48&#x4F4D;~52&#x4F4D;&#xFF0C;&#x9700;&#x4E13;&#x95E8;&#x5212;&#x5206;&#x4E00;&#x4E2A;&#x533A;&#x57DF;&#x7ED9;32&#x4F4D;&#x7684;DMA&#x63A7;&#x5236;&#x5668;&#x4F7F;&#x7528;&#x3002;</li>
+<li><strong><code>ZONE_NORMAL</code></strong>&#xFF1A;&#x5E38;&#x89C4;&#x5185;&#x5B58;&#xFF0C;&#x5FC5;&#x7136;&#x5B58;&#x5728;&#x3002;</li>
+<li><strong><code>ZONE_HIGHMEM</code></strong>&#xFF1A;&#x9AD8;&#x7AEF;&#x5185;&#x5B58;&#xFF0C;&#x7531;CONFIG_HIGHMEM&#x51B3;&#x5B9A;&#x662F;&#x5426;&#x5B58;&#x5728;&#x3002;&#x53EA;&#x6709;&#x5728;32&#x4F4D;&#x7CFB;&#x7EDF;&#x4E0A;&#x6709;&#xFF0C;&#x56E0;&#x4E3A;32&#x4F4D;&#x7CFB;&#x7EDF;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x53EA;&#x6709;1G&#xFF0C;&#x8FD9;1G&#x865A;&#x62DF;&#x7A7A;&#x95F4;&#x4E2D;&#x6709;128M&#x7528;&#x4E8E;&#x5176;&#x4ED6;&#x7528;&#x9014;&#xFF0C;&#x6240;&#x4EE5;&#x53EA;&#x6709;896M&#x7684;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x7528;&#x4E8E;&#x76F4;&#x63A5;&#x6620;&#x5C04;&#x7269;&#x7406;&#x5185;&#x5B58;&#x3002;&#x800C;32&#x4F4D;&#x7CFB;&#x7EDF;&#x652F;&#x6301;&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;&#x6709;4G&#xFF0C;&#x5927;&#x4E8E;896M&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;&#x65E0;&#x6CD5;&#x76F4;&#x63A5;&#x6620;&#x5C04;&#x5230;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#xFF0C;&#x6240;&#x4EE5;&#x628A;&#x4ED6;&#x4EEC;&#x5212;&#x5206;&#x4E3A;&#x9AD8;&#x7AEF;&#x5185;&#x5B58;&#x3002;64&#x4F4D;&#x7CFB;&#x7EDF;&#x4E0D;&#x9700;&#x8981;&#x9AD8;&#x7AEF;&#x5185;&#x5B58;&#x533A;&#x57DF;&#x3002;</li>
+<li><strong><code>ZONE_MOVABLE</code></strong>&#xFF1A;&#x53EF;&#x79FB;&#x52A8;&#x5185;&#x5B58;&#xFF0C;&#x5FC5;&#x7136;&#x5B58;&#x5728;&#xFF0C;&#x7528;&#x4E8E;&#x53EF;&#x70ED;&#x63D2;&#x62D4;&#x7684;&#x5185;&#x5B58;&#x3002;</li>
+<li><strong><code>ZONE_DEVICE</code></strong>&#xFF1A;&#x8BBE;&#x5907;&#x5185;&#x5B58;&#xFF0C;&#x7531;CONFIG_ZONE_DEVICE&#x51B3;&#x5B9A;&#x662F;&#x5426;&#x5B58;&#x5728;&#x3002;&#x7528;&#x4E8E;&#x653E;&#x7F6E;&#x6301;&#x4E45;&#x5185;&#x5B58;&#xFF08;&#x6389;&#x7535;&#x540E;&#x5185;&#x5BB9;&#x4E0D;&#x6D88;&#x5931;&#xFF09;</li>
+</ul>
+<pre><code class="lang-c"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> pglist_data {
+    <span class="hljs-keyword">struct</span> zone node_zones[MAX_NR_ZONES];
+} <span class="hljs-keyword">pg_data_t</span>;
+
+<span class="hljs-comment">// &#x533A;&#x57DF;&#x63CF;&#x8FF0;&#x7B26;</span>
+<span class="hljs-keyword">struct</span> zone {
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>        *name;
+};
+</code></pre>
+<h3 id="23-&#x9875;&#x9762;">2.3. &#x9875;&#x9762;</h3>
+<p><strong><u>&#x3010;Q&#xFF1A;&#x5185;&#x5B58;&#x533A;&#x57DF;&#x4E3A;&#x4EC0;&#x4E48;&#x5212;&#x5206;&#x9875;&#x9762;&#xFF1F;&#x3011;</u></strong></p>
+<p>&#x5185;&#x5B58;&#x9875;&#x9762;&#x4E0D;&#x662F;&#x56E0;&#x4E3A;&#x786C;&#x4EF6;&#x9650;&#x5236;&#x624D;&#x6709;&#x7684;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x51FA;&#x4E8E;&#x903B;&#x8F91;&#x539F;&#x56E0;&#x624D;&#x6709;&#x7684;&#x3002;&#x9875;&#x9762;&#x662F;&#x5206;&#x9875;&#x5185;&#x5B58;&#x673A;&#x5236;&#x548C;&#x5E95;&#x5C42;&#x5185;&#x5B58;&#x5206;&#x914D;&#x7684;&#x6700;&#x5C0F;&#x5355;&#x5143;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6CA1;&#x6709;&#x9875;&#x9762;&#xFF0C;&#x76F4;&#x63A5;&#x4EE5;&#x5B57;&#x8282;&#x4E3A;&#x5355;&#x4F4D;&#x7BA1;&#x7406;&#x592A;&#x9EBB;&#x70E6;&#x3002;&#x9875;&#x9762;&#x592A;&#x5927;&#x6216;&#x592A;&#x5C0F;&#x90FD;&#x4E0D;&#x597D;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x662F;2&#x7684;&#x6574;&#x6570;&#x6B21;&#x5E42;&#xFF0C;4K&#x5C31;&#x975E;&#x5E38;&#x5408;&#x9002;&#x3002;&#x4E3A;&#x4EC0;&#x4E48;&#x9009;4K&#xFF1F;&#x6700;&#x65E9;Intel&#x7684;&#x9009;&#x62E9;&#xFF0C;&#x540E;&#x9762;&#x5927;&#x90E8;&#x5206;CPU&#x8DDF;&#x7740;&#x9009;4K&#x4F5C;&#x4E3A;&#x9875;&#x9762;&#x5927;&#x5C0F;&#x4E86;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> page {
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> flags;    <span class="hljs-comment">// &#x9875;&#x72B6;&#x6001;</span>
+    <span class="hljs-keyword">atomic_t</span> _refcount;        <span class="hljs-comment">// &#x5F15;&#x7528;&#x8BA1;&#x6570;</span>
+    <span class="hljs-keyword">void</span> *<span class="hljs-keyword">virtual</span>;            <span class="hljs-comment">// &#x865A;&#x62DF;&#x5730;&#x5740; Kernel virtual address (NULL if not kmapped, ie. highmem) </span>
+} _struct_page_alignment;
+</code></pre>
+<h2 id="3-&#x7269;&#x7406;&#x5185;&#x5B58;&#x5206;&#x914D;">3. &#x7269;&#x7406;&#x5185;&#x5B58;&#x5206;&#x914D;</h2>
+<p><img src="_img/mm_6.png" alt="ALLOC"></p>
+<h3 id="31-&#x4F19;&#x4F34;&#x7CFB;&#x7EDF;">3.1. &#x4F19;&#x4F34;&#x7CFB;&#x7EDF;</h3>
+<p>&#x4F19;&#x4F34;&#x7CFB;&#x7EDF;&#x7BA1;&#x7406;&#x7684;&#x5185;&#x5B58;&#x5E76;&#x4E0D;&#x662F;&#x5168;&#x90E8;&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;&#xFF0C;&#x800C;&#x662F;&#x5185;&#x6838;&#x5728;&#x5B8C;&#x6210;&#x521D;&#x6B65;&#x7684;&#x521D;&#x59CB;&#x5316;&#x4E4B;&#x540E;&#x7684;<code>&#x672A;&#x4F7F;&#x7528;&#x5185;&#x5B58;</code>&#x3002;&#x5185;&#x6838;&#x5728;&#x521A;&#x542F;&#x52A8;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F7F;&#x7528;<code>memblock</code>&#x6765;&#x505A;&#x65E9;&#x671F;&#x5185;&#x5B58;&#x5206;&#x914D;&#x3002;&#x5F53;&#x57FA;&#x7840;&#x521D;&#x59CB;&#x5316;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x5C31;&#x4F1A;&#x628A;&#x6240;&#x6709;&#x5269;&#x4F59;&#x53EF;&#x7528;&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4EA4;&#x7ED9;&#x4F19;&#x4F34;&#x7CFB;&#x7EDF;&#x6765;&#x7BA1;&#x7406;&#x3002;</p>
+<p>&#x4F19;&#x4F34;&#x7CFB;&#x7EDF;&#x4E0D;&#x662F;&#x7BA1;&#x7406;&#x4E00;&#x4E2A;&#x4E2A;&#x9875;&#x5E27;&#x7684;&#xFF0C;&#x800C;&#x662F;&#x628A;&#x9875;&#x5E27;&#x7EC4;&#x6210;&#x9875;&#x5757;&#x6765;&#x7BA1;&#x7406;&#x3002;&#x9875;&#x5757;&#x7531;2^n&#x4E2A;&#x9875;&#x5E27;&#x7EC4;&#x6210;&#xFF0C;n&#x53EB;&#x9636;&#xFF0C;n&#x7684;&#x8303;&#x56F4;&#x662F;[0, 10]&#x3002;
+<strong><code>&#x9875;&#x5E27;&#x5BF9;&#x9F50;</code></strong>&#xFF1A;&#x9996;&#x9875;&#x5E27;&#x7684;&#x9875;&#x5E27;&#x53F7;(pfn)&#x5FC5;&#x987B;&#x80FD;&#x591F;&#x9664;&#x5C3D;2^n&#x3002;&#xFF08;&#x6BD4;&#x5982;3&#x9636;&#x9875;&#x5757;&#x7684;&#x9996;&#x9875;&#x5E27;&#x5FC5;&#x987B;&#x9664;8&#x80FD;&#x591F;&#x9664;&#x5C3D;&#xFF09;</p>
+<pre><code class="lang-c"><span class="hljs-comment">// &#x533A;&#x57DF;&#x63CF;&#x8FF0;&#x7B26;</span>
+<span class="hljs-keyword">struct</span> zone {
+    <span class="hljs-keyword">struct</span> free_area    free_area[MAX_ORDER];
+};
+
+<span class="hljs-comment">// &#x4F19;&#x4F34;&#x7CFB;&#x7EDF;&#x7684;&#x7BA1;&#x7406;&#x6570;&#x636E;</span>
+<span class="hljs-keyword">struct</span> free_area {
+    <span class="hljs-keyword">struct</span> list_head    free_list[MIGRATE_TYPES];
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>        nr_free;
+};
+</code></pre>
+<p><img src="_img/mm_7.png" alt="BuddySystem"></p>
+<p><strong><u>&#x3010;Q&#xFF1A;&#x4F19;&#x4F34;&#x7CFB;&#x7EDF;&#x7684;&#x7B97;&#x6CD5;&#x903B;&#x8F91;&#xFF1F;&#x3011;</u></strong></p>
+<p>&#x4F19;&#x4F34;&#x7CFB;&#x7EDF;&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x7684;&#x63A5;&#x53E3;&#x53EA;&#x80FD;&#x5206;&#x914D;&#x67D0;&#x4E00;&#x9636;&#x7684;&#x9875;&#x5757;&#xFF0C;&#x5E76;&#x4E0D;&#x80FD;&#x968F;&#x610F;&#x5206;&#x914D;&#x82E5;&#x5E72;&#x4E2A;&#x9875;&#x5E27;&#x3002;&#x5F53;&#x5206;&#x914D;n&#x9636;&#x9875;&#x5757;&#x65F6;&#xFF0C;&#x4F19;&#x4F34;&#x7CFB;&#x7EDF;&#x4F1A;&#x4F18;&#x5148;&#x67E5;&#x627E;n&#x9636;&#x9875;&#x5757;&#x7684;&#x94FE;&#x8868;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x4E3A;&#x7A7A;&#x7684;&#x8BDD;&#x5C31;&#x62FF;&#x51FA;&#x6765;&#x4E00;&#x4E2A;&#x5206;&#x914D;&#x3002;&#x5982;&#x679C;&#x4E3A;&#x7A7A;&#x7684;&#x5C31;&#x53BB;&#x627E;n+1&#x9636;&#x9875;&#x5757;&#x7684;&#x94FE;&#x8868;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x4E3A;&#x7A7A;&#x7684;&#x8BDD;&#xFF0C;&#x5C31;&#x62FF;&#x51FA;&#x6765;&#x4E00;&#x4E2A;&#xFF0C;&#x5E76;&#x5206;&#x6210;&#x4E24;&#x4E2A;n&#x9636;&#x9875;&#x5757;&#xFF0C;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x52A0;&#x5165;n&#x9636;&#x9875;&#x5757;&#x7684;&#x94FE;&#x8868;&#x4E2D;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x5206;&#x914D;&#x51FA;&#x53BB;&#x3002;&#x91CD;&#x590D;&#x6B64;&#x903B;&#x8F91;&#xFF0C;&#x76F4;&#x5230;&#x627E;&#x5230;10&#x9636;&#x9875;&#x5757;&#x7684;&#x94FE;&#x8868;&#x3002;</p>
+<p>&#x5982;&#x679C;10&#x9636;&#x9875;&#x5757;&#x7684;&#x94FE;&#x8868;&#x4E5F;&#x662F;&#x7A7A;&#x7684;&#x8BDD;&#xFF0C;&#x90A3;&#x5C31;&#x53BB;&#x627E;&#x540E;&#x5907;&#x8FC1;&#x79FB;&#x7C7B;&#x578B;&#x7684;&#x9875;&#x5757;&#x53BB;&#x5206;&#x914D;&#xFF0C;&#x6B64;&#x65F6;&#x4ECE;&#x6700;&#x9AD8;&#x9636;&#x7684;&#x9875;&#x5757;&#x94FE;&#x8868;&#x5F80;&#x4F4E;&#x9636;&#x9875;&#x5757;&#x7684;&#x94FE;&#x8868;&#x5F00;&#x59CB;&#x67E5;&#x627E;&#xFF0C;&#x76F4;&#x5230;&#x67E5;&#x5230;&#x4E3A;&#x6B62;&#x3002;&#x5982;&#x679C;&#x540E;&#x5907;&#x9875;&#x5757;&#x4E5F;&#x5206;&#x914D;&#x4E0D;&#x5230;&#x5185;&#x5B58;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x4F1A;&#x8FDB;&#x884C;&#x5185;&#x5B58;&#x56DE;&#x6536;&#x3002;</p>
+<p>&#x7528;&#x6237;&#x7528;&#x5B8C;&#x5185;&#x5B58;&#x8FD8;&#x7ED9;&#x4F19;&#x4F34;&#x7CFB;&#x7EDF;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x9700;&#x8981;&#x5148;&#x8FDB;&#x884C;&#x5408;&#x5E76;&#xFF08;&#x53D6;&#x5F53;&#x524D;&#x9875;&#x5757;&#x7684;&#x524D;&#x9762;&#x6216;&#x540E;&#x9762;&#x7684;free&#x4E14;&#x540C;&#x9636;&#x9875;&#x5757;&#x8FDB;&#x884C;&#x5408;&#x5E76;&#xFF09;&#xFF0C;&#x76F4;&#x5230;&#x65E0;&#x6CD5;&#x5408;&#x5E76;&#x4E3A;&#x6B62;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x5176;&#x63D2;&#x5165;&#x5230;&#x5BF9;&#x5E94;&#x7684;&#x9875;&#x5757;&#x94FE;&#x8868;&#x4E2D;&#x3002;&#x5408;&#x5E76;&#x7684;&#x65F6;&#x5019;&#x9700;&#x8981;&#x6EE1;&#x8DB3;<code>&#x9875;&#x5E27;&#x5BF9;&#x9F50;</code>&#x7684;&#x8981;&#x6C42;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-comment">// &#x5206;&#x914D; 1 &lt;&lt; order &#x4E2A;&#x8FDE;&#x7EED;&#x7684;&#x7269;&#x7406;&#x9875;&#xFF0C;&#x8FD4;&#x56DE;&#x6307;&#x5411;&#x9996;&#x9875;&#x7684;&#x6307;&#x9488;</span>
+<span class="hljs-function"><span class="hljs-keyword">struct</span> page *<span class="hljs-title">alloc_pages</span><span class="hljs-params">(gfp_t gfp, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> order)</span></span>;
+<span class="hljs-keyword">void</span> __free_pages(<span class="hljs-keyword">struct</span> page *page, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> order);
+</code></pre>
+<p>&#x53C2;&#x6570;<code>gfp</code>&#xFF1A;&#x5206;&#x4E3A;&#x4E24;&#x7C7B;&#x6807;&#x8BB0;&#xFF0C;&#x4E00;&#x7C7B;&#x6307;&#x5B9A;&#x5206;&#x914D;&#x533A;&#x57DF;&#xFF0C;&#x4E00;&#x7C7B;&#x6307;&#x5B9A;&#x5206;&#x914D;&#x884C;&#x4E3A;&#x3002;</p>
+<p><strong><u>&#x3010;Q&#xFF1A;&#x662F;&#x4E0D;&#x662F;&#x6307;&#x5B9A;&#x4E86;&#x54EA;&#x4E2A;&#x533A;&#x57DF;&#x5C31;&#x53EA;&#x80FD;&#x5728;&#x54EA;&#x4E2A;&#x533A;&#x57DF;&#x5206;&#x914D;&#x5185;&#x5B58;&#x5462;&#xFF1F;&#x3011;</u></strong></p>
+<p>&#x6BCF;&#x4E2A;&#x533A;&#x57DF;&#x90FD;&#x6709;&#x540E;&#x5907;&#x533A;&#x57DF;&#xFF0C;&#x5F53;&#x533A;&#x57DF;&#x5185;&#x5B58;&#x4E0D;&#x8DB3;&#x65F6;&#xFF0C;&#x5C31;&#x4F1A;&#x4ECE;&#x540E;&#x5907;&#x533A;&#x57DF;&#x4E2D;&#x5206;&#x914D;&#x5185;&#x5B58;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-comment">// &#x8282;&#x70B9;&#x63CF;&#x8FF0;&#x7B26;</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> pglist_data {
+    <span class="hljs-comment">// &#x540E;&#x5907;&#x533A;&#x57DF;</span>
+    <span class="hljs-keyword">struct</span> zonelist node_zonelists[MAX_ZONELISTS];
+} <span class="hljs-keyword">pg_data_t</span>;
+
+<span class="hljs-keyword">enum</span> {
+    ZONELIST_FALLBACK,    <span class="hljs-comment">/* zonelist with fallback */</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> CONFIG_NUMA</span>
+    <span class="hljs-comment">/*
+     * The NUMA zonelists are doubled because we need zonelists that
+     * restrict the allocations to a single node for __GFP_THISNODE.
+     */</span>
+    ZONELIST_NOFALLBACK,    <span class="hljs-comment">/* zonelist without fallback (__GFP_THISNODE) */</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+    MAX_ZONELISTS
+};
+</code></pre>
+<p>&#x5728;UMA&#x4E0A;&#xFF0C;&#x540E;&#x5907;&#x533A;&#x57DF;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x94FE;&#x8868;&#xFF0C;&#x5C31;&#x662F;&#x672C;&#x8282;&#x70B9;&#x5185;&#x7684;&#x540E;&#x5907;&#x533A;&#x57DF;&#x3002;
+&#x5728;NUMA&#x4E0A;&#xFF0C;&#x540E;&#x5907;&#x533A;&#x57DF;&#x6709;&#x4E24;&#x4E2A;&#x94FE;&#x8868;&#xFF0C;&#x5305;&#x62EC;&#x672C;&#x8282;&#x70B9;&#x3001;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x7684;&#x540E;&#x5907;&#x533A;&#x57DF;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">enum</span> zone_type {
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> CONFIG_ZONE_DMA</span>
+    ZONE_DMA,
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> CONFIG_ZONE_DMA32</span>
+    ZONE_DMA32,
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+    ZONE_NORMAL,
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> CONFIG_HIGHMEM</span>
+    ZONE_HIGHMEM,
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+    ZONE_MOVABLE,
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> CONFIG_ZONE_DEVICE</span>
+    ZONE_DEVICE,
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+    __MAX_NR_ZONES
+};
+</code></pre>
+<p>&#x5BF9;&#x4E8E;&#x672C;&#x8282;&#x70B9;&#x7684;&#x540E;&#x5907;&#x533A;&#x57DF;&#xFF0C;&#x6309;&#x7167;&#x533A;&#x57DF;&#x7C7B;&#x578B;&#x7684;ID&#x6392;&#x5217;&#x7684;&#xFF08;&#x964D;&#x5E8F;&#xFF09;&#x3002;&#x524D;&#x9762;&#x7684;&#x533A;&#x57DF;&#x5185;&#x5B58;&#x4E0D;&#x8DB3;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x4ECE;&#x540E;&#x9762;&#x7684;&#x533A;&#x57DF;&#x5206;&#x914D;&#x5185;&#x5B58;&#xFF0C;&#x53CD;&#x8FC7;&#x6765;&#x5219;&#x4E0D;&#x884C;&#x3002;
+&#x5BF9;&#x4E8E;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x7684;&#x540E;&#x5907;&#x533A;&#x57DF;&#xFF0C;&#x9664;&#x4E86;&#x4E0A;&#x8BC9;&#x89C4;&#x5219;&#xFF0C;&#x8FD8;&#x4F1A;&#x8003;&#x8651;&#x662F;&#x6309;&#x7167;<code>&#x8282;&#x70B9;&#x4F18;&#x5148;</code>&#x6392;&#x5217;&#x8FD8;&#x662F;&#x6309;&#x7167;<code>&#x533A;&#x57DF;&#x7C7B;&#x578B;&#x4F18;&#x5148;</code>&#x6392;&#x5217;&#x3002;</p>
+<h3 id="32-slab-&#x5206;&#x914D;&#x5668;">3.2. Slab &#x5206;&#x914D;&#x5668;</h3>
+<p><code>slob</code>&#xFF1A;&#x9488;&#x5BF9;&#x5D4C;&#x5165;&#x5F0F;&#x7CFB;&#x7EDF;&#x4F18;&#x5316;
+<code>slub</code>&#xFF1A;&#x9488;&#x5BF9;&#x5185;&#x5B58;&#x6BD4;&#x8F83;&#x591A;&#x7684;&#x7CFB;&#x7EDF;&#x4F18;&#x5316;</p>
+<p>&#x7531;&#x4E8E;&#x73B0;&#x5728;&#x8BA1;&#x7B97;&#x673A;&#x5185;&#x5B58;&#x90FD;&#x6BD4;&#x8F83;&#x5927;&#xFF0C;&#x9664;&#x4E86;&#x5D4C;&#x5165;&#x5F0F;&#x7CFB;&#x7EDF;&#x5916;&#xFF0C;&#x5185;&#x6838;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528;<strong><code>slub</code></strong>&#x3002;</p>
+<p><img src="_img/mm_8.png" alt="slab"></p>
+<pre><code class="lang-c">struct kmem_cache *kmem_cache_create(const char *name, unsigned int size,
+    unsigned int align, slab_flags_t flags, void (*ctor)(void *));
+void kmem_cache_destroy(struct kmem_cache *);
+void *kmem_cache_alloc(struct kmem_cache *, gfp_t flags);
+void kmem_cache_free(struct kmem_cache *, void *);
+</code></pre>
+<p>slab&#x4ECE;&#x4F19;&#x4F34;&#x7CFB;&#x7EDF;&#x4E2D;&#x7533;&#x8BF7;&#x4E00;&#x4E2A;order&#x4E3A;0&#x7684;&#x9875;&#xFF0C;&#x7136;&#x540E;&#x628A;&#x8FD9;&#x4E00;&#x9875;&#x5206;&#x6210;&#x5F88;&#x591A;&#x5C0F;&#x7684;object&#x3002;&#x5F53;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x65F6;&#xFF0C;&#x4ECE;slab&#x4E2D;&#x83B7;&#x53D6;&#x4E00;&#x4E2A;object&#xFF0C;&#x7528;&#x5B8C;&#x4E86;&#x5F52;&#x8FD8;&#x7ED9;slab&#x5373;&#x53EF;&#x3002;</p>
+<p><img src="_img/mm_9.png" alt="slab"></p>
+<pre><code class="lang-c"><span class="hljs-comment">// &#x9AD8;&#x901F;&#x7F13;&#x5B58;&#x63CF;&#x8FF0;&#x7B26;&#xFF0C;&#x7528;&#x4E8E;&#x7BA1;&#x7406;slab&#x7F13;&#x5B58;</span>
+<span class="hljs-keyword">struct</span> kmem_cache {
+    <span class="hljs-comment">// &#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A;CPU&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x4E00;&#x4E2A;&#x672C;&#x5730;&#x5185;&#x5B58;&#x7F13;&#x5B58;&#x6C60;&#xFF0C;&#x5F53;&#x5206;&#x914D;&#x5185;&#x5B58;&#x65F6;&#xFF0C;&#x4F18;&#x5148;&#x4ECE;&#x672C;&#x5730;CPU&#x5206;&#x914D;&#x5185;&#x5B58;&#x4EE5;&#x4FDD;&#x8BC1;cache&#x547D;&#x4E2D;&#x7387;&#x3002;</span>
+    <span class="hljs-keyword">struct</span> kmem_cache_cpu __percpu *cpu_slab;
+
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> size;    <span class="hljs-comment">/* The size of an object including metadata */</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> object_size;<span class="hljs-comment">/* The size of an object without metadata */</span>
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *name;    <span class="hljs-comment">/* Name (only for display!) */</span>
+
+    <span class="hljs-comment">// &#x7CFB;&#x7EDF;&#x6709;&#x4E2A;slab_caches&#x94FE;&#x8868;&#xFF0C;&#x6240;&#x6709;slab&#x90FD;&#x4F1A;&#x6302;&#x5165;&#x6B64;&#x94FE;&#x8868;</span>
+    <span class="hljs-keyword">struct</span> list_head <span class="hljs-built_in">list</span>;    <span class="hljs-comment">/* List of slab caches */</span>
+
+    <span class="hljs-comment">// NUMA&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;&#x6BCF;&#x4E2A;node&#x90FD;&#x6709;&#x4E00;&#x4E2A;kmem_cache_node&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x5171;&#x4EAB;&#x5185;&#x5B58;&#x7F13;&#x5B58;&#x6C60;</span>
+    <span class="hljs-keyword">struct</span> kmem_cache_node *node[MAX_NUMNODES];
+};
+
+<span class="hljs-comment">// &#x63CF;&#x8FF0;&#x672C;&#x5730;&#x5185;&#x5B58;&#x7F13;&#x5B58;&#x6C60;</span>
+<span class="hljs-keyword">struct</span> kmem_cache_cpu {
+    <span class="hljs-keyword">void</span> **freelist;    <span class="hljs-comment">/* Pointer to next available object */</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> tid;    <span class="hljs-comment">/* Globally unique transaction id */</span>
+
+    <span class="hljs-comment">// slab &#x5185;&#x5B58;&#x7684;page&#x6307;&#x9488;</span>
+    <span class="hljs-keyword">struct</span> page *page;    <span class="hljs-comment">/* The slab from which we are allocating */</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> CONFIG_SLUB_CPU_PARTIAL</span>
+    <span class="hljs-comment">// &#x672C;&#x5730;slab partial&#x94FE;&#x8868;&#xFF0C;&#x662F;&#x4E00;&#x4E9B;&#x90E8;&#x5206;&#x5206;&#x914D;&#x4E86;object&#x7684;slab</span>
+    <span class="hljs-keyword">struct</span> page *partial;    <span class="hljs-comment">/* Partially allocated frozen slabs */</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+};
+
+<span class="hljs-comment">// &#x63CF;&#x8FF0;&#x5171;&#x4EAB;&#x5185;&#x5B58;&#x6C60;</span>
+<span class="hljs-keyword">struct</span> kmem_cache_node {
+    <span class="hljs-keyword">spinlock_t</span> list_lock;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> CONFIG_SLUB</span>
+    <span class="hljs-comment">// slab &#x8282;&#x70B9;&#x4E2D;slab&#x7684;&#x6570;&#x91CF;</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> nr_partial;
+    <span class="hljs-comment">// partial&#x94FE;&#x8868;</span>
+    <span class="hljs-keyword">struct</span> list_head partial;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+};
+</code></pre>
+<p>&#x9AD8;&#x901F;&#x7F13;&#x5B58;&#x88AB;&#x5212;&#x5206;&#x4E3A;slab&#xFF0C;slab&#x7531;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x8FDE;&#x7EED;&#x7269;&#x7406;&#x9875;&#x7EC4;&#x6210;&#x3002;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;slab&#x7531;&#x4E00;&#x9875;&#x7EC4;&#x6210;&#x3002;</p>
+<p><img src="_img/mm_10.png" alt="slab"></p>
+<pre><code class="lang-c">kmem_cache_create
+    create_cache
+        kmem_cache_zalloc <span class="hljs-comment">// 1. &#x5206;&#x914D;kmem_cache&#x7ED3;&#x6784;</span>
+            kmem_cache_alloc
+                slab_alloc
+                    slab_alloc_node
+        __kmem_cache_create <span class="hljs-comment">// 2. &#x521D;&#x59CB;&#x5316;kmem_cache&#x7ED3;&#x6784;</span>
+            kmem_cache_open
+        list_add <span class="hljs-comment">// 3. &#x5C06;&#x521B;&#x5EFA;&#x7684;kmem_cache&#x6DFB;&#x52A0;&#x5230;&#x5168;&#x5C40;&#x94FE;&#x8868;slab_caches&#x4E2D;&#xFF0C;&#x6784;&#x6210;slab&#x7F13;&#x5B58;&#x6C60;</span>
+</code></pre>
+<pre><code class="lang-c"><span class="hljs-function">kmem_cache_alloc
+    slab_alloc
+        slab_alloc_node
+            <span class="hljs-title">if</span> <span class="hljs-params">(!object)</span> <span class="hljs-comment">// &#x5982;&#x679C;kmem_cache_cpu&#x91CC;&#x7684;freelist&#x6CA1;&#x6709;&#x53EF;&#x7528;&#x7684;object</span>
+                __slab_alloc
+                    ___slab_alloc
+                      slub_percpu_partial  <span class="hljs-comment">// 2.&#x63A5;&#x7740;&#x53BB; kmem_cache_cpu-&gt;partital&#x94FE;&#x8868;&#x4E2D;&#x5206;&#x914D;&#xFF0C;&#x5982;&#x679C;&#x6B64;&#x94FE;&#x8868;&#x4E3A;null</span>
+                      new_slab_objects
+                          get_partial  <span class="hljs-comment">// 3.&#x63A5;&#x7740;&#x53BB; kmem_cache_node-&gt;partital&#x94FE;&#x8868;&#x5206;&#x914D;&#xFF0C;&#x5982;&#x679C;&#x6B64;&#x94FE;&#x8868;&#x4E3A;null</span>
+                          new_slab  <span class="hljs-comment">// 4.&#x8FD9;&#x5C31;&#x9700;&#x8981;&#x91CD;&#x65B0;&#x5206;&#x914D;&#x4E00;&#x4E2A;slab&#x4E86;&#x3002;</span>
+                              allocate_slab 
+            <span class="hljs-keyword">else</span>
+                get_freepointer_safe  <span class="hljs-comment">// 1.&#x5148;&#x4ECE; kmem_cache_cpu-&gt;freelist&#x4E2D;&#x5206;&#x914D;&#xFF0C;</span>
+</span></code></pre>
+<h3 id="33-kmalloc">3.3. kmalloc</h3>
+<p>kmalloc&#x5E95;&#x5C42;&#x7528;&#x7684;&#x662F;slab&#x673A;&#x5236;&#xFF0C;kmalloc&#x5728;&#x542F;&#x52A8;&#x7684;&#x65F6;&#x5019;&#x4F1A;&#x9884;&#x5148;&#x521B;&#x5EFA;&#x4E00;&#x4E9B;&#x4E0D;&#x540C;&#x5927;&#x5C0F;&#x7684;slab&#xFF0C;&#x7528;&#x6237;&#x8BF7;&#x6C42;&#x5206;&#x914D;&#x4EFB;&#x610F;&#x5927;&#x5C0F;&#x7684;&#x5185;&#x5B58;&#xFF0C;kmalloc&#x90FD;&#x4F1A;&#x5BFB;&#x627E;&#x5927;&#x5C0F;&#x521A;&#x597D;&#x5408;&#x9002;&#x7684;slab&#x6765;&#x5206;&#x914D;&#x5185;&#x5B58;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">kmalloc</span><span class="hljs-params">(size_t size, gfp_t flags)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">kfree</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span> *)</span></span>;
+</code></pre>
+<p>&#x7CFB;&#x7EDF;&#x542F;&#x52A8;&#x65F6;&#xFF0C;&#x4F1A;&#x8C03;&#x7528;create_kmalloc_caches&#xFF0C;&#x6765;&#x521B;&#x5EFA;&#x4E0D;&#x540C;&#x5927;&#x5C0F;&#x7684;kmem_cache&#xFF0C;&#x5E76;&#x5B58;&#x50A8;&#x5728;kmalloc_caches&#x4E2D;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-comment">/*
+ * kmalloc_info[] is to make slub_debug=,kmalloc-xx option work at boot time.
+ * kmalloc_index() supports up to 2^25=32MB, so the final entry of the table is
+ * kmalloc-32M.
+ */</span>
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> kmalloc_info_struct kmalloc_info[] __initconst = {
+    INIT_KMALLOC_INFO(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>),
+    INIT_KMALLOC_INFO(<span class="hljs-number">96</span>, <span class="hljs-number">96</span>),
+    INIT_KMALLOC_INFO(<span class="hljs-number">192</span>, <span class="hljs-number">192</span>),
+    INIT_KMALLOC_INFO(<span class="hljs-number">8</span>, <span class="hljs-number">8</span>),
+    INIT_KMALLOC_INFO(<span class="hljs-number">16</span>, <span class="hljs-number">16</span>),
+    INIT_KMALLOC_INFO(<span class="hljs-number">32</span>, <span class="hljs-number">32</span>),
+    INIT_KMALLOC_INFO(<span class="hljs-number">64</span>, <span class="hljs-number">64</span>),
+    INIT_KMALLOC_INFO(<span class="hljs-number">128</span>, <span class="hljs-number">128</span>),
+    INIT_KMALLOC_INFO(<span class="hljs-number">256</span>, <span class="hljs-number">256</span>),
+    INIT_KMALLOC_INFO(<span class="hljs-number">512</span>, <span class="hljs-number">512</span>),
+    INIT_KMALLOC_INFO(<span class="hljs-number">1024</span>, <span class="hljs-number">1</span>k),
+    INIT_KMALLOC_INFO(<span class="hljs-number">2048</span>, <span class="hljs-number">2</span>k),
+    INIT_KMALLOC_INFO(<span class="hljs-number">4096</span>, <span class="hljs-number">4</span>k),
+    INIT_KMALLOC_INFO(<span class="hljs-number">8192</span>, <span class="hljs-number">8</span>k),
+    INIT_KMALLOC_INFO(<span class="hljs-number">16384</span>, <span class="hljs-number">16</span>k),
+    INIT_KMALLOC_INFO(<span class="hljs-number">32768</span>, <span class="hljs-number">32</span>k),
+    INIT_KMALLOC_INFO(<span class="hljs-number">65536</span>, <span class="hljs-number">64</span>k),
+    INIT_KMALLOC_INFO(<span class="hljs-number">131072</span>, <span class="hljs-number">128</span>k),
+    INIT_KMALLOC_INFO(<span class="hljs-number">262144</span>, <span class="hljs-number">256</span>k),
+    INIT_KMALLOC_INFO(<span class="hljs-number">524288</span>, <span class="hljs-number">512</span>k),
+    INIT_KMALLOC_INFO(<span class="hljs-number">1048576</span>, <span class="hljs-number">1</span>M),
+    INIT_KMALLOC_INFO(<span class="hljs-number">2097152</span>, <span class="hljs-number">2</span>M),
+    INIT_KMALLOC_INFO(<span class="hljs-number">4194304</span>, <span class="hljs-number">4</span>M),
+    INIT_KMALLOC_INFO(<span class="hljs-number">8388608</span>, <span class="hljs-number">8</span>M),
+    INIT_KMALLOC_INFO(<span class="hljs-number">16777216</span>, <span class="hljs-number">16</span>M),
+    INIT_KMALLOC_INFO(<span class="hljs-number">33554432</span>, <span class="hljs-number">32</span>M)
+};
+</code></pre>
+<p><strong><u>&#x3010;Q&#xFF1A;kmalloc&#x6700;&#x5927;&#x53EF;&#x4EE5;&#x5206;&#x914D;&#x591A;&#x5C11;&#x5185;&#x5B58;&#xFF1F;&#x3011;</u></strong></p>
+<p>&#x4E0D;&#x540C;&#x7CFB;&#x7EDF;&#x914D;&#x7F6E;&#xFF0C;&#x652F;&#x6301;&#x60C5;&#x51B5;&#x4E0D;&#x540C;&#x3002;&#x76F4;&#x63A5;&#x770B;&#x4EE3;&#x7801;&#x3002;</p>
+<pre><code class="lang-c">kmalloc
+    <span class="hljs-comment">// slab &#x5B9E;&#x73B0;</span>
+    __kmalloc
+        __do_kmalloc
+            <span class="hljs-comment">// &#x6700;&#x5927;&#x7533;&#x8BF7;&#x5185;&#x5B58; 4M</span>
+            <span class="hljs-keyword">if</span> (unlikely(size &gt; KMALLOC_MAX_CACHE_SIZE))
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+
+    <span class="hljs-comment">// slub &#x5B9E;&#x73B0;</span>
+    __kmalloc
+        <span class="hljs-comment">// &#x5982;&#x679C;&#x5927;&#x4E8E; 8K&#xFF0C;&#x76F4;&#x63A5;&#x4F7F;&#x7528;alloc_pages&#x7533;&#x8BF7;&#x5185;&#x5B58;&#x3002;</span>
+        <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8FD9;&#x91CC;&#x5DF2;&#x7ECF;&#x4E0D;&#x5C5E;&#x4E8E;slub&#x7BA1;&#x7406;&#x5668;&#x4E86;&#xFF0C;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x4E86;&#x4F19;&#x4F34;&#x7CFB;&#x7EDF;&#x3002;</span>
+        <span class="hljs-keyword">if</span> (unlikely(size &gt; KMALLOC_MAX_CACHE_SIZE))
+            <span class="hljs-keyword">return</span> kmalloc_large(size, flags);
+                kmalloc_order
+                    alloc_pages
+
+    <span class="hljs-comment">// slob &#x5B9E;&#x73B0;</span>
+    __kmalloc
+        __do_kmalloc_node
+            slob_new_pages
+                alloc_pages
+</code></pre>
+<h3 id="34-vmalloc">3.4. vmalloc</h3>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">vmalloc</span><span class="hljs-params">(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> size)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">vfree</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span> *addr)</span></span>;
+</code></pre>
+<p>kmalloc&#xFF1A;&#x5206;&#x914D;&#x7684;&#x5185;&#x5B58;&#xFF0C;&#x865A;&#x62DF;&#x5730;&#x5740;&#x548C;&#x7269;&#x7406;&#x5730;&#x5740;&#x90FD;&#x662F;&#x8FDE;&#x7EED;&#x7684;&#x3002;
+vmalloc&#xFF1A;&#x5206;&#x914D;&#x7684;&#x5185;&#x5B58;&#xFF0C;&#x865A;&#x62DF;&#x5730;&#x5740;&#x662F;&#x8FDE;&#x7EED;&#x7684;&#xFF0C;&#x7269;&#x7406;&#x5730;&#x5740;&#x4E0D;&#x4E00;&#x5B9A;&#x662F;&#x8FDE;&#x7EED;&#x7684;&#x3002;</p>
+<p>vmalloc&#x6700;&#x5C0F;&#x5206;&#x914D;&#x4E00;&#x4E2A;page&#xFF0C;&#x5E76;&#x4E14;&#x5206;&#x914D;&#x5230;&#x7684;&#x9875;&#x9762;&#x4E0D;&#x4FDD;&#x8BC1;&#x662F;&#x8FDE;&#x7EED;&#x7684;&#xFF0C;vmalloc&#x5185;&#x90E8;&#x8C03;&#x7528;alloc_page&#x591A;&#x6B21;&#x5206;&#x914D;&#x5355;&#x4E2A;&#x9875;&#x9762;&#x3002;
+vmalloc&#x7684;&#x533A;&#x57DF;&#x5C31;&#x662F;&#x5728;VMALLOC_START - VMALLOC_END&#x4E4B;&#x95F4;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-comment">// &#x7BA1;&#x7406;&#x865A;&#x62DF;&#x5730;&#x5740;&#x548C;&#x7269;&#x7406;&#x9875;&#x4E4B;&#x95F4;&#x7684;&#x6620;&#x5C04;&#x5173;&#x7CFB;</span>
+<span class="hljs-keyword">struct</span> vm_struct {
+    <span class="hljs-keyword">struct</span> vm_struct    *next;            <span class="hljs-comment">// &#x6307;&#x5411;&#x4E0B;&#x4E00;&#x4E2A;vm_struct</span>
+    <span class="hljs-keyword">void</span>            *addr;                <span class="hljs-comment">// &#x5F53;&#x524D;vmalloc&#x533A;&#x57DF;&#x865A;&#x62DF;&#x5730;&#x5740;&#x7684;&#x8D77;&#x59CB;&#x5730;&#x5740;</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>        size;            <span class="hljs-comment">// &#x5F53;&#x524D;vmalloc&#x533A;&#x57DF;&#x865A;&#x62DF;&#x5730;&#x5740;&#x7684;&#x5927;&#x5C0F;</span>
+    <span class="hljs-keyword">struct</span> page        **pages;            <span class="hljs-comment">// vmalloc&#x5206;&#x914D;&#x83B7;&#x53D6;&#x7684;&#x7269;&#x7406;&#x9875;&#x5E76;&#x4E0D;&#x662F;&#x8FDE;&#x7EED;&#x7684;&#xFF0C;vm_struct&#x7BA1;&#x7406;&#x7684;&#x6240;&#x6709;&#x7269;&#x7406;&#x9875;&#x6784;&#x6210;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;pages&#x662F;&#x6307;&#x5411;&#x8FD9;&#x4E2A;&#x6570;&#x7EC4;&#x7684;&#x6307;&#x9488;</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>        nr_pages;        <span class="hljs-comment">// vmalloc&#x6620;&#x5C04;&#x7684;page&#x6570;&#x76EE;</span>
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span>        *caller;            <span class="hljs-comment">// &#x8C03;&#x7528;vmalloc&#x51FD;&#x6570;&#x7684;&#x51FD;&#x6570;&#x7684;&#x5730;&#x5740;</span>
+};
+
+<span class="hljs-comment">// &#x63CF;&#x8FF0;&#x4E00;&#x6BB5;&#x865A;&#x62DF;&#x5730;&#x5740;&#x7684;&#x533A;&#x57DF;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;vm_struct&#x6784;&#x6210;&#x4E00;&#x4E2A;&#x94FE;&#x8868;&#xFF0C;&#x7EF4;&#x62A4;&#x591A;&#x6BB5;&#x6620;&#x5C04;&#x3002;</span>
+<span class="hljs-keyword">struct</span> vmap_area {
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> va_start;        <span class="hljs-comment">// vmalloc&#x7533;&#x8BF7;&#x865A;&#x62DF;&#x5730;&#x5740;&#x8FD4;&#x56DE;&#x7684;&#x8D77;&#x59CB;&#x5730;&#x5740;</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> va_end;        <span class="hljs-comment">// vmalloc&#x7533;&#x8BF7;&#x865A;&#x62DF;&#x5730;&#x5740;&#x8FD4;&#x56DE;&#x7684;&#x7ED3;&#x675F;&#x5730;&#x5740;</span>
+
+    <span class="hljs-keyword">struct</span> rb_node rb_node;         <span class="hljs-comment">/* address sorted rbtree */</span>
+    <span class="hljs-keyword">struct</span> list_head <span class="hljs-built_in">list</span>;          <span class="hljs-comment">/* address sorted list */</span>
+
+    <span class="hljs-comment">/*
+     * The following two variables can be packed, because
+     * a vmap_area object can be either:
+     *    1) in &quot;free&quot; tree (root is vmap_area_root)
+     *    2) or &quot;busy&quot; tree (root is free_vmap_area_root)
+     */</span>
+    <span class="hljs-keyword">union</span> {
+        <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> subtree_max_size; <span class="hljs-comment">/* in &quot;free&quot; tree */</span>
+        <span class="hljs-keyword">struct</span> vm_struct *vm;           <span class="hljs-comment">/* in &quot;busy&quot; tree */</span>
+    };
+};
+</code></pre>
+<p>vmalloc&#x6B65;&#x9AA4;&#xFF1A;</p>
+<ol>
+<li>&#x4ECE;VMALLOC_START&#x5230;VMALLOC_END&#x67E5;&#x627E;&#x7A7A;&#x95F2;&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;&#x7A7A;&#x95F4;</li>
+<li>&#x6839;&#x636E;&#x5206;&#x914D;&#x7684;size,&#x8C03;&#x7528;alloc_page&#x4F9D;&#x6B21;&#x5206;&#x914D;&#x5355;&#x4E2A;&#x9875;&#x9762;</li>
+<li>&#x628A;&#x5206;&#x914D;&#x7684;&#x9875;&#x9762;&#xFF0C;&#x6620;&#x5C04;&#x5230;&#x7B2C;&#x4E00;&#x6B65;&#x4E2D;&#x627E;&#x5230;&#x7684;&#x8FDE;&#x7EED;&#x865A;&#x62DF;&#x5730;&#x5740;</li>
+</ol>
+<pre><code class="lang-c">vmalloc
+    __vmalloc_node_range(VMALLOC_START, VMALLOC_END)
+        __get_vm_area_node
+            kzalloc_node    <span class="hljs-comment">// &#x4ECE;slab&#x5206;&#x914D;vm_struct&#x7ED3;&#x6784;</span>
+            alloc_vmap_area    
+                kmem_cache_alloc_node    <span class="hljs-comment">// &#x5206;&#x914D;vmap_area&#x7ED3;&#x6784;</span>
+                __alloc_vmap_area        <span class="hljs-comment">// &#x5728;&#x865A;&#x62DF;&#x5730;&#x5740;&#x8303;&#x56F4;&#x5185;&#x627E;&#x5230;&#x7A7A;&#x7684;&#x6620;&#x5C04;&#x7A7A;&#x95F4;</span>
+                insert_vmap_area(&amp;vmap_area_root, &amp;vmap_area_list); <span class="hljs-comment">// &#x63D2;&#x5165;&#x5168;&#x5C40;&#x7EA2;&#x9ED1;&#x6811;&#x548C;&#x5168;&#x5C40;&#x94FE;&#x8868;</span>
+            setup_vmalloc_vm    <span class="hljs-comment">// &#x7ED1;&#x5B9A;vm_struct&#x548C;vmap_area</span>
+        __vmalloc_area_node
+            alloc_page            <span class="hljs-comment">// &#x5206;&#x914D;&#x9875;&#x9762;</span>
+            vmap_pages_range    <span class="hljs-comment">// &#x5EFA;&#x7ACB;&#x9875;&#x8868;&#x6620;&#x5C04;&#x5173;&#x7CFB;&#xFF08;pgd -&gt; p4d -&gt; pud -&gt; pmd -&gt; pte&#xFF09;</span>
+                vmap_range_noflush
+                    vmap_p4d_range
+                        vmap_pud_range
+                            vmap_pmd_range
+                                vmap_pte_range
+</code></pre>
+<h3 id="35-cma">3.5. CMA</h3>
+<p>CMA&#xFF08;Contiguous Memory Allocator&#xFF0C;&#x8FDE;&#x7EED;&#x5185;&#x5B58;&#x5206;&#x914D;&#xFF09;&#x662F;Linux&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x7CFB;&#x7EDF;&#x7684;&#x6269;&#x5C55;&#x3002;</p>
+<p>&#x3010;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#x3011;&#xFF1A;&#x9884;&#x7559;&#x4E00;&#x6BB5;&#x7684;&#x5185;&#x5B58;&#x7ED9;&#x9A71;&#x52A8;&#x4F7F;&#x7528;&#xFF0C;&#x4F46;&#x5F53;&#x9A71;&#x52A8;&#x4E0D;&#x7528;&#x7684;&#x65F6;&#x5019;&#xFF0C;memory allocator&#xFF08;buddy system&#xFF09;&#x53EF;&#x4EE5;&#x5206;&#x914D;&#x7ED9;&#x7528;&#x6237;&#x8FDB;&#x7A0B;&#x7528;&#x4F5C;&#x533F;&#x540D;&#x5185;&#x5B58;&#x6216;&#x8005;&#x9875;&#x7F13;&#x5B58;&#x3002;&#x800C;&#x5F53;&#x9A71;&#x52A8;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x65F6;&#xFF0C;&#x5C31;&#x5C06;&#x8FDB;&#x7A0B;&#x5360;&#x7528;&#x7684;&#x5185;&#x5B58;&#x901A;&#x8FC7;&#x56DE;&#x6536;&#x6216;&#x8005;&#x8FC1;&#x79FB;&#x7684;&#x65B9;&#x5F0F;&#x5C06;&#x4E4B;&#x524D;&#x5360;&#x7528;&#x7684;&#x9884;&#x7559;&#x5185;&#x5B58;&#x817E;&#x51FA;&#x6765;&#xFF0C; &#x4F9B;&#x9A71;&#x52A8;&#x4F7F;&#x7528;&#x3002;</p>
+<h2 id="4-&#x7269;&#x7406;&#x5185;&#x5B58;&#x56DE;&#x6536;">4. &#x7269;&#x7406;&#x5185;&#x5B58;&#x56DE;&#x6536;</h2>
+<p>&#x56DE;&#x6536;&#x65F6;&#x673A;&#x53EF;&#x4EE5;&#x5206;&#x4E3A; <code>&#x540C;&#x6B65;&#x56DE;&#x6536;</code> &#x548C; <code>&#x5F02;&#x6B65;&#x56DE;&#x6536;</code> &#xFF0C;</p>
+<ul>
+<li><code>&#x540C;&#x6B65;&#x56DE;&#x6536;</code>&#xFF1A;&#x662F;&#x6307;&#x5728;&#x5206;&#x914D;&#x5185;&#x5B58;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x73B0;&#x65E0;&#x6CD5;&#x5206;&#x914D;&#x5230;&#x5185;&#x5B58;&#x5C31;&#x8FDB;&#x884C;&#x56DE;&#x6536;&#xFF0C;</li>
+<li><code>&#x5F02;&#x6B65;&#x56DE;&#x6536;</code>&#xFF1A;&#x662F;&#x6307;&#x6709;&#x4E13;&#x95E8;&#x7684;&#x7EBF;&#x7A0B;&#x5B9A;&#x671F;&#x8FDB;&#x884C;&#x68C0;&#x6D4B;&#xFF0C;&#x5982;&#x679C;&#x53D1;&#x73B0;&#x5185;&#x5B58;&#x4E0D;&#x8DB3;&#x5C31;&#x8FDB;&#x884C;&#x56DE;&#x6536;&#x3002;</li>
+</ul>
+<p>&#x5185;&#x5B58;&#x56DE;&#x6536;&#x7684;&#x7C7B;&#x578B;&#x6709;&#x4E24;&#x79CD;&#xFF1A;</p>
+<ul>
+<li><code>&#x5185;&#x5B58;&#x89C4;&#x6574;</code>&#xFF1A;&#x5C31;&#x662F;&#x5185;&#x5B58;&#x788E;&#x7247;&#x6574;&#x7406;&#xFF0C;&#x5B83;&#x4E0D;&#x4F1A;&#x589E;&#x52A0;&#x53EF;&#x7528;&#x5185;&#x5B58;&#x7684;&#x603B;&#x91CF;&#xFF0C;&#x4F46;&#x662F;&#x4F1A;&#x589E;&#x52A0;&#x8FDE;&#x7EED;&#x53EF;&#x7528;&#x5185;&#x5B58;&#x7684;&#x91CF;</li>
+<li><code>&#x9875;&#x5E27;&#x56DE;&#x6536;</code>&#xFF1A;&#x628A;&#x7269;&#x7406;&#x9875;&#x5E27;&#x7684;&#x5185;&#x5BB9;&#x5199;&#x5165;&#x5230;&#x5916;&#x5B58;&#x4E2D;&#x53BB;&#xFF0C;&#x7136;&#x540E;&#x89E3;&#x9664;&#x5176;&#x4E0E;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7684;&#x6620;&#x5C04;&#xFF0C;&#x8FD9;&#x6837;&#x53EF;&#x7528;&#x7269;&#x7406;&#x5185;&#x5B58;&#x7684;&#x91CF;&#x5C31;&#x589E;&#x52A0;&#x4E86;</li>
+</ul>
+<p><img src="_img/mm_11.png" alt="&#x5185;&#x5B58;&#x56DE;&#x6536;"></p>
+<h2 id="5-&#x7269;&#x7406;&#x5185;&#x5B58;&#x538B;&#x7F29;">5. &#x7269;&#x7406;&#x5185;&#x5B58;&#x538B;&#x7F29;</h2>
+<h2 id="6-&#x865A;&#x62DF;&#x5185;&#x5B58;&#x8BBF;&#x95EE;">6. &#x865A;&#x62DF;&#x5185;&#x5B58;&#x8BBF;&#x95EE;</h2>
+<p><img src="_img/mm_12.png" alt="&#x865A;&#x62DF;&#x5185;&#x5B58;&#x8BBF;&#x95EE;"></p>
+<p>CPU&#x628A;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x5730;&#x5740;&#x53D1;&#x9001;&#x7ED9;MMU&#xFF0C;MMU&#x628A;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x5730;&#x5740;&#x8F6C;&#x6362;&#x4E3A;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5730;&#x5740;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x7528;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5730;&#x5740;&#x901A;&#x8FC7;MC(&#x5185;&#x5B58;&#x63A7;&#x5236;&#x5668;)&#x8BBF;&#x95EE;&#x5185;&#x5B58;&#x3002;</p>
+<h3 id="61-mmu">6.1. MMU</h3>
+<p>Linux&#x5185;&#x6838;&#x6700;&#x591A;&#x652F;&#x6301;&#x4E94;&#x7EA7;&#x9875;&#x8868;&#xFF0C;&#x5728;&#x4E94;&#x7EA7;&#x9875;&#x8868;&#x4F53;&#x7CFB;&#x4E2D;&#xFF0C;&#x6BCF;&#x4E00;&#x7EA7;&#x9875;&#x8868;&#x5206;&#x522B;&#x53EB;&#x505A;PGD&#x3001;P4D&#x3001;PUD&#x3001;PMD&#x3001;PTE&#x3002;
+MMU&#x662F;&#x901A;&#x8FC7;&#x904D;&#x5386;&#x9875;&#x8868;&#x628A;&#x865A;&#x62DF;&#x5730;&#x5740;&#x8F6C;&#x6362;&#x4E3A;&#x7269;&#x7406;&#x5730;&#x5740;&#x7684;&#x3002;</p>
+<h3 id="62-&#x7F3A;&#x9875;&#x5F02;&#x5E38;">6.2. &#x7F3A;&#x9875;&#x5F02;&#x5E38;</h3>
+<p>MMU&#x5728;&#x89E3;&#x6790;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x65F6;&#x5982;&#x679C;&#x53D1;&#x73B0;&#x4E86;&#x8BFB;&#x5199;&#x9519;&#x8BEF;&#x6216;&#x8005;&#x6743;&#x9650;&#x9519;&#x8BEF;&#x6216;&#x8005;&#x9875;&#x8868;&#x9879;&#x65E0;&#x6548;&#xFF0C;&#x5C31;&#x4F1A;&#x89E6;&#x53D1;&#x7F3A;&#x9875;&#x5F02;&#x5E38;&#x8BA9;&#x5185;&#x6838;&#x6765;&#x5904;&#x7406;&#x3002;</p>
+<pre><code class="lang-c">__handle_mm_fault
+    pgd = pgd_offset(mm, address);                <span class="hljs-comment">// &#x67E5;&#x627E;&#x9875;&#x5168;&#x5C40;&#x76EE;&#x5F55;&#xFF0C;&#x83B7;&#x53D6;&#x5730;&#x5740;&#x5BF9;&#x5E94;&#x7684;&#x8868;&#x9879;</span>
+    p4d = p4d_alloc(mm, pgd, address);            <span class="hljs-comment">// &#x67E5;&#x627E;&#x9875;&#x56DB;&#x7EA7;&#x76EE;&#x5F55;&#x8868;&#x9879;&#xFF0C;&#x6CA1;&#x6709;&#x5219;&#x521B;&#x5EFA;</span>
+    vmf.pud = pud_alloc(mm, p4d, address);        <span class="hljs-comment">// &#x67E5;&#x627E;&#x9875;&#x4E0A;&#x7EA7;&#x76EE;&#x5F55;&#x8868;&#x9879;&#xFF0C;&#x6CA1;&#x6709;&#x5219;&#x521B;&#x5EFA;</span>
+    vmf.pmd = pmd_alloc(mm, vmf.pud, address);    <span class="hljs-comment">// &#x67E5;&#x627E;&#x9875;&#x4E2D;&#x7EA7;&#x76EE;&#x5F55;&#x8868;&#x9879;&#xFF0C;&#x6CA1;&#x6709;&#x5219;&#x521B;&#x5EFA;</span>
+    handle_pte_fault(&amp;vmf);                        <span class="hljs-comment">// &#x5904;&#x7406;PTE&#x9875;&#x8868;&#x9879;</span>
+        <span class="hljs-comment">// &#x533F;&#x540D;&#x9875; do_anonymous_page</span>
+        <span class="hljs-comment">// &#x6587;&#x4EF6;&#x9875; do_fault</span>
+        <span class="hljs-comment">// &#x9875;&#x8868;&#x9879;&#x5B58;&#x5728;&#xFF0C;&#x4F46;&#x9875;&#x4E0D;&#x5728;&#x5185;&#x5B58;&#x4E2D; do_swap_page</span>
+        <span class="hljs-comment">// &#x9875;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x4F46;&#x6CA1;&#x6709;&#x5199;&#x6743;&#x9650;&#xFF0C;&#x5199;&#x65F6;&#x590D;&#x5236; do_wp_page</span>
+</code></pre>
+<p><img src="_img/mm_13.png" alt="&#x7F3A;&#x9875;&#x5F02;&#x5E38;"></p>
+<h4 id="621-doanonymouspage">6.2.1. do_anonymous_page</h4>
+<p>&#x533F;&#x540D;&#x9875;&#x7F3A;&#x9875;&#x5F02;&#x5E38;&#xFF0C;&#x5BF9;&#x4E8E;&#x533F;&#x540D;&#x6620;&#x5C04;&#xFF0C;<strong>&#x6620;&#x5C04;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#xFF0C;&#x53EA;&#x662F;&#x83B7;&#x5F97;&#x4E86;&#x4E00;&#x5757;&#x865A;&#x62DF;&#x5185;&#x5B58;&#xFF0C;&#x5E76;&#x6CA1;&#x6709;&#x5206;&#x914D;&#x7269;&#x7406;&#x5185;&#x5B58;</strong>&#xFF0C;&#x5F53;&#x7B2C;&#x4E00;&#x6B21;&#x8BBF;&#x95EE;&#x7684;&#x65F6;&#x5019;&#xFF1A;</p>
+<ol>
+<li>&#x5982;&#x679C;&#x662F;&#x8BFB;&#x8BBF;&#x95EE;&#xFF0C;&#x4F1A;&#x5C06;&#x865A;&#x62DF;&#x9875;&#x6620;&#x5C04;&#x5230; <code>&#x96F6;&#x9875;</code> &#xFF0C;&#x4EE5;&#x51CF;&#x5C11;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x5185;&#x5B58;&#x5206;&#x914D;</li>
+<li>&#x5982;&#x679C;&#x662F;&#x5199;&#x8BBF;&#x95EE;&#xFF0C;&#x7528;alloc_zeroed_user_highpage_movable&#x5206;&#x914D;&#x65B0;&#x7684;&#x7269;&#x7406;&#x9875;&#xFF0C;&#x5E76;&#x7528;0&#x586B;&#x5145;&#xFF0C;&#x7136;&#x540E;&#x6620;&#x5C04;&#x5230;&#x865A;&#x62DF;&#x9875;&#x4E0A;&#x53BB;</li>
+<li>&#x5982;&#x679C;&#x662F;&#x5148;&#x8BFB;&#x540E;&#x5199;&#x8BBF;&#x95EE;&#xFF0C;&#x5219;&#x4F1A;&#x53D1;&#x751F;&#x4E24;&#x6B21;&#x7F3A;&#x9875;&#x5F02;&#x5E38;&#xFF1A;&#x7B2C;&#x4E00;&#x6B21;&#x662F;&#x533F;&#x540D;&#x9875;&#x7F3A;&#x9875;&#x5F02;&#x5E38;&#x7684;&#x8BFB;&#x7684;&#x5904;&#x7406;&#xFF08;&#x865A;&#x62DF;&#x9875;&#x5230; <code>&#x96F6;&#x9875;</code> &#x7684;&#x6620;&#x5C04;&#xFF09;&#xFF0C;&#x7B2C;&#x4E8C;&#x6B21;&#x662F;&#x5199;&#x65F6;&#x590D;&#x5236;&#x7F3A;&#x9875;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x3002;</li>
+</ol>
+<p><code>&#x96F6;&#x9875;</code>&#xFF1A;&#x4E00;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x7269;&#x7406;&#x9875;&#xFF0C;&#x503C;&#x5168;&#x90E8;&#x4E3A;0</p>
+<pre><code class="lang-c"><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> empty_zero_page[PAGE_SIZE / <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>)];
+</code></pre>
+<pre><code class="lang-c">do_anonymous_page
+    <span class="hljs-comment">// &#x8BFB;&#x8BBF;&#x95EE;</span>
+    pte_mkspecial        <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x9875;&#x8868;&#x9879;&#x7684;&#x503C;&#x6620;&#x5C04;&#x5230; 0&#x9875;</span>
+    set_pte_at            <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x9875;&#x8868;&#x9879;</span>
+    update_mmu_cache    <span class="hljs-comment">// &#x66F4;&#x65B0;cpu&#x7684;tlb&#x9875;&#x8868;&#x7F13;&#x5B58;</span>
+    <span class="hljs-comment">// &#x8BFB;&#x8BBF;&#x95EE; &#x7ED3;&#x675F;</span>
+
+    <span class="hljs-comment">// &#x5199;&#x8BBF;&#x95EE;</span>
+    alloc_zeroed_user_highpage_movable    <span class="hljs-comment">// &#x5206;&#x914D;&#x4E00;&#x4E2A;&#x9AD8;&#x7AEF;&#x53EF;&#x8FC1;&#x79FB;&#x7684;&#x88AB;0&#x586B;&#x5145;&#x7684;&#x7269;&#x7406;&#x9875;</span>
+    mk_pte                    <span class="hljs-comment">// &#x751F;&#x6210;&#x9875;&#x8868;&#x9879;</span>
+    pte_mkwrite                <span class="hljs-comment">// &#x5982;&#x679C;&#x6709; &#x5199; &#x6743;&#x9650;&#xFF0C;&#x8BBE;&#x7F6E;flag&#x4E3A;&#x810F;&#x4E14;&#x8BFB;&#x5199;</span>
+    page_add_new_anon_rmap    <span class="hljs-comment">// &#x5EFA;&#x7ACB;&#x7269;&#x7406;&#x9875;&#x5230;&#x865A;&#x62DF;&#x9875;&#x7684;&#x53CD;&#x5411;&#x6620;&#x5C04;</span>
+    lru_cache_add_inactive_or_unevictable    <span class="hljs-comment">// &#x628A;&#x7269;&#x7406;&#x9875;&#x6DFB;&#x52A0;&#x5230;lru&#x94FE;&#x8868;&#x4E2D;</span>
+</code></pre>
+<h4 id="622-dofault">6.2.2. do_fault</h4>
+<p><img src="_img/mm_14.png" alt="&#x6587;&#x4EF6;&#x9875;&#x7F3A;&#x9875;&#x5F02;&#x5E38;"></p>
+<h4 id="623-doswappage">6.2.3. do_swap_page</h4>
+<p><img src="_img/mm_15.png" alt="swap"></p>
+<h4 id="624-dowppage">6.2.4. do_wp_page</h4>
+<p>&#x9875;&#x9762;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x53EA;&#x662F;PTE&#x53EA;&#x6709;&#x8BFB;&#x6743;&#x9650;&#xFF0C;&#x800C;&#x53C8;&#x8981;&#x5199;&#x5185;&#x5B58;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x4F1A;&#x89E6;&#x53D1;do_wp_page&#x3002;</p>
+<p>do_wp_page&#x51FD;&#x6570;&#x7528;&#x4E8E;&#x5904;&#x7406; &#x5199;&#x65F6;&#x590D;&#x5236;&#xFF08;copy on write&#xFF09;&#xFF0C;&#x4E3B;&#x8981;&#x662F;<strong>&#x5206;&#x914D;&#x65B0;&#x7684;&#x7269;&#x7406;&#x9875;&#xFF0C;&#x62F7;&#x8D1D;&#x539F;&#x6765;&#x9875;&#x7684;&#x5185;&#x5BB9;&#x5230;&#x65B0;&#x9875;&#xFF0C;&#x7136;&#x540E;&#x4FEE;&#x6539;&#x9875;&#x8868;&#x9879;&#x5185;&#x5BB9;&#x6307;&#x5411;&#x65B0;&#x9875;&#x5E76;&#x4FEE;&#x6539;&#x4E3A;&#x53EF;&#x5199;(vma&#x5177;&#x5907;&#x53EF;&#x5199;&#x5C5E;&#x6027;)&#x3002;</strong></p>
+<pre><code class="lang-c">do_wp_page
+    wp_page_copy    <span class="hljs-comment">// &#x590D;&#x5236;&#x7269;&#x7406;&#x9875;&#xFF0C;&#x5C06;&#x865A;&#x62DF;&#x9875;&#x6620;&#x5C04;&#x5230;&#x7269;&#x7406;&#x9875;</span>
+        alloc_page_vma
+        cow_user_page
+        maybe_mkwrite
+        page_add_new_anon_rmap
+        lru_cache_add_inactive_or_unevictable
+</code></pre>
+<h2 id="7-&#x8FDB;&#x7A0B;&#x5185;&#x5B58;&#x7BA1;&#x7406;">7. &#x8FDB;&#x7A0B;&#x5185;&#x5B58;&#x7BA1;&#x7406;</h2>
+<p>&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x4E3B;&#x8981;&#x53F3;&#x4E24;&#x4E2A;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x6765;&#x63CF;&#x8FF0;&#xFF1A;<code>mm_struct</code>&#x3001;<code>vm_area_struct</code></p>
+<pre><code class="lang-c"><span class="hljs-comment">// &#x8FDB;&#x7A0B;&#x63CF;&#x8FF0;&#x7B26;</span>
+<span class="hljs-keyword">struct</span> task_struct {
+    <span class="hljs-keyword">struct</span> mm_struct        *mm;
+};
+</code></pre>
+<pre><code class="lang-c"><span class="hljs-comment">// &#x63CF;&#x8FF0;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x6574;&#x4E2A;&#x865A;&#x62DF;&#x5730;&#x5740;&#x7A7A;&#x95F4;</span>
+<span class="hljs-keyword">struct</span> mm_struct {
+    <span class="hljs-keyword">struct</span> vm_area_struct *mmap;    <span class="hljs-comment">// VMA&#x94FE;&#x8868; /* list of VMAs */</span>
+    <span class="hljs-keyword">struct</span> rb_root mm_rb;            <span class="hljs-comment">// &#x7EA2;&#x9ED1;&#x6811;</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> mmap_base;    <span class="hljs-comment">/* base of mmap area */</span>
+    <span class="hljs-keyword">int</span> map_count;                    <span class="hljs-comment">// VMA&#x7684;&#x4E2A;&#x6570; /* number of VMAs */</span>
+
+    <span class="hljs-comment">// &#x4EE3;&#x7801;&#x6BB5;&#x3001;&#x6570;&#x636E;&#x6BB5;</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> start_code, end_code, start_data, end_data;
+    <span class="hljs-comment">// start_brk &#x5806;&#x7684;&#x8D77;&#x59CB;&#x5730;&#x5740;</span>
+    <span class="hljs-comment">// brk &#x5F53;&#x524D;&#x5806;&#x7684;&#x7ED3;&#x675F;&#x5730;&#x5740;&#xFF08;&#x5806;&#x5927;&#x5C0F;&#x4F1A;&#x6839;&#x636E;&#x7533;&#x8BF7;/&#x91CA;&#x653E;&#x8FDB;&#x884C;&#x6269;&#x5C55;&#x548C;&#x6536;&#x7F29;&#xFF09;</span>
+    <span class="hljs-comment">// start_stack &#x6808;&#x7684;&#x8D77;&#x59CB;&#x5730;&#x5740;</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> start_brk, brk, start_stack;
+    <span class="hljs-comment">// &#x53C2;&#x6570;&#x6BB5;&#x3001;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x6BB5;</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> arg_start, arg_end, env_start, env_end;
+};
+</code></pre>
+<p><img src="_img/mm_16.png" alt="mm_struct"></p>
+<pre><code class="lang-c"><span class="hljs-comment">// &#x63CF;&#x8FF0;&#x865A;&#x62DF;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x7684;&#x4E00;&#x4E2A;&#x533A;&#x95F4;&#xFF08;&#x79F0;&#x4E3A;VMA&#xFF09;</span>
+<span class="hljs-keyword">struct</span> vm_area_struct {
+    <span class="hljs-comment">/* The first cache line has the info for VMA tree walking. */</span>
+    <span class="hljs-comment">// &#x7B2C;&#x4E00;&#x4E2A;&#x7F13;&#x5B58;&#x884C;</span>
+
+    <span class="hljs-comment">// &#x533A;&#x95F4;&#x7684;&#x5F00;&#x59CB;&#x548C;&#x7ED3;&#x675F;&#x5730;&#x5740;</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> vm_start;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> vm_end;
+
+    <span class="hljs-comment">/* linked list of VM areas per task, sorted by address */</span>
+    <span class="hljs-comment">// VMA&#x94FE;&#x8868;&#xFF0C;&#x6309;&#x5730;&#x5740;&#x6392;&#x5E8F;</span>
+    <span class="hljs-keyword">struct</span> vm_area_struct *vm_next, *vm_prev;
+
+    <span class="hljs-comment">/* Second cache line starts here. */</span>
+    <span class="hljs-comment">// &#x7B2C;&#x4E8C;&#x4E2A;&#x7F13;&#x5B58;&#x884C;</span>
+
+    <span class="hljs-keyword">struct</span> mm_struct *vm_mm;    <span class="hljs-comment">/* The address space we belong to. */</span>
+    <span class="hljs-keyword">pgprot_t</span> vm_page_prot;        <span class="hljs-comment">/* Access permissions of this VMA. */</span>
+} __randomize_layout;
+</code></pre>
+<p><img src="_img/mm_17.png" alt="vm_area_struct"></p>
+<p><img src="_img/mm_18.png" alt="vm_area_struct"></p>
+<p>&#x94FE;&#x8868;&#x662F;&#x4E3A;&#x4E86;&#x63D2;&#x5165;/&#x5220;&#x9664;&#x65B9;&#x4FBF;&#xFF0C;&#x800C;&#x7EA2;&#x9ED1;&#x6811;&#x662F;&#x4E3A;&#x4E86;&#x67E5;&#x627E;&#x65B9;&#x4FBF;&#x3002;</p>
+<p><strong><u>&#x3010;Q&#xFF1A;&#x4E3A;&#x4EC0;&#x4E48;&#x6808;&#x548C;&#x5806;&#x7684;&#x751F;&#x957F;&#x65B9;&#x5411;&#x4E0D;&#x4E00;&#x6837;&#xFF1F;&#x3011;</u></strong></p>
+<p>&#x5386;&#x53F2;&#x539F;&#x56E0;&#xFF1A;
+&#x9996;&#x5148;&#xFF0C;&#x5728;&#x6CA1;&#x6709;MMU&#x7684;&#x65F6;&#x4EE3;&#xFF0C;&#x4E3A;&#x4E86;&#x6700;&#x5927;&#x5229;&#x7528;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#xFF0C;&#x5806;&#x548C;&#x6808;&#x88AB;&#x8BBE;&#x8BA1;&#x4E3A;&#x4ECE;&#x4E24;&#x7AEF;&#x76F8;&#x5411;&#x751F;&#x957F;&#x3002;
+&#x4EBA;&#x4EEC;&#x4E60;&#x60EF;&#x4E8E;&#x628A;&#x4F4E;&#x5143;&#x7D20;&#x653E;&#x5728;&#x4F4E;&#x5730;&#x5740;&#xFF0C;&#x9AD8;&#x5143;&#x7D20;&#x653E;&#x5728;&#x9AD8;&#x5730;&#x5740;&#xFF0C;&#x6240;&#x4EE5;&#x5806;&#x5411;&#x4E0A;&#x751F;&#x957F;&#x6BD4;&#x8F83;&#x7B26;&#x5408;&#x4E60;&#x60EF;&#x3002;
+&#x800C;&#x6808;&#x53EA;&#x6709;push&#x548C;pop&#x64CD;&#x4F5C;&#xFF0C;&#x5BF9;&#x65B9;&#x5411;&#x4E0D;&#x654F;&#x611F;&#xFF0C;&#x6240;&#x4EE5;&#x5C31;&#x628A;&#x5806;&#x653E;&#x5728;&#x4E86;&#x4F4E;&#x7AEF;&#xFF0C;&#x6808;&#x653E;&#x5728;&#x4E86;&#x9AD8;&#x7AEF;&#x3002;
+MMU&#x51FA;&#x6765;&#x4E4B;&#x540E;&#x5C31;&#x65E0;&#x6240;&#x8C13;&#x4E86;&#xFF0C;&#x4E5F;&#x6CA1;&#x5FC5;&#x8981;&#x6539;&#x3002;</p>
+<h3 id="71-malloc">7.1. malloc</h3>
+<p>&#x5728;linux&#x6807;&#x51C6;libc&#x5E93;&#xFF0C;<code>malloc</code>&#x51FD;&#x6570;&#x7684;&#x5B9E;&#x73B0;&#x4F1A;&#x6839;&#x636E;&#x5206;&#x914D;&#x5185;&#x5B58;&#x7684;size&#x6765;&#x51B3;&#x5B9A;&#x4F7F;&#x7528;&#x54EA;&#x4E2A;&#x5206;&#x914D;&#x51FD;&#x6570;&#xFF0C;</p>
+<ul>
+<li>&#x5F53;size&#x5C0F;&#x4E8E;&#x7B49;&#x4E8E;128KB&#x65F6;&#xFF0C;&#x8C03;&#x7528; <code>brk</code> &#x5206;&#x914D;&#xFF1B;</li>
+<li>&#x5F53;size&#x5927;&#x4E8E;128KB&#x65F6;&#xFF0C;&#x8C03;&#x7528; <code>mmap</code> &#x5206;&#x914D;&#x5185;&#x5B58;&#x3002;</li>
+</ul>
+<p>size&#x53EF;&#x7531; <code>M_MMAP_THRESHOLD</code> &#x9009;&#x9879;&#x8C03;&#x8282;&#x3002;</p>
+<p><img src="_img/mm_19.png" alt="malloc"></p>
+<ul>
+<li>sys_brk&#x5206;&#x914D;&#x8FC7;&#x8FC7;&#x7A0B;&#x4E3B;&#x8981;&#x662F;&#x8C03;&#x6574;brk&#x4F4D;&#x7F6E;</li>
+<li>sys_mmap&#x5206;&#x914D;&#x8FC7;&#x7A0B;&#x4E2D;&#x4E3B;&#x8981;&#x662F;&#x5728;&#x5806;&#x548C;&#x6808;&#x4E2D;&#x95F4;(memory mapping segment)&#x627E;&#x4E00;&#x6BB5;&#x7A7A;&#x95F2;&#x7684;&#x865A;&#x62DF;&#x5185;&#x5B58;</li>
+</ul>
+<h4 id="711-brk">7.1.1. brk</h4>
+<p>&#x5806;&#x5185;&#x5B58;&#x662F;&#x7531;&#x4F4E;&#x5730;&#x5740;&#x5411;&#x9AD8;&#x5730;&#x5740;&#x65B9;&#x5411;&#x589E;&#x957F;&#x3002;&#x5206;&#x914D;&#x5185;&#x5B58;&#x65F6;&#xFF0C;&#x5C06;heap&#x6BB5;&#x7684;&#x6700;&#x9AD8;&#x5730;&#x5740;&#x6307;&#x9488;mm-&gt;brk&#x5F80;&#x9AD8;&#x5730;&#x5740;&#x6269;&#x5C55;&#x3002;&#x91CA;&#x653E;&#x5185;&#x5B58;&#x65F6;&#xFF0C;&#x628A;mm-&gt;brk&#x5411;&#x4F4E;&#x5730;&#x5740;&#x6536;&#x7F29;&#x3002;</p>
+<p><img src="_img/mm_20.png" alt="brk"></p>
+<p>&#x5B8C;&#x6210;&#x8FD9;&#x6BB5;&#x7533;&#x8BF7;&#x540E;&#xFF0C;&#x53EA;&#x662F;&#x5F00;&#x8F9F;&#x4E86;&#x4E00;&#x6BB5;&#x533A;&#x57DF;&#xFF0C;&#x901A;&#x5E38;&#x8FD8;&#x4E0D;&#x4F1A;&#x7ACB;&#x9A6C;&#x5206;&#x914D;&#x7269;&#x7406;&#x5185;&#x5B58;&#xFF0C;&#x7269;&#x7406;&#x5185;&#x5B58;&#x7684;&#x5206;&#x914D;&#x4F1A;&#x53D1;&#x751F;&#x5728;&#x8BBF;&#x95EE;&#x65F6;&#x51FA;&#x73B0;&#x7F3A;&#x9875;&#x5F02;&#x5E38;&#x540E;&#x518D;&#x5904;&#x7406;&#x3002;</p>
+<h4 id="712-mmap">7.1.2. mmap</h4>
+<ul>
+<li>&#x79C1;&#x6709;&#x533F;&#x540D;&#x6620;&#x5C04;&#xFF1A;&#x901A;&#x5E38;&#x7528;&#x4E8E;&#x5185;&#x5B58;&#x5206;&#x914D;&#xFF0C;&#x5806;&#xFF0C;&#x6808;</li>
+<li>&#x5171;&#x4EAB;&#x533F;&#x540D;&#x6620;&#x5C04;&#xFF1A;&#x901A;&#x5E38;&#x7528;&#x4E8E;&#x8FDB;&#x7A0B;&#x95F4;&#x5171;&#x4EAB;&#x5185;&#x5B58;&#xFF0C;&#x5728;&#x5185;&#x5B58;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E2D;&#x521B;&#x5EFA;/dev/zero&#x8BBE;&#x5907;</li>
+<li>&#x79C1;&#x6709;&#x6587;&#x4EF6;&#x6620;&#x5C04;&#xFF1A;&#x901A;&#x5E38;&#x7528;&#x4E8E;&#x52A0;&#x8F7D;&#x52A8;&#x6001;&#x5E93;&#xFF0C;&#x4EE3;&#x7801;&#x6BB5;&#xFF0C;&#x6570;&#x636E;&#x6BB5;</li>
+<li>&#x5171;&#x4EAB;&#x6587;&#x4EF6;&#x6620;&#x5C04;&#xFF1A;&#x901A;&#x5E38;&#x7528;&#x4E8E;&#x6587;&#x4EF6;&#x8BFB;&#x5199;&#x548C;&#x8FDB;&#x7A0B;&#x95F4;&#x901A;&#x4FE1;</li>
+</ul>
+<p><img src="_img/mm_21.png" alt="mmap"></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="进程调度.html" class="navigation navigation-prev " aria-label="Previous page: 进程调度">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../BAGU/" class="navigation navigation-next " aria-label="Next page: 八股">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"内存管理","level":"1.9.2","depth":2,"next":{"title":"八股","level":"1.10","depth":1,"path":"BAGU/index.md","ref":"./BAGU/index.md","articles":[]},"previous":{"title":"进程调度","level":"1.9.1","depth":2,"path":"kernel/进程调度.md","ref":"./kernel/进程调度.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"kernel/内存管理.md","mtime":"2022-09-28T15:48:44.692Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-19T13:45:42.544Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-intopic-toc/anchor.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-intopic-toc/gumshoe.polyfills.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-intopic-toc/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

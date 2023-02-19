@@ -30,7 +30,6 @@
   * [CRD](./Kubernetes/CRD.md)
   * [Operator](./Kubernetes/Operator.md)
 
-
 * [OVS](./OVS/index.md)
 
 * [eBPF](./eBPF/index.md)
@@ -38,6 +37,10 @@
 * [XDP](./XDP/index.md)
 
 * [cilium](./cilium/index.md)
+
+* [内核](./kernel/index.md)
+  * [进程调度](./kernel/进程调度.md)
+  * [内存管理](./kernel/内存管理.md)
 
 * [八股](./BAGU/index.md)
 

@@ -1,4 +1,4 @@
-# 你那么笨，不写下来怎么记得住
+# （总结）->（回顾）->（应用） 
 
 
 > ___Read the fucking source code ! -- By 鲁迅___
