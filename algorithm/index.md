@@ -162,3 +162,10 @@ for n in nums:  # 遍历物品
 for j in range(0, target+1):  # 遍历背包
 	for n in nums:  # 遍历物品
 ```
+
+## 判断一个数是否是2的幂次方
+
+```
+x & (x-1) == 0
+```
+
