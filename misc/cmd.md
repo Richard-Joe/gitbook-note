@@ -6,6 +6,7 @@ latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1))
 ```
 
 ### Centos7升级内核
+
 （参考：http://elrepo.org/tiki/tiki-index.php）
 ```bash
 // 启用 ELRepo 仓库
@@ -26,4 +27,9 @@ kubeadm token list
 
 // 生成有效的令牌（永不失效）
 kubeadm token create --print-join-command --ttl=0
+```
+
+### ssh 免密登录
+```bash
+$ ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.235.22
 ```

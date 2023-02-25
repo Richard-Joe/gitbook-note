@@ -1,0 +1,1448 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>netfilter · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-intopic-toc/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../lb/" />
+    
+    
+    <link rel="prev" href="route.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../gitbook/">
+            
+                <a href="../../gitbook/">
+            
+                    
+                    gitbook搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    网络
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    网络基础
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="recv_one_package.html">
+            
+                <a href="recv_one_package.html">
+            
+                    
+                    内核是如何接收一个网络包的
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="dma.html">
+            
+                <a href="dma.html">
+            
+                    
+                    内核DMA机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="veth.html">
+            
+                <a href="veth.html">
+            
+                    
+                    veth设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="tun-tap.html">
+            
+                <a href="tun-tap.html">
+            
+                    
+                    tun/tap设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="bridge.html">
+            
+                <a href="bridge.html">
+            
+                    
+                    Bridge
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.6" data-path="vxlan.html">
+            
+                <a href="vxlan.html">
+            
+                    
+                    VXLAN
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.7" data-path="gre.html">
+            
+                <a href="gre.html">
+            
+                    
+                    GRE
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.8" data-path="neighbor.html">
+            
+                <a href="neighbor.html">
+            
+                    
+                    邻居子系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.9" data-path="route.html">
+            
+                <a href="route.html">
+            
+                    
+                    路由子系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.1.10" data-path="netfilter.html">
+            
+                <a href="netfilter.html">
+            
+                    
+                    netfilter
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../lb/">
+            
+                <a href="../lb/">
+            
+                    
+                    负载均衡
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../lb/LVS.html">
+            
+                <a href="../lb/LVS.html">
+            
+                    
+                    LVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../lb/Maglev.html">
+            
+                <a href="../lb/Maglev.html">
+            
+                    
+                    Maglev
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../traffic_control/tc.html">
+            
+                <a href="../traffic_control/tc.html">
+            
+                    
+                    流量控制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="../traffic_control/bufferbloat.html">
+            
+                <a href="../traffic_control/bufferbloat.html">
+            
+                    
+                    缓冲膨胀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="../traffic_control/fq_codel.html">
+            
+                <a href="../traffic_control/fq_codel.html">
+            
+                    
+                    公平队列控制延迟
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    Kubernetes
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../../Kubernetes/Jobs.html">
+            
+                <a href="../../Kubernetes/Jobs.html">
+            
+                    
+                    Jobs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../../Kubernetes/CronJob.html">
+            
+                <a href="../../Kubernetes/CronJob.html">
+            
+                    
+                    CronJob
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../../Kubernetes/CRD.html">
+            
+                <a href="../../Kubernetes/CRD.html">
+            
+                    
+                    CRD
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../../Kubernetes/Operator.html">
+            
+                <a href="../../Kubernetes/Operator.html">
+            
+                    
+                    Operator
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../../Kubernetes/kubelet.html">
+            
+                <a href="../../Kubernetes/kubelet.html">
+            
+                    
+                    kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../OVS/">
+            
+                <a href="../../OVS/">
+            
+                    
+                    OVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../../eBPF/">
+            
+                <a href="../../eBPF/">
+            
+                    
+                    eBPF
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../../XDP/">
+            
+                <a href="../../XDP/">
+            
+                    
+                    XDP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../../cilium/">
+            
+                <a href="../../cilium/">
+            
+                    
+                    cilium
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" >
+            
+                <span>
+            
+                    
+                    内核
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../../kernel/进程调度.html">
+            
+                <a href="../../kernel/进程调度.html">
+            
+                    
+                    进程调度
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../../kernel/内存管理.html">
+            
+                <a href="../../kernel/内存管理.html">
+            
+                    
+                    内存管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../../kernel/kdump.html">
+            
+                <a href="../../kernel/kdump.html">
+            
+                    
+                    Kdump
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" >
+            
+                <span>
+            
+                    
+                    八股
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../../BAGU/consistent_hash.html">
+            
+                <a href="../../BAGU/consistent_hash.html">
+            
+                    
+                    一致性hash
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" >
+            
+                <span>
+            
+                    
+                    杂项
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../../misc/centos-install-v2ray.html">
+            
+                <a href="../../misc/centos-install-v2ray.html">
+            
+                    
+                    centos安装v2ray
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../../misc/docker-pull-use-proxy.html">
+            
+                <a href="../../misc/docker-pull-use-proxy.html">
+            
+                    
+                    docker/containerd设置代理实现从外网拉取镜像
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../../misc/install-ovs.html">
+            
+                <a href="../../misc/install-ovs.html">
+            
+                    
+                    编译安装ovs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../../misc/docker-to-containerd.html">
+            
+                <a href="../../misc/docker-to-containerd.html">
+            
+                    
+                    k8s 将docker切换为containerd
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.5" data-path="../../misc/compile-kernel.html">
+            
+                <a href="../../misc/compile-kernel.html">
+            
+                    
+                    编译内核
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../../KEEP.html">
+            
+                <a href="../../KEEP.html">
+            
+                    
+                    时间线
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >netfilter</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="netfilter">netfilter</h1>
+<p>&#x6CE8;&#xFF1A;&#x4E00;&#x4E9B;&#x57FA;&#x7840;&#x6982;&#x5FF5;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x8D58;&#x8FF0;&#x4E86;&#x3002;</p>
+<h2 id="1-netfilter-hooks">1. netfilter hooks</h2>
+<p><img src="netfilter-images/nf-hooks.png" alt="netfilter hook"></p>
+<p>&#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A; <strong>&#x5730;&#x5740;&#x65CF;</strong>&#xFF08;Address Families&#xFF09;&#xFF0C;&#x5185;&#x6838;&#x5728;&#x6570;&#x636E;&#x5305;&#x5904;&#x7406;&#x8DEF;&#x5F84;&#x7684;&#x7279;&#x5B9A;&#x9636;&#x6BB5;&#x653E;&#x7F6E;&#x4E86;&#x4E00;&#x4E9B;&#x94A9;&#x5B50;&#xFF08;Hooks&#xFF09;&#x3002;</p>
+<p>&#x65B0;&#x7248;&#x5185;&#x6838;&#x589E;&#x52A0;&#x4E86; <strong>Netdev &#x5730;&#x5740;&#x65CF;</strong>&#xFF0C;&#x5904;&#x7406;&#x8BBE;&#x5907;&#x5165;&#x53E3;&#x548C;&#x51FA;&#x53E3;&#x8DEF;&#x5F84;&#x7684;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x5141;&#x8BB8;&#x8FC7;&#x6EE4;&#x4EFB;&#x4F55; <strong>&#x4EE5;&#x592A;&#x7F51;</strong> &#x7C7B;&#x578B;&#x7684;&#x6570;&#x636E;&#x5305;&#x3002;&#x5B83;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x65E9;&#x671F;&#x8FC7;&#x6EE4;&#xFF08;filtering&#xFF09;&#x548C;&#x76D1;&#x7BA1;&#xFF08;policing&#xFF09;&#x3002;</p>
+<ul>
+<li><strong>ingress</strong>&#xFF1A;&#x8C03;&#x7528;&#x65F6;&#x673A;&#xFF0C;&#x5728; <strong>tc ingress</strong> &#x4E4B;&#x540E;&#xFF0C;<strong>&#x4E09;&#x5C42;&#x534F;&#x8BAE;&#x5904;&#x7406;&#x7A0B;&#x5E8F;</strong>&#x4E4B;&#x524D;&#xFF1B;&#x8C03;&#x7528;&#x51FD;&#x6570;&#xFF08;nf_hook_ingress&#xFF09;&#xFF1B;</li>
+<li><strong>egress</strong>&#xFF1A;&#x8C03;&#x7528;&#x65F6;&#x673A;&#xFF0C;&#x5728;<strong>&#x4E09;&#x5C42;&#x534F;&#x8BAE;&#x5904;&#x7406;&#x7A0B;&#x5E8F;</strong>&#x4E4B;&#x540E;&#xFF0C; <strong>tc egress</strong> &#x4E4B;&#x524D;&#xFF1B;&#x8C03;&#x7528;&#x51FD;&#x6570;&#xFF08;nf_hook_egress&#xFF09;&#xFF1B;</li>
+</ul>
+<h2 id="2-&#x8FDE;&#x63A5;&#x8DDF;&#x8E2A;&#xFF08;connection-tracking&#xFF0C;conntrack&#xFF0C;ct&#xFF09;">2. &#x8FDE;&#x63A5;&#x8DDF;&#x8E2A;&#xFF08;Connection Tracking&#xFF0C;conntrack&#xFF0C;CT&#xFF09;</h2>
+<p>&#x5173;&#x952E;&#x8BCD;&#xFF1A;</p>
+<ul>
+<li><strong>&#x5143;&#x7EC4;</strong>&#xFF08;tuple&#xFF09;&#xFF1A;&#x7528;&#x6765;&#x533A;&#x5206;&#x6570;&#x636E;&#x6D41;&#xFF08;flow&#xFF09;&#xFF0C;&#x5E76;&#x8DDF;&#x8E2A;&#x4E00;&#x6761;&#x8FDE;&#x63A5;&#xFF1B;<ul>
+<li>&#x6BD4;&#x5982;&#x4ECE;&#x6570;&#x636E;&#x5305;&#x4E2D;&#x63D0;&#x53D6;&#x4E94;&#x5143;&#x7EC4;&#x4FE1;&#x606F;&#xFF08;&#x6E90;IP&#x5730;&#x5740;&#xFF0C;&#x76EE;&#x7684;IP&#x5730;&#x5740;&#xFF0C;&#x6E90;&#x7AEF;&#x53E3;&#xFF0C;&#x76EE;&#x7684;&#x7AEF;&#x53E3;&#xFF0C;&#x534F;&#x8BAE;&#x53F7;&#xFF09;&#x3002;</li>
+</ul>
+</li>
+<li>&#x8FDE;&#x63A5;&#x8DDF;&#x8E2A;&#x4E2D;&#x7684; <strong>&#x8FDE;&#x63A5;</strong>&#xFF08;connection&#xFF09;&#xFF1A;&#x8981;&#x8DDF; &#x201C;TCP&#x662F;&#x6709;&#x8FDE;&#x63A5;&#x7684;&#x201D;&#xFF0C;&#x201C;UDP&#x662F;&#x65E0;&#x8FDE;&#x63A5;&#x7684;&#x201D; &#x533A;&#x5206;&#xFF1B;<ul>
+<li>TCP&#x3001;UDP&#x3001;ICMP &#x90FD;&#x662F;&#x6709;&#x8FDE;&#x63A5;&#x8DDF;&#x8E2A;&#x8BB0;&#x5F55;&#x7684;&#x3002;</li>
+<li>&#x4F46;&#x4E0D;&#x662F;&#x6240;&#x6709;&#x534F;&#x8BAE;&#x90FD;&#x4F1A;&#x88AB;&#x8FDE;&#x63A5;&#x8DDF;&#x8E2A;&#x3002;</li>
+</ul>
+</li>
+<li><strong>&#x8FDE;&#x63A5;&#x8DDF;&#x8E2A;&#x8868;</strong>&#xFF08;connection table&#xFF09;&#xFF1A;hash table&#x5B9E;&#x73B0;&#xFF0C;&#x7528;&#x4E8E;&#x8FDE;&#x63A5;&#x63D2;&#x5165;&#xFF0C;&#x67E5;&#x627E;&#x7B49;&#xFF0C;key &#x4E3A;tuple&#x4FE1;&#x606F;&#xFF1B;</li>
+<li>GC&#xFF1A;&#x8FDE;&#x63A5;&#x8DDF;&#x8E2A;&#x8FC7;&#x671F;&#x56DE;&#x6536;&#xFF1B;</li>
+<li><strong>Zone</strong>&#xFF1A;&#x591A;&#x79DF;&#x6237;&#x73AF;&#x5883;&#x4E0B;&#xFF0C;&#x65E0;&#x6CD5;&#x53EA;&#x7528; tuple &#x6765;&#x533A;&#x5206; CT &#xFF0C;&#x6240;&#x4EE5;&#x5F15;&#x5165; Zone &#x7684;&#x6982;&#x5FF5;&#x3002;&#x4E0D;&#x540C;&#x79DF;&#x6237;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7684; zone id &#xFF0C;&#x4ECE;&#x800C;&#x4FDD;&#x8BC1;&#x79DF;&#x6237;&#x4E4B;&#x95F4;&#x7684;&#x9694;&#x79BB;&#x3002;</li>
+</ul>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x5C06; eth1 &#x7F51;&#x53E3;&#x6536;&#x5230;&#x6570;&#x636E;&#x5305;&#x6253;&#x4E0A; zone 1 &#x7684;&#x6807;&#x8BB0;</span>
+$ iptables -t raw -A PREROUTING -i eth1 -j CT --zone 1
+</code></pre>
+<h2 id="3-iptables">3. iptables</h2>
+<p><img src="netfilter-images/iptables.png" alt="iptables"></p>
+<h2 id="4-&#x5411;-netfilter-&#x6CE8;&#x518C;&#x94A9;&#x5B50;">4. &#x5411; netfilter &#x6CE8;&#x518C;&#x94A9;&#x5B50;</h2>
+<p><img src="netfilter-images/reg-hook.png" alt="register hook"></p>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x6253;&#x5370;ipv4&#x5DF2;&#x7ECF;&#x6CE8;&#x518C;&#x7684;&#x94A9;&#x5B50;</span>
+&lt;4&gt;[11225.949841] ==== PRE_ROUTING ====
+&lt;4&gt;[11225.949842]         ipv4_conntrack_defrag+0x0/0x120 [nf_defrag_ipv4]
+&lt;4&gt;[11225.949847]         ipv4_conntrack_<span class="hljs-keyword">in</span>+0x0/0x20 [nf_conntrack]
+&lt;4&gt;[11225.949859]         nft_<span class="hljs-keyword">do</span>_chain_inet+0x0/0xe0 [nf_tables]
+&lt;4&gt;[11225.949872]         nf_nat_ipv4_pre_routing+0x0/0xc0 [nf_nat]
+&lt;4&gt;[11225.949877]         nft_<span class="hljs-keyword">do</span>_chain_inet+0x0/0xe0 [nf_tables]
+&lt;4&gt;[11225.949886] 
+&lt;4&gt;[11225.949886] ==== LOCAL_IN ====
+&lt;4&gt;[11225.949887]         nft_<span class="hljs-keyword">do</span>_chain_inet+0x0/0xe0 [nf_tables]
+&lt;4&gt;[11225.949895]         nf_nat_ipv4_<span class="hljs-built_in">local</span>_<span class="hljs-keyword">in</span>+0x0/0x120 [nf_nat]
+&lt;4&gt;[11225.949900]         nf_confirm+0x0/0x2b0 [nf_conntrack]
+&lt;4&gt;[11225.949908] 
+&lt;4&gt;[11225.949908] ==== FORWARD ====
+&lt;4&gt;[11225.949909]         selinux_ip_forward+0x0/0x1f0
+&lt;4&gt;[11225.949921]         nft_<span class="hljs-keyword">do</span>_chain_inet+0x0/0xe0 [nf_tables]
+&lt;4&gt;[11225.949930] 
+&lt;4&gt;[11225.949930] ==== LOCAL_OUT ====
+&lt;4&gt;[11225.949931]         ipv4_conntrack_defrag+0x0/0x120 [nf_defrag_ipv4]
+&lt;4&gt;[11225.949934]         selinux_ip_output+0x0/0x70
+&lt;4&gt;[11225.949936]         ipv4_conntrack_<span class="hljs-built_in">local</span>+0x0/0x90 [nf_conntrack]
+&lt;4&gt;[11225.949944]         nf_nat_ipv4_<span class="hljs-built_in">local</span>_fn+0x0/0x120 [nf_nat]
+&lt;4&gt;[11225.949949]         nft_<span class="hljs-keyword">do</span>_chain_inet+0x0/0xe0 [nf_tables]
+&lt;4&gt;[11225.949957] 
+&lt;4&gt;[11225.949958] ==== POST_ROUTING ====
+&lt;4&gt;[11225.949958]         nf_nat_ipv4_out+0x0/0x100 [nf_nat]
+&lt;4&gt;[11225.949962]         selinux_ip_postroute+0x0/0x400
+&lt;4&gt;[11225.949964]         nf_confirm+0x0/0x2b0 [nf_conntrack]
+</code></pre>
+<h2 id="5-ipv4conntrackdefrag">5. ipv4_conntrack_defrag</h2>
+<p>&#x4FDD;&#x8BC1;&#x8FDB;&#x5165;&#x8FDE;&#x63A5;&#x8DDF;&#x8E2A;&#x7684;&#x5305;&#x90FD;&#x662F;&#x5B8C;&#x6574;&#x7684;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x800C;&#x975E;&#x5206;&#x7247;&#x5305;&#x3002;</p>
+<pre><code class="lang-c">ipv4_conntrack_defrag
+  | ip_is_fragment
+     | ip_defrag
+     | <span class="hljs-keyword">return</span> NF_STOLEN; <span class="hljs-comment">// &#x5206;&#x7247;&#x5305;&#x8FDB;&#x884C;&#x961F;&#x5217;&#x91CD;&#x7EC4;&#xFF0C;&#x5C31;&#x88AB;&#x5077;&#x8D70;&#x4E86;&#x3002;</span>
+</code></pre>
+<h2 id="6-ipv4conntrackin">6. ipv4_conntrack_in</h2>
+<h2 id="7-nfconfirm">7. nf_confirm</h2>
+<h2 id="8-nfnatipv4prerouting">8. nf_nat_ipv4_pre_routing</h2>
+<h2 id="9-nfnatipv4localin">9. nf_nat_ipv4_local_in</h2>
+<h2 id="10-nfnatipv4out">10. nf_nat_ipv4_out</h2>
+<h2 id="8-perf-&#x8DDF;&#x8E2A;&#x51FD;&#x6570;&#x5806;&#x6808;">8. perf &#x8DDF;&#x8E2A;&#x51FD;&#x6570;&#x5806;&#x6808;</h2>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x65B9;&#x4FBF;&#x6D4B;&#x8BD5;</span>
+<span class="hljs-comment"># &#x5982;&#x679C;&#x5F00;&#x542F;&#x4E86;&#x7F51;&#x5361;&#x591A;&#x961F;&#x5217;&#xFF0C;&#x5219;&#x8BBE;&#x7F6E; enp0s8 &#x5F53;&#x524D;&#x4F7F;&#x7528; 1 &#x4E2A;&#x961F;&#x5217;</span>
+<span class="hljs-comment"># &#x7F51;&#x5361;&#x591A;&#x961F;&#x5217;&#x9700;&#x8981;&#x9A71;&#x52A8;&#x652F;&#x6301;</span>
+$ ethtool -L enp0s8 combined 1
+<span class="hljs-comment"># &#x5C06;&#x7F51;&#x5361;&#x4E2D;&#x65AD;&#x7ED1;&#x5B9A;&#x5230; CPU0</span>
+$ <span class="hljs-built_in">echo</span> 0 &gt; /proc/irq/$(cat /proc/interrupts | awk -F <span class="hljs-string">&apos;:&apos;</span> <span class="hljs-string">&apos;/enp0s8/ {gsub(/ /,&quot;&quot;); print $1}&apos;</span>)/smp_affinity_list
+
+<span class="hljs-comment"># perf ftrace</span>
+$ perf ftrace -C0 -G <span class="hljs-string">&apos;__netif_receive_skb_list_core&apos;</span> -g <span class="hljs-string">&apos;smp_*&apos;</span>
+</code></pre>
+<pre><code class="lang-bash">0)   0.664 us    |    __netif_receive_skb_core.constprop.0();
+ 0)               |    <span class="hljs-function"><span class="hljs-title">ip_list_rcv</span></span>() {
+ 0)   0.304 us    |      ip_rcv_core();
+ 0)               |      <span class="hljs-function"><span class="hljs-title">ip_sublist_rcv</span></span>() {
+ 0)   0.134 us    |        __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)               |        <span class="hljs-function"><span class="hljs-title">nf_hook_slow_list</span></span>() {
+ 0)               |          <span class="hljs-function"><span class="hljs-title">nf_hook_slow</span></span>() {
+ 0)   0.139 us    |            ipv4_conntrack_defrag [nf_defrag_ipv4]();
+ 0)               |            ipv4_conntrack_<span class="hljs-keyword">in</span> [nf_conntrack]() {
+ 0)               |              nf_conntrack_<span class="hljs-keyword">in</span> [nf_conntrack]() {
+ 0)   0.154 us    |                get_l4proto [nf_conntrack]();
+ 0)               |                nf_conntrack_icmpv4_error [nf_conntrack]() {
+ 0)               |                  <span class="hljs-function"><span class="hljs-title">nf_ip_checksum</span></span>() {
+ 0)               |                    <span class="hljs-function"><span class="hljs-title">__skb_checksum_complete</span></span>() {
+ 0)               |                      <span class="hljs-function"><span class="hljs-title">__skb_checksum</span></span>() {
+ 0)   0.143 us    |                        csum_partial();
+ 0)   0.508 us    |                      }
+ 0)   0.895 us    |                    }
+ 0)   1.225 us    |                  }
+ 0)   1.578 us    |                }
+ 0)               |                nf_ct_get_tuple [nf_conntrack]() {
+ 0)   0.141 us    |                  icmp_pkt_to_tuple [nf_conntrack]();
+ 0)   0.539 us    |                }
+ 0)   0.347 us    |                <span class="hljs-built_in">hash</span>_conntrack_raw [nf_conntrack]();
+ 0)               |                __nf_conntrack_find_get [nf_conntrack]() {
+ 0)   0.134 us    |                  __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)   0.151 us    |                  __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)   0.908 us    |                }
+ 0)               |                init_conntrack.constprop.0 [nf_conntrack]() {
+ 0)               |                  nf_ct_invert_tuple [nf_conntrack]() {
+ 0)   0.197 us    |                    nf_conntrack_invert_icmp_tuple [nf_conntrack]();
+ 0)   0.471 us    |                  }
+ 0)               |                  __nf_conntrack_alloc [nf_conntrack]() {
+ 0)   0.139 us    |                    __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)   0.128 us    |                    __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)               |                    <span class="hljs-function"><span class="hljs-title">kmem_cache_alloc</span></span>() {
+ 0)   0.139 us    |                      should_failslab();
+ 0)   1.162 us    |                    }
+ 0)   2.573 us    |                  }
+ 0)   0.153 us    |                  nf_ct_ecache_ext_add [nf_conntrack]();
+ 0)   0.139 us    |                  __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)   0.129 us    |                  __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)   4.388 us    |                }
+ 0)               |                nf_conntrack_icmp_packet [nf_conntrack]() {
+ 0)               |                  __nf_ct_refresh_acct [nf_conntrack]() {
+ 0)   0.139 us    |                    nf_ct_acct_add [nf_conntrack]();
+ 0)   0.402 us    |                  }
+ 0)   0.734 us    |                }
+ 0) + 10.332 us   |              }
+ 0) + 10.660 us   |            }
+ 0)               |            nft_<span class="hljs-keyword">do</span>_chain_inet [nf_tables]() {
+ 0)               |              nft_<span class="hljs-keyword">do</span>_chain [nf_tables]() {
+ 0)   0.154 us    |                nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.196 us    |                nft_meta_get_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.143 us    |                nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.143 us    |                nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.149 us    |                nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.133 us    |                nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.135 us    |                nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.134 us    |                nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.134 us    |                nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.133 us    |                nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.136 us    |                nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.135 us    |                nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.136 us    |                nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.136 us    |                nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.135 us    |                nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.136 us    |                nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   8.586 us    |              }
+ 0)   9.044 us    |            }
+ 0)               |            nf_nat_ipv4_pre_routing [nf_nat]() {
+ 0)               |              nf_nat_inet_fn [nf_nat]() {
+ 0)               |                nft_nat_<span class="hljs-keyword">do</span>_chain [nft_chain_nat]() {
+ 0)               |                  nft_<span class="hljs-keyword">do</span>_chain [nf_tables]() {
+ 0)   0.137 us    |                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.161 us    |                    nft_meta_get_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.136 us    |                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.133 us    |                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.138 us    |                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.134 us    |                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.137 us    |                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.135 us    |                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.135 us    |                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.133 us    |                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.134 us    |                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.134 us    |                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.134 us    |                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.134 us    |                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.134 us    |                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.200 us    |                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   6.108 us    |                  }
+ 0)   6.381 us    |                }
+ 0)               |                __nf_nat_alloc_null_binding [nf_nat]() {
+ 0)               |                  nf_nat_setup_info [nf_nat]() {
+ 0)               |                    nf_ct_invert_tuple [nf_conntrack]() {
+ 0)   0.128 us    |                      nf_conntrack_invert_icmp_tuple [nf_conntrack]();
+ 0)   0.388 us    |                    }
+ 0)               |                    nf_ct_invert_tuple [nf_conntrack]() {
+ 0)   0.138 us    |                      nf_conntrack_invert_icmp_tuple [nf_conntrack]();
+ 0)   0.399 us    |                    }
+ 0)               |                    nf_conntrack_tuple_taken [nf_conntrack]() {
+ 0)   0.143 us    |                      __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)   0.164 us    |                      <span class="hljs-built_in">hash</span>_conntrack_raw [nf_conntrack]();
+ 0)   0.131 us    |                      __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)   1.073 us    |                    }
+ 0)   2.539 us    |                  }
+ 0)   2.877 us    |                }
+ 0) + 10.226 us   |              }
+ 0) + 10.647 us   |            }
+ 0)               |            nft_<span class="hljs-keyword">do</span>_chain_inet [nf_tables]() {
+ 0)               |              nft_<span class="hljs-keyword">do</span>_chain [nf_tables]() {
+ 0)   0.159 us    |                nft_meta_get_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.142 us    |                nft_meta_get_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.964 us    |              }
+ 0)   1.218 us    |            }
+ 0) + 33.608 us   |          }
+ 0) + 33.982 us   |        }
+ 0)   0.129 us    |        __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)               |        ip_rcv_finish_core.constprop.<span class="hljs-function"><span class="hljs-title">0</span></span>() {
+ 0)               |          <span class="hljs-function"><span class="hljs-title">ip_route_input_noref</span></span>() {
+ 0)   0.136 us    |            __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)               |            <span class="hljs-function"><span class="hljs-title">ip_route_input_slow</span></span>() {
+ 0)               |              <span class="hljs-function"><span class="hljs-title">make_kuid</span></span>() {
+ 0)   0.306 us    |                map_id_range_down();
+ 0)   0.630 us    |              }
+ 0)   0.137 us    |              __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)               |              <span class="hljs-function"><span class="hljs-title">fib_table_lookup</span></span>() {
+ 0)   0.515 us    |                fib_lookup_good_nhc();
+ 0)   2.229 us    |              }
+ 0)   0.132 us    |              __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)               |              <span class="hljs-function"><span class="hljs-title">fib_validate_source</span></span>() {
+ 0)               |                <span class="hljs-function"><span class="hljs-title">__fib_validate_source</span></span>() {
+ 0)   0.131 us    |                  l3mdev_master_ifindex_rcu();
+ 0)               |                  <span class="hljs-function"><span class="hljs-title">make_kuid</span></span>() {
+ 0)   0.134 us    |                    map_id_range_down();
+ 0)   0.390 us    |                  }
+ 0)   0.135 us    |                  __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)               |                  <span class="hljs-function"><span class="hljs-title">fib_table_lookup</span></span>() {
+ 0)   0.144 us    |                    fib_lookup_good_nhc();
+ 0)   0.512 us    |                  }
+ 0)   0.132 us    |                  __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)   0.144 us    |                  fib_info_nh_uses_dev();
+ 0)   2.537 us    |                }
+ 0)   2.874 us    |              }
+ 0)   8.436 us    |            }
+ 0)   0.130 us    |            __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)   9.285 us    |          }
+ 0)   9.647 us    |        }
+ 0)               |        <span class="hljs-function"><span class="hljs-title">ip_sublist_rcv_finish</span></span>() {
+ 0)               |          <span class="hljs-function"><span class="hljs-title">ip_local_deliver</span></span>() {
+ 0)   0.136 us    |            __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)               |            <span class="hljs-function"><span class="hljs-title">nf_hook_slow</span></span>() {
+ 0)               |              nft_<span class="hljs-keyword">do</span>_chain_inet [nf_tables]() {
+ 0)               |                nft_<span class="hljs-keyword">do</span>_chain [nf_tables]() {
+ 0)   0.153 us    |                  nft_ct_get_<span class="hljs-built_in">eval</span> [nft_ct]();
+ 0)               |                  nft_lookup_<span class="hljs-built_in">eval</span> [nf_tables]() {
+ 0)               |                    nft_<span class="hljs-built_in">set</span>_<span class="hljs-keyword">do</span>_lookup [nf_tables]() {
+ 0)   0.372 us    |                      nft_<span class="hljs-built_in">hash</span>_lookup_fast [nf_tables]();
+ 0)   0.894 us    |                    }
+ 0)   0.152 us    |                    nft_<span class="hljs-built_in">set</span>_catchall_lookup [nf_tables]();
+ 0)   1.594 us    |                  }
+ 0)   0.168 us    |                  nft_ct_get_<span class="hljs-built_in">eval</span> [nft_ct]();
+ 0)   0.168 us    |                  nft_meta_get_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.144 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.158 us    |                  nft_meta_get_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.144 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.138 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.202 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.136 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.151 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.136 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.134 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.138 us    |                  nft_meta_get_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.144 us    |                  nft_meta_get_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.128 us    |                  nft_meta_get_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.129 us    |                  nft_meta_get_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.142 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.137 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.137 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.137 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.137 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.140 us    |                  nft_meta_get_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.132 us    |                  nft_meta_get_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.134 us    |                  nft_meta_get_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.136 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.136 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   0.150 us    |                  nft_meta_get_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)               |                  nft_lookup_<span class="hljs-built_in">eval</span> [nf_tables]() {
+ 0)               |                    nft_<span class="hljs-built_in">set</span>_<span class="hljs-keyword">do</span>_lookup [nf_tables]() {
+ 0)   0.185 us    |                      nft_bitmap_lookup [nf_tables]();
+ 0)   0.700 us    |                    }
+ 0)   0.973 us    |                  } /* nft_lookup_<span class="hljs-built_in">eval</span> [nf_tables] */
+ 0)   0.150 us    |                  nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0) + 13.273 us   |                }
+ 0) + 13.523 us   |              }
+ 0)               |              nf_nat_ipv4_<span class="hljs-built_in">local</span>_<span class="hljs-keyword">in</span> [nf_nat]() {
+ 0)               |                nf_nat_inet_fn [nf_nat]() {
+ 0)               |                  __nf_nat_alloc_null_binding [nf_nat]() {
+ 0)               |                    nf_nat_setup_info [nf_nat]() {
+ 0)               |                      nf_ct_invert_tuple [nf_conntrack]() {
+ 0)   0.129 us    |                        nf_conntrack_invert_icmp_tuple [nf_conntrack]();
+ 0)   0.397 us    |                      }
+ 0)   0.165 us    |                      <span class="hljs-keyword">in</span>_range [nf_nat]();
+ 0)               |                      nf_ct_invert_tuple [nf_conntrack]() {
+ 0)   0.130 us    |                        nf_conntrack_invert_icmp_tuple [nf_conntrack]();
+ 0)   0.388 us    |                      }
+ 0)               |                      nf_conntrack_tuple_taken [nf_conntrack]() {
+ 0)   0.129 us    |                        __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)   0.153 us    |                        <span class="hljs-built_in">hash</span>_conntrack_raw [nf_conntrack]();
+ 0)   0.131 us    |                        __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)   0.914 us    |                      }
+ 0)   0.474 us    |                      <span class="hljs-built_in">hash</span>_by_src [nf_nat]();
+ 0)               |                      <span class="hljs-function"><span class="hljs-title">_raw_spin_lock_bh</span></span>() {
+ 0)   0.133 us    |                        preempt_count_add();
+ 0)   0.402 us    |                      }
+ 0)               |                      <span class="hljs-function"><span class="hljs-title">_raw_spin_unlock_bh</span></span>() {
+ 0)               |                        <span class="hljs-function"><span class="hljs-title">__local_bh_enable_ip</span></span>() {
+ 0)   0.138 us    |                          preempt_count_sub();
+ 0)   0.415 us    |                        }
+ 0)   0.684 us    |                      }
+ 0)   4.755 us    |                    }
+ 0)   5.027 us    |                  }
+ 0)   5.376 us    |                }
+ 0)   5.642 us    |              }
+ 0)               |              nf_confirm [nf_conntrack]() {
+ 0)               |                __nf_conntrack_confirm [nf_conntrack]() {
+ 0)   0.131 us    |                  preempt_count_add();
+ 0)   0.161 us    |                  <span class="hljs-built_in">hash</span>_conntrack_raw [nf_conntrack]();
+ 0)               |                  nf_conntrack_double_lock.constprop.0 [nf_conntrack]() {
+ 0)               |                    <span class="hljs-function"><span class="hljs-title">_raw_spin_lock</span></span>() {
+ 0)   0.129 us    |                      preempt_count_add();
+ 0)   0.759 us    |                    }
+ 0)               |                    <span class="hljs-function"><span class="hljs-title">_raw_spin_lock</span></span>() {
+ 0)   0.129 us    |                      preempt_count_add();
+ 0)   0.446 us    |                    }
+ 0)   1.604 us    |                  }
+ 0)   0.380 us    |                  get_random_u8();
+ 0)   0.137 us    |                  __nf_conntrack_insert_prepare [nf_conntrack]();
+ 0)   0.149 us    |                  __nf_conntrack_<span class="hljs-built_in">hash</span>_insert [nf_conntrack]();
+ 0)               |                  <span class="hljs-function"><span class="hljs-title">_raw_spin_unlock</span></span>() {
+ 0)   0.137 us    |                    preempt_count_sub();
+ 0)   0.387 us    |                  }
+ 0)               |                  <span class="hljs-function"><span class="hljs-title">_raw_spin_unlock</span></span>() {
+ 0)   0.127 us    |                    preempt_count_sub();
+ 0)   0.385 us    |                  }
+ 0)               |                  <span class="hljs-function"><span class="hljs-title">__local_bh_enable_ip</span></span>() {
+ 0)   0.128 us    |                    preempt_count_sub();
+ 0)   0.385 us    |                  }
+ 0)   5.119 us    |                }
+ 0)   5.464 us    |              }
+ 0) + 25.313 us   |            }
+ 0)   0.137 us    |            __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)               |            <span class="hljs-function"><span class="hljs-title">ip_local_deliver_finish</span></span>() {
+ 0)   0.146 us    |              __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)               |              <span class="hljs-function"><span class="hljs-title">ip_protocol_deliver_rcu</span></span>() {
+ 0)               |                <span class="hljs-function"><span class="hljs-title">raw_local_deliver</span></span>() {
+ 0)   0.130 us    |                  __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)   0.141 us    |                  __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)   0.730 us    |                }
+ 0)               |                <span class="hljs-function"><span class="hljs-title">icmp_rcv</span></span>() {
+ 0)               |                  <span class="hljs-function"><span class="hljs-title">icmp_echo</span></span>() {
+ 0)               |                    icmp_echo.part.<span class="hljs-function"><span class="hljs-title">0</span></span>() {
+ 0)               |                      <span class="hljs-function"><span class="hljs-title">icmp_reply</span></span>() {
+ 0)   0.143 us    |                        __ip_options_<span class="hljs-built_in">echo</span>();
+ 0)   0.141 us    |                        preempt_count_add();
+ 0)               |                        <span class="hljs-function"><span class="hljs-title">_raw_spin_trylock</span></span>() {
+ 0)   0.130 us    |                          preempt_count_add();
+ 0)   0.471 us    |                        }
+ 0)   0.138 us    |                        fib_compute_spec_dst();
+ 0)               |                        <span class="hljs-function"><span class="hljs-title">make_kuid</span></span>() {
+ 0)   0.136 us    |                          map_id_range_down();
+ 0)   0.391 us    |                        }
+ 0)   0.135 us    |                        __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)   0.129 us    |                        l3mdev_master_ifindex_rcu();
+ 0)   0.130 us    |                        __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)               |                        <span class="hljs-function"><span class="hljs-title">security_skb_classify_flow</span></span>() {
+ 0)               |                          <span class="hljs-function"><span class="hljs-title">selinux_xfrm_decode_session</span></span>() {
+ 0)   0.144 us    |                            selinux_xfrm_skb_sid_ingress();
+ 0)   0.451 us    |                          }
+ 0)   0.135 us    |                          bpf_lsm_xfrm_decode_session();
+ 0)   1.509 us    |                        }
+ 0)               |                        <span class="hljs-function"><span class="hljs-title">ip_route_output_flow</span></span>() {
+ 0)   0.135 us    |                          __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)               |                          <span class="hljs-function"><span class="hljs-title">ip_route_output_key_hash_rcu</span></span>() {
+ 0)               |                            <span class="hljs-function"><span class="hljs-title">__ip_dev_find</span></span>() {
+ 0)   0.135 us    |                              __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)   0.126 us    |                              __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)   0.938 us    |                            }
+ 0)   0.134 us    |                            __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)               |                            <span class="hljs-function"><span class="hljs-title">fib_table_lookup</span></span>() {
+ 0)   0.142 us    |                              fib_lookup_good_nhc();
+ 0)   0.435 us    |                            }
+ 0)   0.130 us    |                            __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)   0.148 us    |                            fib_select_path();
+ 0)   0.145 us    |                            find_exception();
+ 0)   3.419 us    |                          }
+ 0)   0.128 us    |                          __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)               |                          <span class="hljs-function"><span class="hljs-title">xfrm_lookup_route</span></span>() {
+ 0)   0.329 us    |                            xfrm_lookup_with_ifid();
+ 0)   0.664 us    |                          }
+ 0)   5.116 us    |                        }
+ 0)   0.151 us    |                        icmpv4_xrlim_allow();
+ 0)               |                        <span class="hljs-function"><span class="hljs-title">icmp_push_reply</span></span>() {
+ 0)               |                          <span class="hljs-function"><span class="hljs-title">ip_append_data</span></span>() {
+ 0)               |                            <span class="hljs-function"><span class="hljs-title">ip_setup_cork</span></span>() {
+ 0)   0.284 us    |                              ipv4_mtu();
+ 0)   0.633 us    |                            }
+ 0)               |                            <span class="hljs-function"><span class="hljs-title">__ip_append_data</span></span>() {
+ 0)               |                              <span class="hljs-function"><span class="hljs-title">sock_alloc_send_pskb</span></span>() {
+ 0)               |                                <span class="hljs-function"><span class="hljs-title">alloc_skb_with_frags</span></span>() {
+ 0)               |                                  <span class="hljs-function"><span class="hljs-title">__alloc_skb</span></span>() {
+ 0)               |                                    <span class="hljs-function"><span class="hljs-title">kmem_cache_alloc_node</span></span>() {
+ 0)   0.126 us    |                                      should_failslab();
+ 0)   0.904 us    |                                    }
+ 0)               |                                    <span class="hljs-function"><span class="hljs-title">kmalloc_size_roundup</span></span>() {
+ 0)   0.201 us    |                                      kmalloc_slab();
+ 0)   0.600 us    |                                    }
+ 0)               |                                    <span class="hljs-function"><span class="hljs-title">__kmalloc_node_track_caller</span></span>() {
+ 0)   0.130 us    |                                      kmalloc_slab();
+ 0)               |                                      <span class="hljs-function"><span class="hljs-title">__kmem_cache_alloc_node</span></span>() {
+ 0)   0.128 us    |                                        should_failslab();
+ 0)   0.609 us    |                                      }
+ 0)   1.199 us    |                                    }
+ 0)   0.132 us    |                                    __build_skb_around();
+ 0)   3.710 us    |                                  }
+ 0)   4.000 us    |                                }
+ 0)   0.155 us    |                                skb_<span class="hljs-built_in">set</span>_owner_w();
+ 0)   4.672 us    |                              }
+ 0)   0.131 us    |                              skb_put();
+ 0)               |                              <span class="hljs-function"><span class="hljs-title">icmp_glue_bits</span></span>() {
+ 0)               |                                <span class="hljs-function"><span class="hljs-title">skb_copy_and_csum_bits</span></span>() {
+ 0)   0.259 us    |                                  csum_partial_copy_nocheck();
+ 0)   0.547 us    |                                }
+ 0)   0.930 us    |                              }
+ 0)   6.777 us    |                            }
+ 0)   7.943 us    |                          }
+ 0)   0.153 us    |                          csum_partial_copy_nocheck();
+ 0)               |                          <span class="hljs-function"><span class="hljs-title">ip_push_pending_frames</span></span>() {
+ 0)               |                            <span class="hljs-function"><span class="hljs-title">__ip_make_skb</span></span>() {
+ 0)   0.148 us    |                              ipv4_mtu();
+ 0)               |                              <span class="hljs-function"><span class="hljs-title">__ip_select_ident</span></span>() {
+ 0)               |                                <span class="hljs-function"><span class="hljs-title">__get_random_u32_below</span></span>() {
+ 0)   0.181 us    |                                  get_random_u32();
+ 0)   0.554 us    |                                }
+ 0)   1.139 us    |                              }
+ 0)   0.207 us    |                              icmp_out_count();
+ 0)   0.141 us    |                              kfree();
+ 0)   0.135 us    |                              dst_release();
+ 0)   2.757 us    |                            }
+ 0)               |                            <span class="hljs-function"><span class="hljs-title">__ip_local_out</span></span>() {
+ 0)   0.136 us    |                              ip_send_check();
+ 0)   0.137 us    |                              __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)               |                              <span class="hljs-function"><span class="hljs-title">nf_hook_slow</span></span>() {
+ 0)   0.147 us    |                                ipv4_conntrack_defrag [nf_defrag_ipv4]();
+ 0)               |                                <span class="hljs-function"><span class="hljs-title">selinux_ip_output</span></span>() {
+ 0)   0.493 us    |                                  netlbl_enabled();
+ 0)   0.833 us    |                                }
+ 0)               |                                ipv4_conntrack_<span class="hljs-built_in">local</span> [nf_conntrack]() {
+ 0)               |                                  nf_conntrack_<span class="hljs-keyword">in</span> [nf_conntrack]() {
+ 0)   0.134 us    |                                    get_l4proto [nf_conntrack]();
+ 0)   0.152 us    |                                    nf_conntrack_icmpv4_error [nf_conntrack]();
+ 0)               |                                    nf_ct_get_tuple [nf_conntrack]() {
+ 0)   0.131 us    |                                      icmp_pkt_to_tuple [nf_conntrack]();
+ 0)   0.386 us    |                                    }
+ 0)   0.160 us    |                                    <span class="hljs-built_in">hash</span>_conntrack_raw [nf_conntrack]();
+ 0)               |                                    __nf_conntrack_find_get [nf_conntrack]() {
+ 0)   0.129 us    |                                      __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)   0.129 us    |                                      __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)   0.731 us    |                                    }
+ 0)               |                                    nf_conntrack_icmp_packet [nf_conntrack]() {
+ 0)               |                                      __nf_ct_refresh_acct [nf_conntrack]() {
+ 0)   9.340 us    |                                        nf_ct_acct_add [nf_conntrack]();
+ 0)   9.764 us    |                                      }
+ 0) + 11.211 us   |                                    }
+ 0) + 13.864 us   |                                  }
+ 0) + 14.184 us   |                                }
+ 0)               |                                nf_nat_ipv4_<span class="hljs-built_in">local</span>_fn [nf_nat]() {
+ 0)   0.262 us    |                                  nf_nat_inet_fn [nf_nat]();
+ 0)   0.897 us    |                                }
+ 0)               |                                nft_<span class="hljs-keyword">do</span>_chain_inet [nf_tables]() {
+ 0)               |                                  nft_<span class="hljs-keyword">do</span>_chain [nf_tables]() {
+ 0)   0.193 us    |                                    nft_ct_get_<span class="hljs-built_in">eval</span> [nft_ct]();
+ 0)               |                                    nft_lookup_<span class="hljs-built_in">eval</span> [nf_tables]() {
+ 0)               |                                      nft_<span class="hljs-built_in">set</span>_<span class="hljs-keyword">do</span>_lookup [nf_tables]() {
+ 0)   0.315 us    |                                        nft_<span class="hljs-built_in">hash</span>_lookup_fast [nf_tables]();
+ 0)   1.286 us    |                                      }
+ 0)   1.617 us    |                                    }
+ 0)   0.190 us    |                                    nft_immediate_<span class="hljs-built_in">eval</span> [nf_tables]();
+ 0)   3.103 us    |                                  }
+ 0)   3.468 us    |                                }
+ 0) + 20.908 us   |                              }
+ 0)   0.171 us    |                              __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0) + 22.213 us   |                            }
+ 0)               |                            <span class="hljs-function"><span class="hljs-title">ip_output</span></span>() {
+ 0)   0.164 us    |                              __rcu_<span class="hljs-built_in">read</span>_lock();
+ 0)               |                              <span class="hljs-function"><span class="hljs-title">nf_hook_slow</span></span>() {
+ 0)               |                                nf_nat_ipv4_out [nf_nat]() {
+ 0)   0.249 us    |                                  nf_nat_inet_fn [nf_nat]();
+ 0)   0.568 us    |                                }
+ 0)               |                                <span class="hljs-function"><span class="hljs-title">selinux_ip_postroute</span></span>() {
+ 0)   0.196 us    |                                  netlbl_enabled();
+ 0)   2.101 us    |                                }
+ 0)   0.277 us    |                                nf_confirm [nf_conntrack]();
+ 0)   3.921 us    |                              }
+ 0)   0.169 us    |                              __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0)               |                              <span class="hljs-function"><span class="hljs-title">ip_finish_output</span></span>() {
+ 0)               |                                <span class="hljs-function"><span class="hljs-title">__ip_finish_output</span></span>() {
+ 0)               |                                  <span class="hljs-function"><span class="hljs-title">ip_finish_output2</span></span>() {
+ 0)   0.167 us    |                                    preempt_count_add();
+ 0)               |                                    <span class="hljs-function"><span class="hljs-title">__dev_queue_xmit</span></span>() {
+ 0)   0.134 us    |                                      preempt_count_add();
+ 0)   0.138 us    |                                      dst_release();
+ 0)   0.160 us    |                                      netdev_core_pick_tx();
+ 0)               |                                      <span class="hljs-function"><span class="hljs-title">_raw_spin_lock</span></span>() {
+ 0)   0.129 us    |                                        preempt_count_add();
+ 0)   0.383 us    |                                      }
+ 0)               |                                      <span class="hljs-function"><span class="hljs-title">sch_direct_xmit</span></span>() {
+ 0)               |                                        <span class="hljs-function"><span class="hljs-title">_raw_spin_unlock</span></span>() {
+ 0)   0.138 us    |                                          preempt_count_sub();
+ 0)   0.416 us    |                                        }
+ 0)               |                                        <span class="hljs-function"><span class="hljs-title">validate_xmit_skb_list</span></span>() {
+ 0)               |                                          <span class="hljs-function"><span class="hljs-title">validate_xmit_skb</span></span>() {
+ 0)               |                                            <span class="hljs-function"><span class="hljs-title">netif_skb_features</span></span>() {
+ 0)   0.142 us    |                                              skb_network_protocol();
+ 0)   0.839 us    |                                            }
+ 0)   0.144 us    |                                            validate_xmit_xfrm();
+ 0)   1.517 us    |                                          }
+ 0)   1.785 us    |                                        }
+ 0)               |                                        <span class="hljs-function"><span class="hljs-title">_raw_spin_lock</span></span>() {
+ 0)   0.130 us    |                                          preempt_count_add();
+ 0)   0.514 us    |                                        }
+ 0)               |                                        <span class="hljs-function"><span class="hljs-title">dev_hard_start_xmit</span></span>() {
+ 0)               |                                          e1000_xmit_frame [e1000]() {
+ 0)   0.133 us    |                                            e1000_maybe_stop_tx [e1000]();
+ 0)   0.154 us    |                                            is_vmalloc_addr();
+ 0)               |                                            <span class="hljs-function"><span class="hljs-title">dma_map_page_attrs</span></span>() {
+ 0)   0.129 us    |                                              is_swiotlb_active();
+ 0)               |                                              <span class="hljs-function"><span class="hljs-title">swiotlb_map</span></span>() {
+ 0)               |                                                <span class="hljs-function"><span class="hljs-title">swiotlb_tbl_map_single</span></span>() {
+ 0)               |                                                  <span class="hljs-function"><span class="hljs-title">_raw_spin_lock_irqsave</span></span>() {
+ 0)   0.135 us    |                                                    preempt_count_add();
+ 0)   0.550 us    |                                                  }
+ 0)               |                                                  <span class="hljs-function"><span class="hljs-title">_raw_spin_unlock_irqrestore</span></span>() {
+ 0)   0.136 us    |                                                    preempt_count_sub();
+ 0)   0.411 us    |                                                  }
+ 0)   0.391 us    |                                                  swiotlb_bounce();
+ 0)   2.369 us    |                                                }
+ 0)   2.704 us    |                                              }
+ 0)   3.553 us    |                                            }
+ 0)   0.147 us    |                                            skb_<span class="hljs-built_in">clone</span>_tx_timestamp();
+ 0)   0.129 us    |                                            e1000_maybe_stop_tx [e1000]();
+ 0) + 12.445 us   |                                          }
+ 0) + 12.900 us   |                                        }
+ 0)               |                                        <span class="hljs-function"><span class="hljs-title">_raw_spin_unlock</span></span>() {
+ 0)   0.135 us    |                                          preempt_count_sub();
+ 0)   0.440 us    |                                        }
+ 0)               |                                        <span class="hljs-function"><span class="hljs-title">_raw_spin_lock</span></span>() {
+ 0)   0.131 us    |                                          preempt_count_add();
+ 0)   0.385 us    |                                        }
+ 0) + 17.376 us   |                                      }
+ 0)               |                                      <span class="hljs-function"><span class="hljs-title">__qdisc_run</span></span>() {
+ 0)   0.148 us    |                                        fq_codel_dequeue();
+ 0)   0.703 us    |                                      }
+ 0)               |                                      <span class="hljs-function"><span class="hljs-title">_raw_spin_unlock</span></span>() {
+ 0)   0.127 us    |                                        preempt_count_sub();
+ 0)   0.378 us    |                                      }
+ 0)               |                                      <span class="hljs-function"><span class="hljs-title">__local_bh_enable_ip</span></span>() {
+ 0)   0.129 us    |                                        preempt_count_sub();
+ 0)   0.393 us    |                                      }
+ 0) + 21.557 us   |                                    }
+ 0)               |                                    <span class="hljs-function"><span class="hljs-title">__local_bh_enable_ip</span></span>() {
+ 0)   0.129 us    |                                      preempt_count_sub();
+ 0)   0.389 us    |                                    }
+ 0) + 23.346 us   |                                  }
+ 0) + 23.899 us   |                                }
+ 0) + 24.289 us   |                              }
+ 0) + 29.468 us   |                            }
+ 0) + 55.295 us   |                          }
+ 0) + 64.037 us   |                        }
+ 0)   0.130 us    |                        dst_release();
+ 0)               |                        <span class="hljs-function"><span class="hljs-title">_raw_spin_unlock</span></span>() {
+ 0)   0.125 us    |                          preempt_count_sub();
+ 0)   0.385 us    |                        }
+ 0)               |                        <span class="hljs-function"><span class="hljs-title">__local_bh_enable_ip</span></span>() {
+ 0)   0.128 us    |                          preempt_count_sub();
+ 0)   0.387 us    |                        }
+ 0) + 75.989 us   |                      }
+ 0) + 76.256 us   |                    }
+ 0) + 76.570 us   |                  }
+ 0)               |                  <span class="hljs-function"><span class="hljs-title">consume_skb</span></span>() {
+ 0)   0.154 us    |                    skb_release_head_state();
+ 0)               |                    <span class="hljs-function"><span class="hljs-title">skb_release_data</span></span>() {
+ 0)               |                      <span class="hljs-function"><span class="hljs-title">skb_free_head</span></span>() {
+ 0)   0.204 us    |                        page_frag_free();
+ 0)   0.549 us    |                      }
+ 0)   0.966 us    |                    }
+ 0)               |                    <span class="hljs-function"><span class="hljs-title">kfree_skbmem</span></span>() {
+ 0)               |                      <span class="hljs-function"><span class="hljs-title">kmem_cache_free</span></span>() {
+ 0)   0.263 us    |                        __slab_free();
+ 0)   1.281 us    |                      }
+ 0)   1.563 us    |                    }
+ 0)   3.364 us    |                  }
+ 0) + 80.580 us   |                }
+ 0) + 82.442 us   |              }
+ 0)   0.131 us    |              __rcu_<span class="hljs-built_in">read</span>_unlock();
+ 0) + 83.239 us   |            }
+ 0) ! 109.575 us  |          }
+ 0) ! 109.916 us  |        }
+ 0) ! 154.893 us  |      }
+ 0) ! 155.721 us  |    }
+ 0) ! 232.338 us  |  }
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="route.html" class="navigation navigation-prev " aria-label="Previous page: 路由子系统">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../lb/" class="navigation navigation-next " aria-label="Next page: 负载均衡">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"netfilter","level":"1.3.1.10","depth":3,"next":{"title":"负载均衡","level":"1.3.2","depth":2,"path":"network/lb/index.md","ref":"./network/lb/index.md","articles":[{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]},{"title":"Maglev","level":"1.3.2.2","depth":3,"path":"network/lb/Maglev.md","ref":"./network/lb/Maglev.md","articles":[]}]},"previous":{"title":"路由子系统","level":"1.3.1.9","depth":3,"path":"network/basic/route.md","ref":"./network/basic/route.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/netfilter.md","mtime":"2023-02-25T14:46:43.690Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-25T14:54:13.287Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-intopic-toc/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-intopic-toc/gumshoe.polyfills.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-intopic-toc/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

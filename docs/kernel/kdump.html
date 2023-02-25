@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>CRD · GitBook</title>
+        <title>Kdump · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -69,10 +69,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="Operator.html" />
     
-    
-    <link rel="prev" href="CronJob.html" />
+    <link rel="prev" href="内存管理.html" />
     
 
     </head>
@@ -399,9 +397,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="Jobs.html">
+        <li class="chapter " data-level="1.4.1" data-path="../Kubernetes/Jobs.html">
             
-                <a href="Jobs.html">
+                <a href="../Kubernetes/Jobs.html">
             
                     
                     Jobs
@@ -412,9 +410,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="CronJob.html">
+        <li class="chapter " data-level="1.4.2" data-path="../Kubernetes/CronJob.html">
             
-                <a href="CronJob.html">
+                <a href="../Kubernetes/CronJob.html">
             
                     
                     CronJob
@@ -425,9 +423,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4.3" data-path="CRD.html">
+        <li class="chapter " data-level="1.4.3" data-path="../Kubernetes/CRD.html">
             
-                <a href="CRD.html">
+                <a href="../Kubernetes/CRD.html">
             
                     
                     CRD
@@ -438,9 +436,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.4" data-path="Operator.html">
+        <li class="chapter " data-level="1.4.4" data-path="../Kubernetes/Operator.html">
             
-                <a href="Operator.html">
+                <a href="../Kubernetes/Operator.html">
             
                     
                     Operator
@@ -451,9 +449,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.5" data-path="kubelet.html">
+        <li class="chapter " data-level="1.4.5" data-path="../Kubernetes/kubelet.html">
             
-                <a href="kubelet.html">
+                <a href="../Kubernetes/kubelet.html">
             
                     
                     kubelet
@@ -535,9 +533,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.9.1" data-path="../kernel/进程调度.html">
+        <li class="chapter " data-level="1.9.1" data-path="进程调度.html">
             
-                <a href="../kernel/进程调度.html">
+                <a href="进程调度.html">
             
                     
                     进程调度
@@ -548,9 +546,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.2" data-path="../kernel/内存管理.html">
+        <li class="chapter " data-level="1.9.2" data-path="内存管理.html">
             
-                <a href="../kernel/内存管理.html">
+                <a href="内存管理.html">
             
                     
                     内存管理
@@ -561,9 +559,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.3" data-path="../kernel/kdump.html">
+        <li class="chapter active" data-level="1.9.3" data-path="kdump.html">
             
-                <a href="../kernel/kdump.html">
+                <a href="kdump.html">
             
                     
                     Kdump
@@ -738,7 +736,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >CRD</a>
+        <a href=".." >Kdump</a>
     </h1>
 </div>
 
@@ -753,80 +751,54 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="custom-resources-definition">Custom Resources Definition</h1>
-<h2 id="&#x521B;&#x5EFA;-crd">&#x521B;&#x5EFA; CRD</h2>
-<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> apiextensions.k8s.io/v1
-<span class="hljs-attr">kind:</span> CustomResourceDefinition
-<span class="hljs-attr">metadata:</span>
-  <span class="hljs-comment"># &apos;&lt;&#x540D;&#x79F0;&#x7684;&#x590D;&#x6570;&#x5F62;&#x5F0F;&gt;.&lt;&#x7EC4;&#x540D;&gt;&apos;</span>
-<span class="hljs-attr">  name:</span> crontabs.stable.example.com
-<span class="hljs-attr">spec:</span>
-  <span class="hljs-comment"># &#x7EC4;&#x540D;&#x79F0;</span>
-<span class="hljs-attr">  group:</span> stable.example.com
-<span class="hljs-attr">  versions:</span>
-<span class="hljs-attr">    - name:</span> v1
-      <span class="hljs-comment"># served &#x6807;&#x5FD7;&#x6765;&#x72EC;&#x7ACB;&#x542F;&#x7528;&#x6216;&#x7981;&#x6B62;</span>
-<span class="hljs-attr">      served:</span> <span class="hljs-literal">true</span>
-      <span class="hljs-comment"># &#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x4E14;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x7248;&#x672C;&#x5FC5;&#x9700;&#x88AB;&#x6807;&#x8BB0;&#x4E3A;&#x5B58;&#x50A8;&#x7248;&#x672C;</span>
-<span class="hljs-attr">      storage:</span> <span class="hljs-literal">true</span>
-<span class="hljs-attr">      schema:</span>
-<span class="hljs-attr">        openAPIV3Schema:</span>
-<span class="hljs-attr">          type:</span> object
-<span class="hljs-attr">          properties:</span>
-<span class="hljs-attr">            spec:</span>
-<span class="hljs-attr">              type:</span> object
-<span class="hljs-attr">              properties:</span>
-<span class="hljs-attr">                cronSpec:</span>
-<span class="hljs-attr">                  type:</span> string
-<span class="hljs-attr">                  pattern:</span> <span class="hljs-string">&apos;^(\d+|\*)(/\d+)?(\s+(\d+|\*)(/\d+)?){4}$&apos;</span>
-<span class="hljs-attr">                image:</span>
-<span class="hljs-attr">                  type:</span> string
-<span class="hljs-attr">                replicas:</span>
-<span class="hljs-attr">                  type:</span> integer
-<span class="hljs-attr">                  minimum:</span> <span class="hljs-number">1</span>
-<span class="hljs-attr">                  maximum:</span> <span class="hljs-number">10</span>
-<span class="hljs-attr">                  default:</span> <span class="hljs-number">1</span>
-<span class="hljs-attr">      subresources:</span>
-<span class="hljs-attr">        status:</span> {}
-<span class="hljs-attr">  names:</span>
-    <span class="hljs-comment"># kind</span>
-<span class="hljs-attr">    kind:</span> CronTab
-    <span class="hljs-comment"># &#x540D;&#x79F0;&#x7684;&#x590D;&#x6570;&#x5F62;&#x5F0F;&#xFF0C;&#x7528;&#x4E8E; URL&#xFF1A;/apis/&lt;&#x7EC4;&gt;/&lt;&#x7248;&#x672C;&gt;/&lt;&#x540D;&#x79F0;&#x7684;&#x590D;&#x6570;&#x5F62;&#x5F0F;&gt;</span>
-<span class="hljs-attr">    plural:</span> crontabs
-    <span class="hljs-comment"># &#x540D;&#x79F0;&#x7684;&#x5355;&#x6570;&#x5F62;&#x5F0F;&#xFF0C;&#x4F5C;&#x4E3A;&#x547D;&#x4EE4;&#x884C;&#x4F7F;&#x7528;&#x65F6;&#x548C;&#x663E;&#x793A;&#x65F6;&#x7684;&#x522B;&#x540D;</span>
-<span class="hljs-attr">    singular:</span> crontab
-    <span class="hljs-comment"># &#x5141;&#x8BB8;&#x4F60;&#x5728;&#x547D;&#x4EE4;&#x884C;&#x4F7F;&#x7528;&#x8F83;&#x77ED;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x6765;&#x5339;&#x914D;&#x8D44;&#x6E90;</span>
-<span class="hljs-attr">    shortNames:</span>
-<span class="hljs-bullet">    -</span> ct
-  <span class="hljs-comment"># &#x53EF;&#x4EE5;&#x662F; Namespaced &#x6216; Cluster</span>
-<span class="hljs-attr">  scope:</span> Namespaced
+                                <h1 id="kdump">Kdump</h1>
+<h2 id="1-&#x4F7F;&#x7528;">1. &#x4F7F;&#x7528;</h2>
+<pre><code class="lang-bash"><span class="hljs-comment"># 1. &#x5B89;&#x88C5; kexec</span>
+$ dnf install kexec-tools
+
+<span class="hljs-comment"># 2. &#x914D;&#x7F6E; crashkernel</span>
+$ kdumpctl reset-crashkernel
+$ reboot
+
+<span class="hljs-comment"># 3. &#x5F00;&#x542F; kdump &#x670D;&#x52A1;</span>
+$ systemctl <span class="hljs-built_in">enable</span> kdump.service
+$ systemctl start kdump.service
+$ kdumpctl status
+
+<span class="hljs-comment"># 4. &#x89E6;&#x53D1; panic</span>
+$ <span class="hljs-built_in">echo</span> c &gt; /proc/sysrq-trigger
+
+<span class="hljs-comment"># 5. &#x67E5;&#x770B;vmcore</span>
+$ ll /var/crash/
 </code></pre>
-<pre><code>kubectl create -f crd.yaml
-</code></pre><h2 id="&#x521B;&#x5EFA;-cr-&#xFF08;crd&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x4F8B;&#xFF09;">&#x521B;&#x5EFA; CR &#xFF08;CRD&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x4F8B;&#xFF09;</h2>
-<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> stable.example.com/v1
-<span class="hljs-attr">kind:</span> CronTab
-<span class="hljs-attr">metadata:</span>
-<span class="hljs-attr">  name:</span> my-cron-object
-<span class="hljs-attr">spec:</span>
-<span class="hljs-attr">  cronSpec:</span> <span class="hljs-string">&quot;* * * * */5&quot;</span>
-<span class="hljs-attr">  image:</span> my-cron-image
+<h2 id="2-&#x4F7F;&#x7528;-crash-&#x8C03;&#x8BD5;-vmcore">2. &#x4F7F;&#x7528; crash &#x8C03;&#x8BD5; vmcore</h2>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x4F9D;&#x8D56;</span>
+$ dnf install texinfo
+
+<span class="hljs-comment"># &#x4E0B;&#x8F7D;&#x6E90;&#x7801;&#xFF0C;&#x7F16;&#x8BD1;&#x5DE5;&#x5177;</span>
+<span class="hljs-comment"># https://github.com/crash-utility/crash</span>
+$ <span class="hljs-built_in">cd</span> crash-8.0.2
+$ make
+
+<span class="hljs-comment"># &#x7F16;&#x8BD1;&#x4E0D;&#x987A;&#x5229;&#xFF0C;&#x5C31;&#x76F4;&#x63A5;&#x5B89;&#x88C5;&#x5305;&#x5427;...</span>
+$ dnf install crash.x86_64
+
+<span class="hljs-comment"># &#x5F00;&#x59CB;&#x8C03;&#x8BD5;</span>
+$ crash vmlinux vmcore
 </code></pre>
-<pre><code>kubectl create -f crd-object.yaml
-</code></pre><h2 id="&#x67E5;&#x770B;">&#x67E5;&#x770B;</h2>
-<pre><code>kubectl get crontab
-kubectl get ct -o yaml
-</code></pre><h2 id="&#x63A7;&#x5236;&#x5668;">&#x63A7;&#x5236;&#x5668;</h2>
-<p>&#x53EA;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A; <code>CRD</code> &#x5176;&#x5B9E;&#x6CA1;&#x4EC0;&#x4E48;&#x4F5C;&#x7528;&#xFF0C;&#x5B83;&#x53EA;&#x4F1A;&#x88AB; <code>API Server</code> &#x7B80;&#x5355;&#x5730;&#x8BA1;&#x5165;&#x5230; <code>etcd</code> &#x4E2D;&#x3002;
-&#x5982;&#x4F55;&#x4F9D;&#x636E;&#x8FD9;&#x4E2A; <code>CRD</code> &#x5B9A;&#x4E49;&#x7684;&#x8D44;&#x6E90;&#x548C; Schema &#x6765;&#x505A;&#x4E00;&#x4E9B;&#x590D;&#x6742;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x5219;&#x662F;&#x7531; <code>Controller</code>&#xFF08;&#x63A7;&#x5236;&#x5668;&#xFF09;&#x6765;&#x5B9E;&#x73B0;&#x7684;&#x3002;</p>
-<p><code>CRD-controller</code> &#x4E5F;&#x5C31;&#x662F; <code>CRD</code> &#x63A7;&#x5236;&#x5668;&#xFF0C;&#x80FD;&#x591F;&#x5B9E;&#x73B0;&#x7528;&#x6237;&#x81EA;&#x884C;&#x7F16;&#x5199;&#xFF0C;&#x5E76;&#x4E14;&#x89E3;&#x6790; <code>CRD</code> &#x5E76;&#x628A;&#x5B83;&#x53D8;&#x6210;&#x7528;&#x6237;&#x671F;&#x671B;&#x7684;&#x72B6;&#x6001;&#x3002; </p>
-<p><img src="images/controller.png" alt="images/controller.png"></p>
-<p>&#x8FD9;&#x91CC;&#x4EE5;<code>kube-controller-manager</code>&#x4E3A;&#x4F8B;&#x3002;</p>
-<p>&#x5DE6;&#x4FA7;&#x662F;&#x4E00;&#x4E2A;<code>Informer</code>&#xFF0C;&#x5B83;&#x7684;&#x673A;&#x5236;&#x5C31;&#x662F;&#x901A;&#x8FC7;&#x53BB; watch <code>kube-apiserver</code>&#xFF0C;&#x800C; <code>kube-apiserver</code> &#x4F1A;&#x53BB;&#x76D1;&#x7763;&#x6240;&#x6709;<code>etcd</code> &#x4E2D;&#x8D44;&#x6E90;&#x7684;&#x521B;&#x5EFA;&#x3001;&#x66F4;&#x65B0;&#x4E0E;&#x5220;&#x9664;&#x3002;<code>Informer</code> &#x4E3B;&#x8981;&#x6709;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#xFF1A;&#x4E00;&#x4E2A;&#x662F; ListFunc&#xFF1B;&#x4E00;&#x4E2A;&#x662F; WatchFunc&#x3002;</p>
-<ul>
-<li>ListFunc &#x5C31;&#x662F;&#x50CF; &quot;kuberctl get pods&quot; &#x8FD9;&#x7C7B;&#x64CD;&#x4F5C;&#xFF0C;&#x628A;&#x5F53;&#x524D;&#x6240;&#x6709;&#x7684;&#x8D44;&#x6E90;&#x90FD;&#x5217;&#x51FA;&#x6765;&#xFF1B;</li>
-<li>WatchFunc &#x4F1A;&#x548C; apiserver &#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x957F;&#x94FE;&#x63A5;&#xFF0C;&#x4E00;&#x65E6;&#x6709;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x5BF9;&#x8C61;&#x63D0;&#x4EA4;&#x4E0A;&#x53BB;&#x4E4B;&#x540E;&#xFF0C;apiserver &#x5C31;&#x4F1A;&#x53CD;&#x5411;&#x63A8;&#x9001;&#x56DE;&#x6765;&#xFF0C;&#x544A;&#x8BC9; Informer &#x6709;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x5BF9;&#x8C61;&#x521B;&#x5EFA;&#x6216;&#x8005;&#x66F4;&#x65B0;&#x7B49;&#x64CD;&#x4F5C;&#x3002;</li>
-</ul>
-<p>Informer &#x63A5;&#x6536;&#x5230;&#x4E86;&#x5BF9;&#x8C61;&#x7684;&#x9700;&#x6C42;&#x4E4B;&#x540E;&#xFF0C;&#x5C31;&#x4F1A;&#x8C03;&#x7528;&#x5BF9;&#x5E94;&#x7684;&#x51FD;&#x6570;&#xFF08;&#x6BD4;&#x5982;&#x56FE;&#x4E2D;&#x7684;&#x4E09;&#x4E2A;&#x51FD;&#x6570; AddFunc, UpdateFunc &#x4EE5;&#x53CA; DeleteFunc&#xFF09;&#xFF0C;&#x5E76;&#x5C06;&#x5176;&#x6309;&#x7167; key &#x503C;&#x7684;&#x683C;&#x5F0F;&#x653E;&#x5230;&#x4E00;&#x4E2A;&#x961F;&#x5217;&#x4E2D;&#x53BB;&#xFF0C;key &#x503C;&#x7684;&#x547D;&#x540D;&#x89C4;&#x5219;&#x5C31;&#x662F; &quot;namespace/name&quot;&#xFF0C;name &#x5C31;&#x662F;&#x5BF9;&#x5E94;&#x7684;&#x8D44;&#x6E90;&#x7684;&#x540D;&#x5B57;&#x3002;Controller &#x4ECE;&#x961F;&#x5217;&#x4E2D;&#x62FF;&#x5230;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x4E4B;&#x540E;&#xFF0C;&#x5C31;&#x4F1A;&#x53BB;&#x505A;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
+<p><img src="images/kdump/crash-help.png" alt="crash&#x547D;&#x4EE4;"></p>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x6269;&#x5C55;&#x547D;&#x4EE4;</span>
+crash&gt; trace
+crash&gt; gcore
+
+<span class="hljs-comment"># &#x4F7F;&#x7528;&#x524D;&#x914D;&#x7F6E;&#xFF08;&#x6BD4;&#x5982;trace&#xFF09;</span>
+<span class="hljs-comment"># git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git</span>
+<span class="hljs-comment"># &#x7F16;&#x8BD1;&#x51FA;trace-cmd&#xFF0C;</span>
+<span class="hljs-comment"># &#x542F;&#x52A8;crash&#x524D;&#xFF0C;&#x5148;&#x914D;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF;</span>
+<span class="hljs-comment"># export TRACE_CMD=&lt;path-to&gt;/trace-cmd</span>
+<span class="hljs-comment"># &#x8FDB;&#x5165;crash&#x540E;&#xFF0C;&#x914D;&#x7F6E;so</span>
+<span class="hljs-comment"># extend &lt;path-to&gt;/trace.so</span>
+</code></pre>
 
                                 
                                 </section>
@@ -854,14 +826,10 @@ kubectl get ct -o yaml
 
             
                 
-                <a href="CronJob.html" class="navigation navigation-prev " aria-label="Previous page: CronJob">
+                <a href="内存管理.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 内存管理">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="Operator.html" class="navigation navigation-next " aria-label="Next page: Operator">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -870,7 +838,7 @@ kubectl get ct -o yaml
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"CRD","level":"1.4.3","depth":2,"next":{"title":"Operator","level":"1.4.4","depth":2,"path":"Kubernetes/Operator.md","ref":"./Kubernetes/Operator.md","articles":[]},"previous":{"title":"CronJob","level":"1.4.2","depth":2,"path":"Kubernetes/CronJob.md","ref":"./Kubernetes/CronJob.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Kubernetes/CRD.md","mtime":"2022-01-12T07:47:39.968Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-25T14:54:13.287Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Kdump","level":"1.9.3","depth":2,"next":{"title":"八股","level":"1.10","depth":1,"ref":"","articles":[{"title":"一致性hash","level":"1.10.1","depth":2,"path":"BAGU/consistent_hash.md","ref":"./BAGU/consistent_hash.md","articles":[]}]},"previous":{"title":"内存管理","level":"1.9.2","depth":2,"path":"kernel/内存管理.md","ref":"./kernel/内存管理.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"kernel/kdump.md","mtime":"2023-02-25T08:11:47.347Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-25T14:54:13.287Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

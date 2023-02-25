@@ -14,6 +14,8 @@
 
 [(2023-2-12 ) Maglev](https://richard-joe.github.io/gitbook-note/network/lb/Maglev.html)
 
+[(2023-2-18) 一致性hash](https://richard-joe.github.io/gitbook-note/BAGU/consistent_hash.html)
+
 [(2023-2-19 ) kubelet](https://richard-joe.github.io/gitbook-note/Kubernetes/kubelet.html)
 
 [(2023-2-21 ) GRE](https://richard-joe.github.io/gitbook-note/network/basic/gre.html)

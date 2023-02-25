@@ -15,6 +15,7 @@
     * [GRE](./network/basic/gre.md)
     * [邻居子系统](./network/basic/neighbor.md)
     * [路由子系统](./network/basic/route.md)
+    * [netfilter](./network/basic/netfilter.md)
 
   * [负载均衡](./network/lb/index.md)
     * [LVS](./network/lb/LVS.md)
@@ -42,17 +43,16 @@
 * [内核]()
   * [进程调度](./kernel/进程调度.md)
   * [内存管理](./kernel/内存管理.md)
+  * [Kdump](./kernel/kdump.md)
 
-* [八股](./BAGU/index.md)
+* [八股]()
+  * [一致性hash](./BAGU/consistent_hash.md)
 
 * [杂项]()
   * [centos安装v2ray](./misc/centos-install-v2ray.md)
-  
   * [docker/containerd设置代理实现从外网拉取镜像](./misc/docker-pull-use-proxy.md)
-  
   * [编译安装ovs](./misc/install-ovs.md)
-  
   * [k8s 将docker切换为containerd](./misc/docker-to-containerd.md)
-
+  * [编译内核](./misc/compile-kernel.md)
 
 * [时间线](KEEP.md)

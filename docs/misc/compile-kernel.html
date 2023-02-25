@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>八股 · GitBook</title>
+        <title>编译内核 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -69,8 +69,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="../KEEP.html" />
     
-    <link rel="prev" href="../kernel/内存管理.html" />
+    
+    <link rel="prev" href="docker-to-containerd.html" />
     
 
     </head>
@@ -263,6 +265,19 @@
             
                     
                     路由子系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.10" data-path="../network/basic/netfilter.html">
+            
+                <a href="../network/basic/netfilter.html">
+            
+                    
+                    netfilter
             
                 </a>
             
@@ -546,21 +561,53 @@
             
         </li>
     
+        <li class="chapter " data-level="1.9.3" data-path="../kernel/kdump.html">
+            
+                <a href="../kernel/kdump.html">
+            
+                    
+                    Kdump
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
         </li>
     
-        <li class="chapter active" data-level="1.10" data-path="./">
+        <li class="chapter " data-level="1.10" >
             
-                <a href="./">
+                <span>
             
                     
                     八股
             
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../BAGU/consistent_hash.html">
+            
+                <a href="../BAGU/consistent_hash.html">
+            
+                    
+                    一致性hash
+            
                 </a>
             
 
+            
+        </li>
+    
+
+            </ul>
             
         </li>
     
@@ -578,9 +625,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.11.1" data-path="../misc/centos-install-v2ray.html">
+        <li class="chapter " data-level="1.11.1" data-path="centos-install-v2ray.html">
             
-                <a href="../misc/centos-install-v2ray.html">
+                <a href="centos-install-v2ray.html">
             
                     
                     centos安装v2ray
@@ -591,9 +638,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2" data-path="../misc/docker-pull-use-proxy.html">
+        <li class="chapter " data-level="1.11.2" data-path="docker-pull-use-proxy.html">
             
-                <a href="../misc/docker-pull-use-proxy.html">
+                <a href="docker-pull-use-proxy.html">
             
                     
                     docker/containerd设置代理实现从外网拉取镜像
@@ -604,9 +651,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.3" data-path="../misc/install-ovs.html">
+        <li class="chapter " data-level="1.11.3" data-path="install-ovs.html">
             
-                <a href="../misc/install-ovs.html">
+                <a href="install-ovs.html">
             
                     
                     编译安装ovs
@@ -617,12 +664,25 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.4" data-path="../misc/docker-to-containerd.html">
+        <li class="chapter " data-level="1.11.4" data-path="docker-to-containerd.html">
             
-                <a href="../misc/docker-to-containerd.html">
+                <a href="docker-to-containerd.html">
             
                     
                     k8s 将docker切换为containerd
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.11.5" data-path="compile-kernel.html">
+            
+                <a href="compile-kernel.html">
+            
+                    
+                    编译内核
             
                 </a>
             
@@ -635,14 +695,7 @@
             
         </li>
     
-
-    
-        
-        <li class="divider"></li>
-        
-        
-    
-        <li class="chapter " data-level="2.1" data-path="../KEEP.html">
+        <li class="chapter " data-level="1.12" data-path="../KEEP.html">
             
                 <a href="../KEEP.html">
             
@@ -685,7 +738,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >八股</a>
+        <a href=".." >编译内核</a>
     </h1>
 </div>
 
@@ -700,8 +753,34 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="&#x6536;&#x5F55;">&#x6536;&#x5F55;</h1>
-<p><a href="https://richard-joe.github.io/gitbook-note/BAGU/consistent_hash.html" target="_blank">1. &#x4E00;&#x81F4;&#x6027;&#x54C8;&#x5E0C;</a></p>
+                                <h1 id="&#x7F16;&#x8BD1;&#x5185;&#x6838;">&#x7F16;&#x8BD1;&#x5185;&#x6838;</h1>
+<pre><code class="lang-bash"><span class="hljs-comment"># 0. &#x7CFB;&#x7EDF; Fedora 36</span>
+<span class="hljs-comment"># 1. &#x5185;&#x5B58;&#x5C3D;&#x91CF; &gt;= 4G</span>
+<span class="hljs-comment"># 2. &#x78C1;&#x76D8;&#x5C3D;&#x91CF;&#x5927;&#xFF0C;40G&#x80AF;&#x5B9A;&#x662F;&#x4E0D;&#x591F;&#x7684;</span>
+
+<span class="hljs-comment"># 3. &#x5B89;&#x88C5;&#x4F9D;&#x8D56;</span>
+$ dnf groupinstall <span class="hljs-string">&quot;C Development Tools and Libraries&quot;</span>
+$ dnf install openssl openssl-devel dwarves rpm-build libelf-devel elfutils-libelf-devel ncurses
+
+<span class="hljs-comment"># 4. &#x4E0B;&#x8F7D;&#x5185;&#x6838;&#x4EE3;&#x7801;&#xFF0C;&#x89E3;&#x538B;</span>
+$ <span class="hljs-built_in">cd</span> linux-6.2
+
+<span class="hljs-comment"># 5. &#x914D;&#x7F6E;&#x5185;&#x6838;</span>
+$ cp /boot/config-*.x86_64 .config
+$ make menuconfig
+$ vim .config   <span class="hljs-comment"># &#x6CE8;&#x91CA;&#x6389; CONFIG_SYSTEM_TRUSTED_KEYS</span>
+
+<span class="hljs-comment"># 6. &#x7F16;&#x8BD1;&#x5185;&#x6838;&#xFF0C;&#x5E76;&#x5B89;&#x88C5;</span>
+$ make -j8
+$ make modules_install
+$ make install
+
+<span class="hljs-comment"># 7. &#x66F4;&#x65B0;grub&#x914D;&#x7F6E;</span>
+$ grub2-mkconfig -o /boot/grub2/grub.cfg
+$ grubby --set-default /boot/vmlinuz-5.6.9
+$ grubby --info=ALL <span class="hljs-comment"># &#x67E5;&#x770B;&#x662F;&#x5426;&#x4FEE;&#x6539;&#x6210;&#x529F;</span>
+$ reboot
+</code></pre>
 
                                 
                                 </section>
@@ -729,10 +808,14 @@
 
             
                 
-                <a href="../kernel/内存管理.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 内存管理">
+                <a href="docker-to-containerd.html" class="navigation navigation-prev " aria-label="Previous page: k8s 将docker切换为containerd">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="../KEEP.html" class="navigation navigation-next " aria-label="Next page: 时间线">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -741,7 +824,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"八股","level":"1.10","depth":1,"next":{"title":"杂项","level":"1.11","depth":1,"ref":"","articles":[{"title":"centos安装v2ray","level":"1.11.1","depth":2,"path":"misc/centos-install-v2ray.md","ref":"./misc/centos-install-v2ray.md","articles":[]},{"title":"docker/containerd设置代理实现从外网拉取镜像","level":"1.11.2","depth":2,"path":"misc/docker-pull-use-proxy.md","ref":"./misc/docker-pull-use-proxy.md","articles":[]},{"title":"编译安装ovs","level":"1.11.3","depth":2,"path":"misc/install-ovs.md","ref":"./misc/install-ovs.md","articles":[]},{"title":"k8s 将docker切换为containerd","level":"1.11.4","depth":2,"path":"misc/docker-to-containerd.md","ref":"./misc/docker-to-containerd.md","articles":[]}]},"previous":{"title":"内存管理","level":"1.9.2","depth":2,"path":"kernel/内存管理.md","ref":"./kernel/内存管理.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BAGU/index.md","mtime":"2023-02-13T16:00:41.514Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-21T15:21:30.773Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"编译内核","level":"1.11.5","depth":2,"next":{"title":"时间线","level":"1.12","depth":1,"path":"KEEP.md","ref":"KEEP.md","articles":[]},"previous":{"title":"k8s 将docker切换为containerd","level":"1.11.4","depth":2,"path":"misc/docker-to-containerd.md","ref":"./misc/docker-to-containerd.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"misc/compile-kernel.md","mtime":"2023-02-25T06:43:39.768Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-25T14:54:13.287Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
