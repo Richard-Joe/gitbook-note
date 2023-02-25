@@ -25,3 +25,13 @@ Open vSwitch 的设计目标与以前的程序网络堆栈不同，它专注于 
 - ovs-testcontroller，一个简单的 OpenFlow 控制器，可能对测试有用
 - tcpdump 的补丁，使其能够解析 OpenFlow 消息。
 
+## 实验
+
+```bash
+# 工具：mininet
+# 设置qos限速
+$ ovs-ofctl add-meter s1 meter=1,kbps,band=type=drop,rate=2000 -O OpenFlow13
+$ ovs-ofctl add-flow s1 in_port=1,actions=meter:1,output:normal -O OpenFlow13
+
+# 在两个节点上进行iperf测试
+```
