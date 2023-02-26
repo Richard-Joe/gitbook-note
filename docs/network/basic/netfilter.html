@@ -754,7 +754,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="netfilter">netfilter</h1>
-<p>&#x6CE8;&#xFF1A;&#x4E00;&#x4E9B;&#x57FA;&#x7840;&#x6982;&#x5FF5;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x8D58;&#x8FF0;&#x4E86;&#x3002;</p>
+<p>&#x6CE8;&#xFF1A;&#x4E00;&#x4E9B;&#x57FA;&#x7840;&#x6982;&#x5FF5;&#xFF08;&#x6BD4;&#x5982;&#x5E38;&#x7528;&#x7684;5&#x4E2A;Hook&#x70B9;&#xFF09;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x8D58;&#x8FF0;&#x4E86;&#x3002;</p>
 <h2 id="1-netfilter-hooks">1. netfilter hooks</h2>
 <p><img src="netfilter-images/nf-hooks.png" alt="netfilter hook"></p>
 <p>&#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A; <strong>&#x5730;&#x5740;&#x65CF;</strong>&#xFF08;Address Families&#xFF09;&#xFF0C;&#x5185;&#x6838;&#x5728;&#x6570;&#x636E;&#x5305;&#x5904;&#x7406;&#x8DEF;&#x5F84;&#x7684;&#x7279;&#x5B9A;&#x9636;&#x6BB5;&#x653E;&#x7F6E;&#x4E86;&#x4E00;&#x4E9B;&#x94A9;&#x5B50;&#xFF08;Hooks&#xFF09;&#x3002;</p>
@@ -782,9 +782,13 @@
 <pre><code class="lang-bash"><span class="hljs-comment"># &#x5C06; eth1 &#x7F51;&#x53E3;&#x6536;&#x5230;&#x6570;&#x636E;&#x5305;&#x6253;&#x4E0A; zone 1 &#x7684;&#x6807;&#x8BB0;</span>
 $ iptables -t raw -A PREROUTING -i eth1 -j CT --zone 1
 </code></pre>
+<p>CT &#x6A21;&#x5757;&#x53EA;&#x662F;&#x5B8C;&#x6210;&#x8FDE;&#x63A5;&#x4FE1;&#x606F;&#x7684;&#x91C7;&#x96C6;&#x548C;&#x5F55;&#x5165;&#x529F;&#x80FD;&#xFF0C;&#x5E76;&#x4E0D;&#x4F1A;&#x4FEE;&#x6539;&#x6216;&#x4E22;&#x5F03;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x540E;&#x8005;&#x662F;&#x5176; &#x4ED6;&#x6A21;&#x5757;&#xFF08;&#x4F8B;&#x5982; NAT&#xFF09;&#x57FA;&#x4E8E; Netfilter hook &#x5B8C;&#x6210;&#x7684;&#x3002;</p>
+<p>&#x7531;&#x4E8E;netfilter&#x6570;&#x636E;&#x5305;&#x8DEF;&#x5F84;&#x8FC7;&#x957F;&#xFF0C;<code>Cilium</code> &#x5B9E;&#x73B0;&#x4E00;&#x5957;&#x72EC;&#x7ACB;&#x7684; CT &#x548C; NAT &#x673A;&#x5236;&#x3002;&#x5373;&#x4F7F;<strong>&#x5378;&#x8F7D; Netfilter &#x6A21;&#x5757;</strong>&#xFF0C;&#x4E5F;&#x4E0D;&#x5F71;&#x54CD;&#x5176;&#x5BF9; Kubernetes Service &#x529F;&#x80FD;&#x7684;&#x652F;&#x6301;&#x3002;</p>
+<p><img src="netfilter-images/cilium-conntrack.png" alt="cilium conntrack"></p>
 <h2 id="3-iptables">3. iptables</h2>
 <p><img src="netfilter-images/iptables.png" alt="iptables"></p>
-<h2 id="4-&#x5411;-netfilter-&#x6CE8;&#x518C;&#x94A9;&#x5B50;">4. &#x5411; netfilter &#x6CE8;&#x518C;&#x94A9;&#x5B50;</h2>
+<h2 id="4-&#x4E3B;&#x8981;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;">4. &#x4E3B;&#x8981;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;</h2>
+<h3 id="41-&#x94A9;&#x5B50;-nfhookops">4.1. &#x94A9;&#x5B50; nf_hook_ops</h3>
 <p><img src="netfilter-images/reg-hook.png" alt="register hook"></p>
 <pre><code class="lang-bash"><span class="hljs-comment"># &#x6253;&#x5370;ipv4&#x5DF2;&#x7ECF;&#x6CE8;&#x518C;&#x7684;&#x94A9;&#x5B50;</span>
 &lt;4&gt;[11225.949841] ==== PRE_ROUTING ====
@@ -815,15 +819,85 @@ $ iptables -t raw -A PREROUTING -i eth1 -j CT --zone 1
 &lt;4&gt;[11225.949962]         selinux_ip_postroute+0x0/0x400
 &lt;4&gt;[11225.949964]         nf_confirm+0x0/0x2b0 [nf_conntrack]
 </code></pre>
+<h3 id="42-&#x5143;&#x7EC4;-nfconntracktuple">4.2. &#x5143;&#x7EC4; nf_conntrack_tuple</h3>
+<p>nf_conntrack_tuple.h&#x4E2D;&#x6CE8;&#x91CA;&#x8BF4;&#x5230;</p>
+<pre><code>We divide the structure along &quot;manipulatable&quot; and &quot;non-manipulatable&quot; lines, for the benefit of the NAT code.
+</code></pre><p><img src="netfilter-images/nf-conntrack-tuple.png" alt="nf contrack tuple"></p>
+<p>&#x4ECE;&#x4EE5;&#x4E0A;&#x5B9A;&#x4E49;&#x53EF;&#x77E5;&#xFF0C;<strong>CT &#x6A21;&#x5757;&#x76EE;&#x524D;&#x53EA;&#x652F;&#x6301;&#x4EE5;&#x4E0B;&#x516D;&#x79CD;&#x534F;&#x8BAE;&#xFF1A;TCP&#x3001;UDP&#x3001;ICMP&#x3001;DCCP&#x3001;SCTP&#x3001;GRE&#x3002;</strong></p>
+<p>&#x6BD4;&#x5982;&#xFF0C;ICMP&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x4FE1;&#x606F;&#x6765;&#x586B;&#x5145;tuple&#xFF1A;&#x6E90;IP&#x3001;&#x76EE;&#x7684;IP&#x3001;icmp&#x5934;&#x90E8;&#x5B57;&#x6BB5;&#xFF08;type&#x3001;code&#x3001;id&#xFF09;</p>
+<h3 id="43-nfconntrackl4proto">4.3. nf_conntrack_l4proto</h3>
+<h3 id="44-&#x8FDE;&#x63A5;&#x8DDF;&#x8E2A;&#x8868;&#x7684;&#x8868;&#x9879;-nfconntracktuplehash">4.4. &#x8FDE;&#x63A5;&#x8DDF;&#x8E2A;&#x8868;&#x7684;&#x8868;&#x9879; nf_conntrack_tuple_hash</h3>
+<p>&#x6BCF;&#x4E00;&#x4E2A;&#x8868;&#x9879;&#x5B58;&#x50A8;&#x4E00;&#x4E2A;tuple&#xFF0C;&#x54C8;&#x5E0C;&#x503C;&#xFF08;key&#xFF09;&#x662F;&#x6839;&#x636E;tuple&#x4FE1;&#x606F;&#x8BA1;&#x7B97;&#x5F97;&#x5230;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> nf_conntrack_tuple_hash {
+    <span class="hljs-keyword">struct</span> hlist_nulls_node hnnode;
+    <span class="hljs-keyword">struct</span> nf_conntrack_tuple tuple;
+};
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> u32 <span class="hljs-title">hash_conntrack_raw</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> nf_conntrack_tuple *tuple,
+                  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> zoneid,
+                  <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> net *net)</span>
+</span>{
+    u64 a, b, c, d;
+
+    get_random_once(&amp;nf_conntrack_hash_rnd, <span class="hljs-keyword">sizeof</span>(nf_conntrack_hash_rnd));
+
+    <span class="hljs-comment">/* The direction must be ignored, handle usable tuplehash members manually */</span>
+    a = (u64)tuple-&gt;src.u3.all[<span class="hljs-number">0</span>] &lt;&lt; <span class="hljs-number">32</span> | tuple-&gt;src.u3.all[<span class="hljs-number">3</span>];
+    b = (u64)tuple-&gt;dst.u3.all[<span class="hljs-number">0</span>] &lt;&lt; <span class="hljs-number">32</span> | tuple-&gt;dst.u3.all[<span class="hljs-number">3</span>];
+
+    c = (__force u64)tuple-&gt;src.u.all &lt;&lt; <span class="hljs-number">32</span> | (__force u64)tuple-&gt;dst.u.all &lt;&lt; <span class="hljs-number">16</span>;
+    c |= tuple-&gt;dst.protonum;
+
+    d = (u64)zoneid &lt;&lt; <span class="hljs-number">32</span> | net_hash_mix(net);
+
+    <span class="hljs-comment">/* IPv4: u3.all[1,2,3] == 0 */</span>
+    c ^= (u64)tuple-&gt;src.u3.all[<span class="hljs-number">1</span>] &lt;&lt; <span class="hljs-number">32</span> | tuple-&gt;src.u3.all[<span class="hljs-number">2</span>];
+    d += (u64)tuple-&gt;dst.u3.all[<span class="hljs-number">1</span>] &lt;&lt; <span class="hljs-number">32</span> | tuple-&gt;dst.u3.all[<span class="hljs-number">2</span>];
+
+    <span class="hljs-comment">// &#x8BA1;&#x7B97;hash&#x503C;&#x4F7F;&#x7528;&#x7684;&#x5143;&#x7D20;&#xFF1A;</span>
+    <span class="hljs-comment">// &#x6E90;IP</span>
+    <span class="hljs-comment">// &#x76EE;&#x7684;IP</span>
+    <span class="hljs-comment">// &#x534F;&#x8BAE;&#x53F7;</span>
+    <span class="hljs-comment">// &#x534F;&#x8BAE;&#x81EA;&#x8EAB;&#x7279;&#x6709;&#x5C5E;&#x6027;&#xFF0C;&#x6BD4;&#x5982;UDP&#x7684;src/dst port&#xFF0C;ICMP&#x7684;type/code/id</span>
+    <span class="hljs-comment">// Zone id</span>
+    <span class="hljs-comment">// net-&gt;hash_mix&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x65F6;&#x63D0;&#x4F9B;&#x7684;&#x968F;&#x673A;&#x6570;</span>
+    <span class="hljs-comment">// nf_conntrack_hash_rnd &#x968F;&#x673A;&#x6570;</span>
+    <span class="hljs-keyword">return</span> (u32)siphash_4u64(a, b, c, d, &amp;nf_conntrack_hash_rnd);
+}
+</code></pre>
+<h3 id="45-&#x8FDE;&#x63A5;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x7ED3;&#x6784;-nfconn">4.5. &#x8FDE;&#x63A5;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x7ED3;&#x6784; nf_conn</h3>
+<p><img src="netfilter-images/nf-conn.png" alt="nf contrack"></p>
 <h2 id="5-ipv4conntrackdefrag">5. ipv4_conntrack_defrag</h2>
-<p>&#x4FDD;&#x8BC1;&#x8FDB;&#x5165;&#x8FDE;&#x63A5;&#x8DDF;&#x8E2A;&#x7684;&#x5305;&#x90FD;&#x662F;&#x5B8C;&#x6574;&#x7684;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x800C;&#x975E;&#x5206;&#x7247;&#x5305;&#x3002;</p>
+<p>&#x4FDD;&#x8BC1;&#x8FDB;&#x5165; CT &#x7684;&#x5305;&#x90FD;&#x662F;&#x5B8C;&#x6574;&#x7684;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x800C;&#x975E;&#x5206;&#x7247;&#x5305;&#x3002;</p>
 <pre><code class="lang-c">ipv4_conntrack_defrag
   | ip_is_fragment
      | ip_defrag
-     | <span class="hljs-keyword">return</span> NF_STOLEN; <span class="hljs-comment">// &#x5206;&#x7247;&#x5305;&#x8FDB;&#x884C;&#x961F;&#x5217;&#x91CD;&#x7EC4;&#xFF0C;&#x5C31;&#x88AB;&#x5077;&#x8D70;&#x4E86;&#x3002;</span>
+     | <span class="hljs-keyword">return</span> NF_STOLEN; <span class="hljs-comment">// &#x5206;&#x7247;&#x5305;&#x8FDB;&#x5165;&#x961F;&#x5217;&#x91CD;&#x7EC4;&#xFF0C;&#x5C31;&#x88AB;&#x5077;&#x8D70;&#x4E86;&#x3002;</span>
 </code></pre>
-<h2 id="6-ipv4conntrackin">6. ipv4_conntrack_in</h2>
-<h2 id="7-nfconfirm">7. nf_confirm</h2>
+<h2 id="6-nfconntrackin">6. nf_conntrack_in</h2>
+<p><strong>&#x8FDE;&#x63A5;&#x8DDF;&#x8E2A;&#x5165;&#x53E3;</strong></p>
+<p>&#x4ECE;4.1&#x53EF;&#x4EE5;&#x5F97;&#x77E5;&#xFF0C;</p>
+<pre><code class="lang-c">PRE_ROUTING: nf_confirm -&gt; nf_conntrack_confirm
+
+LOCAL_OUT: nf_confirm -&gt; nf_conntrack_confirm
+</code></pre>
+<p><strong>&#x4E3A;&#x4EC0;&#x4E48;&#x662F;&#x8FD9;&#x4E24;&#x4E2A; hook &#x70B9;&#x5462;&#xFF1F;</strong>&#x56E0;&#x4E3A;&#x5B83;&#x4EEC;&#x90FD;&#x662F;<strong>&#x65B0;&#x8FDE;&#x63A5;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x5305;&#x6700;&#x5148;&#x8FBE;&#x5230;</strong>&#x7684;&#x5730;&#x65B9;</p>
+<ul>
+<li>PRE_ROUTING&#xFF1A; &#x662F;&#x5916;&#x90E8;&#x4E3B;&#x52A8;&#x548C;&#x672C;&#x673A;&#x5EFA;&#x8FDE;&#x65F6;&#x5305;&#x6700;&#x5148;&#x5230;&#x8FBE;&#x7684;&#x5730;&#x65B9;&#xFF1B;</li>
+<li>LOCAL_OUT&#xFF1A; &#x662F;&#x672C;&#x673A;&#x4E3B;&#x52A8;&#x548C;&#x5916;&#x90E8;&#x5EFA;&#x8FDE;&#x65F6;&#x5305;&#x6700;&#x5148;&#x5230;&#x8FBE;&#x7684;&#x5730;&#x65B9;&#xFF1B;</li>
+</ul>
+<h2 id="7-nfconntrackconfirm">7. nf_conntrack_confirm</h2>
+<p><strong>&#x8FDE;&#x63A5;&#x8DDF;&#x8E2A;&#x786E;&#x8BA4;</strong></p>
+<p>&#x4ECE;4.1&#x53EF;&#x4EE5;&#x5F97;&#x77E5;&#xFF0C;</p>
+<pre><code class="lang-c">LOCAL_IN: ipv4_conntrack_in -&gt; nf_conntrack_in
+
+POST_ROUTING: ipv4_conntrack_local -&gt; nf_conntrack_in
+</code></pre>
+<p><strong>&#x4E3A;&#x4EC0;&#x4E48;&#x662F;&#x8FD9;&#x4E24;&#x4E2A; hook &#x70B9;&#x5462;&#xFF1F;</strong>&#x56E0;&#x4E3A;&#x5982;&#x679C;&#x65B0;&#x8FDE;&#x63A5;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x5305;&#x6CA1;&#x6709;&#x88AB;&#x4E22;&#x5F03;&#xFF0C;&#x90A3;&#x8FD9; <strong>&#x662F;&#x5B83;&#x4EEC;&#x79BB;&#x5F00; netfilter &#x4E4B;&#x524D;&#x7684;&#x6700;&#x540E; hook &#x70B9;</strong>&#xFF1A;</p>
+<ul>
+<li>LOCAL_IN&#xFF1A; &#x5916;&#x90E8;&#x4E3B;&#x52A8;&#x548C;&#x672C;&#x673A;&#x5EFA;&#x8FDE;&#x7684;&#x5305;&#xFF0C;&#x5982;&#x679C;&#x5728;&#x4E2D;&#x95F4;&#x5904;&#x7406;&#x4E2D;&#x6CA1;&#x6709;&#x88AB;&#x4E22;&#x5F03;&#xFF0C;LOCAL_IN &#x662F;&#x5176;&#x88AB;&#x9001;&#x5230;&#x5E94;&#x7528;&#x4E4B;&#x524D;&#x7684;&#x6700;&#x540E; hook &#x70B9;&#xFF1B;</li>
+<li>POST_ROUTING&#xFF1A; &#x672C;&#x673A;&#x4E3B;&#x52A8;&#x548C;&#x5916;&#x90E8;&#x5EFA;&#x8FDE;&#x7684;&#x5305;&#xFF0C;&#x5982;&#x679C;&#x5728;&#x4E2D;&#x95F4;&#x5904;&#x7406;&#x4E2D;&#x6CA1;&#x6709;&#x88AB;&#x4E22;&#x5F03;&#xFF0C;POST_ROUTING &#x662F;&#x5176;&#x79BB;&#x5F00;&#x4E3B;&#x673A;&#x65F6;&#x7684;&#x6700;&#x540E; hook &#x70B9;&#xFF1B;</li>
+</ul>
 <h2 id="8-nfnatipv4prerouting">8. nf_nat_ipv4_pre_routing</h2>
 <h2 id="9-nfnatipv4localin">9. nf_nat_ipv4_local_in</h2>
 <h2 id="10-nfnatipv4out">10. nf_nat_ipv4_out</h2>
@@ -1393,7 +1467,7 @@ $ perf ftrace -C0 -G <span class="hljs-string">&apos;__netif_receive_skb_list_co
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"netfilter","level":"1.3.1.10","depth":3,"next":{"title":"负载均衡","level":"1.3.2","depth":2,"path":"network/lb/index.md","ref":"./network/lb/index.md","articles":[{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]},{"title":"Maglev","level":"1.3.2.2","depth":3,"path":"network/lb/Maglev.md","ref":"./network/lb/Maglev.md","articles":[]}]},"previous":{"title":"路由子系统","level":"1.3.1.9","depth":3,"path":"network/basic/route.md","ref":"./network/basic/route.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/netfilter.md","mtime":"2023-02-25T15:01:30.854Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-25T15:08:52.562Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"netfilter","level":"1.3.1.10","depth":3,"next":{"title":"负载均衡","level":"1.3.2","depth":2,"path":"network/lb/index.md","ref":"./network/lb/index.md","articles":[{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]},{"title":"Maglev","level":"1.3.2.2","depth":3,"path":"network/lb/Maglev.md","ref":"./network/lb/Maglev.md","articles":[]}]},"previous":{"title":"路由子系统","level":"1.3.1.9","depth":3,"path":"network/basic/route.md","ref":"./network/basic/route.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/basic/netfilter.md","mtime":"2023-02-26T14:42:38.211Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-26T14:43:00.353Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

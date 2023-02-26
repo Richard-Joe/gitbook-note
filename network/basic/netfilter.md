@@ -1,6 +1,6 @@
 # netfilter
 
-注：一些基础概念这里就不赘述了。
+注：一些基础概念（比如常用的5个Hook点）这里就不赘述了。
 
 ## 1. netfilter hooks
 
@@ -31,11 +31,19 @@
 $ iptables -t raw -A PREROUTING -i eth1 -j CT --zone 1
 ```
 
+CT 模块只是完成连接信息的采集和录入功能，并不会修改或丢弃数据包，后者是其 他模块（例如 NAT）基于 Netfilter hook 完成的。
+
+由于netfilter数据包路径过长，`Cilium` 实现一套独立的 CT 和 NAT 机制。即使**卸载 Netfilter 模块**，也不影响其对 Kubernetes Service 功能的支持。
+
+![cilium conntrack](./netfilter-images/cilium-conntrack.png)
+
 ## 3. iptables
 
 ![iptables](./netfilter-images/iptables.png)
 
-## 4. 向 netfilter 注册钩子
+## 4. 主要的数据结构
+
+### 4.1. 钩子 nf_hook_ops
 
 ![register hook](./netfilter-images/reg-hook.png)
 
@@ -69,20 +77,111 @@ $ iptables -t raw -A PREROUTING -i eth1 -j CT --zone 1
 <4>[11225.949962]         selinux_ip_postroute+0x0/0x400
 <4>[11225.949964]         nf_confirm+0x0/0x2b0 [nf_conntrack]
 ```
+
+### 4.2. 元组 nf_conntrack_tuple
+
+nf_conntrack_tuple.h中注释说到
+
+	We divide the structure along "manipulatable" and "non-manipulatable" lines, for the benefit of the NAT code.
+
+![nf contrack tuple](./netfilter-images/nf-conntrack-tuple.png)
+
+从以上定义可知，**CT 模块目前只支持以下六种协议：TCP、UDP、ICMP、DCCP、SCTP、GRE。**
+
+比如，ICMP使用以下信息来填充tuple：源IP、目的IP、icmp头部字段（type、code、id）
+
+### 4.3. nf_conntrack_l4proto
+
+### 4.4. 连接跟踪表的表项 nf_conntrack_tuple_hash
+
+每一个表项存储一个tuple，哈希值（key）是根据tuple信息计算得到。
+
+```c
+struct nf_conntrack_tuple_hash {
+	struct hlist_nulls_node hnnode;
+	struct nf_conntrack_tuple tuple;
+};
+
+static u32 hash_conntrack_raw(const struct nf_conntrack_tuple *tuple,
+			      unsigned int zoneid,
+			      const struct net *net)
+{
+	u64 a, b, c, d;
+
+	get_random_once(&nf_conntrack_hash_rnd, sizeof(nf_conntrack_hash_rnd));
+
+	/* The direction must be ignored, handle usable tuplehash members manually */
+	a = (u64)tuple->src.u3.all[0] << 32 | tuple->src.u3.all[3];
+	b = (u64)tuple->dst.u3.all[0] << 32 | tuple->dst.u3.all[3];
+
+	c = (__force u64)tuple->src.u.all << 32 | (__force u64)tuple->dst.u.all << 16;
+	c |= tuple->dst.protonum;
+
+	d = (u64)zoneid << 32 | net_hash_mix(net);
+
+	/* IPv4: u3.all[1,2,3] == 0 */
+	c ^= (u64)tuple->src.u3.all[1] << 32 | tuple->src.u3.all[2];
+	d += (u64)tuple->dst.u3.all[1] << 32 | tuple->dst.u3.all[2];
+
+	// 计算hash值使用的元素：
+	// 源IP
+	// 目的IP
+	// 协议号
+	// 协议自身特有属性，比如UDP的src/dst port，ICMP的type/code/id
+	// Zone id
+	// net->hash_mix，初始化网络命名空间时提供的随机数
+	// nf_conntrack_hash_rnd 随机数
+	return (u32)siphash_4u64(a, b, c, d, &nf_conntrack_hash_rnd);
+}
+```
+
+### 4.5. 连接跟踪信息结构 nf_conn
+
+![nf contrack](./netfilter-images/nf-conn.png)
+
 ## 5. ipv4_conntrack_defrag
 
-保证进入连接跟踪的包都是完整的数据包，而非分片包。
+保证进入 CT 的包都是完整的数据包，而非分片包。
 
 ```c
 ipv4_conntrack_defrag
   | ip_is_fragment
      | ip_defrag
-     | return NF_STOLEN; // 分片包进行队列重组，就被偷走了。
+     | return NF_STOLEN; // 分片包进入队列重组，就被偷走了。
 ```
 
-## 6. ipv4_conntrack_in
+## 6. nf_conntrack_in
 
-## 7. nf_confirm
+**连接跟踪入口**
+
+从4.1可以得知，
+```c
+PRE_ROUTING: nf_confirm -> nf_conntrack_confirm
+
+LOCAL_OUT: nf_confirm -> nf_conntrack_confirm
+```
+
+**为什么是这两个 hook 点呢？**因为它们都是**新连接的第一个包最先达到**的地方
+
+- PRE_ROUTING： 是外部主动和本机建连时包最先到达的地方；
+- LOCAL_OUT： 是本机主动和外部建连时包最先到达的地方；
+
+
+## 7. nf_conntrack_confirm
+
+**连接跟踪确认**
+
+从4.1可以得知，
+```c
+LOCAL_IN: ipv4_conntrack_in -> nf_conntrack_in
+
+POST_ROUTING: ipv4_conntrack_local -> nf_conntrack_in
+```
+**为什么是这两个 hook 点呢？**因为如果新连接的第一个包没有被丢弃，那这 **是它们离开 netfilter 之前的最后 hook 点**：
+
+- LOCAL_IN： 外部主动和本机建连的包，如果在中间处理中没有被丢弃，LOCAL_IN 是其被送到应用之前的最后 hook 点；
+- POST_ROUTING： 本机主动和外部建连的包，如果在中间处理中没有被丢弃，POST_ROUTING 是其离开主机时的最后 hook 点；
+
 
 ## 8. nf_nat_ipv4_pre_routing
 

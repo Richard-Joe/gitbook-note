@@ -168,3 +168,13 @@ for j in range(0, target+1):  # 遍历背包
 ```python
 x & (x-1) == 0
 ```
+
+### 取模
+
+取模过程只能乘、加、减，而除法取模只能使用逆元进行操作。
+
+```python
+(a + b) % MOD == a % MOD + b % MOD
+```
+
+[6368. 找出字符串的可整除数组](https://leetcode.cn/problems/find-the-divisibility-array-of-a-string/)
