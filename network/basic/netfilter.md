@@ -166,6 +166,14 @@ LOCAL_OUT: nf_confirm -> nf_conntrack_confirm
 - PRE_ROUTING： 是外部主动和本机建连时包最先到达的地方；
 - LOCAL_OUT： 是本机主动和外部建连时包最先到达的地方；
 
+```c
+nf_conntrack_in
+  | resolve_normal_ct
+      | init_conntrack // 初始化连接跟踪，包含两个方向的tuple，ctinfo设置为IP_CT_NEW状态
+  | nf_conntrack_handle_packet // 不同的协议分别处理：检查、设置协议私有数据
+```
+
+![nf_conntrack_in](./netfilter-images/nf_conntrack_in.png)
 
 ## 7. nf_conntrack_confirm
 
@@ -182,14 +190,30 @@ POST_ROUTING: ipv4_conntrack_local -> nf_conntrack_in
 - LOCAL_IN： 外部主动和本机建连的包，如果在中间处理中没有被丢弃，LOCAL_IN 是其被送到应用之前的最后 hook 点；
 - POST_ROUTING： 本机主动和外部建连的包，如果在中间处理中没有被丢弃，POST_ROUTING 是其离开主机时的最后 hook 点；
 
+![nf_conntrack_confirm](./netfilter-images/nf_conntrack_confirm.png)
 
-## 8. nf_nat_ipv4_pre_routing
+从上图可知，就能知道confirm为什么要放到最后处理：
+- 关闭/开启软中断、对hash槽加解锁，在短连接、高并发场景十分损耗性能。
 
-## 9. nf_nat_ipv4_local_in
+## 8. nf_nat_inet_fn
 
-## 10. nf_nat_ipv4_out
+- SNAT hook 挂在两个位置：LOCAL_IN、POST_ROUTING
+- DNAT hook 挂在两个位置：PRE_ROUTING、LOCAL_OUT
 
-## 8. perf 跟踪函数堆栈
+```c
+// 四个hook的主要处理函数都是：nf_nat_inet_fn
+[ PRE_ROUTING  ]：nf_nat_ipv4_pre_routing -> nf_nat_inet_fn
+[ LOCAL_IN     ]：nf_nat_ipv4_local_in -> nf_nat_inet_fn
+[ LOCAL_OUT    ]：nf_nat_ipv4_local_fn -> nf_nat_inet_fn
+[ POST_ROUTING ]：nf_nat_ipv4_out -> nf_nat_inet_fn
+```
+
+![nf_nat_inet_fn](./netfilter-images/nf_nat_inet_fn.png)
+
+## 9. 实验（udp+dnat）
+
+
+## 10. perf 跟踪函数堆栈
 
 ```bash
 # 方便测试
