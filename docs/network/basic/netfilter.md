@@ -90,9 +90,7 @@ nf_conntrack_tuple.h中注释说到
 
 比如，ICMP使用以下信息来填充tuple：源IP、目的IP、icmp头部字段（type、code、id）
 
-### 4.3. nf_conntrack_l4proto
-
-### 4.4. 连接跟踪表的表项 nf_conntrack_tuple_hash
+### 4.3. 连接跟踪表的表项 nf_conntrack_tuple_hash
 
 每一个表项存储一个tuple，哈希值（key）是根据tuple信息计算得到。
 
@@ -135,7 +133,7 @@ static u32 hash_conntrack_raw(const struct nf_conntrack_tuple *tuple,
 }
 ```
 
-### 4.5. 连接跟踪信息结构 nf_conn
+### 4.4. 连接跟踪信息结构 nf_conn
 
 ![nf contrack](./netfilter-images/nf-conn.png)
 
@@ -212,6 +210,14 @@ POST_ROUTING: ipv4_conntrack_local -> nf_conntrack_in
 
 ## 9. 实验（udp+dnat）
 
+在服务端配置DNAT规则，并在`服务端`分析netfilter处理流程，以及连接跟踪的变化。
+
+```bash
+客户端 10.128.128.165 发送UDP包到 服务端 10.128.132.150:1234，服务端收到包后DNAT到本机10.128.135.176:5678
+```
+
+
+![udp-dnat](./netfilter-images/udp-dnat.png)
 
 ## 10. perf 跟踪函数堆栈
 
