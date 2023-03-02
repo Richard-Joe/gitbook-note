@@ -164,13 +164,6 @@ LOCAL_OUT: nf_confirm -> nf_conntrack_confirm
 - PRE_ROUTING： 是外部主动和本机建连时包最先到达的地方；
 - LOCAL_OUT： 是本机主动和外部建连时包最先到达的地方；
 
-```c
-nf_conntrack_in
-  | resolve_normal_ct
-      | init_conntrack // 初始化连接跟踪，包含两个方向的tuple，ctinfo设置为IP_CT_NEW状态
-  | nf_conntrack_handle_packet // 不同的协议分别处理：检查、设置协议私有数据
-```
-
 ![nf_conntrack_in](./netfilter-images/nf_conntrack_in.png)
 
 ## 7. nf_conntrack_confirm
