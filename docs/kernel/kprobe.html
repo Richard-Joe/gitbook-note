@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>k8s 将docker切换为containerd · GitBook</title>
+        <title>Kprobes · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -69,10 +69,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="compile-kernel.html" />
     
-    
-    <link rel="prev" href="install-ovs.html" />
+    <link rel="prev" href="kdump.html" />
     
 
     </head>
@@ -535,9 +533,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.9.1" data-path="../kernel/进程调度.html">
+        <li class="chapter " data-level="1.9.1" data-path="进程调度.html">
             
-                <a href="../kernel/进程调度.html">
+                <a href="进程调度.html">
             
                     
                     进程调度
@@ -548,9 +546,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.2" data-path="../kernel/内存管理.html">
+        <li class="chapter " data-level="1.9.2" data-path="内存管理.html">
             
-                <a href="../kernel/内存管理.html">
+                <a href="内存管理.html">
             
                     
                     内存管理
@@ -561,9 +559,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.3" data-path="../kernel/kdump.html">
+        <li class="chapter " data-level="1.9.3" data-path="kdump.html">
             
-                <a href="../kernel/kdump.html">
+                <a href="kdump.html">
             
                     
                     Kdump
@@ -574,9 +572,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.4" data-path="../kernel/kprobe.html">
+        <li class="chapter active" data-level="1.9.4" data-path="kprobe.html">
             
-                <a href="../kernel/kprobe.html">
+                <a href="kprobe.html">
             
                     
                     Kprobes
@@ -638,9 +636,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.11.1" data-path="centos-install-v2ray.html">
+        <li class="chapter " data-level="1.11.1" data-path="../misc/centos-install-v2ray.html">
             
-                <a href="centos-install-v2ray.html">
+                <a href="../misc/centos-install-v2ray.html">
             
                     
                     centos安装v2ray
@@ -651,9 +649,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2" data-path="docker-pull-use-proxy.html">
+        <li class="chapter " data-level="1.11.2" data-path="../misc/docker-pull-use-proxy.html">
             
-                <a href="docker-pull-use-proxy.html">
+                <a href="../misc/docker-pull-use-proxy.html">
             
                     
                     docker/containerd设置代理实现从外网拉取镜像
@@ -664,9 +662,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.3" data-path="install-ovs.html">
+        <li class="chapter " data-level="1.11.3" data-path="../misc/install-ovs.html">
             
-                <a href="install-ovs.html">
+                <a href="../misc/install-ovs.html">
             
                     
                     编译安装ovs
@@ -677,9 +675,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.11.4" data-path="docker-to-containerd.html">
+        <li class="chapter " data-level="1.11.4" data-path="../misc/docker-to-containerd.html">
             
-                <a href="docker-to-containerd.html">
+                <a href="../misc/docker-to-containerd.html">
             
                     
                     k8s 将docker切换为containerd
@@ -690,9 +688,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.5" data-path="compile-kernel.html">
+        <li class="chapter " data-level="1.11.5" data-path="../misc/compile-kernel.html">
             
-                <a href="compile-kernel.html">
+                <a href="../misc/compile-kernel.html">
             
                     
                     编译内核
@@ -751,7 +749,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >k8s 将docker切换为containerd</a>
+        <a href=".." >Kprobes</a>
     </h1>
 </div>
 
@@ -766,81 +764,73 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="k8s-&#x5C06;docker&#x5207;&#x6362;&#x4E3A;containerd">k8s &#x5C06;docker&#x5207;&#x6362;&#x4E3A;containerd</h1>
-<p>master&#x4E0A;&#x64CD;&#x4F5C;</p>
-<pre><code class="lang-bash">// &#x67E5;&#x770B;CONTAINER-RUNTIME
-[root@master ~]<span class="hljs-comment"># kubectl get node -owide</span>
+                                <h1 id="kprobes">Kprobes</h1>
+<pre><code>Kprobes enables you to dynamically break into any kernel routine and collect debugging and performance information non-disruptively. You can trap at almost any kernel code address 1, specifying a handler routine to be invoked when the breakpoint is hit.
+</code></pre><p>&#x76EE;&#x524D;&#x6709;&#x4E24;&#x79CD;&#x63A2;&#x9488;&#xFF1A;</p>
+<ul>
+<li>kprobes&#xFF1A;&#x51E0;&#x4E4E;&#x53EF;&#x4EE5;&#x63D2;&#x5165;&#x5185;&#x6838;&#x4E2D;&#x7684;&#x4EFB;&#x4F55;&#x6307;&#x4EE4;&#xFF08;&#x5F53;&#x7136;&#x4E5F;&#x6709;&#x9ED1;&#x540D;&#x5355;&#xFF09;</li>
+<li>kretprobes&#xFF1A;&#x5728;&#x6307;&#x5B9A;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x65F6;&#x89E6;&#x53D1;</li>
+</ul>
+<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x4F7F;&#x7528;kprobes&#xFF1A;</p>
+<ul>
+<li>&#x4E00;&#x79CD;&#x662F;<code>&#x7F16;&#x5199;&#x5185;&#x6838;&#x6A21;&#x5757;</code>&#xFF0C;&#x8C03;&#x7528;register_kprobe/unregister_kprobe&#xFF0C;&#x5411;&#x5185;&#x6838;&#x6CE8;&#x518C;&#x63A2;&#x6D4B;&#x70B9;&#xFF0C;&#x7075;&#x6D3B;&#x7F16;&#x5199;pre_handler &#x548C; post_handler&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF1B;</li>
+<li>&#x53E6;&#x4E00;&#x79CD;&#x662F;&#x4F7F;&#x7528; <code>kprobes + ftrace</code></li>
+</ul>
+<h2 id="1-&#x5B9E;&#x8DF5;">1. &#x5B9E;&#x8DF5;</h2>
+<h3 id="11-kprobeexamplec&#x3001;kretprobeexamplec">1.1. kprobe_example.c&#x3001;kretprobe_example.c</h3>
+<p>&#x6E90;&#x7801;&#x5728;&#x5185;&#x6838;samples/kprobes&#x76EE;&#x5F55;&#x4E0B;</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x7F16;&#x8BD1;kprobe_example.ko</span>
+<span class="hljs-comment"># insmod kprobe_example.ko</span>
+<span class="hljs-comment"># &#x968F;&#x4FBF;&#x6572;&#x51E0;&#x4E2A;&#x547D;&#x4EE4;</span>
+<span class="hljs-comment"># dmesg</span>
+[ 3116.494530] handler_pre: &lt;kernel_<span class="hljs-built_in">clone</span>&gt; p-&gt;addr = 0x0000000005f99348, ip = ffffffffa20fffc5, flags = 0x206
+[ 3116.494535] handler_post: &lt;kernel_<span class="hljs-built_in">clone</span>&gt; p-&gt;addr = 0x0000000005f99348, flags = 0x206
+[ 3119.966756] handler_pre: &lt;kernel_<span class="hljs-built_in">clone</span>&gt; p-&gt;addr = 0x0000000005f99348, ip = ffffffffa20fffc5, flags = 0x206
+[ 3119.966762] handler_post: &lt;kernel_<span class="hljs-built_in">clone</span>&gt; p-&gt;addr = 0x0000000005f99348, flags = 0x206
 
-// &#x5207;&#x6362;&#x7684;node&#x6539;&#x4E3A;&#x4E0D;&#x53EF;&#x8C03;&#x5EA6;
-[root@master ~]<span class="hljs-comment"># kubectl cordon node1</span>
-
-// &#x9A71;&#x9010;&#x8BE5;node&#x4E0A;&#x7684;pod&#x8D44;&#x6E90;
-[root@master ~]<span class="hljs-comment"># kubectl drain node1 --delete-local-data --force --ignore-daemonsets</span>
-
-// &#x67E5;&#x770B;&#x751F;&#x6548;
-[root@master ~]<span class="hljs-comment"># kubectl get node</span>
-node1    Ready,SchedulingDisabled   &lt;none&gt;                 14m   v1.20.6
+<span class="hljs-comment"># rmmod kprobe_example</span>
 </code></pre>
-<p>node&#x4E0A;&#x64CD;&#x4F5C;</p>
-<pre><code class="lang-bash">// &#x5378;&#x8F7D;docker
-[root@node1 ~]<span class="hljs-comment"># systemctl stop kubelet</span>
-[root@node1 ~]<span class="hljs-comment"># systemctl stop docker</span>
-[root@node1 ~]<span class="hljs-comment"># yum remove -y docker-ce docker-ce-cli</span>
-
-// &#x914D;&#x7F6E;&#x5185;&#x6838;&#x6A21;&#x5757;&#x548C;&#x53C2;&#x6570;
-cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/containerd.conf
-overlay
-br_netfilter
-EOF
-
-modprobe overlay
-modprobe br_netfilter
-
-cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.ipv4.ip_forward                 = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-EOF
-
-sysctl --system
-
-// &#x751F;&#x6210;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;
-containerd config default | sudo tee /etc/containerd/config.toml
-
-// &#x4FEE;&#x6539;&#x914D;&#x7F6E;
-// sandbox_image: &#x5C06;&#x955C;&#x50CF;&#x5730;&#x5740;&#x66FF;&#x6362;&#x4E3A;&#x56FD;&#x5185;&#x963F;&#x91CC;&#x4E91;&#x7684;
-// SystemdCgroup: &#x6307;&#x5B9A;&#x4F7F;&#x7528;systemd&#x4F5C;&#x4E3A;Cgroup&#x7684;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;(&#x5728;options&#x4E0B;&#x4E00;&#x884C;&#x6DFB;&#x52A0;&#x7684;&#x5185;&#x5BB9;)
-// endpoint:      &#x4FEE;&#x6539;&#x955C;&#x50CF;&#x52A0;&#x901F;&#x5730;&#x5740;
-[root@node1 ~]<span class="hljs-comment"># cat -n  /etc/containerd/config.toml |egrep &quot;sandbox_image|SystemdCgroup |endpoint &quot;</span>
-    57      sandbox_image = <span class="hljs-string">&quot;registry.aliyuncs.com/google_containers/pause:3.2&quot;</span>   
-    97            SystemdCgroup = <span class="hljs-literal">true</span>
-   106            endpoint = [<span class="hljs-string">&quot;https://x9jcawxv.mirror.aliyuncs.com&quot;</span>]
-
-// &#x91CD;&#x542F;containerd
-[root@node1 ~]<span class="hljs-comment"># systemctl restart containerd.service</span>
-[root@node1 ~]<span class="hljs-comment"># systemctl enable containerd.service</span>
-
-// &#x914D;&#x7F6E;kubelet&#x4F7F;&#x7528;containerd
-[root@node1 ~]<span class="hljs-comment"># cat  /etc/sysconfig/kubelet</span>
-KUBELET_EXTRA_ARGS=<span class="hljs-string">&quot;--container-runtime=remote --container-runtime-endpoint=unix:///run/containerd/containerd.sock --cgroup-driver=systemd&quot;</span>
-
-// &#x91CD;&#x542F;kubelet
-[root@node1 ~]<span class="hljs-comment"># systemctl restart kubelet</span>
+<h3 id="12-kprobes--ftrace">1.2. kprobes + ftrace</h3>
+<pre><code class="lang-bash">/sys/kernel/debug/kprobes/list: &#x5185;&#x6838;&#x4E2D;&#x5DF2;&#x7ECF;&#x8BBE;&#x7F6E;kprobes&#x65AD;&#x70B9;&#x7684;&#x51FD;&#x6570;
+/sys/kernel/debug/kprobes/enabled: kprobes&#x5F00;&#x5173;
+/sys/kernel/debug/kprobes/blacklist: kprobes&#x9ED1;&#x540D;&#x5355;&#xFF08;&#x65E0;&#x6CD5;&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;&#x51FD;&#x6570;&#xFF09;
+/proc/sys/debug/kprobes-optimization: kprobes&#x4F18;&#x5316;&#x5F00;&#x5173;
 </code></pre>
-<p>master&#x4E0A;&#x64CD;&#x4F5C;</p>
-<pre><code class="lang-bash">// &#x67E5;&#x770B;CONTAINER-RUNTIME&#x662F;&#x5426;&#x5207;&#x6362;&#x4E3A;containerd
-[root@master ~]<span class="hljs-comment"># kubectl get node -owide</span>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x5F00;&#x542F;trace</span>
+<span class="hljs-built_in">echo</span> 1 &gt; /sys/kernel/debug/tracing/tracing_on
 
-// &#x53D6;&#x6D88;node&#x4E0D;&#x53EF;&#x8C03;&#x5EA6;&#x7684;&#x6807;&#x8BB0;
-[root@master ~]<span class="hljs-comment"># kubectl uncordon node1</span>
+<span class="hljs-comment"># &#x6CE8;&#x518C;</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;p:myprobe icmp_rcv&apos;</span> &gt; /sys/kernel/debug/tracing/kprobe_events
+<span class="hljs-built_in">echo</span> 1 &gt; /sys/kernel/debug/tracing/events/kprobes/myprobe/<span class="hljs-built_in">enable</span>
+
+<span class="hljs-comment"># &#x968F;&#x4FBF;ping&#x51E0;&#x4E2A;&#x5305;&#x5230;&#x672C;&#x673A;</span>
+<span class="hljs-comment"># &#x67E5;&#x770B;</span>
+cat /sys/kernel/debug/tracing/trace
+<span class="hljs-comment"># tracer: nop</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-comment"># entries-in-buffer/entries-written: 6/6   #P:4</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-comment">#                                _-----=&gt; irqs-off/BH-disabled</span>
+<span class="hljs-comment">#                               / _----=&gt; need-resched</span>
+<span class="hljs-comment">#                              | / _---=&gt; hardirq/softirq</span>
+<span class="hljs-comment">#                              || / _--=&gt; preempt-depth</span>
+<span class="hljs-comment">#                              ||| / _-=&gt; migrate-disable</span>
+<span class="hljs-comment">#                              |||| /     delay</span>
+<span class="hljs-comment">#           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION</span>
+<span class="hljs-comment">#              | |         |   |||||     |         |</span>
+          &lt;idle&gt;-0       [001] ..s1.  4084.212468: myprobe: (icmp_rcv+0x4/0x3c0)
+          &lt;idle&gt;-0       [001] ..s1.  4085.213941: myprobe: (icmp_rcv+0x4/0x3c0)
+          &lt;idle&gt;-0       [001] ..s1.  4135.129815: myprobe: (icmp_rcv+0x4/0x3c0)
+          &lt;idle&gt;-0       [001] ..s1.  4136.132458: myprobe: (icmp_rcv+0x4/0x3c0)
+
+<span class="hljs-comment"># &#x5220;&#x9664;</span>
+<span class="hljs-built_in">echo</span> 0 &gt; /sys/kernel/debug/tracing/events/kprobes/myprobe/<span class="hljs-built_in">enable</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&apos;-:myprobe&apos;</span> &gt; /sys/kernel/debug/tracing/events/kprobe_events
 </code></pre>
-<p>crictl&#x914D;&#x7F6E;</p>
-<pre><code class="lang-bash">[root@master /]<span class="hljs-comment"># cat /etc/crictl.yaml</span>
-runtime-endpoint: unix:///run/containerd/containerd.sock
-image-endpoint: unix:///run/containerd/containerd.sock
-timeout: 10
-debug: <span class="hljs-literal">false</span>
-</code></pre>
+<h2 id="2-&#x539F;&#x7406;">2. &#x539F;&#x7406;</h2>
+<h2 id="3-&#x53C2;&#x8003;">3. &#x53C2;&#x8003;</h2>
+<p><a href="https://www.kernel.org/doc/html/latest/trace/kprobes.html" target="_blank">https://www.kernel.org/doc/html/latest/trace/kprobes.html</a>
+<a href="https://www.kernel.org/doc/html/latest/trace/kprobetrace.html" target="_blank">https://www.kernel.org/doc/html/latest/trace/kprobetrace.html</a></p>
 
                                 
                                 </section>
@@ -868,14 +858,10 @@ debug: <span class="hljs-literal">false</span>
 
             
                 
-                <a href="install-ovs.html" class="navigation navigation-prev " aria-label="Previous page: 编译安装ovs">
+                <a href="kdump.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Kdump">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="compile-kernel.html" class="navigation navigation-next " aria-label="Next page: 编译内核">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -884,7 +870,7 @@ debug: <span class="hljs-literal">false</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"k8s 将docker切换为containerd","level":"1.11.4","depth":2,"next":{"title":"编译内核","level":"1.11.5","depth":2,"path":"misc/compile-kernel.md","ref":"./misc/compile-kernel.md","articles":[]},"previous":{"title":"编译安装ovs","level":"1.11.3","depth":2,"path":"misc/install-ovs.md","ref":"./misc/install-ovs.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"misc/docker-to-containerd.md","mtime":"2022-03-10T04:02:01.539Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-02T15:38:43.293Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Kprobes","level":"1.9.4","depth":2,"next":{"title":"八股","level":"1.10","depth":1,"ref":"","articles":[{"title":"一致性hash","level":"1.10.1","depth":2,"path":"BAGU/consistent_hash.md","ref":"./BAGU/consistent_hash.md","articles":[]}]},"previous":{"title":"Kdump","level":"1.9.3","depth":2,"path":"kernel/kdump.md","ref":"./kernel/kdump.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"kernel/kprobe.md","mtime":"2023-03-02T15:38:01.606Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-02T15:38:43.293Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

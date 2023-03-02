@@ -44,6 +44,7 @@
   * [进程调度](./kernel/进程调度.md)
   * [内存管理](./kernel/内存管理.md)
   * [Kdump](./kernel/kdump.md)
+  * [Kprobes](./kernel/kprobe.md)
 
 * [八股]()
   * [一致性hash](./BAGU/consistent_hash.md)
