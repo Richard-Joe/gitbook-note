@@ -45,6 +45,7 @@
   * [内存管理](./kernel/内存管理.md)
   * [Kdump](./kernel/kdump.md)
   * [Kprobes](./kernel/kprobe.md)
+  * [Systemtap](./kernel/systemtap.md)
 
 * [八股]()
   * [一致性hash](./BAGU/consistent_hash.md)

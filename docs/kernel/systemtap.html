@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>k8s 将docker切换为containerd · GitBook</title>
+        <title>Systemtap · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -69,10 +69,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="compile-kernel.html" />
     
-    
-    <link rel="prev" href="install-ovs.html" />
+    <link rel="prev" href="kprobe.html" />
     
 
     </head>
@@ -535,9 +533,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.9.1" data-path="../kernel/进程调度.html">
+        <li class="chapter " data-level="1.9.1" data-path="进程调度.html">
             
-                <a href="../kernel/进程调度.html">
+                <a href="进程调度.html">
             
                     
                     进程调度
@@ -548,9 +546,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.2" data-path="../kernel/内存管理.html">
+        <li class="chapter " data-level="1.9.2" data-path="内存管理.html">
             
-                <a href="../kernel/内存管理.html">
+                <a href="内存管理.html">
             
                     
                     内存管理
@@ -561,9 +559,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.3" data-path="../kernel/kdump.html">
+        <li class="chapter " data-level="1.9.3" data-path="kdump.html">
             
-                <a href="../kernel/kdump.html">
+                <a href="kdump.html">
             
                     
                     Kdump
@@ -574,9 +572,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.4" data-path="../kernel/kprobe.html">
+        <li class="chapter " data-level="1.9.4" data-path="kprobe.html">
             
-                <a href="../kernel/kprobe.html">
+                <a href="kprobe.html">
             
                     
                     Kprobes
@@ -587,9 +585,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.5" data-path="../kernel/systemtap.html">
+        <li class="chapter active" data-level="1.9.5" data-path="systemtap.html">
             
-                <a href="../kernel/systemtap.html">
+                <a href="systemtap.html">
             
                     
                     Systemtap
@@ -651,9 +649,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.11.1" data-path="centos-install-v2ray.html">
+        <li class="chapter " data-level="1.11.1" data-path="../misc/centos-install-v2ray.html">
             
-                <a href="centos-install-v2ray.html">
+                <a href="../misc/centos-install-v2ray.html">
             
                     
                     centos安装v2ray
@@ -664,9 +662,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2" data-path="docker-pull-use-proxy.html">
+        <li class="chapter " data-level="1.11.2" data-path="../misc/docker-pull-use-proxy.html">
             
-                <a href="docker-pull-use-proxy.html">
+                <a href="../misc/docker-pull-use-proxy.html">
             
                     
                     docker/containerd设置代理实现从外网拉取镜像
@@ -677,9 +675,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.3" data-path="install-ovs.html">
+        <li class="chapter " data-level="1.11.3" data-path="../misc/install-ovs.html">
             
-                <a href="install-ovs.html">
+                <a href="../misc/install-ovs.html">
             
                     
                     编译安装ovs
@@ -690,9 +688,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.11.4" data-path="docker-to-containerd.html">
+        <li class="chapter " data-level="1.11.4" data-path="../misc/docker-to-containerd.html">
             
-                <a href="docker-to-containerd.html">
+                <a href="../misc/docker-to-containerd.html">
             
                     
                     k8s 将docker切换为containerd
@@ -703,9 +701,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.5" data-path="compile-kernel.html">
+        <li class="chapter " data-level="1.11.5" data-path="../misc/compile-kernel.html">
             
-                <a href="compile-kernel.html">
+                <a href="../misc/compile-kernel.html">
             
                     
                     编译内核
@@ -764,7 +762,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >k8s 将docker切换为containerd</a>
+        <a href=".." >Systemtap</a>
     </h1>
 </div>
 
@@ -779,81 +777,16 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="k8s-&#x5C06;docker&#x5207;&#x6362;&#x4E3A;containerd">k8s &#x5C06;docker&#x5207;&#x6362;&#x4E3A;containerd</h1>
-<p>master&#x4E0A;&#x64CD;&#x4F5C;</p>
-<pre><code class="lang-bash">// &#x67E5;&#x770B;CONTAINER-RUNTIME
-[root@master ~]<span class="hljs-comment"># kubectl get node -owide</span>
-
-// &#x5207;&#x6362;&#x7684;node&#x6539;&#x4E3A;&#x4E0D;&#x53EF;&#x8C03;&#x5EA6;
-[root@master ~]<span class="hljs-comment"># kubectl cordon node1</span>
-
-// &#x9A71;&#x9010;&#x8BE5;node&#x4E0A;&#x7684;pod&#x8D44;&#x6E90;
-[root@master ~]<span class="hljs-comment"># kubectl drain node1 --delete-local-data --force --ignore-daemonsets</span>
-
-// &#x67E5;&#x770B;&#x751F;&#x6548;
-[root@master ~]<span class="hljs-comment"># kubectl get node</span>
-node1    Ready,SchedulingDisabled   &lt;none&gt;                 14m   v1.20.6
+                                <h1 id="systemtap">Systemtap</h1>
+<h2 id="&#x5DE5;&#x4F5C;&#x539F;&#x7406;">&#x5DE5;&#x4F5C;&#x539F;&#x7406;</h2>
+<pre><code class="lang-bash">scripts -&gt; parse -&gt; translate -&gt; build -&gt; run
 </code></pre>
-<p>node&#x4E0A;&#x64CD;&#x4F5C;</p>
-<pre><code class="lang-bash">// &#x5378;&#x8F7D;docker
-[root@node1 ~]<span class="hljs-comment"># systemctl stop kubelet</span>
-[root@node1 ~]<span class="hljs-comment"># systemctl stop docker</span>
-[root@node1 ~]<span class="hljs-comment"># yum remove -y docker-ce docker-ce-cli</span>
-
-// &#x914D;&#x7F6E;&#x5185;&#x6838;&#x6A21;&#x5757;&#x548C;&#x53C2;&#x6570;
-cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/containerd.conf
-overlay
-br_netfilter
-EOF
-
-modprobe overlay
-modprobe br_netfilter
-
-cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.ipv4.ip_forward                 = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-EOF
-
-sysctl --system
-
-// &#x751F;&#x6210;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;
-containerd config default | sudo tee /etc/containerd/config.toml
-
-// &#x4FEE;&#x6539;&#x914D;&#x7F6E;
-// sandbox_image: &#x5C06;&#x955C;&#x50CF;&#x5730;&#x5740;&#x66FF;&#x6362;&#x4E3A;&#x56FD;&#x5185;&#x963F;&#x91CC;&#x4E91;&#x7684;
-// SystemdCgroup: &#x6307;&#x5B9A;&#x4F7F;&#x7528;systemd&#x4F5C;&#x4E3A;Cgroup&#x7684;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;(&#x5728;options&#x4E0B;&#x4E00;&#x884C;&#x6DFB;&#x52A0;&#x7684;&#x5185;&#x5BB9;)
-// endpoint:      &#x4FEE;&#x6539;&#x955C;&#x50CF;&#x52A0;&#x901F;&#x5730;&#x5740;
-[root@node1 ~]<span class="hljs-comment"># cat -n  /etc/containerd/config.toml |egrep &quot;sandbox_image|SystemdCgroup |endpoint &quot;</span>
-    57      sandbox_image = <span class="hljs-string">&quot;registry.aliyuncs.com/google_containers/pause:3.2&quot;</span>   
-    97            SystemdCgroup = <span class="hljs-literal">true</span>
-   106            endpoint = [<span class="hljs-string">&quot;https://x9jcawxv.mirror.aliyuncs.com&quot;</span>]
-
-// &#x91CD;&#x542F;containerd
-[root@node1 ~]<span class="hljs-comment"># systemctl restart containerd.service</span>
-[root@node1 ~]<span class="hljs-comment"># systemctl enable containerd.service</span>
-
-// &#x914D;&#x7F6E;kubelet&#x4F7F;&#x7528;containerd
-[root@node1 ~]<span class="hljs-comment"># cat  /etc/sysconfig/kubelet</span>
-KUBELET_EXTRA_ARGS=<span class="hljs-string">&quot;--container-runtime=remote --container-runtime-endpoint=unix:///run/containerd/containerd.sock --cgroup-driver=systemd&quot;</span>
-
-// &#x91CD;&#x542F;kubelet
-[root@node1 ~]<span class="hljs-comment"># systemctl restart kubelet</span>
-</code></pre>
-<p>master&#x4E0A;&#x64CD;&#x4F5C;</p>
-<pre><code class="lang-bash">// &#x67E5;&#x770B;CONTAINER-RUNTIME&#x662F;&#x5426;&#x5207;&#x6362;&#x4E3A;containerd
-[root@master ~]<span class="hljs-comment"># kubectl get node -owide</span>
-
-// &#x53D6;&#x6D88;node&#x4E0D;&#x53EF;&#x8C03;&#x5EA6;&#x7684;&#x6807;&#x8BB0;
-[root@master ~]<span class="hljs-comment"># kubectl uncordon node1</span>
-</code></pre>
-<p>crictl&#x914D;&#x7F6E;</p>
-<pre><code class="lang-bash">[root@master /]<span class="hljs-comment"># cat /etc/crictl.yaml</span>
-runtime-endpoint: unix:///run/containerd/containerd.sock
-image-endpoint: unix:///run/containerd/containerd.sock
-timeout: 10
-debug: <span class="hljs-literal">false</span>
-</code></pre>
+<p><img src="images/systemtap.png" alt="systemtap"></p>
+<h2 id="&#x5B66;&#x4E60;&#x8D44;&#x6599;">&#x5B66;&#x4E60;&#x8D44;&#x6599;</h2>
+<p><a href="https://sourceware.org/systemtap/documentation.html" target="_blank">https://sourceware.org/systemtap/documentation.html</a>
+<a href="https://www.sourceware.org/systemtap/examples/" target="_blank">https://www.sourceware.org/systemtap/examples/</a>
+<a href="https://github.com/lichuang/awesome-systemtap-cn" target="_blank">https://github.com/lichuang/awesome-systemtap-cn</a>
+<a href="https://github.com/brendangregg/systemtap-lwtools" target="_blank">https://github.com/brendangregg/systemtap-lwtools</a></p>
 
                                 
                                 </section>
@@ -881,14 +814,10 @@ debug: <span class="hljs-literal">false</span>
 
             
                 
-                <a href="install-ovs.html" class="navigation navigation-prev " aria-label="Previous page: 编译安装ovs">
+                <a href="kprobe.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Kprobes">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="compile-kernel.html" class="navigation navigation-next " aria-label="Next page: 编译内核">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -897,7 +826,7 @@ debug: <span class="hljs-literal">false</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"k8s 将docker切换为containerd","level":"1.11.4","depth":2,"next":{"title":"编译内核","level":"1.11.5","depth":2,"path":"misc/compile-kernel.md","ref":"./misc/compile-kernel.md","articles":[]},"previous":{"title":"编译安装ovs","level":"1.11.3","depth":2,"path":"misc/install-ovs.md","ref":"./misc/install-ovs.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"misc/docker-to-containerd.md","mtime":"2022-03-10T04:02:01.539Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-05T11:59:31.403Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Systemtap","level":"1.9.5","depth":2,"next":{"title":"八股","level":"1.10","depth":1,"ref":"","articles":[{"title":"一致性hash","level":"1.10.1","depth":2,"path":"BAGU/consistent_hash.md","ref":"./BAGU/consistent_hash.md","articles":[]}]},"previous":{"title":"Kprobes","level":"1.9.4","depth":2,"path":"kernel/kprobe.md","ref":"./kernel/kprobe.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"kernel/systemtap.md","mtime":"2023-03-04T12:00:52.680Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-05T11:59:31.403Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

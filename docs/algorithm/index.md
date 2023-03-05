@@ -121,13 +121,16 @@ end = lower_bound(nums, target+1) - 1    # <= x
 ## 01背包
 
 ```python
-dp = [0]*(n+1)
-for i in range(n):
+dp = [0]*(target+1)
+# 求有多少种方法
+# dp[0] = 1
+for i in range(len(nums)):
 	for j in range(target, nums[i]-1, -1):
 		# 求最大价值
 		dp[j] = max(dp[j], dp[j-weight[i]]+value[i])
 		# 求有多少种方法
 		# dp[j] += dp[j-nums[i]]
+return dp[target]
 ```
 
 ## 完全背包
@@ -163,13 +166,30 @@ for j in range(0, target+1):  # 遍历背包
 	for n in nums:  # 遍历物品
 ```
 
-### 判断一个数是否是2的幂次方
+## 多重背包
+
+```python
+dp = [0]*(target+1)
+# 求有多少种方法
+dp[0] = 1
+# 每个物品的价值是value，数量有count个
+for count, value in nums:
+	for i in range(target, 0, -1):
+		for j in range(1, count+1):
+			if i - j*value >= 0:
+				# 求有多少种方法
+				dp[i] += dp[i-j*value]
+return dp[target]
+```
+[6310. 获得分数的方法数](https://leetcode.cn/contest/weekly-contest-335/problems/number-of-ways-to-earn-points/)
+
+## 判断一个数是否是2的幂次方
 
 ```python
 x & (x-1) == 0
 ```
 
-### 取模
+## 取模
 
 取模过程只能乘、加、减，而除法取模只能使用逆元进行操作。
 
