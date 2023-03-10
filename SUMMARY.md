@@ -43,6 +43,7 @@
 * [内核]()
   * [进程调度](./kernel/进程调度.md)
   * [内存管理](./kernel/内存管理.md)
+    * [将虚拟地址转换为物理地址](./kernel/mm-1-va2pa.md)
   * [Kdump](./kernel/kdump.md)
   * [Kprobes](./kernel/kprobe.md)
   * [Systemtap](./kernel/systemtap.md)

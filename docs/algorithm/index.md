@@ -198,3 +198,7 @@ x & (x-1) == 0
 ```
 
 [6368. 找出字符串的可整除数组](https://leetcode.cn/problems/find-the-divisibility-array-of-a-string/)
+
+## 前后缀分解
+
+[1653. 使字符串平衡的最少删除次数](https://leetcode.cn/problems/minimum-deletions-to-make-string-balanced/description/)
