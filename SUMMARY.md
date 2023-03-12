@@ -51,7 +51,8 @@
   * [Systemtap](./kernel/systemtap.md)
 
 * [八股]()
-  * [一致性hash](./BAGU/consistent_hash.md)
+  * [一致性hash](./BAGU/1_consistent_hash.md)
+  * [Golang](./BAGU/2_golang.md)
 
 * [杂项]()
   * [centos安装v2ray](./misc/centos-install-v2ray.md)

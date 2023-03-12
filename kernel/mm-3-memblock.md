@@ -52,6 +52,6 @@ map_kernel、map_mem进行页表映射，最终都会调用到`__create_pgd_mapp
 
 ![__create_pgd_mapping](./images/mm_29.png)
 
-## 2. debug
+## 3. debug
 
 开启memblock debug后，可以在/sys/kernel/debug/memblock查看相关布局
