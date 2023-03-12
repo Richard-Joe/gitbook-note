@@ -202,3 +202,9 @@ x & (x-1) == 0
 ## 前后缀分解
 
 [1653. 使字符串平衡的最少删除次数](https://leetcode.cn/problems/minimum-deletions-to-make-string-balanced/description/)
+
+## 区间排序
+
+在求多个区间`[start, end]`的重叠情况时，可以进行按`左端点` 或 `右端点` 排序来统计。
+
+这里有一个性质：**如果按`右端点` 排序，前面一个区间和后面一个区间如果存在交集，那么这个交集一定是前面区间的一个后缀。**

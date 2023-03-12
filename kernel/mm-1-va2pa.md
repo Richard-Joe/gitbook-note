@@ -231,6 +231,8 @@ $ dmesg
 [896954.652344] virtual address 0x5651b590c2a0 --> physics address 0x80000001422c5000
 ```
 
+![process mem map](./images/mm_18_1.png)
+
 ## 参考资料
 
 https://www.kernel.org/doc/html/latest/x86/x86_64/mm.html
