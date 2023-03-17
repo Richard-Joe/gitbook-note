@@ -118,6 +118,14 @@ start = lower_bound(nums, target)        # >= x
 end = lower_bound(nums, target+1) - 1    # <= x
 ```
 
+```python
+from bisect import *
+
+# bisect_left 查找第一个大于等于target的位置
+# bisect 查找第一个大于target的位置
+# bisect_right 查找第一个大于target的位置
+```
+
 ## 01背包
 
 ```python
