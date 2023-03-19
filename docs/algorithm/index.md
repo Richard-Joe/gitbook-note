@@ -118,6 +118,14 @@ start = lower_bound(nums, target)        # >= x
 end = lower_bound(nums, target+1) - 1    # <= x
 ```
 
+```python
+from bisect import *
+
+# bisect_left 查找第一个大于等于target的位置
+# bisect 查找第一个大于target的位置
+# bisect_right 查找第一个大于target的位置
+```
+
 ## 01背包
 
 ```python
@@ -208,3 +216,13 @@ x & (x-1) == 0
 在求多个区间`[start, end]`的重叠情况时，可以进行按`左端点` 或 `右端点` 排序来统计。
 
 这里有一个性质：**如果按`右端点` 排序，前面一个区间和后面一个区间如果存在交集，那么这个交集一定是前面区间的一个后缀。**
+
+## 限定边界的子数组
+
+**限定边界的情况下，统计满足条件的子数组**，这类问题，可以通过在二维坐标里面画图，来分析思路。
+
+[795. 区间子数组个数](https://leetcode.cn/problems/number-of-subarrays-with-bounded-maximum/description/)
+
+[2444. 统计定界子数组的数目](https://leetcode.cn/problems/count-subarrays-with-fixed-bounds/description/)
+
+![统计定界子数组的数目](./images/1.png)
