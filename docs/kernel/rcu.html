@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>一致性hash · GitBook</title>
+        <title>RCU · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -69,8 +69,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="2_golang.html" />
     
+    <link rel="prev" href="systemtap.html" />
     
 
     </head>
@@ -533,9 +533,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.9.1" data-path="../kernel/进程调度.html">
+        <li class="chapter " data-level="1.9.1" data-path="进程调度.html">
             
-                <a href="../kernel/进程调度.html">
+                <a href="进程调度.html">
             
                     
                     进程调度
@@ -546,9 +546,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.2" data-path="../kernel/内存管理.html">
+        <li class="chapter " data-level="1.9.2" data-path="内存管理.html">
             
-                <a href="../kernel/内存管理.html">
+                <a href="内存管理.html">
             
                     
                     内存管理
@@ -560,9 +560,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.9.2.1" data-path="../kernel/mm-1-va2pa.html">
+        <li class="chapter " data-level="1.9.2.1" data-path="mm-1-va2pa.html">
             
-                <a href="../kernel/mm-1-va2pa.html">
+                <a href="mm-1-va2pa.html">
             
                     
                     将虚拟地址转换为物理地址
@@ -573,9 +573,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.2.2" data-path="../kernel/mm-2-physical-memory-model.html">
+        <li class="chapter " data-level="1.9.2.2" data-path="mm-2-physical-memory-model.html">
             
-                <a href="../kernel/mm-2-physical-memory-model.html">
+                <a href="mm-2-physical-memory-model.html">
             
                     
                     物理内存模型
@@ -586,9 +586,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.2.3" data-path="../kernel/mm-3-memblock.html">
+        <li class="chapter " data-level="1.9.2.3" data-path="mm-3-memblock.html">
             
-                <a href="../kernel/mm-3-memblock.html">
+                <a href="mm-3-memblock.html">
             
                     
                     memblock
@@ -604,9 +604,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.3" data-path="../kernel/kdump.html">
+        <li class="chapter " data-level="1.9.3" data-path="kdump.html">
             
-                <a href="../kernel/kdump.html">
+                <a href="kdump.html">
             
                     
                     Kdump
@@ -617,9 +617,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.4" data-path="../kernel/kprobe.html">
+        <li class="chapter " data-level="1.9.4" data-path="kprobe.html">
             
-                <a href="../kernel/kprobe.html">
+                <a href="kprobe.html">
             
                     
                     Kprobes
@@ -630,9 +630,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.5" data-path="../kernel/systemtap.html">
+        <li class="chapter " data-level="1.9.5" data-path="systemtap.html">
             
-                <a href="../kernel/systemtap.html">
+                <a href="systemtap.html">
             
                     
                     Systemtap
@@ -643,9 +643,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.6" data-path="../kernel/rcu.html">
+        <li class="chapter active" data-level="1.9.6" data-path="rcu.html">
             
-                <a href="../kernel/rcu.html">
+                <a href="rcu.html">
             
                     
                     RCU
@@ -675,9 +675,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.10.1" data-path="1_consistent_hash.html">
+        <li class="chapter " data-level="1.10.1" data-path="../BAGU/1_consistent_hash.html">
             
-                <a href="1_consistent_hash.html">
+                <a href="../BAGU/1_consistent_hash.html">
             
                     
                     一致性hash
@@ -688,9 +688,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="2_golang.html">
+        <li class="chapter " data-level="1.10.2" data-path="../BAGU/2_golang.html">
             
-                <a href="2_golang.html">
+                <a href="../BAGU/2_golang.html">
             
                     
                     Golang
@@ -833,7 +833,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >一致性hash</a>
+        <a href=".." >RCU</a>
     </h1>
 </div>
 
@@ -848,72 +848,95 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="consistent-hash">Consistent Hash</h1>
-<h2 id="1-&#x6982;&#x8FF0;">1. &#x6982;&#x8FF0;</h2>
-<p>&#x4F20;&#x7EDF;&#x7684;&#x54C8;&#x5E0C;&#x8868;&#x8BBE;&#x8BA1;&#x4E2D;&#xFF0C;&#x6DFB;&#x52A0;&#x6216;&#x8005;&#x5220;&#x9664;&#x4E00;&#x4E2A;&#x69FD;&#x4F4D;&#xFF0C;&#x4F1A;&#x9020;&#x6210;&#x5168;&#x91CF;&#x7684;&#x91CD;&#x65B0;&#x6620;&#x5C04;&#xFF0C; &#x4E00;&#x81F4;&#x6027;&#x54C8;&#x5E0C;&#x5219;&#x8FFD;&#x6C42;&#x7684;&#x662F;&#x589E;&#x91CF;&#x5F0F;&#x91CD;&#x65B0;&#x6620;&#x5C04;&#x3002;&#x591A;&#x7528;&#x4E8E;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;<strong>&#x6269;&#x5BB9;&#x7F29;&#x5BB9;</strong>&#x95EE;&#x9898;&#x3001; &#x5206;&#x5E03;&#x5F0F;&#x54C8;&#x5E0C;&#x8868;&#x7684;&#x8BBE;&#x8BA1;&#x7B49;&#x7B49;&#x3002;</p>
-<p><img src="images/1/consistent.jpg" alt="consistent"></p>
-<p>&#x5BFB;&#x627E;&#x4E00;&#x79CD;&#x7B97;&#x6CD5;&#xFF1A;&#x628A;&#x968F;&#x673A;&#x5230;&#x6765;&#x7684; <strong>key</strong> &#xFF0C;&#x4E00;&#x81F4;&#x5730;&#x6620;&#x5C04;&#x5230; <strong>n</strong> &#x4E2A;&#x69FD;&#x4E2D;&#x3002;&#x4E14;&#xFF0C;&#x6620;&#x5C04;&#x5C3D;&#x91CF;&#x5E73;&#x5747;</p>
-<p>&#x4E00;&#x81F4;&#x6027;&#x54C8;&#x5E0C;&#x7B97;&#x6CD5;&#x5E94;&#x5F53;&#x6709;&#x4E24;&#x4E2A;&#x6027;&#x8D28;&#xFF1A;</p>
+                                <h1 id="rcu&#x9501;&#xFF08;read-copy-update&#xFF09;">RCU&#x9501;&#xFF08;Read-Copy-Update&#xFF09;</h1>
+<h2 id="1-&#x7B80;&#x4ECB;">1. &#x7B80;&#x4ECB;</h2>
+<p>&#x5185;&#x6838;&#x9501;&#x673A;&#x5236;&#xFF1A;</p>
 <ul>
-<li><strong>&#x6620;&#x5C04;&#x5747;&#x5300;</strong>&#xFF1A;&#x968F;&#x673A;&#x7684; key &#xFF0C;&#x6620;&#x5C04;&#x5230;&#x540E;&#x7AEF;&#x7684;&#x6982;&#x7387;&#x5C3D;&#x91CF;&#x76F8;&#x7B49;&#xFF1B;</li>
-<li><strong>&#x6620;&#x5C04;&#x4E00;&#x81F4;&#x6027;</strong>&#xFF1A;<ul>
-<li>1.&#x76F8;&#x540C;&#x7684; key &#x548C; n &#xFF0C;&#x4E00;&#x5B9A;&#x4F1A;&#x6709;&#x76F8;&#x540C;&#x7684;&#x8F93;&#x51FA;&#xFF1B;</li>
-<li>2.&#x5F53;&#x69FD;&#x6570;&#x76EE; n &#x589E;&#x51CF;&#x65F6;&#xFF0C;&#x6620;&#x5C04;&#x7ED3;&#x679C;&#x548C;&#x4E4B;&#x524D;&#x4E0D;&#x4E00;&#x81F4;&#x7684;&#x6570;&#x91CF;&#x8981;&#x5C3D;&#x91CF;&#x5C11;&#x3002;</li>
+<li><strong>&#x8BFB;&#x5199;&#x9501;</strong>&#xFF1A;&#x9002;&#x5408;&#x8BFB;&#x591A;&#x5199;&#x5C11;&#x7684;&#x573A;&#x666F;&#xFF1B;</li>
+<li><strong>&#x81EA;&#x65CB;&#x9501;</strong>&#xFF1A;&#x83B7;&#x5F97;&#x9501;&#x7684;CPU&#x5C06;&#x4F1A;&#x963B;&#x585E;&#x5176;&#x4ED6;CPU&#x7684;&#x8BBF;&#x95EE;&#xFF1B;</li>
+<li><strong>&#x4FE1;&#x53F7;&#x91CF;</strong>&#xFF1A;&#x9002;&#x7528;&#x4E8E;&#x8FDB;&#x7A0B;&#x957F;&#x65F6;&#x95F4;&#x5360;&#x7528;&#x9501;&#xFF0C;&#x5E76;&#x4E14;&#x5141;&#x8BB8;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#xFF1B;</li>
 </ul>
-</li>
-</ul>
-<h2 id="2-&#x54C8;&#x5E0C;&#x73AF;&#x7B97;&#x6CD5;">2. &#x54C8;&#x5E0C;&#x73AF;&#x7B97;&#x6CD5;</h2>
-<ol>
-<li>&#x8BBE; hash(key) &#x662F;&#x6620;&#x5C04;&#x5230;&#x533A;&#x95F4;[0, 2^32]&#x4E0A;&#x7684;&#x4E00;&#x4E2A;&#x54C8;&#x5E0C;&#x51FD;&#x6570;&#x3002;&#x628A;&#x533A;&#x95F4;&#x9996;&#x5C3E;&#x76F8;&#x8FDE;&#xFF0C;&#x5F62;&#x6210;&#x4E00;&#x4E2A;&#x987A;&#x65F6;&#x9488;&#x589E;&#x957F;&#x7684;&#x54C8;&#x5E0C;&#x73AF;&#x3002;</li>
-<li>&#x5C06;&#x6240;&#x6709;&#x8282;&#x70B9;N0&#xFF0C;N1&#xFF0C;...&#xFF0C;&#x7684;&#x6807;&#x53F7;0&#xFF0C;1&#xFF0C;...&#xFF0C;n-1 &#x4F9D;&#x6B21;&#x4F5C;&#x4E3A; key&#xFF0C;&#x8FDB;&#x884C;hash(key)&#x8BA1;&#x7B97;&#xFF0C;&#x628A;&#x7ED3;&#x679C;&#x5206;&#x522B;&#x6807;&#x8BB0;&#x5728;&#x73AF;&#x4E0A;&#x3002;</li>
-<li>&#x5BF9;&#x4E8E;&#x5173;&#x4E8E; k &#x7684;&#x6620;&#x5C04;&#xFF0C;&#x6C42; z = hash(k)&#xFF0C;&#x6807;&#x8BB0;&#x5728;&#x73AF;&#x4E0A;&#xFF1A;<ol>
-<li>&#x5982;&#x679C; z &#x6B63;&#x597D;&#x843D;&#x5728;&#x69FD;&#x4F4D;&#x4E0A;&#xFF0C;&#x8FD4;&#x56DE;&#x8FD9;&#x4E2A;&#x69FD;&#x4F4D;&#x7684;&#x6807;&#x53F7;&#xFF1B;</li>
-<li>&#x5426;&#x5219;&#xFF0C;&#x987A;&#x65F6;&#x9488;&#x5BFB;&#x627E;&#x6700;&#x8FD1;&#x7684;&#x69FD;&#x4F4D;&#xFF0C;&#x8FD4;&#x56DE;&#x69FD;&#x4F4D;&#x6807;&#x53F7;&#x3002;</li>
-</ol>
-</li>
-</ol>
-<p><img src="images/1/hash-ring.jpg" alt="hash-ring"></p>
-<h3 id="21-&#x6DFB;&#x52A0;&#x8282;&#x70B9;">2.1. &#x6DFB;&#x52A0;&#x8282;&#x70B9;</h3>
-<p>&#x65B0;&#x589E;&#x7684;&#x8282;&#x70B9; N4 &#xFF0C;&#x62E6;&#x622A;&#x4E86;&#x539F;&#x672C;&#x5230;&#x4E0B;&#x4E00;&#x8282;&#x70B9; N1 &#x7684;&#x90E8;&#x5206;&#x6620;&#x5C04;&#xFF0C;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x4E0D;&#x53D7;&#x5F71;&#x54CD;&#x3002;&#x6240;&#x4EE5;&#xFF0C;&#x53EA;&#x9700;&#x628A; N1 &#x7684;&#x6570;&#x636E;&#x8FC1;&#x79FB;&#x5230; N4 &#x4E0A;&#x624D;&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x670D;&#x52A1;&#x3002;</p>
-<p><img src="images/1/adding-new-node-to-hash-ring.jpg" alt="hash-ring"></p>
-<h3 id="22-&#x5220;&#x9664;&#x8282;&#x70B9;">2.2. &#x5220;&#x9664;&#x8282;&#x70B9;</h3>
-<p>&#x88AB;&#x5220;&#x9664;&#x7684;&#x8282;&#x70B9; N1 &#x7684;&#x6620;&#x5C04;&#x4F1A;&#x8F6C;&#x4EA4;&#x7ED9;&#x4E0B;&#x4E00;&#x8282;&#x70B9; N3 &#xFF0C;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x4E0D;&#x53D7;&#x5F71;&#x54CD;&#x3002;&#x6240;&#x4EE5;&#xFF0C;&#x53EA;&#x9700;&#x628A; N1 &#x7684;&#x6570;&#x636E;&#x8FC1;&#x79FB;&#x5230; N3 &#x4E0A;&#x624D;&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x670D;&#x52A1;&#x3002;</p>
-<p><img src="images/1/removing-node-from-hash-ring.jpg" alt="hash-ring"></p>
-<h3 id="23-&#x603B;&#x7ED3;">2.3. &#x603B;&#x7ED3;</h3>
-<ol>
-<li>&#x54C8;&#x5E0C;&#x73AF;&#x505A;&#x5230;&#x4E86;&#x5728; &#x6269;&#x7F29;&#x5BB9; &#x524D;&#x540E;&#x7684;<strong>&#x589E;&#x91CF;&#x5F0F;&#x7684;&#x91CD;&#x65B0;&#x6620;&#x5C04;</strong>&#xFF0C;&#x907F;&#x514D;&#x4E86;&#x5168;&#x91CF;&#x7684;&#x91CD;&#x65B0;&#x6620;&#x5C04;&#x3002;</li>
-<li>&#x6DFB;&#x52A0;&#x6216;&#x5220;&#x9664;&#x7ED3;&#x70B9;&#xFF0C;&#x53EA;&#x4F1A;&#x5F71;&#x54CD;&#x4E00;&#x4E2A;&#x69FD;&#x4F4D;&#x7684;&#x6620;&#x5C04;&#x91CF;&#xFF0C;&#x5C31;&#x662F; 1 / n &#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x54C8;&#x5E0C;&#x73AF;&#x505A;&#x5230;&#x4E86;<strong>&#x6700;&#x5C0F;&#x5316;&#x91CD;&#x65B0;&#x6620;&#x5C04;</strong>&#xFF08;minimum disruption&#xFF09;&#x3002;</li>
-<li>&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#xFF1A;O(logn)</li>
-<li>&#x7A7A;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#xFF1A;O(n)</li>
-</ol>
-<p>&#x590D;&#x6742;&#x5EA6;&#x5206;&#x6790;&#xFF1A;&#x8282;&#x70B9;&#x6807;&#x53F7;&#x54C8;&#x5E0C;&#x6620;&#x5C04;&#x5230;&#x533A;&#x95F4;[0, 2^32]&#x4E0A;&#x540E;&#xFF0C;&#x5F62;&#x6210;&#x4E00;&#x4E2A;&#x6709;&#x5E8F;&#x8868;&#xFF0C;&#x53EF;&#x4EE5;&#x505A;<strong>&#x4E8C;&#x5206;&#x67E5;&#x627E;</strong>&#x3002;</p>
-<p><img src="images/1/binary-search-on-hash-ring.jpg" alt="hash-ring"></p>
-<h3 id="24-&#x5E26;&#x6743;&#x91CD;&#x7684;&#x54C8;&#x5E0C;&#x73AF;">2.4. &#x5E26;&#x6743;&#x91CD;&#x7684;&#x54C8;&#x5E0C;&#x73AF;</h3>
-<p>&#x5BF9;&#x8282;&#x70B9;&#x6DFB;&#x52A0;&#x6743;&#x91CD;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6784;&#x9020;&#x5F88;&#x591A;&#x6307;&#x5411;&#x771F;&#x5B9E;&#x8282;&#x70B9;&#x7684;<strong>&#x5F71;&#x5B50;&#x8282;&#x70B9;</strong>&#xFF08;&#x865A;&#x62DF;&#x8282;&#x70B9;&#xFF09;&#x3002;&#x6743;&#x91CD;&#x8D8A;&#x5927;&#xFF0C;&#x5F71;&#x5B50;&#x8282;&#x70B9;&#x8D8A;&#x591A;&#xFF0C;&#x88AB;&#x9009;&#x4E2D;&#x7684;&#x6982;&#x7387;&#x5C31;&#x5927;&#x3002;</p>
-<p>&#x6BD4;&#x5982;&#xFF1A;N0&#xFF0C;N1&#xFF0C;N2&#xFF0C;N3 &#x7684;&#x6743;&#x91CD;&#x6BD4;&#x662F; 1:2:3:2&#x3002;</p>
-<p><img src="images/1/weighted-nodes-on-hash-ring.jpg" alt="hash-ring"></p>
-<p>&#x5B9E;&#x9645;&#x5E94;&#x7528;&#x4E2D;&#xFF0C;&#x5373;&#x4F7F;&#x8282;&#x70B9;&#x662F;&#x5E73;&#x6743;&#x7684;&#xFF0C;&#x4E5F;&#x4F1A;&#x91C7;&#x7528;&#x5F71;&#x5B50;&#x8282;&#x70B9;&#x3002;&#x6BD4;&#x5982;&#x91C7;&#x7528;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x5BF9;&#x5E94; 40 &#x4E2A;&#x5F71;&#x5B50;&#x8282;&#x70B9;&#x3002;<strong>&#x8282;&#x70B9;&#x8D8A;&#x591A;&#xFF0C;&#x6620;&#x5C04;&#x7684;&#x5206;&#x5E03;&#x8D8A;&#x5747;&#x5300;&#xFF0C;&#x91C7;&#x7528;&#x5F71;&#x5B50;&#x8282;&#x70B9;&#x53EF;&#x4EE5;&#x51CF;&#x5C11;&#x771F;&#x5B9E;&#x8282;&#x70B9;&#x4E4B;&#x95F4;&#x7684;&#x8D1F;&#x8F7D;&#x5DEE;&#x5F02;&#x3002;</strong></p>
-<p>&#x5F71;&#x5B50;&#x8282;&#x70B9;&#x5E26;&#x6765;&#x7684;&#x597D;&#x5904;&#xFF1A;</p>
+<p><strong>RCU&#x9501;</strong> &#x601D;&#x60F3;&#xFF1A;<strong>&#x5982;&#x679C;&#x80FD;&#x591F;&#x4FDD;&#x8BC1; &#x4F7F;&#x7528;&#x67D0;&#x4E2A;&#x516C;&#x5171;&#x6570;&#x636E; &#x7684;&#x7EBF;&#x7A0B;&#x4E0D;&#x518D;&#x4F7F;&#x7528;&#x5B83;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x53EF;&#x4EE5;&#x5B89;&#x5168;&#x5220;&#x9664;&#x6B64;&#x516C;&#x5171;&#x6570;&#x636E;&#x3002;</strong></p>
+<p>&#x6240;&#x4EE5;&#xFF0C;&#x5177;&#x4F53;&#x64CD;&#x4F5C;&#x5C31;&#x662F;&#xFF1A;<strong>&#x5148;&#x628A;&#x65E7;&#x7684;&#x4E34;&#x754C;&#x8D44;&#x6E90;&#x79FB;&#x9664;&#xFF08;&#x4FEE;&#x6539;&#x6307;&#x9488;&#xFF09;&#xFF0C;&#x7136;&#x540E;&#x7B49;&#x5F85;&#x6240;&#x6709;&#x4EBA;&#x90FD;&#x4E0D;&#x4F7F;&#x7528;&#x5B83;&#xFF0C;&#x518D;&#x628A;&#x65E7;&#x7684;&#x8D44;&#x6E90;&#x8FDB;&#x884C;&#x56DE;&#x6536;&#x3002;</strong></p>
+<p>&#x3010;&#x539F;&#x7406;&#x3011;&#xFF1A;</p>
 <ul>
-<li>&#x63D0;&#x9AD8;&#x4E86;&#x6620;&#x5C04;&#x7ED3;&#x679C;&#x7684;&#x5747;&#x5300;&#x6027;&#xFF1B;</li>
-<li>&#x5B9E;&#x73B0;&#x4E86;&#x52A0;&#x6743;&#x6620;&#x5C04;&#xFF1B;</li>
+<li>&#xFF08;Reader&#xFF09;<strong>&#x591A;&#x4E2A;&#x8BFB;&#x53EF;&#x4EE5;&#x5E76;&#x53D1;&#x8BBF;&#x95EE;&#x4E34;&#x754C;&#x8D44;&#x6E90;&#xFF0C;&#x4F7F;&#x7528;<code>rcu_read_lock</code>&#x548C;<code>rcu_read_unlock</code>&#x6807;&#x5B9A;&#x4E34;&#x754C;&#x533A;</strong>&#xFF1B;</li>
+<li>&#xFF08;Updater&#xFF09;<strong>&#x5199;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5148;Copy&#x4E00;&#x4EFD;&#x526F;&#x672C;&#x4F5C;&#x4E3A;&#x57FA;&#x7840;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#xFF0C;&#x5F53;&#x6240;&#x6709;&#x8BFB;&#x8005;&#x79BB;&#x5F00;&#x4E34;&#x754C;&#x533A;&#x540E;&#xFF0C;&#x66F4;&#x65B0;&#x6307;&#x9488;&#x4E3A;&#x65B0;&#x7684;&#x526F;&#x672C;&#xFF0C;&#x5E76;&#x5BF9;&#x65E7;&#x8D44;&#x6E90;&#x8FDB;&#x884C;&#x56DE;&#x6536;&#x5904;&#x7406;</strong>&#x3002;</li>
+<li>&#xFF08;Reclaimer&#xFF09;<strong>&#x7B49;&#x5F85;&#x6240;&#x6709;&#x8BFB;&#x8005;&#x9000;&#x51FA;&#x4E34;&#x754C;&#x533A;&#xFF0C;&#x8FD9;&#x4E2A;&#x7B49;&#x5F85;&#x65F6;&#x95F4;&#x53EB;&#x505A;&#x5BBD;&#x9650;&#x671F;&#xFF08;Grace period&#xFF09;</strong>&#x3002;</li>
 </ul>
-<p>&#x574F;&#x5904;&#xFF1A;&#x589E;&#x52A0;&#x4E86;&#x5185;&#x5B58;&#x6D88;&#x8017;&#x548C;&#x67E5;&#x627E;&#x65F6;&#x95F4;&#x3002;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x53D8;&#x4E3A;O(log40n)&#xFF0C;&#x7A7A;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x53D8;&#x4E3A;O(40n)&#x3002;</p>
-<h4 id="241-&#x5BB9;&#x707E;">2.4.1. &#x5BB9;&#x707E;</h4>
-<ol>
-<li>&#x6269;&#x5BB9;&#xFF1A;&#x65B0;&#x8282;&#x70B9;&#x9700;&#x8981;&#x540C;&#x6B65;&#x4E0B;&#x4E00;&#x8282;&#x70B9;&#x7684;&#x6570;&#x636E;&#x540E;&#x624D;&#x80FD;&#x6B63;&#x5E38;&#x670D;&#x52A1;&#xFF1B;</li>
-<li>&#x7F29;&#x5BB9;&#xFF1A;&#x9700;&#x8981;&#x5148;&#x5907;&#x4EFD;&#x6570;&#x636E;&#x5230;&#x4E0B;&#x4E00;&#x8282;&#x70B9;&#x540E;&#x624D;&#x80FD;&#x6B63;&#x5E38;&#x670D;&#x52A1;&#xFF1B;</li>
-<li>&#x6545;&#x969C;&#xFF1A;&#x8282;&#x70B9;&#x7A81;&#x7136;&#x6545;&#x969C;&#x88AB;&#x79FB;&#x9664;&#xFF0C;&#x6570;&#x636E;&#x4E22;&#x5931;&#x3002;</li>
-</ol>
-<p><strong>&#x70ED;</strong>&#x6269;&#x7F29;&#x5BB9;&#xFF1A;&#xFF08;&#x4E0D;&#x505C;&#x670D;&#x8FDB;&#x884C;&#x589E;&#x5220;&#x8282;&#x70B9;&#xFF09;</p>
+<p>&#x3010;RCU&#x4FDD;&#x62A4;&#x7684;&#x4E34;&#x754C;&#x8D44;&#x6E90;&#x3011;&#x901A;&#x5E38;&#x4E3A;&#xFF1A;</p>
 <ul>
-<li><strong>&#x6570;&#x636E;&#x5907;&#x4EFD;&#xFF08;&#x53CC;&#x5199;&#xFF09;</strong>&#xFF1A;&#x6570;&#x636E;&#x5199;&#x5230;&#x67D0;&#x4E2A;&#x8282;&#x70B9;&#x65F6;&#xFF0C;&#x540C;&#x65F6;&#x5199;&#x4E00;&#x4EFD;&#x5907;&#x4EFD;&#x5230;&#x987A;&#x65F6;&#x9488;&#x7684;&#x90BB;&#x5C45;&#x8282;&#x70B9;&#x3002;</li>
-<li><strong>&#x8BF7;&#x6C42;&#x4E2D;&#x7EE7;&#xFF08;&#x4EE3;&#x7406;&#xFF09;</strong>&#xFF1A;&#x65B0;&#x8282;&#x70B9;&#x521A;&#x52A0;&#x5165;&#x540E;&#xFF0C;&#x6570;&#x636E;&#x6CA1;&#x6709;&#x540C;&#x6B65;&#x5B8C;&#x6210;&#x65F6;&#xFF0C;&#x5BF9;&#x8BFB;&#x53D6;&#x4E0D;&#x5230;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x4EE5;&#x628A;&#x8BF7;&#x6C42;&#x4E2D;&#x7EE7;&#x5230;&#x987A;&#x65F6;&#x9488;&#x65B9;&#x5411;&#x7684;&#x90BB;&#x5C45;&#x8282;&#x70B9;&#x3002;</li>
+<li>&#x6307;&#x9488;</li>
+<li>&#x94FE;&#x8868;</li>
+<li>hash&#x94FE;&#x8868;</li>
 </ul>
-<p><strong>&#x76F8;&#x90BB;&#x8282;&#x70B9;&#x540C;&#x65F6;&#x6545;&#x969C;</strong>&#xFF1A;&#x53EF;&#x4EE5;&#x5907;&#x4EFD;&#x4E24;&#x6B21;&#xFF0C;&#x6BCF;&#x4E2A;&#x5199;&#x8BF7;&#x6C42;&#x90FD;&#x5C06;&#x5907;&#x4EFD;&#x540C;&#x6B65;&#x5230;&#x987A;&#x65F6;&#x9488;&#x65B9;&#x5411;&#x7684;&#x6700;&#x8FD1;&#x7684;&#x4E24;&#x4E2A;&#x8282;&#x70B9;&#x4E0A;&#x3002;</p>
-<p><strong>&#x540C;&#x65F6;&#x6DFB;&#x52A0;&#x6B63;&#x597D;&#x5728;&#x73AF;&#x4E0A;&#x76F8;&#x90BB;&#x7684;&#x8282;&#x70B9;</strong>&#xFF1A;&#x8BF7;&#x6C42;&#x4E2D;&#x7EE7;&#x4E24;&#x6B21;&#xFF0C;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x4E0A;&#x67E5;&#x4E0D;&#x5230;&#x6570;&#x636E;&#xFF0C;&#x5C31;&#x4E2D;&#x7EE7;&#x7ED9;&#x4E0B;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x6700;&#x591A;&#x4E24;&#x6B21;&#x4E2D;&#x7EE7;&#x3002;</p>
-<h2 id="3-&#x8DF3;&#x8DC3;&#x4E00;&#x81F4;&#x6027;&#x7B97;&#x6CD5;">3. &#x8DF3;&#x8DC3;&#x4E00;&#x81F4;&#x6027;&#x7B97;&#x6CD5;</h2>
-<h2 id="4-maglev&#x4E00;&#x81F4;&#x6027;&#x54C8;&#x5E0C;">4. Maglev&#x4E00;&#x81F4;&#x6027;&#x54C8;&#x5E0C;</h2>
+<p>&#x5185;&#x6838;&#x63D0;&#x4F9B;&#x4E86;&#x3010;&#x4E09;&#x79CD;RCU&#x3011;&#xFF1A;</p>
+<ul>
+<li><strong>&#x4E0D;&#x53EF;&#x62A2;&#x5360;RCU</strong>&#xFF1A;&#x4E34;&#x754C;&#x533A;&#x5185;&#x4E0D;&#x53EF;&#x88AB;&#x62A2;&#x5360;&#xFF0C;<code>rcu_read_lock/rcu_read_unlock</code>&#xFF0C;<code>rcu_read_lock_sched/rcu_read_unlock_sched</code>&#xFF1B;</li>
+<li><strong>&#x4E0B;&#x534A;&#x90E8;RCU</strong>&#xFF1A;&#x4E34;&#x754C;&#x533A;&#x5185;&#x7981;&#x6B62;&#x8F6F;&#x4E2D;&#x65AD;&#xFF0C;<code>rcu_read_lock_bh/rcu_read_unlock_bh</code>&#xFF1B;</li>
+<li><strong>&#x53EF;&#x62A2;&#x5360;&#x7684;RCU</strong>&#xFF1A;&#x4E34;&#x754C;&#x533A;&#x5185;&#x53EF;&#x4EE5;&#x7761;&#x7720;&#xFF0C;&#x53EF;&#x4EE5;&#x88AB;&#x62A2;&#x5360;&#xFF0C;Sleepable Read-copy update (SRCU)&#x3002;<code>srcu_read_lock/srcu_read_unlock</code>&#xFF1B;</li>
+</ul>
+<p>&#x3010;&#x4F7F;&#x7528;&#x6CE8;&#x610F;&#x4E8B;&#x9879;&#x3011;&#xFF1A;</p>
+<ul>
+<li>&#x901A;&#x5E38;&#x9700;&#x8981;<strong>&#x7981;&#x6B62;&#x5185;&#x6838;&#x62A2;&#x5360;</strong>&#x3002;&#x8FD9;&#x4E5F;&#x662F;<code>rcu_read_lock</code>&#x7684;&#x529F;&#x80FD;&#x3002;</li>
+<li>&#x6BD4;&#x5982;<code>rcu_read_lock</code>&#xFF0C;<strong>&#x4E34;&#x754C;&#x533A;&#x5185;&#x4E0D;&#x80FD;&#x4F7F;&#x7528;&#x53EF;&#x7761;&#x7720;&#x7684;&#x4EE3;&#x7801;</strong>&#xFF0C;&#x6BD4;&#x5982;<code>alloc_pages</code>&#x3002;</li>
+<li>&#x5199;&#x8005;&#x66F4;&#x65B0;&#x4E34;&#x754C;&#x8D44;&#x6E90;&#xFF08;&#x6BD4;&#x5982;&#x6307;&#x9488;&#xFF09;&#x65F6;&#xFF0C;&#x4F7F;&#x7528;<strong><code>rcu_assign_pointer</code></strong>&#x6765;&#x66F4;&#x65B0;&#xFF1B;</li>
+<li>&#x5BF9;&#x65E7;&#x8D44;&#x6E90;&#x8FDB;&#x884C;&#x56DE;&#x6536;&#x524D;&#x9700;&#x8981;&#x7B49;&#x5F85;<strong>&#x5BBD;&#x9650;&#x671F;</strong>&#x7ED3;&#x675F;&#x3002;&#x6BD4;&#x5982;<code>synchronize_rcu</code>&#xFF08;&#x540C;&#x6B65;&#x7B49;&#x5F85;&#xFF09;&#xFF1B;<code>call_rcu</code>&#xFF08;&#x5F02;&#x6B65;&#x7B49;&#x5F85;&#xFF09;</li>
+</ul>
+<p><strong><u> <em>&#x4E3A;&#x4EC0;&#x4E48;&#x4E34;&#x754C;&#x533A;&#x5185;&#x4E0D;&#x80FD;&#x7761;&#x7720;&#xFF1F;&#x4E0D;&#x8BA9;&#x88AB;&#x62A2;&#x5360;&#xFF1F;</em></u></strong></p>
+<p>&#x7761;&#x7720;&#x610F;&#x5473;&#x7740;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#xFF0C;&#x8FDB;&#x7A0B;CPU&#x88AB;&#x62A2;&#x5360;&#xFF0C;<strong>&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x5728;RCU&#x5BBD;&#x9650;&#x671F;&#x68C0;&#x67E5;&#x4E2D;&#x88AB;&#x8BA4;&#x4E3A;&#x662F;&#x9759;&#x6B62;&#x72B6;&#x6001;&#xFF08;QS&#xFF09;&#x7684;&#x6807;&#x5FD7;&#xFF0C;&#x662F;&#x4E0D;&#x5141;&#x8BB8;&#x51FA;&#x73B0;&#x5728;&#x5904;&#x4E8E;&#x4E34;&#x754C;&#x533A;&#x7684;&#x8BFB;&#x8005;&#x8EAB;&#x4E0A;&#x7684;&#x3002;&#x8FD9;&#x4E2A;&#x4F1A;&#x5F71;&#x54CD;&#x5BBD;&#x9650;&#x671F;&#x7684;&#x68C0;&#x67E5;</strong>&#x3002;</p>
+<p>&#x3010;&#x4F18;&#x70B9;&#x3011;&#xFF1A;</p>
+<ul>
+<li>&#x8BFB;&#x5F00;&#x9500;&#x5F88;&#x5C11;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x83B7;&#x53D6;&#x4EFB;&#x4F55;&#x9501;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x6267;&#x884C;&#x539F;&#x5B50;&#x6307;&#x4EE4;&#x6216;&#x5185;&#x5B58;&#x5C4F;&#x969C;</li>
+<li>&#x6CA1;&#x6709;<strong>&#x6B7B;&#x9501;</strong>&#x95EE;&#x9898;&#xFF1B;</li>
+<li>&#x6CA1;&#x6709;<strong>&#x4F18;&#x5148;&#x7EA7;&#x53CD;&#x8F6C;</strong>&#x95EE;&#x9898;&#xFF1B;</li>
+</ul>
+<p>&#x3010;&#x7F3A;&#x70B9;&#x3011;&#xFF1A;</p>
+<ul>
+<li>&#x5199;&#x540C;&#x6B65;&#x5F00;&#x9500;&#x5F88;&#x5927;&#xFF0C;&#x5199;&#x4E4B;&#x95F4;&#x9700;&#x8981;&#x4E92;&#x65A5;&#xFF1B;</li>
+<li>&#x4F7F;&#x7528;&#x4E0A;&#x6BD4;&#x5176;&#x4ED6;&#x540C;&#x6B65;&#x673A;&#x5236;&#x590D;&#x6742;&#xFF1B;</li>
+</ul>
+<p><img src="images/rcu_1.png" alt="rcu_1"></p>
+<h2 id="2-&#x5BBD;&#x9650;&#x671F;&#xFF08;grace-period&#xFF09;">2. &#x5BBD;&#x9650;&#x671F;&#xFF08;Grace period&#xFF09;</h2>
+<p><img src="images/rcu_2.png" alt="rcu_2"></p>
+<h2 id="3-&#x5982;&#x4F55;&#x786E;&#x5B9A;&#x5BBD;&#x9650;&#x671F;&#xFF1F;">3. &#x5982;&#x4F55;&#x786E;&#x5B9A;&#x5BBD;&#x9650;&#x671F;&#xFF1F;</h2>
+<p>&#x5BBD;&#x9650;&#x671F;&#x7684;&#x7ED3;&#x675F;&#x4EE3;&#x8868;&#x7740;Reader&#x90FD;&#x5DF2;&#x7ECF;&#x9000;&#x51FA;&#x4E86;&#x4E34;&#x754C;&#x533A;&#xFF0C;&#x8FD9;&#x65F6;&#x624D;&#x80FD;&#x5B89;&#x5168;&#x7684;&#x8FDB;&#x884C;&#x56DE;&#x6536;&#x5DE5;&#x4F5C;&#x3002;</p>
+<p>&#x5224;&#x65AD;&#x5BBD;&#x9650;&#x671F;&#x7684;&#x7ED3;&#x675F;&#xFF0C;&#x4E0E;CPU&#x68C0;&#x6D4B;&#x9759;&#x6B62;&#x72B6;&#x6001;&#xFF08;Quiescent Status&#xFF09;&#x6709;&#x5173;&#xFF0C;&#x8FD9;&#x4E5F;&#x5F71;&#x54CD;&#x7740;RCU&#x7684;&#x6027;&#x80FD;&#x3002;</p>
+<p>Quiescent Status&#xFF1A;&#x7528;&#x4E8E;&#x63CF;&#x8FF0;CPU&#x7684;&#x6267;&#x884C;&#x72B6;&#x6001;&#x3002;&#x5F53;CPU&#x6B63;&#x5728;&#x8BBF;&#x95EE;&#x53D7;RCU&#x4FDD;&#x62A4;&#x7684;&#x4E34;&#x754C;&#x8D44;&#x6E90;&#x65F6;&#xFF0C;&#x8BA4;&#x4E3A;&#x662F;&#x6D3B;&#x52A8;&#x72B6;&#x6001;&#xFF1B;&#x5F53;&#x5B83;&#x79BB;&#x5F00;&#x4E34;&#x754C;&#x533A;&#x540E;&#xFF0C;&#x5219;&#x8BA4;&#x4E3A;&#x5B83;&#x662F;&#x9759;&#x6B62;&#x72B6;&#x6001;&#x3002;</p>
+<p><strong>&#x5F53;&#x6240;&#x6709;&#x7684;CPU&#x90FD;&#x81F3;&#x5C11;&#x7ECF;&#x5386;&#x8FC7;&#x4E00;&#x6B21; QS &#x540E;&#xFF0C;&#x5219;&#x8BA4;&#x4E3A;&#x5BBD;&#x9650;&#x671F;&#x7ED3;&#x675F;&#x3002;</strong></p>
+<p><img src="images/rcu_3.png" alt="rcu_3"></p>
+<p><img src="images/rcu_4.png" alt="rcu_4"></p>
+<h2 id="4-rcuassignpointer-&#x505A;&#x4E86;&#x4EC0;&#x4E48;&#xFF1F;">4. rcu_assign_pointer &#x505A;&#x4E86;&#x4EC0;&#x4E48;&#xFF1F;</h2>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> rcu_assign_pointer(p, v)                          \
+do {                                          \
+    uintptr_t _r_a_p__v = (uintptr_t)(v);                      \
+    rcu_check_sparse(p, __rcu);                          \
+                                          \
+    <span class="hljs-meta-keyword">if</span> (__builtin_constant_p(v) &amp;&amp; (_r_a_p__v) == (uintptr_t)NULL)          \
+        WRITE_ONCE((p), (typeof(p))(_r_a_p__v));              \
+    <span class="hljs-meta-keyword">else</span>                                      \
+        smp_store_release(&amp;p, RCU_INITIALIZER((typeof(p))_r_a_p__v)); \
+} while (0)</span>
+</code></pre>
+<ul>
+<li>&#x5927;&#x591A;&#x6570;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;<strong>&#x63D2;&#x5165;&#x5185;&#x5B58;&#x5C4F;&#x969C;</strong>&#xFF1B;</li>
+<li><strong>&#x5173;&#x95ED;&#x7F16;&#x8BD1;&#x5668;&#x5728;&#x8D4B;&#x503C;&#x65F6;&#x7684;&#x975E;&#x987A;&#x5E8F;&#x7F16;&#x8BD1;&#x4F18;&#x5316;</strong>&#xFF0C;&#x4FDD;&#x8BC1;&#x8D4B;&#x503C;&#x65F6;&#x5DF2;&#x7ECF;&#x88AB;&#x521D;&#x59CB;&#x5316;&#x4E86;&#x3002;</li>
+</ul>
+<pre><code class="lang-c">p-&gt;a = <span class="hljs-number">1</span>;
+p-&gt;b = <span class="hljs-number">2</span>;
+p-&gt;c = <span class="hljs-number">3</span>;
+rcu_assign_pointer(gp, p);
+<span class="hljs-comment">// &#x67D0;&#x4E9B;&#x5E73;&#x53F0;&#x7684;&#x7F16;&#x8BD1;&#x5668;&#x4F18;&#x5316;&#x53EF;&#x80FD;&#x4F1A;&#x91CD;&#x6392;&#x6307;&#x4EE4;&#xFF0C;&#x5BFC;&#x81F4; p &#x8FD8;&#x6CA1;&#x88AB;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x5C31;&#x88AB;&#x8D4B;&#x503C;&#x7ED9;&#x4E86; gp &#x3002;</span>
+</code></pre>
+<h2 id="5-callrcu&#x6CE8;&#x518C;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x5728;&#x54EA;&#x91CC;&#x8C03;&#x7528;&#xFF1F;">5. call_rcu&#x6CE8;&#x518C;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x5728;&#x54EA;&#x91CC;&#x8C03;&#x7528;&#xFF1F;</h2>
+<p><code>RCU_SOFTIRQ</code> &#x8F6F;&#x4E2D;&#x65AD;</p>
+<h2 id="6-&#x5BBD;&#x9650;&#x671F;&#x7684;&#x5904;&#x7406;&#x5DE5;&#x4F5C;&#x5728;&#x54EA;&#x91CC;&#xFF1F;">6. &#x5BBD;&#x9650;&#x671F;&#x7684;&#x5904;&#x7406;&#x5DE5;&#x4F5C;&#x5728;&#x54EA;&#x91CC;&#xFF1F;</h2>
+<p><code>rcu_gp_kthread</code> &#x5185;&#x6838;&#x7EBF;&#x7A0B;</p>
+<h2 id="7-srcu&#xFF08;sleepable-read-copy-update&#xFF09;">7. SRCU&#xFF08;Sleepable Read-Copy-Update&#xFF09;</h2>
+<h2 id="&#x53C2;&#x8003;">&#x53C2;&#x8003;</h2>
+<p><a href="https://www.cnblogs.com/LoyenWang/p/12681494.html" target="_blank">https://www.cnblogs.com/LoyenWang/p/12681494.html</a></p>
+<p><a href="https://www.cnblogs.com/LoyenWang/p/12770878.html" target="_blank">https://www.cnblogs.com/LoyenWang/p/12770878.html</a></p>
+<p><a href="https://blog.csdn.net/huang987246510/article/details/102762067" target="_blank">https://blog.csdn.net/huang987246510/article/details/102762067</a></p>
 
                                 
                                 </section>
@@ -941,10 +964,10 @@
 
             
                 
-                
-                <a href="2_golang.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Golang">
-                    <i class="fa fa-angle-right"></i>
+                <a href="systemtap.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Systemtap">
+                    <i class="fa fa-angle-left"></i>
                 </a>
+                
                 
             
         
@@ -953,7 +976,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"一致性hash","level":"1.10.1","depth":2,"next":{"title":"Golang","level":"1.10.2","depth":2,"path":"BAGU/2_golang.md","ref":"./BAGU/2_golang.md","articles":[]},"previous":{"title":"八股","level":"1.10","depth":1,"ref":"","articles":[{"title":"一致性hash","level":"1.10.1","depth":2,"path":"BAGU/1_consistent_hash.md","ref":"./BAGU/1_consistent_hash.md","articles":[]},{"title":"Golang","level":"1.10.2","depth":2,"path":"BAGU/2_golang.md","ref":"./BAGU/2_golang.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BAGU/1_consistent_hash.md","mtime":"2023-02-13T15:41:17.654Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-21T15:31:56.006Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"RCU","level":"1.9.6","depth":2,"next":{"title":"八股","level":"1.10","depth":1,"ref":"","articles":[{"title":"一致性hash","level":"1.10.1","depth":2,"path":"BAGU/1_consistent_hash.md","ref":"./BAGU/1_consistent_hash.md","articles":[]},{"title":"Golang","level":"1.10.2","depth":2,"path":"BAGU/2_golang.md","ref":"./BAGU/2_golang.md","articles":[]}]},"previous":{"title":"Systemtap","level":"1.9.5","depth":2,"path":"kernel/systemtap.md","ref":"./kernel/systemtap.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"kernel/rcu.md","mtime":"2023-03-21T15:30:39.198Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-21T15:31:56.006Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -49,6 +49,7 @@
   * [Kdump](./kernel/kdump.md)
   * [Kprobes](./kernel/kprobe.md)
   * [Systemtap](./kernel/systemtap.md)
+  * [RCU](./kernel/rcu.md)
 
 * [八股]()
   * [一致性hash](./BAGU/1_consistent_hash.md)
