@@ -107,6 +107,8 @@ rcu_assign_pointer(gp, p);
 
 ## 7. SRCU（Sleepable Read-Copy-Update）
 
+## 8. Tree RCU
+
 ## 参考
 
 https://www.cnblogs.com/LoyenWang/p/12681494.html
@@ -114,3 +116,6 @@ https://www.cnblogs.com/LoyenWang/p/12681494.html
 https://www.cnblogs.com/LoyenWang/p/12770878.html
 
 https://blog.csdn.net/huang987246510/article/details/102762067
+
+https://abcdxyzk.github.io/blog/2015/06/02/kernel-base-rcu/
+
