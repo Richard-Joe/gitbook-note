@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>memblock · GitBook</title>
+        <title>coredump · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -69,10 +69,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="kdump.html" />
+    <link rel="next" href="kprobe.html" />
     
     
-    <link rel="prev" href="mm-2-physical-memory-model.html" />
+    <link rel="prev" href="kdump.html" />
     
 
     </head>
@@ -588,7 +588,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.9.2.3" data-path="mm-3-memblock.html">
+        <li class="chapter " data-level="1.9.2.3" data-path="mm-3-memblock.html">
             
                 <a href="mm-3-memblock.html">
             
@@ -619,7 +619,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.4" data-path="coredump.html">
+        <li class="chapter active" data-level="1.9.4" data-path="coredump.html">
             
                 <a href="coredump.html">
             
@@ -848,7 +848,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >memblock</a>
+        <a href=".." >coredump</a>
     </h1>
 </div>
 
@@ -863,49 +863,97 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="memblock">memblock</h1>
-<p>&#x5185;&#x6838;&#x521D;&#x59CB;&#x5316;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x7CFB;&#x7EDF;&#x7684;&#x5185;&#x5B58;&#x5206;&#x914D;&#x548C;&#x91CA;&#x653E;&#x7531;buddy&#x7CFB;&#x7EDF;&#x3001;slab&#x5206;&#x914D;&#x5668;&#x6765;&#x7BA1;&#x7406;&#x3002;&#x4F46;&#x5728;buddy&#x7CFB;&#x7EDF;&#x53EF;&#x7528;&#x4E4B;&#x524D;&#xFF0C;&#x5185;&#x5B58;&#x5206;&#x914D;&#x548C;&#x91CA;&#x653E;&#x7531;<code>memblock</code>&#x5206;&#x914D;&#x5668;&#x6765;&#x7BA1;&#x7406;<code>&#x7269;&#x7406;&#x5185;&#x5B58;</code>&#x3002;</p>
-<p>&#x6CE8;&#xFF1A;&#x4EE3;&#x7801;&#x76F8;&#x5173;&#x90E8;&#x5206;&#x6765;&#x81EA;arch/arm64&#x76EE;&#x5F55;&#x4E0B;</p>
-<h2 id="1-memblock-&#x521D;&#x59CB;&#x5316;">1. memblock &#x521D;&#x59CB;&#x5316;</h2>
-<p>&#x5728; <code>bootloader</code> &#x505A;&#x597D;&#x521D;&#x59CB;&#x5316;&#x5DE5;&#x4F5C;&#x540E;&#xFF0C;&#x5C06; <code>kernel image</code> &#x52A0;&#x8F7D;&#x5230;&#x5185;&#x5B58;&#x540E;&#xFF0C;&#x5C31;&#x4F1A;&#x8DF3;&#x5230;kernel&#x90E8;&#x5206;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#xFF0C;&#x8DD1;&#x7684;&#x5148;&#x662F;&#x6C47;&#x7F16;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#xFF0C;&#x8FDB;&#x884C;&#x5404;&#x79CD;&#x8BBE;&#x7F6E;&#x548C;&#x73AF;&#x5883;&#x521D;&#x59CB;&#x5316;&#x540E;&#xFF0C;&#x5C31;&#x4F1A;&#x8DF3;&#x5230;kernel&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x51FD;&#x6570; <code>start_kernel</code>&#xFF1A;</p>
-<pre><code class="lang-bash">start_kernel(void)
-  | setup_arch(&amp;<span class="hljs-built_in">command</span>_line);
-    | early_fixmap_init();  <span class="hljs-comment"># fixmap&#x533A;&#x57DF;&#x9875;&#x8868;&#x6620;&#x5C04;&#x521D;&#x59CB;&#x5316;</span>
-    | early_ioremap_init(); <span class="hljs-comment"># IO&#x6620;&#x5C04;&#x521D;&#x59CB;&#x5316;</span>
+                                <h1 id="coredump">coredump</h1>
+<h2 id="1-&#x7B80;&#x4ECB;">1. &#x7B80;&#x4ECB;</h2>
+<p>&#x5F53;&#x8FDB;&#x7A0B;&#x63A5;&#x6536;&#x5230;&#x67D0;&#x4E9B; <code>&#x4FE1;&#x53F7;</code> &#x800C;&#x5BFC;&#x81F4;&#x5F02;&#x5E38;&#x9000;&#x51FA;&#x65F6;&#xFF0C;&#x5185;&#x6838;&#x4F1A;&#x6839;&#x636E;&#x8FDB;&#x7A0B;&#x5F53;&#x65F6;&#x7684;&#x5185;&#x5B58;&#x4FE1;&#x606F;&#xFF0C;&#x5C31;&#x4F1A;&#x751F;&#x6210; <code>coredump</code> &#x6587;&#x4EF6;&#x3002;</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># &#x5F00;&#x542F; coredump</span>
 
-    <span class="hljs-comment"># __fdt_pointer&#x6307;&#x9488;&#x7684;&#x8D4B;&#x503C;&#x5728;head.S&#x6C47;&#x7F16;&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;bootloader&#x4F20;&#x9012;&#x8FC7;&#x6765;&#xFF0C;&#x5B58;&#x653E;&#x7684;&#x662F; dtb&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;</span>
-    <span class="hljs-comment">#     str_l    x21, __fdt_pointer, x5        // Save FDT pointer</span>
-    | setup_machine_fdt(__fdt_pointer);
-      | fixmap_remap_fdt(...); <span class="hljs-comment"># &#x6620;&#x5C04;pgd&#x3001;pud&#x3001;pte&#x7B49;&#xFF0C;&#x5EFA;&#x7ACB;PTE entry&#x6620;&#x5C04;&#x624D;&#x80FD;&#x8BBF;&#x95EE;&#x7269;&#x7406;&#x5730;&#x5740;</span>
-      | early_init_dt_scan(...); <span class="hljs-comment"># &#x626B;&#x63CF; DTB &#x4E2D;&#x7684;&#x8282;&#x70B9;</span>
-        | memblock_add(...); <span class="hljs-comment"># &#x83B7;&#x53D6;&#x5230;&#x53EF;&#x7528;&#x7269;&#x7406;&#x5185;&#x5B58;&#x7684;&#x5730;&#x5740;&#x548C;&#x5927;&#x5C0F;&#x540E;&#xFF0C;&#x8C03;&#x7528;API&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;memblock_region&#x5B9E;&#x4F8B;&#xFF0C;&#x7528;&#x4E8E;&#x7BA1;&#x7406;&#x8FD9;&#x4E2A;&#x7269;&#x7406;&#x5185;&#x5B58;&#x533A;&#x57DF;</span>
+<span class="hljs-comment"># &#x786E;&#x4FDD; &#x7528;&#x6237;&#x7684;limits &#x6765;&#x81EA;&#x4E8E;/etc/security/limits.conf&#xFF0C;&#x4FEE;&#x6539;&#x6587;&#x4EF6;&#xFF1A;/etc/pam.d/sshd</span>
+session    required     pam_limits.so
 
-    <span class="hljs-comment"># &#x5F53;&#x6240;&#x6709;&#x7269;&#x7406;&#x5185;&#x5B58;&#x90FD;&#x6DFB;&#x52A0;&#x8FDB;&#x7CFB;&#x7EDF;&#x540E;&#xFF0C;arm64_memblock_init&#x5BF9;&#x6574;&#x4E2A;&#x7269;&#x7406;&#x5185;&#x5B58;&#x8FDB;&#x884C;&#x6574;&#x7406;&#xFF0C;</span>
-    <span class="hljs-comment"># &#x4E3B;&#x8981;&#x5DE5;&#x4F5C;&#x662F;&#x5C06;&#x4E00;&#x4E9B;&#x7279;&#x6B8A;&#x533A;&#x57DF;&#x6DFB;&#x52A0;&#x8FDB;reserved&#x5185;&#x5B58;&#x4E2D;&#x3002;&#xFF08;&#x6BD4;&#x5982;&#xFF1A;elfcorehdr&#x3001;crashkernel&#x3001;reserve&#x3001;initrd&#xFF09;</span>
-    | arm64_memblock_init();
+<span class="hljs-comment"># &#x786E;&#x4FDD; login &#x4F7F;&#x7528;&#x4E86; pam&#xFF0C;&#x4FEE;&#x6539;&#x6587;&#x4EF6;&#xFF1A;/etc/pam.d/login</span>
+session    required   pam_limits.so
 
-    <span class="hljs-comment"># &#x5B8C;&#x6210;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5230;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7684;&#x6620;&#x5C04;</span>
-    | paging_init();
+<span class="hljs-comment"># &#x786E;&#x4FDD; sshd &#x4F7F;&#x7528;&#x4E86; pam&#xFF0C;&#x4FEE;&#x6539;&#x6587;&#x4EF6;&#xFF1A;/etc/ssh/sshd_config</span>
+UsePAM yes
+
+<span class="hljs-comment"># &#x4FEE;&#x6539; /etc/security/limits.conf&#xFF0C;&#x6307;&#x5B9A;coredump&#x5927;&#x5C0F;</span>
+root             soft    core            1048576
+
+<span class="hljs-comment"># &#x67E5;&#x770B;&#x751F;&#x6548;&#x7ED3;&#x679C;&#xFF1A;ulimit -a</span>
+core file size          (blocks, -c) 1048576
+
+<span class="hljs-comment"># &#x8BBE;&#x7F6E; core &#x8DEF;&#x5F84;</span>
+kernel.core_uses_pid = 1
+kernel.core_pattern = /var/core/core-%e-%p-%s-%t
 </code></pre>
-<h2 id="2-memblock-&#x7269;&#x7406;&#x5185;&#x5B58;&#x6620;&#x5C04;">2. memblock &#x7269;&#x7406;&#x5185;&#x5B58;&#x6620;&#x5C04;</h2>
-<p>memblock&#x521D;&#x59CB;&#x5316;&#x540E;&#xFF0C;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5DF2;&#x7ECF;&#x901A;&#x8FC7;<code>memblock_add</code>&#x6DFB;&#x52A0;&#x8FDB;&#x7CFB;&#x7EDF;&#xFF0C;&#x9700;&#x8981;&#x5EFA;&#x7ACB;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5230;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7684;&#x6620;&#x5C04;&#xFF0C;CPU&#x624D;&#x53EF;&#x4EE5;&#x53BB;&#x8BBF;&#x95EE;memblock&#x5185;&#x5B58;&#x3002;</p>
-<pre><code class="lang-bash">paging_init(void);
-  <span class="hljs-comment"># swapper_pg_dir&#x9875;&#x8868;&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;&#x6620;&#x5C04;&#x5230;fixmap&#x7684;FIX_PGD&#x533A;&#x57DF;&#xFF0C;</span>
-  <span class="hljs-comment"># &#x7136;&#x540E;&#x4F7F;&#x7528;swapper_pg_dir&#x9875;&#x8868;&#x4F5C;&#x4E3A;&#x5185;&#x6838;&#x7684;pgd&#x9875;&#x8868;</span>
-  <span class="hljs-comment"># pgdp &#x662F;&#x5206;&#x914D;FIX_PGD&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x5BF9;&#x5E94;&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;</span>
-  | pgdp = pgd_<span class="hljs-built_in">set</span>_fixmap(__pa_symbol(swapper_pg_dir));
-
-  | map_kernel(pgdp); <span class="hljs-comment"># &#x5C06;&#x5185;&#x6838;&#x5404;&#x4E2A;&#x6BB5;&#xFF08;.text .init .data .bss&#xFF09;&#x6620;&#x5C04;&#x5230;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#xFF0C;&#x8FD9;&#x6837;&#x5185;&#x6838;&#x5C31;&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x8FD0;&#x884C;&#x4E86;</span>
-  | map_mem(pgdp); <span class="hljs-comment"># &#x5C06;memblock&#x5B50;&#x7CFB;&#x7EDF;&#x6DFB;&#x52A0;&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;&#x8FDB;&#x884C;&#x6620;&#x5C04;</span>
-
-  <span class="hljs-comment"># &#x5C06;TTBR1&#x5BC4;&#x5B58;&#x5668;&#x6240;&#x6307;&#x5411;&#x65B0;&#x51C6;&#x5907;&#x7684;swapper_pg_dir&#x9875;&#x8868;</span>
-  <span class="hljs-comment"># TTBR0&#x5BC4;&#x5B58;&#x5668;&#x5B58;&#x50A8;&#x7B2C;&#x4E00;&#x7EA7;&#x9875;&#x8868;&#x7684;&#x57FA;&#x5730;&#x5740;&#xFF0C;TTBR1&#x5BC4;&#x5B58;&#x5668;&#x5B58;&#x50A8;&#x7B2C;&#x4E8C;&#x7EA7;&#x9875;&#x8868;&#x7684;&#x57FA;&#x5730;&#x5740;&#x3002;</span>
-  | cpu_replace_ttbr1(lm_<span class="hljs-built_in">alias</span>(swapper_pg_dir), init_idmap_pg_dir);
+<h2 id="2-&#x54EA;&#x4E9B;&#x4FE1;&#x53F7;&#x4F1A;&#x5BFC;&#x81F4;&#x4EA7;&#x751F;-coredump-&#xFF1F;">2. &#x54EA;&#x4E9B;&#x4FE1;&#x53F7;&#x4F1A;&#x5BFC;&#x81F4;&#x4EA7;&#x751F; coredump &#xFF1F;</h2>
+<ul>
+<li><strong>SIGQUIT</strong> : &#x7528;&#x6237;&#x6309;&#x4E0B;&#x952E;&#x76D8;&#x7684; Ctrl+\ &#x7EC4;&#x5408;&#x952E;&#x65F6;&#x4F1A;&#x53D1;&#x9001;&#x8BE5;&#x4FE1;&#x53F7;&#x3002;</li>
+<li><strong>SIGILL</strong> : &#x5728;&#x5904;&#x7406;&#x5668;&#x6267;&#x884C;&#x975E;&#x6CD5;&#x6307;&#x4EE4;&#x65F6;&#x4F1A;&#x53D1;&#x9001;&#x8BE5;&#x4FE1;&#x53F7;&#x3002;</li>
+<li><strong>SIGABRT</strong> : &#x8C03;&#x7528;abort()&#x51FD;&#x6570;&#x65F6;&#x4F1A;&#x53D1;&#x9001;&#x8BE5;&#x4FE1;&#x53F7;&#x3002;</li>
+<li><strong>SIGFPE</strong> : &#x5728;&#x53D1;&#x751F;&#x9664;&#x4EE5;&#x96F6;&#x6216;&#x6D6E;&#x70B9;&#x6EA2;&#x51FA;&#x7B49;&#x9519;&#x8BEF;&#x65F6;&#x4F1A;&#x53D1;&#x9001;&#x8BE5;&#x4FE1;&#x53F7;&#x3002;</li>
+<li><strong>SIGSEGV</strong> : &#x5728;&#x8BBF;&#x95EE;&#x975E;&#x6CD5;&#x5730;&#x5740;&#x6216;&#x5730;&#x5740;&#x8D8A;&#x754C;&#x65F6;&#x4F1A;&#x53D1;&#x9001;&#x8BE5;&#x4FE1;&#x53F7;&#x3002;</li>
+<li><strong>SIGBUS</strong> : &#x5728;&#x975E;&#x6CD5;&#x5730;&#x5740;&#x4E0A;&#x8FDB;&#x884C;&#x5185;&#x5B58;&#x8BBF;&#x95EE;&#x65F6;&#x4F1A;&#x53D1;&#x9001;&#x8BE5;&#x4FE1;&#x53F7;&#x3002;</li>
+<li><strong>SIGSYS</strong> : &#x5728;&#x4F7F;&#x7528;&#x4E86;&#x4E0D;&#x5B58;&#x5728;&#x6216;&#x65E0;&#x6743;&#x8BBF;&#x95EE;&#x7684;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x65F6;&#x4F1A;&#x53D1;&#x9001;&#x8BE5;&#x4FE1;&#x53F7;&#x3002;</li>
+<li><strong>SIGTRAP</strong> : &#x7531;&#x673A;&#x5668;&#x7684;breakpoint&#x6307;&#x4EE4;&#x751F;&#x6210;&#xFF0C;&#x7528;&#x4E8E;&#x8C03;&#x8BD5;&#x3002;</li>
+</ul>
+<p>&#x5F53;&#x7136;&#x8FD8;&#x6709;&#x4E00;&#x4E9B;&#x4FE1;&#x53F7;&#x4E5F;&#x4F1A;&#x4EA7;&#x751F;&#xFF0C;&#x60F3;&#x8981;&#x66F4;&#x5168;&#x9762;&#x4E00;&#x70B9;&#xFF0C;&#x76F4;&#x63A5;&#x770B;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> SIG_KERNEL_COREDUMP_MASK (\
+        rt_sigmask(SIGQUIT)   |  rt_sigmask(SIGILL)    | \
+    rt_sigmask(SIGTRAP)   |  rt_sigmask(SIGABRT)   | \
+        rt_sigmask(SIGFPE)    |  rt_sigmask(SIGSEGV)   | \
+    rt_sigmask(SIGBUS)    |  rt_sigmask(SIGSYS)    | \
+        rt_sigmask(SIGXCPU)   |  rt_sigmask(SIGXFSZ)   | \
+    SIGEMT_MASK                       )</span>
 </code></pre>
-<p>map_kernel&#x3001;map_mem&#x8FDB;&#x884C;&#x9875;&#x8868;&#x6620;&#x5C04;&#xFF0C;&#x6700;&#x7EC8;&#x90FD;&#x4F1A;&#x8C03;&#x7528;&#x5230;<code>__create_pgd_mapping</code>&#xFF0C;&#x603B;&#x4F53;&#x4E0A;&#x5C31;&#x662F;&#x9010;&#x7EA7;&#x9875;&#x8868;&#x5EFA;&#x7ACB;&#x6620;&#x5C04;&#x5173;&#x7CFB;&#xFF0C;&#x540C;&#x65F6;&#x4E2D;&#x95F4;&#x4F1A;&#x8FDB;&#x884C;&#x6743;&#x9650;&#x7684;&#x63A7;&#x5236;&#x3002;</p>
-<p><img src="images/mm_29.png" alt="__create_pgd_mapping"></p>
-<h2 id="3-debug">3. debug</h2>
-<p>&#x5F00;&#x542F;memblock debug&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;/sys/kernel/debug/memblock&#x67E5;&#x770B;&#x76F8;&#x5173;&#x5E03;&#x5C40;</p>
+<p>&#x4F7F;&#x7528;&#x793A;&#x4F8B;&#xFF1A;</p>
+<ul>
+<li>&#x6BD4;&#x5982;&#x76F4;&#x63A5;&#x4F7F;&#x7528; <code>kill -s SIGQUIT pid</code> &#x5411;&#x8FDB;&#x7A0B;&#x53D1;&#x9001;&#x4FE1;&#x53F7;&#xFF1B;</li>
+<li>&#x6BD4;&#x5982;&#x8C03;&#x7528;syscall(999)&#x8BBF;&#x95EE;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#xFF1B;&#xFF08;/usr/include/asm/unistd_64.h &#x6587;&#x4EF6;&#x4E2D;&#x53EF;&#x4EE5;&#x770B;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x540D;&#x79F0;&#x548C;&#x7F16;&#x53F7;&#xFF09;</li>
+<li>&#x6BD4;&#x5982;&#x4F7F;&#x7528; <code>__asm__(&quot;int3&quot;);</code> &#x6C47;&#x7F16;&#x4EE3;&#x7801;&#x6765;&#x4F1A;&#x89E6;&#x53D1;&#x4E00;&#x4E2A;&#x4E2D;&#x65AD;&#xFF0C;&#x8FD9;&#x4E2A;&#x4E2D;&#x65AD;&#x5BF9;&#x5E94;&#x7740; SIGTRAP &#x4FE1;&#x53F7;&#xFF1B;</li>
+</ul>
+<h2 id="3-coredump-&#x5982;&#x4F55;&#x4EA7;&#x751F;&#x7684;&#xFF1F;">3. coredump &#x5982;&#x4F55;&#x4EA7;&#x751F;&#x7684;&#xFF1F;</h2>
+<p>&#x5F53;&#x8FDB;&#x7A0B;&#x4ECE; <code>&#x5185;&#x6838;&#x6001;</code> &#x8FD4;&#x56DE;&#x5230; <code>&#x7528;&#x6237;&#x6001;</code> &#x524D;&#xFF0C;&#x5185;&#x6838;&#x4F1A;&#x67E5;&#x770B;&#x8FDB;&#x7A0B;&#x7684;&#x4FE1;&#x53F7;&#x961F;&#x5217;&#x4E2D;&#x662F;&#x5426;&#x6709;&#x4FE1;&#x53F7;&#x6CA1;&#x6709;&#x5904;&#x7406;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x5C31;&#x8C03;&#x7528; <code>do_signal</code> &#x5185;&#x6838;&#x51FD;&#x6570;&#x5904;&#x7406;&#x4FE1;&#x53F7;&#x3002;</p>
+<p>&#x8FDB;&#x7A0B;&#x4ECE; <code>&#x5185;&#x6838;&#x6001;</code> &#x8FD4;&#x56DE;&#x5230; <code>&#x7528;&#x6237;&#x6001;</code> &#x7684;&#x573A;&#x666F;&#xFF1A;</p>
+<ul>
+<li>&#x4ECE;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x8FD4;&#x56DE;&#xFF1B;</li>
+<li>&#x4ECE;&#x786C;&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x8FD4;&#x56DE;&#xFF1B;</li>
+<li>&#x4ECE;&#x8FDB;&#x7A0B;&#x8C03;&#x5EA6;&#x7A0B;&#x5E8F;&#x8FD4;&#x56DE;&#xFF1B;</li>
+<li>&#x4ECE;&#x5904;&#x7406;&#x5668;&#x5F02;&#x5E38;&#x8FD4;&#x56DE;&#xFF1B;&#xFF08;&#x6BD4;&#x5982;&#x9664;&#x6CD5;&#x9519;&#x8BEF;&#xFF0C;&#x5185;&#x6838;&#x5904;&#x7406;&#x5B8C;&#x5F02;&#x5E38;&#xFF0C;&#x5207;&#x6362;&#x56DE;&#x7528;&#x6237;&#x6001;&#xFF09;</li>
+</ul>
+<pre><code class="lang-c">exit_to_user_mode
+  | prepare_exit_to_user_mode
+     | do_notify_resume
+        | <span class="hljs-keyword">if</span> (thread_flags &amp; (_TIF_SIGPENDING | _TIF_NOTIFY_SIGNAL))
+                      do_signal(regs);
+
+<span class="hljs-comment">// arm64 &#x4EE3;&#x7801;</span>
+do_signal
+  | get_signal(&amp;ksig) 
+    | <span class="hljs-keyword">for</span> (;;) {
+          signr = dequeue_signal(...); <span class="hljs-comment">// &#x4ECE;&#x961F;&#x5217;&#x91CC;&#x53D6;&#x51FA;&#x4E00;&#x4E2A;&#x4FE1;&#x53F7;</span>
+          <span class="hljs-keyword">if</span> (sig_kernel_coredump(signr)) { <span class="hljs-comment">// &#x5224;&#x65AD;&#x4FE1;&#x53F7;&#x662F;&#x5426;&#x9700;&#x8981;&#x4EA7;&#x751F;coredump</span>
+              do_coredump(&amp;ksig-&gt;info);  <span class="hljs-comment">// &#x6267;&#x884C;coredump&#x751F;&#x6210;&#x6D41;&#x7A0B;</span>
+          }
+    | }
+
+do_coredump
+  | binfmt = mm-&gt;binfmt; <span class="hljs-comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;&#x7684;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x683C;&#x5F0F;&#xFF08;&#x6BD4;&#x5982;ELF&#xFF09;</span>
+  | format_corename(...); <span class="hljs-comment">// &#x6839;&#x636E;core_pattern&#x6765;&#x683C;&#x5F0F;&#x5316;core&#x6587;&#x4EF6;&#x540D;</span>
+  | <span class="hljs-keyword">if</span> (cprm.limit &lt; binfmt-&gt;min_coredump) <span class="hljs-comment">// &#x5224;&#x65AD;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;&#x6240;&#x9700;&#x8981;&#x7684;&#x8D44;&#x6E90;&#x662F;&#x5426;&#x8DB3;&#x591F;</span>
+        <span class="hljs-keyword">goto</span> fail_unlock;
+  | cprm.file = filp_open(cn.corename, open_flags, <span class="hljs-number">0600</span>); <span class="hljs-comment">// &#x521B;&#x5EFA;core&#x6587;&#x4EF6;</span>
+  | core_dumped = binfmt-&gt;core_dump(&amp;cprm); <span class="hljs-comment">// &#x8C03;&#x7528;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x683C;&#x5F0F;&#x6307;&#x5B9A;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x628A;&#x8FDB;&#x7A0B;&#x5185;&#x5B58;&#x4FE1;&#x606F;&#x5199;&#x5165;core&#x6587;&#x4EF6;</span>
+
+<span class="hljs-comment">// &#x5047;&#x8BBE;&#x7528;&#x7684;ELF&#x683C;&#x5F0F;</span>
+<span class="hljs-comment">// Actual dumper</span>
+elf_core_dump
+  | <span class="hljs-comment">// &#x5199;&#x5165; ELF &#x5934;&#x90E8;</span>
+  | <span class="hljs-comment">// &#x5199;&#x5165; Program &#x5934;&#x90E8;</span>
+  | <span class="hljs-comment">// &#x5199;&#x5165; ELF note</span>
+  | <span class="hljs-comment">// &#x628A;&#x6BCF;&#x4E00;&#x6BB5; VMA &#x90FD;&#x5199;&#x8FDB;&#x53BB;</span>
+</code></pre>
 
                                 
                                 </section>
@@ -933,12 +981,12 @@
 
             
                 
-                <a href="mm-2-physical-memory-model.html" class="navigation navigation-prev " aria-label="Previous page: 物理内存模型">
+                <a href="kdump.html" class="navigation navigation-prev " aria-label="Previous page: Kdump">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="kdump.html" class="navigation navigation-next " aria-label="Next page: Kdump">
+                <a href="kprobe.html" class="navigation navigation-next " aria-label="Next page: Kprobes">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -949,7 +997,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"memblock","level":"1.9.2.3","depth":3,"next":{"title":"Kdump","level":"1.9.3","depth":2,"path":"kernel/kdump.md","ref":"./kernel/kdump.md","articles":[]},"previous":{"title":"物理内存模型","level":"1.9.2.2","depth":3,"path":"kernel/mm-2-physical-memory-model.md","ref":"./kernel/mm-2-physical-memory-model.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"kernel/mm-3-memblock.md","mtime":"2023-03-12T10:50:02.806Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-22T15:01:59.567Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"coredump","level":"1.9.4","depth":2,"next":{"title":"Kprobes","level":"1.9.5","depth":2,"path":"kernel/kprobe.md","ref":"./kernel/kprobe.md","articles":[]},"previous":{"title":"Kdump","level":"1.9.3","depth":2,"path":"kernel/kdump.md","ref":"./kernel/kdump.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"kernel/coredump.md","mtime":"2023-03-22T13:33:59.094Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-22T15:01:59.567Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -71,7 +71,7 @@ exit_to_user_mode
   | prepare_exit_to_user_mode
      | do_notify_resume
         | if (thread_flags & (_TIF_SIGPENDING | _TIF_NOTIFY_SIGNAL))
-             do_signal(regs);
+				      do_signal(regs);
 
 // arm64 代码
 do_signal

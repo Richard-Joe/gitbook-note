@@ -47,6 +47,7 @@
     * [物理内存模型](./kernel/mm-2-physical-memory-model.md)
     * [memblock](./kernel/mm-3-memblock.md)
   * [Kdump](./kernel/kdump.md)
+  * [coredump](./kernel/coredump.md)
   * [Kprobes](./kernel/kprobe.md)
   * [Systemtap](./kernel/systemtap.md)
   * [RCU](./kernel/rcu.md)
