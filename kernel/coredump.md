@@ -87,7 +87,7 @@ do_coredump
   | binfmt = mm->binfmt; // 获取当前进程的可执行文件格式（比如ELF）
   | format_corename(...); // 根据core_pattern来格式化core文件名
   | if (cprm.limit < binfmt->min_coredump) // 判断当前进程所需要的资源是否足够
-			goto fail_unlock;
+        goto fail_unlock;
   | cprm.file = filp_open(cn.corename, open_flags, 0600); // 创建core文件
   | core_dumped = binfmt->core_dump(&cprm); // 调用可执行文件格式指定的方法，把进程内存信息写入core文件
 
