@@ -53,6 +53,7 @@
   * [RCU](./kernel/rcu.md)
 
 * [八股]()
+  * [老一套](./BAGU/0_classic.md)
   * [一致性hash](./BAGU/1_consistent_hash.md)
   * [Golang](./BAGU/2_golang.md)
 
