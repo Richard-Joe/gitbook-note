@@ -92,6 +92,7 @@ slub分配器：**`kmem_cache_alloc()`**
 - **顺序锁**：seq锁，写优先于读，使用案例：**jiffies**。
 - **内存屏障**：memory barrier。解决处理器和编译器重排序问题。
 	- rmb()、wmb()、barrier()
+- **RCU锁**：Read-Copy-Update
 
 优先级：**`中断 > 软中断 > 进程上下文`**；
 
