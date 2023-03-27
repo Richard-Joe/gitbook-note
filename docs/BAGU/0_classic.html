@@ -903,14 +903,197 @@
 </ul>
 <h2 id="2-&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7BC7;">2. &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7BC7;</h2>
 <h3 id="21-malloc&#x539F;&#x7406;">2.1. malloc&#x539F;&#x7406;</h3>
-<h3 id="22-fork&#x548C;vfork&#x539F;&#x7406;">2.2. fork&#x548C;vfork&#x539F;&#x7406;</h3>
-<h3 id="23-epoll&#x539F;&#x7406;">2.3. epoll&#x539F;&#x7406;</h3>
-<h3 id="24-&#x6B7B;&#x9501;&#x5B9A;&#x4E49;&#x548C;&#x907F;&#x514D;">2.4. &#x6B7B;&#x9501;&#x5B9A;&#x4E49;&#x548C;&#x907F;&#x514D;</h3>
+<p>glibc&#x4E2D;&#x5B9E;&#x73B0;&#xFF1A;</p>
+<ul>
+<li>size&#x5C0F;&#x4E8E; 128 KB&#xFF0C;&#x5219;&#x901A;&#x8FC7; brk() &#x7533;&#x8BF7;&#x5185;&#x5B58;&#xFF1B;&#xFF08;free&#x65F6;&#xFF0C;&#x5148;&#x7F13;&#x5B58;&#x5728; malloc &#x7684;&#x5185;&#x5B58;&#x6C60;&#xFF09;</li>
+<li>size&#x5927;&#x4E8E; 128 KB&#xFF0C;&#x5219;&#x901A;&#x8FC7; mmap() &#x7533;&#x8BF7;&#x5185;&#x5B58;&#xFF1B;&#xFF08;free&#x65F6;&#xFF0C;&#x5F52;&#x8FD8;&#x7ED9;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#xFF09;</li>
+</ul>
+<p>&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x8FD9;&#x4E48;&#x8BBE;&#x8BA1;&#xFF1F;</p>
+<ul>
+<li>brk&#x76F4;&#x63A5;&#x5728;&#x5806;&#x4E0A;&#x5206;&#x914D;&#x5185;&#x5B58;&#xFF0C;&#x8C03;&#x6574;brk&#x6307;&#x9488;&#x5373;&#x53EF;&#xFF0C;&#x5B9E;&#x73B0;&#x7B80;&#x5355;&#x3002;&#x4F46;&#x5BB9;&#x6613;&#x5F62;&#x6210;&#x788E;&#x7247;&#xFF0C;&#x9700;&#x8981;&#x7B49;&#x5F85;&#x9AD8;&#x5730;&#x5740;&#x5185;&#x5B58;&#x91CA;&#x653E;&#x4E86;&#x624D;&#x80FD;&#x91CA;&#x653E;&#x3002;&#x501F;&#x52A9;&#x5185;&#x5B58;&#x6C60;&#x7684;&#x4F7F;&#x7528;&#x53EF;&#x4EE5;&#x51CF;&#x5C11;&#x7F3A;&#x9875;&#x4E2D;&#x65AD;&#xFF0C;&#x5927;&#x5927;&#x964D;&#x4F4E;CPU&#x6D88;&#x8017;&#x3002;</li>
+<li>mmap&#x5728;&#x8FDB;&#x7A0B;&#x5185;&#x5B58;&#x6620;&#x5C04;&#x6BB5;&#x627E;&#x4E00;&#x6BB5;&#x7A7A;&#x95F2;&#x7684;&#x865A;&#x62DF;&#x5185;&#x5B58;&#xFF0C;&#x7B2C;&#x4E00;&#x6B21;&#x4F7F;&#x7528;&#x4EA7;&#x751F;&#x7F3A;&#x9875;&#x4E2D;&#x65AD;&#xFF0C;CPU&#x6D88;&#x8017;&#x5927;&#x3002;</li>
+</ul>
+<p>&#x3010;&#x4E3A;&#x4EC0;&#x4E48;free&#x77E5;&#x9053;&#x91CA;&#x653E;&#x591A;&#x5927;&#x7684;&#x5185;&#x5B58;&#xFF1F;&#x3011;</p>
+<p><img src="images/0/free.png" alt="free"></p>
+<h3 id="22-fork&#x548C;vfork&#x533A;&#x522B;">2.2. fork&#x548C;vfork&#x533A;&#x522B;</h3>
+<ul>
+<li><strong>fork()</strong>&#xFF1A;<ul>
+<li>&#x5B50;&#x8FDB;&#x7A0B;&#x62F7;&#x8D1D;&#x7236;&#x8FDB;&#x7A0B;&#x7684;&#x7269;&#x7406;&#x9875;&#x8868;&#xFF1B;&#xFF08;<strong>&#x5199;&#x65F6;&#x62F7;&#x8D1D;</strong>&#xFF08;copy-on-write&#xFF09;&#xFF09;</li>
+<li>&#x7236;&#x5B50;&#x8FDB;&#x7A0B;&#x6267;&#x884C;&#x6B21;&#x5E8F;&#x4E0D;&#x786E;&#x5B9A;&#xFF1B;</li>
+</ul>
+</li>
+<li><strong>vfork()</strong>&#xFF1A;<ul>
+<li>&#x5B50;&#x8FDB;&#x7A0B;&#x4E0E;&#x7236;&#x8FDB;&#x7A0B;&#x5171;&#x4EAB;&#x7269;&#x7406;&#x9875;&#x8868;&#xFF1B;</li>
+<li>&#x4FDD;&#x8BC1;&#x5B50;&#x8FDB;&#x7A0B;&#x5148;&#x8FD0;&#x884C;&#xFF0C;&#x5728;&#x8C03;&#x7528;exec&#x6216;exit&#x540E;&#xFF0C;&#x5524;&#x9192;&#x7236;&#x8FDB;&#x7A0B;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<p>&#x4F7F;&#x7528;fork&#x51FD;&#x6570;&#x5F97;&#x5230;&#x7684;&#x5B50;&#x8FDB;&#x7A0B;&#x4ECE;&#x7236;&#x8FDB;&#x7A0B;&#x7684;<strong>&#x7EE7;&#x627F;&#x4E86;&#x6574;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x5730;&#x5740;&#x7A7A;&#x95F4;</strong>&#xFF0C;&#x5305;&#x62EC;&#xFF1A;<u>&#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x3001;&#x8FDB;&#x7A0B;&#x5806;&#x6808;&#x3001;&#x5185;&#x5B58;&#x4FE1;&#x606F;&#x3001;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x3001;&#x4FE1;&#x53F7;&#x63A7;&#x5236;&#x8BBE;&#x7F6E;&#x3001;&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;&#x3001;&#x8FDB;&#x7A0B;&#x7EC4;&#x53F7;&#x3001;&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#x3001;&#x6839;&#x76EE;&#x5F55;&#x3001;&#x8D44;&#x6E90;&#x9650;&#x5236;&#x3001;&#x63A7;&#x5236;&#x7EC8;&#x7AEF;&#x7B49;</u>&#x3002;</p>
+<p>&#x5B50;&#x8FDB;&#x7A0B;&#x4E0E;&#x7236;&#x8FDB;&#x7A0B;&#x7684;&#x533A;&#x522B;&#x5728;&#x4E8E;&#xFF1A;</p>
+<ol>
+<li><strong>&#x7236;&#x8FDB;&#x7A0B;&#x8BBE;&#x7F6E;&#x7684;&#x9501;&#xFF0C;&#x5B50;&#x8FDB;&#x7A0B;&#x4E0D;&#x7EE7;&#x627F;</strong>&#xFF08;&#x56E0;&#x4E3A;&#x5982;&#x679C;&#x662F;&#x6392;&#x5B83;&#x9501;&#xFF0C;&#x88AB;&#x7EE7;&#x627F;&#x7684;&#x8BDD;&#xFF0C;&#x77DB;&#x76FE;&#x4E86;&#xFF09;</li>
+<li><strong>&#x5404;&#x81EA;&#x7684;&#x8FDB;&#x7A0B;ID&#x548C;&#x7236;&#x8FDB;&#x7A0B;ID&#x4E0D;&#x540C;</strong></li>
+<li><strong>&#x5B50;&#x8FDB;&#x7A0B;&#x7684;&#x672A;&#x51B3;&#x544A;&#x8B66;&#x88AB;&#x6E05;&#x9664;</strong>&#xFF1B;</li>
+<li><strong>&#x5B50;&#x8FDB;&#x7A0B;&#x7684;&#x672A;&#x51B3;&#x4FE1;&#x53F7;&#x96C6;&#x8BBE;&#x7F6E;&#x4E3A;&#x7A7A;&#x96C6;</strong>&#x3002;</li>
+</ol>
+<h3 id="23-io&#x591A;&#x8DEF;&#x590D;&#x7528;&#xFF08;selectpollepoll&#xFF09;">2.3. I/O&#x591A;&#x8DEF;&#x590D;&#x7528;&#xFF08;select/poll/epoll&#xFF09;</h3>
+<p>&#x95EE;&#x9898;&#xFF1A;&#x5355;&#x673A;<strong>&#x7406;&#x8BBA;</strong>&#x6700;&#x5927;&#x80FD;&#x652F;&#x6301;&#x591A;&#x5C11;TCP&#x8FDE;&#x63A5;&#xFF1F;</p>
+<p>&#x6839;&#x636E;&#x56DB;&#x5143;&#x7EC4;&#xFF0C;&#x6700;&#x5927;TCP&#x8FDE;&#x63A5;&#x6570; = &#x5BA2;&#x6237;&#x7AEF;IP&#x6570;(2^32) * &#x5BA2;&#x6237;&#x7AEF;port&#x6570;(2^16)</p>
+<p>&#x5B9E;&#x9645;&#x60C5;&#x51B5;&#x4E0B;&#xFF08;&#x6BD4;&#x5982;&#xFF0C;&#x8981;&#x652F;&#x6301;C10K&#xFF09;&#xFF0C;&#x53D7;&#x51E0;&#x4E2A;&#x65B9;&#x9762;&#x9650;&#x5236;&#xFF1A;</p>
+<ul>
+<li><strong>&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;</strong>&#xFF1A;ulimit&#x53EF;&#x4EE5;&#x6539;&#x53D8;&#x6570;&#x76EE;&#xFF1B;</li>
+<li><strong>&#x7CFB;&#x7EDF;&#x5185;&#x5B58;</strong>&#xFF1A;&#x6BCF;&#x4E2A;TCP&#x8FDE;&#x63A5;&#x90FD;&#x6709;&#x5BF9;&#x5E94;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x4F1A;&#x5360;&#x7528;&#x4E00;&#x5B9A;&#x7684;&#x5185;&#x5B58;&#x3002;</li>
+<li><strong>&#x7F51;&#x7EDC; I/O &#x6A21;&#x578B;</strong>&#xFF1A;&#x5355;&#x7EAF;&#x4F7F;&#x7528;&#x8FDB;&#x7A0B;&#x6216;&#x7EBF;&#x7A0B;&#x6765;&#x63D0;&#x9AD8;&#x5E76;&#x53D1;&#xFF0C;&#x7CFB;&#x7EDF;&#x4E5F;&#x662F;&#x625B;&#x4E0D;&#x4F4F;&#x7684;&#x3002;&#x5C31;&#x8981;&#x8003;&#x8651;<strong>I/O&#x591A;&#x8DEF;&#x590D;&#x7528;</strong>&#x6280;&#x672F;&#x3002;</li>
+</ul>
+<h4 id="231-select">2.3.1. select</h4>
+<p>&#x5C06;&#x5DF2;&#x8FDE;&#x63A5;&#x7684; Socket &#x90FD;&#x653E;&#x5230;&#x4E00;&#x4E2A; <strong>&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x96C6;&#x5408;</strong> &#xFF0C;&#x7136;&#x540E;&#x8C03;&#x7528; <strong>select</strong> &#x51FD;&#x6570;&#x5C06;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x96C6;&#x5408; <strong>&#x62F7;&#x8D1D;&#x5230;&#x5185;&#x6838;</strong> &#x91CC;&#xFF0C;&#x8BA9;&#x5185;&#x6838;&#x6765;&#x68C0;&#x67E5;&#x662F;&#x5426;&#x6709;&#x7F51;&#x7EDC;&#x4E8B;&#x4EF6;&#x4EA7;&#x751F;&#xFF0C;&#x68C0;&#x67E5;&#x7684;&#x65B9;&#x5F0F;&#x5F88;&#x7C97;&#x66B4;&#xFF0C;&#x5C31;&#x662F;&#x901A;&#x8FC7; <strong>&#x904D;&#x5386;</strong> &#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x96C6;&#x5408;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x5F53;&#x68C0;&#x67E5;&#x5230;&#x6709;&#x4E8B;&#x4EF6;&#x4EA7;&#x751F;&#x540E;&#xFF0C;&#x5C06;&#x6B64; Socket &#x6807;&#x8BB0;&#x4E3A;&#x53EF;&#x8BFB;&#x6216;&#x53EF;&#x5199;&#xFF0C; &#x63A5;&#x7740;&#x518D;&#x628A;&#x6574;&#x4E2A;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x96C6;&#x5408; <strong>&#x62F7;&#x8D1D;&#x56DE;&#x7528;&#x6237;&#x6001;</strong> &#x91CC;&#xFF0C;&#x7136;&#x540E;&#x7528;&#x6237;&#x6001;&#x8FD8;&#x9700;&#x8981;&#x518D;&#x901A;&#x8FC7; <strong>&#x904D;&#x5386;</strong> &#x7684;&#x65B9;&#x6CD5;&#x627E;&#x5230;&#x53EF;&#x8BFB;&#x6216;&#x53EF;&#x5199;&#x7684; Socket&#xFF0C;&#x7136;&#x540E;&#x518D;&#x5BF9;&#x5176;&#x5904;&#x7406;&#x3002;</p>
+<p>&#x5206;&#x6790;&#xFF1A;</p>
+<ul>
+<li>&#x6BCF;&#x8C03;&#x7528;&#x4E00;&#x6B21;select&#xFF0C;&#x9700;&#x8FDB;&#x884C; <strong>2 &#x6B21; &#x904D;&#x5386;</strong> &#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x96C6;&#x5408;&#xFF1B;</li>
+<li>&#x6BCF;&#x8C03;&#x7528;&#x4E00;&#x6B21;select&#xFF0C;&#x9700;&#x8FDB;&#x884C; <strong>2 &#x6B21; &#x62F7;&#x8D1D;</strong> &#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x96C6;&#x5408;&#xFF1B;</li>
+<li>select &#x4F7F;&#x7528;&#x56FA;&#x5B9A;&#x957F;&#x5EA6;&#x7684; BitsMap&#xFF0C;&#x8868;&#x793A;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x96C6;&#x5408;&#xFF0C;&#x7531;&#x5185;&#x6838;&#x4E2D;&#x7684; FD_SETSIZE &#x9650;&#x5236;&#xFF0C;<strong> &#x9ED8;&#x8BA4;&#x6700;&#x5927;&#x503C;&#x4E3A; 1024</strong>&#x3002;</li>
+</ul>
+<h4 id="232-poll">2.3.2. poll</h4>
+<p><strong>poll</strong> &#x4E0D;&#x518D;&#x7528; BitsMap &#x6765;&#x5B58;&#x50A8;&#x6240;&#x5173;&#x6CE8;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#xFF0C;&#x53D6;&#x800C;&#x4EE3;&#x4E4B;&#x7528;&#x52A8;&#x6001;&#x6570;&#x7EC4;&#xFF0C;&#x4EE5;&#x94FE;&#x8868;&#x5F62;&#x5F0F;&#x6765;&#x7EC4;&#x7EC7;&#xFF0C;<strong>&#x7A81;&#x7834;&#x4E86; select &#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x4E2A;&#x6570;&#x9650;&#x5236;</strong>&#xFF0C;&#x5F53;&#x7136;&#x8FD8;&#x4F1A;&#x53D7;&#x5230;<strong>&#x7CFB;&#x7EDF;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x9650;&#x5236;</strong>&#x3002;</p>
+<h4 id="233-epoll">2.3.3. epoll</h4>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> epoll_fd = epoll_create1(<span class="hljs-number">0</span>);
+
+epoll_ctl(epoll_fd, EPOLL_CTL_ADD, ...);
+...
+epoll_ctl(epoll_fd, EPOLL_CTL_ADD, ...);
+
+<span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) {
+    epoll_wait(epoll_fd, ...);
+}
+</code></pre>
+<p>epoll&#x901A;&#x8FC7;&#x4E24;&#x4E2A;&#x65B9;&#x9762;&#xFF0C;&#x5F88;&#x597D;&#x7684;&#x89E3;&#x51B3;&#x4E86;select/poll&#x7684;&#x95EE;&#x9898;&#xFF1A;</p>
+<ul>
+<li>epoll &#x5728;&#x5185;&#x6838;&#x91CC;<strong>&#x4F7F;&#x7528;&#x7EA2;&#x9ED1;&#x6811;&#x6765;&#x8DDF;&#x8E2A;&#x8FDB;&#x7A0B;&#x6240;&#x6709;&#x5F85;&#x68C0;&#x6D4B;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;</strong>&#xFF1B;<ul>
+<li>epoll &#x56E0;&#x4E3A;&#x5728;&#x5185;&#x6838;&#x7EF4;&#x62A4;&#x4E86;&#x7EA2;&#x9ED1;&#x6811;&#xFF0C;&#x53EF;&#x4EE5;&#x4FDD;&#x5B58;&#x6240;&#x6709;&#x5F85;&#x68C0;&#x6D4B;&#x7684; socket &#xFF0C;&#x6240;&#x4EE5;&#x53EA;&#x9700;&#x8981;&#x4F20;&#x5165;&#x4E00;&#x4E2A;&#x5F85;&#x68C0;&#x6D4B;&#x7684; socket&#xFF0C;<strong>&#x51CF;&#x5C11;&#x4E86;&#x5185;&#x6838;&#x548C;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x5927;&#x91CF;&#x7684;&#x6570;&#x636E;&#x62F7;&#x8D1D;&#x548C;&#x5185;&#x5B58;&#x5206;&#x914D;</strong>&#x3002;</li>
+</ul>
+</li>
+<li>epoll &#x4F7F;&#x7528;<strong>&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;</strong>&#x7684;&#x673A;&#x5236;&#xFF0C;&#x5185;&#x6838;&#x91CC;&#x7EF4;&#x62A4;&#x4E86;&#x4E00;&#x4E2A;&#x94FE;&#x8868;&#x6765;&#x8BB0;&#x5F55;&#x5C31;&#x7EEA;&#x4E8B;&#x4EF6;&#x3002;<ul>
+<li>&#x5F53;&#x7528;&#x6237;&#x8C03;&#x7528; epoll_wait() &#x51FD;&#x6570;&#x65F6;&#xFF0C;<strong>&#x53EA;&#x4F1A;&#x8FD4;&#x56DE;&#x6709;&#x4E8B;&#x4EF6;&#x53D1;&#x751F;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x7684;&#x4E2A;&#x6570;</strong>&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x50CF; select/poll &#x90A3;&#x6837;&#x8F6E;&#x8BE2;&#x626B;&#x63CF;&#x6574;&#x4E2A; socket &#x96C6;&#x5408;&#xFF0C;&#x5927;&#x5927;&#x63D0;&#x9AD8;&#x4E86;&#x68C0;&#x6D4B;&#x7684;&#x6548;&#x7387;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<p><img src="images/0/epoll.png" alt="epoll"></p>
+<p>&#x5206;&#x6790;&#xFF1A;</p>
+<ul>
+<li>&#x6574;&#x4E2A;&#x6D41;&#x7A0B;&#xFF0C;<strong>&#x53EA;&#x9700;&#x8981;&#x62F7;&#x8D1D;&#x4E00;&#x6B21;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;</strong> &#x5230;&#x5185;&#x6838;&#x3002;</li>
+<li>&#x6BCF;&#x6B21;epoll_wait() &#xFF0C;<strong>&#x53EA;&#x8FD4;&#x56DE;&#x6709;&#x4E8B;&#x4EF6;&#x53D1;&#x751F;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x4E2A;&#x6570;</strong>&#x3002;&#x4E0D;&#x9700;&#x8981;&#x8F6E;&#x8BE2;&#x6240;&#x6709;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x3002;</li>
+<li>&#x5B58;&#x5728;<strong>&#x7CFB;&#x7EDF;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x9650;&#x5236;</strong>&#x3002;</li>
+</ul>
+<p>epoll&#x652F;&#x6301;&#x4E24;&#x79CD;&#x89E6;&#x53D1;&#x6A21;&#x5F0F;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;&#x6C34;&#x5E73;&#x89E6;&#x53D1;&#xFF1A;</p>
+<ul>
+<li><strong>&#x8FB9;&#x7F18;&#x89E6;&#x53D1;&#xFF08;edge-triggered&#xFF0C;ET&#xFF09;</strong>&#xFF1A;&#x5F53;&#x88AB;&#x76D1;&#x63A7;&#x7684; Socket &#x63CF;&#x8FF0;&#x7B26;&#x4E0A;&#x6709;&#x53EF;&#x8BFB;&#x4E8B;&#x4EF6;&#x53D1;&#x751F;&#x65F6;&#xFF0C;<strong>&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x53EA;&#x4F1A;&#x4ECE; epoll_wait &#x4E2D;&#x82CF;&#x9192;&#x4E00;&#x6B21;</strong>&#x3002;&#xFF08;&#x4E0D;&#x7BA1;&#x8FDB;&#x7A0B;&#x6709;&#x6CA1;&#x6709;&#x8C03;&#x7528;read&#x53BB;&#x8BFB;&#xFF09;</li>
+<li><strong>&#x6C34;&#x5E73;&#x89E6;&#x53D1;&#xFF08;level-triggered&#xFF0C;LT&#xFF09;</strong>&#xFF1A;&#x5F53;&#x88AB;&#x76D1;&#x63A7;&#x7684; Socket &#x4E0A;&#x6709;&#x53EF;&#x8BFB;&#x4E8B;&#x4EF6;&#x53D1;&#x751F;&#x65F6;&#xFF0C;<strong>&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x4E0D;&#x65AD;&#x5730;&#x4ECE; epoll_wait &#x4E2D;&#x82CF;&#x9192;&#xFF0C;&#x76F4;&#x5230;&#x5185;&#x6838;&#x7F13;&#x51B2;&#x533A;&#x6570;&#x636E;&#x88AB; read &#x51FD;&#x6570;&#x8BFB;&#x5B8C;&#x624D;&#x7ED3;&#x675F;</strong>&#x3002;</li>
+</ul>
+<h3 id="24-&#x6B7B;&#x9501;&#x6761;&#x4EF6;&#x548C;&#x907F;&#x514D;">2.4. &#x6B7B;&#x9501;&#x6761;&#x4EF6;&#x548C;&#x907F;&#x514D;</h3>
+<p>&#x6B7B;&#x9501;&#x6761;&#x4EF6;&#xFF1A;</p>
+<ul>
+<li><strong>&#x4E92;&#x65A5;&#x6761;&#x4EF6;</strong>&#xFF1A;&#x6307;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x4E0D;&#x80FD;&#x540C;&#x65F6;&#x4F7F;&#x7528;&#x540C;&#x4E00;&#x4E2A;&#x8D44;&#x6E90;&#xFF1B;</li>
+<li><strong>&#x6301;&#x6709;&#x5E76;&#x7B49;&#x5F85;&#x6761;&#x4EF6;</strong>&#xFF1A;&#x6301;&#x6709;&#x4E86;A&#x8D44;&#x6E90;&#xFF0C;&#x8FD8;&#x60F3;&#x8981;B&#x8D44;&#x6E90;&#xFF1B;</li>
+<li><strong>&#x4E0D;&#x53EF;&#x5265;&#x593A;&#x6761;&#x4EF6;</strong>&#xFF1A;&#x4F7F;&#x7528;&#x5B8C;&#x4E4B;&#x524D;&#x4E0D;&#x80FD;&#x88AB;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x83B7;&#x53D6;&#xFF1B;</li>
+<li><strong>&#x73AF;&#x8DEF;&#x7B49;&#x5F85;&#x6761;&#x4EF6;</strong>&#xFF1A;&#x4E24;&#x4E2A;&#x7EBF;&#x7A0B;&#x83B7;&#x53D6;&#x8D44;&#x6E90;&#x7684;&#x987A;&#x5E8F;&#x6784;&#x6210;&#x4E86;&#x73AF;&#x5F62;&#x94FE;&#xFF1B;</li>
+</ul>
+<p>&#x907F;&#x514D;&#x6B7B;&#x9501;&#xFF1A;</p>
+<p>&#x53EA;&#x9700;&#x8981;&#x7834;&#x73AF;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x6761;&#x4EF6;&#x5C31;&#x53EF;&#x4EE5;&#xFF0C;&#x6BD4;&#x5982;&#x4F7F;&#x7528;<strong>&#x8D44;&#x6E90;&#x6709;&#x5E8F;&#x5206;&#x914D;&#x6CD5;</strong>&#xFF0C;&#x6765;&#x7834;&#x574F;&#x73AF;&#x8DEF;&#x7B49;&#x5F85;&#x6761;&#x4EF6;&#x3002;</p>
 <h3 id="25-&#x8FDB;&#x7A0B;&#x548C;&#x7EBF;&#x7A0B;&#x7684;&#x533A;&#x522B;">2.5. &#x8FDB;&#x7A0B;&#x548C;&#x7EBF;&#x7A0B;&#x7684;&#x533A;&#x522B;</h3>
+<ul>
+<li>&#x8FDB;&#x7A0B;&#x662F;&#x8D44;&#x6E90;&#xFF08;&#x5305;&#x62EC;&#x5185;&#x5B58;&#x3001;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;&#x7B49;&#xFF09;&#x5206;&#x914D;&#x7684;&#x5355;&#x4F4D;&#xFF0C;&#x7EBF;&#x7A0B;&#x662F; CPU &#x8C03;&#x5EA6;&#x7684;&#x5355;&#x4F4D;&#xFF1B;</li>
+<li>&#x8FDB;&#x7A0B;&#x62E5;&#x6709;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;&#x8D44;&#x6E90;&#x5E73;&#x53F0;&#xFF0C;&#x800C;&#x7EBF;&#x7A0B;&#x53EA;&#x72EC;&#x4EAB;&#x5FC5;&#x4E0D;&#x53EF;&#x5C11;&#x7684;&#x8D44;&#x6E90;&#xFF0C;&#x5982;&#x5BC4;&#x5B58;&#x5668;&#x548C;&#x6808;&#xFF1B;</li>
+<li>&#x7EBF;&#x7A0B;&#x540C;&#x6837;&#x5177;&#x6709;&#x5C31;&#x7EEA;&#x3001;&#x963B;&#x585E;&#x3001;&#x6267;&#x884C;&#x4E09;&#x79CD;&#x57FA;&#x672C;&#x72B6;&#x6001;&#xFF0C;&#x540C;&#x6837;&#x5177;&#x6709;&#x72B6;&#x6001;&#x4E4B;&#x95F4;&#x7684;&#x8F6C;&#x6362;&#x5173;&#x7CFB;&#xFF1B;</li>
+<li>&#x7EBF;&#x7A0B;&#x80FD;&#x51CF;&#x5C11;&#x5E76;&#x53D1;&#x6267;&#x884C;&#x7684;&#x65F6;&#x95F4;&#x548C;&#x7A7A;&#x95F4;&#x5F00;&#x9500;&#xFF1B;</li>
+</ul>
+<p>&#x76F8;&#x6BD4;&#x8FDB;&#x7A0B;&#xFF0C;&#x7EBF;&#x7A0B;&#x80FD;<strong>&#x51CF;&#x5C11;&#x5F00;&#x9500;</strong>&#xFF0C;&#x4F53;&#x73B0;&#x5728;&#xFF1A;</p>
+<ul>
+<li><strong>&#x7EBF;&#x7A0B;&#x7684;&#x521B;&#x5EFA;&#x65F6;&#x95F4;&#x6BD4;&#x8FDB;&#x7A0B;&#x5FEB;</strong>&#xFF0C;&#x56E0;&#x4E3A;&#x8FDB;&#x7A0B;&#x5728;&#x521B;&#x5EFA;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x8D44;&#x6E90;&#x7BA1;&#x7406;&#x4FE1;&#x606F;&#xFF0C;&#x6BD4;&#x5982;&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x4FE1;&#x606F;&#x3001;&#x6587;&#x4EF6;&#x7BA1;&#x7406;&#x4FE1;&#x606F;&#xFF0C;&#x800C;&#x7EBF;&#x7A0B;&#x5728;&#x521B;&#x5EFA;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x4E0D;&#x4F1A;&#x6D89;&#x53CA;&#x8FD9;&#x4E9B;&#x8D44;&#x6E90;&#x7BA1;&#x7406;&#x4FE1;&#x606F;&#xFF0C;&#x800C;&#x662F;<strong>&#x5171;&#x4EAB;</strong>&#x5B83;&#x4EEC;&#xFF1B;</li>
+<li><strong>&#x7EBF;&#x7A0B;&#x7684;&#x7EC8;&#x6B62;&#x65F6;&#x95F4;&#x6BD4;&#x8FDB;&#x7A0B;&#x5FEB;</strong>&#xFF0C;&#x56E0;&#x4E3A;&#x7EBF;&#x7A0B;&#x91CA;&#x653E;&#x7684;&#x8D44;&#x6E90;&#x76F8;&#x6BD4;&#x8FDB;&#x7A0B;&#x5C11;&#x5F88;&#x591A;&#xFF1B;</li>
+<li><strong><u>&#x540C;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5185;&#x7684;&#x7EBF;&#x7A0B;&#x5207;&#x6362;</u> &#x6BD4; <u>&#x8FDB;&#x7A0B;&#x5207;&#x6362;</u> &#x5FEB;</strong>&#xFF0C;&#x56E0;&#x4E3A;&#x7EBF;&#x7A0B;&#x5177;&#x6709;&#x76F8;&#x540C;&#x7684;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#xFF08;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x5171;&#x4EAB;&#xFF09;&#xFF0C;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x540C;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x7EBF;&#x7A0B;&#x90FD;&#x5177;&#x6709;&#x540C;&#x4E00;&#x4E2A;&#x9875;&#x8868;&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x5207;&#x6362;&#x7684;&#x65F6;&#x5019;&#x4E0D;&#x9700;&#x8981;&#x5207;&#x6362;&#x9875;&#x8868;&#x3002;&#x800C;&#x5BF9;&#x4E8E;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x5207;&#x6362;&#xFF0C;&#x5207;&#x6362;&#x7684;&#x65F6;&#x5019;&#x8981;&#x628A;&#x9875;&#x8868;&#x7ED9;&#x5207;&#x6362;&#x6389;&#xFF0C;&#x800C;&#x9875;&#x8868;&#x7684;&#x5207;&#x6362;&#x8FC7;&#x7A0B;&#x5F00;&#x9500;&#x662F;&#x6BD4;&#x8F83;&#x5927;&#x7684;&#xFF1B;</li>
+<li>&#x7531;&#x4E8E;&#x540C;&#x4E00;&#x8FDB;&#x7A0B;&#x7684;&#x5404;&#x7EBF;&#x7A0B;&#x95F4;&#x5171;&#x4EAB;&#x5185;&#x5B58;&#x548C;&#x6587;&#x4EF6;&#x8D44;&#x6E90;&#xFF0C;&#x90A3;&#x4E48;<strong>&#x7EBF;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x6570;&#x636E;&#x4F20;&#x9012;&#x6548;&#x7387;&#x66F4;&#x9AD8;</strong>&#xFF1B;</li>
+</ul>
+<h3 id="26-&#x8FDB;&#x7A0B;&#x95F4;&#x901A;&#x4FE1;&#x6709;&#x54EA;&#x4E9B;&#x65B9;&#x5F0F;&#xFF1F;">2.6. &#x8FDB;&#x7A0B;&#x95F4;&#x901A;&#x4FE1;&#x6709;&#x54EA;&#x4E9B;&#x65B9;&#x5F0F;&#xFF1F;</h3>
+<ul>
+<li><strong>&#x7BA1;&#x9053;</strong>&#xFF1A;pipe()</li>
+<li><strong>&#x6D88;&#x606F;&#x961F;&#x5217;</strong>&#xFF1A;msgget()/msgsnd()/msgrcv()/msgctl()<ul>
+<li>&#x6D88;&#x606F;&#x961F;&#x5217;&#x4E0D;&#x9002;&#x5408;&#x5927;&#x6570;&#x636E;&#x7684;&#x4F20;&#x8F93;&#x3002;&#x5185;&#x6838;&#x6709;&#x9650;&#x5236;&#xFF1A;MSGMAX&#x3001;MSGMNB&#x3002;</li>
+<li>&#x6D88;&#x606F;&#x961F;&#x5217;&#x901A;&#x4FE1;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5B58;&#x5728;<strong>&#x7528;&#x6237;&#x6001;&#x4E0E;&#x5185;&#x6838;&#x6001;&#x4E4B;&#x95F4;&#x7684;&#x6570;&#x636E;&#x62F7;&#x8D1D;</strong>&#x5F00;&#x9500;&#x3002;</li>
+</ul>
+</li>
+<li><strong>&#x5171;&#x4EAB;&#x5185;&#x5B58;</strong>&#xFF1A;shmget()/shmat()/shmdt()<ul>
+<li>&#x5171;&#x4EAB;&#x5185;&#x5B58;&#x7684;&#x673A;&#x5236;&#xFF0C;&#x5C31;&#x662F;<strong>&#x62FF;&#x51FA;&#x4E00;&#x5757;&#x865A;&#x62DF;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x6765;&#xFF0C;&#x6620;&#x5C04;&#x5230;&#x76F8;&#x540C;&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E2D;</strong>&#x3002;</li>
+<li>&#x5C31;&#x4E0D;&#x5B58;&#x5728;&#x6570;&#x636E;&#x62F7;&#x8D1D;&#x7684;&#x5F00;&#x9500;&#x4E86;&#x3002;&#x4F46;&#x5F15;&#x5165;&#x4E86;&#x65B0;&#x95EE;&#x9898;&#xFF1A;&#x540C;&#x65F6;&#x5199;&#x4F1A;&#x51B2;&#x7A81;&#x3002;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<strong>&#x4FE1;&#x53F7;&#x91CF;</strong>&#x6765;&#x5B9E;&#x73B0;&#x8FDB;&#x7A0B;&#x95F4;&#x7684;&#x4E92;&#x65A5;&#x4E0E;&#x540C;&#x6B65;&#x3002;</li>
+</ul>
+</li>
+<li><strong>&#x4FE1;&#x53F7;</strong>&#xFF1A;signal()/kill()<ul>
+<li>IPC&#x4E2D;&#x552F;&#x4E00;&#x7684;&#x5F02;&#x6B65;&#x901A;&#x4FE1;&#x673A;&#x5236;&#x3002;</li>
+<li>&#x4FE1;&#x53F7;&#x5904;&#x7406;&#xFF1A;&#x6267;&#x884C;&#x9ED8;&#x8BA4;&#x64CD;&#x4F5C;&#xFF1B;&#x6355;&#x6349;&#x4FE1;&#x53F7;&#xFF1B;&#x5FFD;&#x7565;&#x4FE1;&#x53F7;&#x3002;</li>
+</ul>
+</li>
+<li><strong>socket</strong>&#xFF1A;socket()<ul>
+<li>&#x7C7B;&#x578B;SOCK_STREAM/SOCK_DGRAM&#xFF1B;</li>
+</ul>
+</li>
+</ul>
+<h3 id="27-&#x9875;&#x9762;&#x7F6E;&#x6362;&#x7B97;&#x6CD5;">2.7. &#x9875;&#x9762;&#x7F6E;&#x6362;&#x7B97;&#x6CD5;</h3>
+<p><strong>&#x4EA4;&#x6362;&#x673A;&#x5236;</strong>&#xFF1A;&#x5F53;&#x7269;&#x7406;&#x5185;&#x5B58;&#x63A5;&#x8FD1;&#x6EE1;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E3A;&#x4E86;&#x4F7F;&#x6574;&#x4E2A;&#x7CFB;&#x7EDF;&#x4ECD;&#x7136;&#x53EF;&#x7528;&#xFF0C;&#x4F1A;&#x5C06;&#x4E00;&#x90E8;&#x5206;&#x4E0D;&#x5E38;&#x4F7F;&#x7528;&#x7684;&#x9875;&#x9762;&#x79FB;&#x5230;&#x78C1;&#x76D8;&#x4E0A;&#xFF0C;&#x4E3A;&#x66F4;&#x7ECF;&#x5E38;&#x4F7F;&#x7528;&#x7684;&#x9875;&#x9762;&#x817E;&#x51FA;&#x7A7A;&#x95F4;&#x3002;</p>
+<p><strong>&#x9875;&#x9762;&#x7F6E;&#x6362;&#x7B97;&#x6CD5;</strong>&#x7684;&#x529F;&#x80FD;&#x662F;&#xFF0C;<strong>&#x5F53;&#x51FA;&#x73B0;&#x7F3A;&#x9875;&#x5F02;&#x5E38;&#xFF0C;&#x9700;&#x8C03;&#x5165;&#x65B0;&#x9875;&#x9762;&#x800C;&#x5185;&#x5B58;&#x5DF2;&#x6EE1;&#x65F6;&#xFF0C;&#x9009;&#x62E9;&#x88AB;&#x7F6E;&#x6362;&#x7684;&#x7269;&#x7406;&#x9875;&#x9762;</strong>&#x3002;</p>
+<p>&#x51FA;&#x73B0;&#x8FC7;&#x54EA;&#x4E9B;&#x9875;&#x9762;&#x7F6E;&#x6362;&#x7B97;&#x6CD5;&#xFF1A;</p>
+<ul>
+<li><strong>FIFO</strong>&#xFF1A;&#x7EF4;&#x62A4;&#x4E00;&#x4E2A;&#x961F;&#x5217;&#xFF0C;&#x6BCF;&#x6B21;&#x76F4;&#x63A5;&#x6E05;&#x7406;&#x961F;&#x5217;&#x5934;&#x7684;&#x9875;&#x9762;&#x3002;&#x51E0;&#x4E4E;&#x65E0;&#x6027;&#x80FD;&#x5F00;&#x9500;&#xFF0C;&#x4F46;&#x662F;&#x6548;&#x679C;&#x4E0D;&#x597D;&#x3002;</li>
+<li><strong>Second Chance FIFO</strong>&#xFF1A;&#x7EF4;&#x62A4;&#x4E00;&#x4E2A;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#xFF0C;&#x6BCF;&#x6B21;&#x6E05;&#x7406;&#x8BBF;&#x95EE;&#x6807;&#x5FD7;&#x4F4D;&#x4E3A;0&#x7684;&#x9875;&#x9762;&#xFF0C;&#x6BCF;&#x6B21;&#x8BBF;&#x95EE;&#x540E;&#x5C06;&#x6807;&#x5FD7;&#x4F4D;&#x7F6E;&#x4E3A;1&#xFF0C;&#x8FD9;&#x6837;&#x53EA;&#x8981;&#x5468;&#x671F;&#x5185;&#x9875;&#x9762;&#x6709;&#x8BBF;&#x95EE;&#xFF0C;&#x5C31;&#x4F1A;&#x514D;&#x906D;&#x6E05;&#x7406;&#xFF0C;&#x9664;&#x975E;&#x6240;&#x6709;&#x7684;&#x9875;&#x90FD;&#x4E3A;1&#x3002;&#x7531;&#x4E8E;&#x4F7F;&#x7528;&#x5FAA;&#x73AF;&#x961F;&#x5217;&#xFF0C;&#x5185;&#x5B58;&#x64CD;&#x4F5C;&#x8F83;&#x591A;&#xFF0C;&#x6545;&#x4E00;&#x822C;&#x4F7F;&#x7528;&#x4E0B;&#x9762;&#x4E00;&#x4E2A;&#x7B97;&#x6CD5;&#x3002;</li>
+<li><strong>&#x65F6;&#x949F;&#x7B97;&#x6CD5;</strong>&#xFF1A;&#x6307;&#x9488;&#x548C;&#x73AF;&#x5F62;&#x94FE;&#x8868;/&#x961F;&#x5217;&#x5B9E;&#x73B0;SCFIFO&#xFF0C;&#x6D88;&#x9664;&#x4E86;&#x5185;&#x5B58;&#x64CD;&#x4F5C;&#xFF0C;&#x4E5F;&#x662F;&#x8F83;&#x4E3A;&#x5E38;&#x7528;&#x7684;&#x7B97;&#x6CD5;&#xFF0C;&#x6548;&#x679C;&#x8F83;&#x597D;&#xFF0C;&#x6BD4;&#x8F83;NRU&#x6709;&#x8F83;&#x5927;&#x6539;&#x5584;&#x3002;<ul>
+<li>&#x628A;&#x6240;&#x6709;&#x7684;&#x9875;&#x9762;&#x90FD;&#x4FDD;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x7C7B;&#x4F3C;&#x949F;&#x9762;&#x7684;&#x300C;&#x73AF;&#x5F62;&#x94FE;&#x8868;&#x300D;&#x4E2D;&#xFF0C;&#x4E00;&#x4E2A;&#x8868;&#x9488;&#x6307;&#x5411;&#x6700;&#x8001;&#x7684;&#x9875;&#x9762;&#x3002;</li>
+</ul>
+</li>
+<li><strong>LRU&#xFF08;&#x6700;&#x8FD1;&#x6700;&#x4E45;&#x672A;&#x4F7F;&#x7528;&#xFF09;&#x7B97;&#x6CD5;</strong>&#xFF1A;&#x5728;&#x6BCF;&#x6B21;&#x8BBF;&#x95EE;&#x5185;&#x5B58;&#x65F6;&#x90FD;&#x5FC5;&#x987B;&#x8981;&#x66F4;&#x65B0;&#x300C;&#x6574;&#x4E2A;&#x94FE;&#x8868;&#x300D;&#x3002;&#x5728;&#x94FE;&#x8868;&#x4E2D;&#x627E;&#x5230;&#x4E00;&#x4E2A;&#x9875;&#x9762;&#xFF0C;&#x5220;&#x9664;&#x5B83;&#xFF0C;&#x7136;&#x540E;&#x628A;&#x5B83;&#x79FB;&#x52A8;&#x5230;&#x8868;&#x5934;&#x662F;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x8D39;&#x65F6;&#x7684;&#x64CD;&#x4F5C;&#x3002;&#x5F00;&#x9500;&#x6BD4;&#x8F83;&#x5927;&#x3002;</li>
+<li><strong>LFU&#xFF08;&#x6700;&#x4E0D;&#x5E38;&#x7528;&#xFF09;&#x7B97;&#x6CD5;</strong>&#xFF1A;&#x4F7F;&#x7528;&#x7684;&#x9891;&#x5EA6;Freq&#x7531;&#x7CFB;&#x7EDF;&#x65F6;&#x949F;&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x7EDF;&#x8BA1;&#xFF0C;&#x6548;&#x679C;&#x8F83;&#x597D;&#xFF0C;&#x4F46;&#x662F;&#x6709;&#x4E00;&#x5B9A;&#x7684;&#x6027;&#x80FD;&#x5F00;&#x9500;&#xFF0C;&#x4E14;&#x6CA1;&#x6709;&#x5B9E;&#x73B0;&#x201C;&#x6700;&#x8FD1;&#x201D;&#x3002;<ul>
+<li>&#x8981;&#x589E;&#x52A0;&#x4E00;&#x4E2A;&#x8BA1;&#x6570;&#x5668;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x8FD9;&#x4E2A;&#x786C;&#x4EF6;&#x6210;&#x672C;&#x662F;&#x6BD4;&#x8F83;&#x9AD8;&#x7684;&#x3002;</li>
+<li>LFU &#x7B97;&#x6CD5;&#x53EA;&#x8003;&#x8651;&#x4E86;&#x9891;&#x7387;&#x95EE;&#x9898;&#xFF0C;&#x6CA1;&#x8003;&#x8651;&#x65F6;&#x95F4;&#x7684;&#x95EE;&#x9898;&#x3002;</li>
+</ul>
+</li>
+<li><strong>&#x8001;&#x5316;&#x7B97;&#x6CD5;</strong>&#xFF1A;&#x5728;LFU&#x57FA;&#x7840;&#x4E0A;&#x52A0;&#x5165;&#x9891;&#x5EA6;&#x8001;&#x5316;&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;&#x201C;&#x6700;&#x8FD1;&#x201D;&#xFF0C;&#x8D8A;&#x4E45;&#x7684;&#x4F7F;&#x7528;&#x6B21;&#x6570;&#x6743;&#x91CD;&#x8D8A;&#x4F4E;&#x3002;</li>
+</ul>
+<p>Linux&#x5185;&#x6838;&#x73B0;&#x5728;&#x4F7F;&#x7528;&#x7684;&#x9875;&#x9762;&#x7F6E;&#x6362;&#x7B97;&#x6CD5;&#x662F;<strong>&#x4E24;&#x7EA7;&#x7684;&#x8F6F;&#x4EF6;LRU</strong>&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5206;&#x4E3A;active&#x548C;inactive&#x7C7B;&#x578B;&#x7684;&#x4E24;&#x4E2A;&#x94FE;&#x8868;&#xFF0C;&#x5E76;&#x5B9E;&#x73B0;&#x8F6F;&#x4EF6;LRU&#x7B97;&#x6CD5;&#x3002;</p>
+<p>&#x4E24;&#x7EA7;LRU&#x5B58;&#x5728;&#x7684;&#x95EE;&#x9898;&#xFF1A;</p>
+<ul>
+<li>&#x7B97;&#x6CD5;CPU&#x5F00;&#x9500;&#x592A;&#x5927;&#xFF0C;&#x800C;&#x4E14;&#x7ECF;&#x5E38;&#x505A;&#x51FA;&#x9519;&#x8BEF;&#x7684;&#x51B3;&#x7B56;&#x3002;</li>
+<li>Active/Inactive&#x8FD9;&#x4E24;&#x79CD;&#x5206;&#x7C7B;&#xFF0C;&#x662F;&#x4E00;&#x4E2A;&#x76F8;&#x5F53;&#x7C97;&#x7684;&#x7C92;&#x5EA6;&#x3002;&#x7ECF;&#x5E38;&#x4F1A;&#x770B;&#x5230;&#x9875;&#x8868;&#x5728;&#x4E24;&#x4E2A;&#x8868;&#x4E2D;&#x6765;&#x56DE;&#x79FB;&#x52A8;&#x3002;</li>
+</ul>
+<p>Linux 6.2&#x5F15;&#x5165;&#x4E86;&#x591A;&#x7EA7;LRU&#xFF1A;</p>
+<ul>
+<li>&#x501F;&#x9274;&#x4E86;&#x8001;&#x5316;&#x7B97;&#x6CD5;&#x7684;&#x601D;&#x8DEF;&#xFF0C;&#x6309;&#x7167;&#x9875;&#x9762;&#x7684;&#x751F;&#x6210;&#xFF08;&#x5206;&#x914D;&#xFF09;&#x65F6;&#x95F4;&#x5C06;LRU&#x8868;&#x5206;&#x4E3A;&#x82E5;&#x5E72;Generation&#x3002;</li>
+<li>&#x5728;LRU&#x9875;&#x9762;&#x626B;&#x9762;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F7F;&#x7528;&#x589E;&#x91CF;&#x7684;&#x65B9;&#x5F0F;&#x626B;&#x63CF;&#xFF0C;&#x6839;&#x636E;&#x5468;&#x671F;&#x5185;&#x8BBF;&#x95EE;&#x8FC7;&#x7684;&#x9875;&#x9762;&#x5BF9;&#x9875;&#x8868;&#x8FDB;&#x884C;&#x626B;&#x63CF;&#xFF0C;&#x9664;&#x975E;&#x8FD9;&#x6BB5;&#x65F6;&#x95F4;&#x5185;&#x8BBF;&#x95EE;&#x7684;&#x5185;&#x5B58;&#x5206;&#x5E03;&#x975E;&#x5E38;&#x7A00;&#x758F;&#xFF0C;&#x901A;&#x5E38;&#x9875;&#x8868;&#x76F8;&#x5BF9;&#x4E8E;&#x5012;&#x6392;&#x9875;&#x8868;&#x6709;&#x66F4;&#x597D;&#x7684;&#x5C40;&#x90E8;&#x6027;&#xFF0C;&#x8FDB;&#x800C;&#x53EF;&#x4EE5;&#x63D0;&#x5347;CPU&#x7684;&#x7F13;&#x5B58;&#x547D;&#x4E2D;&#x7387;&#x3002;</li>
+</ul>
 <h2 id="3-&#x7F51;&#x7EDC;&#x7BC7;">3. &#x7F51;&#x7EDC;&#x7BC7;</h2>
 <h2 id="4-&#x5185;&#x6838;&#x7BC7;">4. &#x5185;&#x6838;&#x7BC7;</h2>
-<h3 id="21-linux&#x542F;&#x52A8;&#x505A;&#x4E86;&#x54EA;&#x4E9B;&#x4E8B;&#x60C5;">2.1. linux&#x542F;&#x52A8;&#x505A;&#x4E86;&#x54EA;&#x4E9B;&#x4E8B;&#x60C5;</h3>
-<h3 id="22-&#x5185;&#x6838;&#x5206;&#x914D;&#x5185;&#x5B58;&#x51FD;&#x6570;&#x548C;&#x533A;&#x522B;">2.2. &#x5185;&#x6838;&#x5206;&#x914D;&#x5185;&#x5B58;&#x51FD;&#x6570;&#x548C;&#x533A;&#x522B;</h3>
+<h3 id="41-linux&#x542F;&#x52A8;&#x505A;&#x4E86;&#x54EA;&#x4E9B;&#x4E8B;&#x60C5;">4.1. linux&#x542F;&#x52A8;&#x505A;&#x4E86;&#x54EA;&#x4E9B;&#x4E8B;&#x60C5;</h3>
+<p>&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E09;&#x4E2A;&#x9636;&#x6BB5;&#xFF1A;</p>
+<ul>
+<li><strong>1. BIOS&#x5F15;&#x5BFC;</strong><ul>
+<li>BIOS&#x662F;&#x5982;&#x4F55;&#x542F;&#x52A8;&#x7684;&#xFF0C;CPU&#x786C;&#x4EF6;&#x903B;&#x8F91;&#x8BBE;&#x8BA1;&#x4E3A;&#x5728;&#x52A0;&#x7535;&#x77AC;&#x95F4;&#x5F3A;&#x884C;&#x5C06;CS&#x503C;&#x7F6E;&#x4E3A;0XF000&#xFF0C;IP&#x4E3A;0XFFF0&#xFF0C;&#x8FD9;&#x6837;CS:IP&#x5C31;&#x6307;&#x5411;0XFFFF0&#x8FD9;&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;&#x8FD9;&#x4E2A;&#x4F4D;&#x7F6E;&#x6B63;&#x662F;BIOS&#x7A0B;&#x5E8F;&#x7684;&#x5165;&#x53E3;&#x5730;&#x5740;&#x3002;</li>
+<li>BIOS&#x7684;&#x7B2C;&#x4E00;&#x6B65;&#x52A8;&#x4F5C;&#x5C31;&#x662F;&#x8FDB;&#x884C;<strong>&#x4E0A;&#x7535;&#x81EA;&#x68C0;&#xFF08;POST&#xFF09;</strong>&#x3002;POST&#x7684;&#x5DE5;&#x4F5C;&#x662F;&#x68C0;&#x67E5;&#x786C;&#x4EF6;&#x8BBE;&#x5907;&#x3002;&#x968F;&#x7740;BIOS&#x7A0B;&#x5E8F;&#x7684;&#x6267;&#x884C;&#xFF0C;&#x5C4F;&#x5E55;&#x4E0A;&#x4F1A;&#x663E;&#x793A;&#x663E;&#x5361;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x5185;&#x5B58;&#x7684;&#x4FE1;&#x606F;&#x7B49;&#x3002;</li>
+<li>BIOS&#x7684;&#x7B2C;&#x4E8C;&#x6B65;&#x52A8;&#x4F5C;&#xFF1A;<strong>BIOS&#x5728;&#x5185;&#x5B58;&#x4E2D;&#x5EFA;&#x7ACB;&#x4E2D;&#x65AD;&#x5411;&#x91CF;&#x8868;&#x548C;&#x4E2D;&#x65AD;&#x670D;&#x52A1;&#x7A0B;&#x5E8F;</strong>&#x3002;</li>
+<li>BIOS&#x7684;<strong>runtime&#x670D;&#x52A1;</strong> &#x641C;&#x7D22;<strong>&#x53EF;&#x5F15;&#x5BFC;&#x542F;&#x52A8;&#x7684;&#x8BBE;&#x5907;</strong>&#xFF0C;<strong>&#x5BFB;&#x627E;MBR</strong>&#x3002;&#x4E00;&#x4E2A;&#x8F6F;&#x9A71;&#xFF0C;&#x4E00;&#x53F0;&#x5149;&#x9A71;&#xFF0C;&#x4E00;&#x4E2A;&#x786C;&#x76D8;&#x4E0A;&#x7684;&#x5206;&#x533A;&#xFF0C;&#x7F51;&#x7EDC;&#x4E0A;&#x7684;&#x8BBE;&#x5907;&#x751A;&#x81F3;&#x4E00;&#x4E2A;usb &#x95EA;&#x5B58;&#x76D8;&#x90FD;&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x542F;&#x52A8;&#x8BBE;&#x5907;&#x3002;linux&#x901A;&#x5E38;&#x662F;&#x4ECE;&#x786C;&#x76D8;&#x542F;&#x52A8;&#x7684;&#x3002;&#x786C;&#x76D8;&#x4E0A;&#x7684;MBR&#xFF08;&#x4E3B;&#x542F;&#x52A8;&#x8BB0;&#x5F55;&#xFF09;&#x5305;&#x542B;&#x6709;&#x57FA;&#x672C;&#x7684;boot loader&#x3002;</li>
+</ul>
+</li>
+<li><strong>2. GRUB&#x5F15;&#x5BFC;</strong><ul>
+<li>&#x4F4D;&#x4E8E;<strong>MBR&#x4E2D;&#x7684;&#x4E3B;boot loader</strong>&#x662F;&#x4E00;&#x4E2A;512&#x5B57;&#x8282;&#x7684;&#x955C;&#x50CF;&#xFF0C;&#x5305;&#x542B;&#x4E86;bootload&#x7A0B;&#x5E8F;&#x4EE3;&#x7801;&#xFF0C;&#x548C;&#x4E00;&#x4E2A;&#x5C0F;&#x7684;&#x5206;&#x533A;&#x8868;&#x3002;&#x4E3B;boot loader&#x7684;&#x5DE5;&#x4F5C;&#x662F;<strong>&#x5BFB;&#x627E;&#x5E76;&#x52A0;&#x8F7D;&#x6B21;boot loader&#xFF08;&#x5185;&#x6838;&#x52A0;&#x8F7D;&#x7A0B;&#x5E8F;&#xFF09;</strong>&#x3002;</li>
+<li>&#x5728;&#x6B21;boot loader&#x5B58;&#x5728;&#x4E0E;&#x5185;&#x5B58;&#x4E2D;&#x540E;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5BF9;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x8FDB;&#x884C;&#x67E5;&#x8BE2;&#x4E86;&#xFF0C;&#x540C;&#x65F6;&#x5C06;&#x9ED8;&#x8BA4;&#x7684;&#x5185;&#x6838;&#x955C;&#x50CF;&#x4EE5;&#x53CA;&#x521D;&#x59CB;&#x5316;&#x5185;&#x5B58;&#x76D8;&#x955C;&#x50CF;&#x4E5F;&#x88AB;&#x52A0;&#x8F7D;&#x5230;&#x5185;&#x5B58;&#x4E2D;&#x3002;</li>
+</ul>
+</li>
+<li><strong>3. &#x5185;&#x6838;&#x5F15;&#x5BFC;</strong><ul>
+<li>&#x89E3;&#x538B;bzImage&#xFF0C;&#x4ECE;head.S&#x7684;start&#x6C47;&#x7F16;&#x4F8B;&#x7A0B;&#x5F00;&#x59CB;&#x6267;&#x884C;&#x3002;</li>
+<li>&#x8FDB;&#x5165;&#x4FDD;&#x62A4;&#x6A21;&#x5F0F;&#xFF0C;&#x8BBE;&#x7F6E;&#x4E2D;&#x65AD;&#x63CF;&#x8FF0;&#x7B26;&#x8868;&#x548C;&#x5168;&#x5C40;&#x63CF;&#x8FF0;&#x7B26;&#x8868;&#xFF0C;&#x521B;&#x5EFA;&#x5185;&#x5B58;&#x5206;&#x9875;&#x673A;&#x5236;&#x3002;</li>
+<li>start_kernel&#x542F;&#x52A8;&#x5185;&#x6838;&#xFF0C;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x7684;&#x52A0;&#x8F7D;&#xFF0C;&#x521B;&#x5EFA;init&#x8FDB;&#x7A0B;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<p><img src="images/0/start.png" alt="start"></p>
+<p>&#x3010;initrd&#xFF08;bootloader initialized RAM disk&#xFF09;&#x3011;&#xFF1A;</p>
+<p>&#x4E00;&#x90E8;&#x5206;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x76F4;&#x63A5;&#x88AB;&#x7F16;&#x8BD1;&#x8FDB;&#x5185;&#x6838;&#x955C;&#x50CF;&#x4E2D;&#xFF0C;&#x53E6;&#x4E00;&#x90E8;&#x5206;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x5219;&#x662F;&#x4EE5;&#x6A21;&#x5757;&#x7684;&#x5F62;&#x5F0F;&#x653E;&#x5728;initrd(ramdisk)&#x4E2D;&#x3002;&#x65E9;&#x671F;&#x5185;&#x6838;&#x7248;&#x672C;&#xFF0C;boot loader &#x4F1A;&#x5C06;&#x5B58;&#x50A8;&#x4ECB;&#x8D28;&#x4E2D;&#x7684; initrd &#x6587;&#x4EF6;&#x52A0;&#x8F7D;&#x5230;&#x5185;&#x5B58;&#xFF0C;&#x5185;&#x6838;&#x4FBF;&#x53BB;&#x6267;&#x884C;initrd&#x4E2D;&#x7684;init&#x811A;&#x672C;&#xFF0C;&#x8FD9;&#x65F6;&#x5185;&#x6838;&#x5C06;&#x63A7;&#x5236;&#x6743;&#x4EA4;&#x7ED9;&#x4E86;init&#x6587;&#x4EF6;&#x5904;&#x7406;&#xFF0C;&#x5176;&#x4E2D;init&#x811A;&#x672C;&#x4E5F;&#x4E3B;&#x8981;&#x662F;&#x52A0;&#x8F7D;&#x5404;&#x79CD;&#x5B58;&#x50A8;&#x4ECB;&#x8D28;&#x76F8;&#x5173;&#x7684;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x3002;&#x5F53;&#x6240;&#x9700;&#x7684;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x52A0;&#x8F7D;&#x5B8C;&#x540E;&#xFF0C;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x6839;&#x8BBE;&#x5907;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x6839;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;rootfs&#x4EE5;&#x53EA;&#x8BFB;&#x7684;&#x65B9;&#x5F0F;&#x6302;&#x8F7D;&#x3002;&#x8FD9;&#x4E00;&#x6B65;&#x7ED3;&#x675F;&#x540E;&#xFF0C;&#x91CA;&#x653E;&#x672A;&#x4F7F;&#x7528;&#x7684;&#x5185;&#x5B58;&#xFF0C;&#x8F6C;&#x6362;&#x5230;&#x771F;&#x6B63;&#x7684;&#x6839;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E0A;&#x9762;&#x53BB;&#xFF0C;&#x540C;&#x65F6;&#x8FD0;&#x884C;/sbin/init&#x7A0B;&#x5E8F;&#x3002;</p>
+<h3 id="42-&#x5185;&#x6838;&#x5206;&#x914D;&#x5185;&#x5B58;&#x51FD;&#x6570;&#x548C;&#x533A;&#x522B;">4.2. &#x5185;&#x6838;&#x5206;&#x914D;&#x5185;&#x5B58;&#x51FD;&#x6570;&#x548C;&#x533A;&#x522B;</h3>
 <p>&#x3010;&#x9875;&#x4E3A;&#x5355;&#x4F4D;&#x3011;</p>
 <p>&#x5982;&#x679C;&#x60F3;&#x8981; <strong>&#x4EE5;&#x9875;&#x4E3A;&#x5355;&#x4F4D;&#x7684;&#x8FDE;&#x7EED;&#x7269;&#x7406;&#x9875;</strong>&#xFF0C;&#x4F7F;&#x7528; <strong><code>alloc_pages()</code></strong>&#x3002;</p>
 <p>&#x3010;&#x5BF9;&#x8C61;&#x4E3A;&#x5355;&#x4F4D;&#x3011;</p>
@@ -927,7 +1110,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="23-&#x5185;&#x6838;&#x540C;&#x6B65;&#x673A;&#x5236;">2.3. &#x5185;&#x6838;&#x540C;&#x6B65;&#x673A;&#x5236;</h3>
+<h3 id="43-&#x5185;&#x6838;&#x540C;&#x6B65;&#x673A;&#x5236;">4.3. &#x5185;&#x6838;&#x540C;&#x6B65;&#x673A;&#x5236;</h3>
 <ul>
 <li><strong>&#x539F;&#x5B50;&#x64CD;&#x4F5C;</strong>&#xFF1A;atomic_set&#x3001;atomic64_set&#x3001;set_bit&#xFF08;&#x539F;&#x5B50;&#x4F4D;&#xFF09;</li>
 <li><strong>&#x81EA;&#x65CB;&#x9501;</strong>&#xFF1A;&#x6301;&#x6709;&#x81EA;&#x65CB;&#x9501;&#x4E0D;&#x5141;&#x8BB8;&#x7761;&#x7720;&#x3002;<ul>
@@ -958,7 +1141,7 @@
 </ul>
 <p>&#x4F18;&#x5148;&#x7EA7;&#xFF1A;<strong><code>&#x4E2D;&#x65AD; &gt; &#x8F6F;&#x4E2D;&#x65AD; &gt; &#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;</code></strong>&#xFF1B;</p>
 <p>&#x6240;&#x4EE5;&#xFF1A;&#x4E2D;&#x65AD;&#x53EF;&#x4EE5;&#x62A2;&#x5360;&#x8F6F;&#x4E2D;&#x65AD;&#xFF0C;&#x8F6F;&#x4E2D;&#x65AD;&#x53EF;&#x4EE5;&#x62A2;&#x5360;&#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x3002;</p>
-<h3 id="24-&#x62A2;&#x5360;&#x3001;&#x4E2D;&#x65AD;&#x3001;&#x9501;">2.4. &#x62A2;&#x5360;&#x3001;&#x4E2D;&#x65AD;&#x3001;&#x9501;</h3>
+<h3 id="44-&#x62A2;&#x5360;&#x3001;&#x4E2D;&#x65AD;&#x3001;&#x9501;">4.4. &#x62A2;&#x5360;&#x3001;&#x4E2D;&#x65AD;&#x3001;&#x9501;</h3>
 <p>&#x8C03;&#x5EA6;&#x5206;&#x4E24;&#x79CD;&#xFF1A;&#x62A2;&#x5360;&#x5F0F;&#x8C03;&#x5EA6;&#x3001;&#x975E;&#x62A2;&#x5360;&#x5F0F;&#x8C03;&#x5EA6;&#x3002;<strong>Linux&#x4F7F;&#x7528;&#x7684;&#x662F;&#x62A2;&#x5360;&#x5F0F;&#x8C03;&#x5EA6;</strong>&#x3002;</p>
 <p>&#x3010;<strong>&#x62A2;&#x5360;</strong>&#x3011;&#x5206;&#x4E24;&#x79CD;&#xFF1A;</p>
 <ul>
@@ -988,13 +1171,13 @@ do { \
     barrier(); \
 } while (0)</span>
 </code></pre>
-<h3 id="25-&#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x548C;&#x4E2D;&#x65AD;&#x4E0A;&#x4E0B;&#x6587;">2.5. &#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x548C;&#x4E2D;&#x65AD;&#x4E0A;&#x4E0B;&#x6587;</h3>
+<h3 id="45-&#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x548C;&#x4E2D;&#x65AD;&#x4E0A;&#x4E0B;&#x6587;">4.5. &#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x548C;&#x4E2D;&#x65AD;&#x4E0A;&#x4E0B;&#x6587;</h3>
 <p><strong>&#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;</strong>&#x662F;&#x4E00;&#x79CD;&#x5185;&#x6838;&#x6240;&#x5904;&#x7684;&#x64CD;&#x4F5C;&#x6A21;&#x5F0F;&#xFF0C;&#x6B64;&#x65F6;&#x5185;&#x6838;&#x4EE3;&#x8868;&#x8FDB;&#x7A0B;&#x6267;&#x884C;&#x3002;&#xFF08;&#x4F8B;&#x5982;&#xFF1A;&#x6267;&#x884C;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x6216;&#x8FD0;&#x884C;&#x5185;&#x6838;&#x7EBF;&#x7A0B;&#xFF09;&#x3002;&#x8FDB;&#x7A0B;&#x53EF;&#x4EE5;&#x7761;&#x7720;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x8C03;&#x7528;&#x7A0B;&#x5E8F;&#x3002;</p>
 <p>&#x4E00;&#x822C;&#x7A0B;&#x5E8F;&#x5728;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x6267;&#x884C;&#x3002;&#x5F53;&#x4E00;&#x4E2A;&#x7A0B;&#x5E8F;&#x6267;&#x884C;&#x4E86;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x6216;&#x8005;&#x89E6;&#x53D1;&#x4E86;&#x67D0;&#x4E2A;&#x5F02;&#x5E38;&#xFF0C;&#x5B83;&#x5C31;&#x9677;&#x5165;&#x4E86;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x3002;&#x6B64;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x79F0;<strong>&#x5185;&#x6838;&#x201C;&#x4EE3;&#x8868;&#x8FDB;&#x7A0B;&#x6267;&#x884C;&#x201D;&#x5E76;&#x5904;&#x4E8E;&#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;</strong>&#x3002;</p>
 <p><strong>&#x4E2D;&#x65AD;&#x4E0A;&#x4E0B;&#x6587;</strong>&#x6CA1;&#x6709;&#x540E;&#x5907;&#x8FDB;&#x7A0B;&#xFF0C;&#x4E0D;&#x53EF;&#x4EE5;&#x7761;&#x7720;&#xFF08;&#x5426;&#x5219;&#x53C8;&#x600E;&#x80FD;&#x518D;&#x5BF9;&#x5B83;&#x91CD;&#x65B0;&#x8C03;&#x7528;&#x5462;&#xFF1F;&#xFF09;&#x3002;&#x4E14;&#x5177;&#x6709;&#x8F83;&#x4E25;&#x683C;&#x7684;&#x65F6;&#x95F4;&#x9650;&#x5236;&#x3002;</p>
-<h3 id="26-&#x4E2D;&#x65AD;&#x6808;">2.6. &#x4E2D;&#x65AD;&#x6808;</h3>
+<h3 id="46-&#x4E2D;&#x65AD;&#x6808;">4.6. &#x4E2D;&#x65AD;&#x6808;</h3>
 <p>&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#xFF08;&#x4E0A;&#x534A;&#x90E8;&#xFF0C;top half&#xFF09;&#x62E5;&#x6709;&#x4E86;&#x81EA;&#x5DF1;&#x7684;&#x6808;&#xFF0C;&#x6BCF;&#x4E2A;&#x5904;&#x7406;&#x5668;&#x4E00;&#x4E2A;&#xFF0C;&#x5927;&#x5C0F;&#x4E3A;&#x4E00;&#x9875;&#x3002;&#x8FD9;&#x4E2A;&#x6808;&#x5C31;&#x79F0;&#x4E3A;<strong>&#x4E2D;&#x65AD;&#x6808;</strong>&#x3002;</p>
-<h3 id="27-&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x4E0B;&#x534A;&#x90E8;&#xFF08;bottom-half&#xFF09;&#xFF1F;">2.7. &#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x4E0B;&#x534A;&#x90E8;&#xFF08;bottom half&#xFF09;&#xFF1F;</h3>
+<h3 id="47-&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x4E0B;&#x534A;&#x90E8;&#xFF08;bottom-half&#xFF09;&#xFF1F;">4.7. &#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x4E0B;&#x534A;&#x90E8;&#xFF08;bottom half&#xFF09;&#xFF1F;</h3>
 <p>&#x7B80;&#x5355;&#x8BF4;&#xFF1A;&#x53C8;&#x60F3;&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x7684;&#x5FEB;&#xFF0C;&#x53C8;&#x60F3;&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x5B8C;&#x6210;&#x7684;&#x5DE5;&#x4F5C;&#x91CF;&#x591A;&#x3002;&#x53EA;&#x80FD;&#x628A;&#x4E00;&#x4E9B;&#x5DE5;&#x4F5C;&#x653E;&#x5230;&#x4EE5;&#x540E;&#x53BB;&#x505A;&#x3002;</p>
 <p><strong>&#x4E0A;&#x534A;&#x90E8;&#x5206;&#x7B80;&#x5355;&#x5FEB;&#x901F;&#xFF0C;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x7981;&#x6B62;&#x4E00;&#x4E9B;&#x6216;&#x5168;&#x90E8;&#x4E2D;&#x65AD;&#x3002;&#x4E0B;&#x534A;&#x90E8;&#x5206;&#x7A0D;&#x540E;&#x6267;&#x884C;&#xFF0C;&#x800C;&#x4E14;&#x6267;&#x884C;&#x671F;&#x95F4;&#x53EF;&#x4EE5;&#x54CD;&#x5E94;&#x6240;&#x6709;&#x7684;&#x4E2D;&#x65AD;&#x3002;</strong></p>
 <p>&#x4E0B;&#x534A;&#x90E8;&#x6709;&#x54EA;&#x4E9B;&#x5B9E;&#x73B0;&#xFF1A;</p>
@@ -1003,14 +1186,14 @@ do { \
 <li><strong>tasklet</strong>&#xFF1A;&#x57FA;&#x4E8E;&#x8F6F;&#x4E2D;&#x65AD;&#x5B9E;&#x73B0;&#xFF1B;</li>
 <li><strong>&#x5DE5;&#x4F5C;&#x961F;&#x5217;</strong>&#xFF1A;&#x57FA;&#x4E8E;&#x5185;&#x6838;&#x7EBF;&#x7A0B;&#x5B9E;&#x73B0;&#xFF1B;</li>
 </ul>
-<h3 id="28-&#x7CFB;&#x7EDF;&#x8C03;&#x7528;">2.8. &#x7CFB;&#x7EDF;&#x8C03;&#x7528;</h3>
+<h3 id="48-&#x7CFB;&#x7EDF;&#x8C03;&#x7528;">4.8. &#x7CFB;&#x7EDF;&#x8C03;&#x7528;</h3>
 <p>&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x7A0B;&#x5E8F;&#x65E0;&#x6CD5;&#x76F4;&#x63A5;&#x6267;&#x884C;&#x5185;&#x6838;&#x4EE3;&#x7801;&#x3002;&#x4EE5;<strong>&#x67D0;&#x79CD;&#x65B9;&#x5F0F;&#x901A;&#x77E5;</strong>&#xFF08;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x662F;<strong>&#x8F6F;&#x4E2D;&#x65AD;</strong>&#xFF09;&#x5185;&#x6838;&#xFF0C;&#x9700;&#x8981;&#x6267;&#x884C;&#x4E00;&#x4E2A;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#xFF0C;&#x5E0C;&#x671B;&#x7CFB;&#x7EDF;&#x5207;&#x6362;&#x5230;&#x5185;&#x6838;&#x6001;&#xFF0C;&#x8FD9;&#x6837;&#x5185;&#x6838;&#x5C31;&#x53EF;&#x4EE5;&#x4EE3;&#x8868;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5728;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6267;&#x884C;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x3002;</p>
 <p><strong>&#x9677;&#x5165;&#x5185;&#x6838;&#x65F6;&#xFF0C;&#x628A;&#x53C2;&#x6570;&#x4ECE;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4F20;&#x7ED9;&#x5185;&#x6838;&#xFF0C;&#x53C2;&#x6570;&#x653E;&#x5728;&#x5BC4;&#x5B58;&#x5668;&#x91CC;&#x3002;&#x8FD4;&#x56DE;&#x503C;&#x4E5F;&#x901A;&#x8FC7;&#x5BC4;&#x5B58;&#x5668;&#x4F20;&#x9012;&#x3002;</strong></p>
 <p><strong>&#x5185;&#x6838;&#x5728;&#x6267;&#x884C;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x5904;&#x4E8E;&#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x3002;</strong></p>
 <p><strong>&#x5728;&#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x4E2D;&#xFF0C;&#x5185;&#x6838;&#x53EF;&#x4EE5;&#x4F11;&#x7720;&#xFF0C;&#x53EF;&#x4EE5;&#x88AB;&#x62A2;&#x5360;&#x3002;</strong></p>
-<h3 id="29-&#x53D1;&#x751F;&#x5F02;&#x5E38;&#x65F6;&#xFF0C;cpu&#x4F1A;&#x505A;&#x4EC0;&#x4E48;&#xFF1F;">2.9. &#x53D1;&#x751F;&#x5F02;&#x5E38;&#x65F6;&#xFF0C;CPU&#x4F1A;&#x505A;&#x4EC0;&#x4E48;&#xFF1F;</h3>
+<h3 id="49-&#x53D1;&#x751F;&#x5F02;&#x5E38;&#x65F6;&#xFF0C;cpu&#x4F1A;&#x505A;&#x4EC0;&#x4E48;&#xFF1F;">4.9. &#x53D1;&#x751F;&#x5F02;&#x5E38;&#x65F6;&#xFF0C;CPU&#x4F1A;&#x505A;&#x4EC0;&#x4E48;&#xFF1F;</h3>
 <p>&#x53D1;&#x751F;&#x5F02;&#x5E38;&#x65F6;&#xFF0C;CPU&#x9700;&#x8981;&#x5148;&#x8BB0;&#x5F55;&#x5F53;&#x524D;&#x7A0B;&#x5E8F;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x53BB;&#x5904;&#x7406;&#x5F02;&#x5E38;&#xFF0C;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x5B8C;&#x6210;&#x540E;&#x8FD4;&#x56DE;&#x5230;&#x539F;&#x5148;&#x7684;&#x7A0B;&#x5E8F;&#x5F53;&#x4E2D;&#x3002;</p>
-<h4 id="291-&#x5F02;&#x5E38;">2.9.1. &#x5F02;&#x5E38;</h4>
+<h4 id="491-&#x5F02;&#x5E38;">4.9.1. &#x5F02;&#x5E38;</h4>
 <p>&#x3010;&#x5F02;&#x5E38;&#x5B9A;&#x4E49;&#x3011;&#xFF1A;</p>
 <ul>
 <li><strong>&#x5F02;&#x5E38;</strong>&#xFF1A;&#x7531;&#x4E8E; &#x5185;&#x90E8;&#x6216;&#x8005;&#x5916;&#x90E8;&#x7684;&#x4E00;&#x4E9B;&#x4E8B;&#x4EF6; , &#x5BFC;&#x81F4; &#x5904;&#x7406;&#x5668;&#x505C;&#x4E0B;&#x6B63;&#x5728;&#x5904;&#x7406;&#x7684;&#x5DE5;&#x4F5C;, &#x8F6C;&#x800C;&#x53BB;&#x5904;&#x7406;&#x8FD9;&#x4E9B;&#x53D1;&#x751F;&#x7684;&#x4E8B;&#xFF1B;</li>
@@ -1033,8 +1216,17 @@ do { \
 <p>&#x5F02;&#x5E38;&#x53D1;&#x751F;&#x65F6;, ARM &#x5904;&#x7406;&#x5668;&#x4F1A;&#x8DF3;&#x8F6C;&#x5230;&#x5BF9;&#x5E94;&#x8BE5;&#x5F02;&#x5E38;&#x7684; <strong>&#x56FA;&#x5B9A;&#x5730;&#x5740;</strong> &#x53BB;&#x6267;&#x884C;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x3002;&#x8FD9;&#x4E2A; &#x56FA;&#x5B9A;&#x7684;&#x5730;&#x5740; &#x5C31;&#x662F;<strong>&#x5F02;&#x5E38;&#x5411;&#x91CF;</strong>&#x3002;</p>
 <p><strong>&#x6BCF;&#x4E2A;&#x5F02;&#x5E38;&#x7C7B;&#x578B;&#x5BF9;&#x5E94;&#x4E24;&#x4E2A;&#x5F02;&#x5E38;&#x5411;&#x91CF;</strong>, &#x9ED8;&#x8BA4;&#x662F; Normal address&#x3002;</p>
 <p><img src="images/0/exception.png" alt="exception"></p>
+<h2 id="5-&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7BC7;">5. &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7BC7;</h2>
+<h2 id="6-&#x547D;&#x4EE4;&#x7BC7;">6. &#x547D;&#x4EE4;&#x7BC7;</h2>
+<h3 id="61-&#x67E5;&#x770B;&#x8FDB;&#x7A0B;&#x7F3A;&#x9875;&#x4E2D;&#x65AD;&#x4FE1;&#x606F;">6.1. &#x67E5;&#x770B;&#x8FDB;&#x7A0B;&#x7F3A;&#x9875;&#x4E2D;&#x65AD;&#x4FE1;&#x606F;</h3>
+<pre><code class="lang-bash">ps -o majflt,minflt -p &lt;pid&gt;
+</code></pre>
 <h2 id="&#x53C2;&#x8003;">&#x53C2;&#x8003;</h2>
 <p><a href="https://blog.csdn.net/shulianghan/article/details/80163777" target="_blank">https://blog.csdn.net/shulianghan/article/details/80163777</a></p>
+<p><a href="https://blog.csdn.net/chen_geng/article/details/51718747" target="_blank">https://blog.csdn.net/chen_geng/article/details/51718747</a></p>
+<p><a href="https://developer.aliyun.com/article/47675" target="_blank">https://developer.aliyun.com/article/47675</a></p>
+<p><a href="https://blog.eastonman.com/blog/2021/04/linux-multi-lru/" target="_blank">https://blog.eastonman.com/blog/2021/04/linux-multi-lru/</a></p>
+<p><a href="https://lwn.net/Articles/851184/" target="_blank">https://lwn.net/Articles/851184/</a></p>
 
                                 
                                 </section>
@@ -1074,7 +1266,7 @@ do { \
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"老一套","level":"1.10.1","depth":2,"next":{"title":"一致性hash","level":"1.10.2","depth":2,"path":"BAGU/1_consistent_hash.md","ref":"./BAGU/1_consistent_hash.md","articles":[]},"previous":{"title":"八股","level":"1.10","depth":1,"ref":"","articles":[{"title":"老一套","level":"1.10.1","depth":2,"path":"BAGU/0_classic.md","ref":"./BAGU/0_classic.md","articles":[]},{"title":"一致性hash","level":"1.10.2","depth":2,"path":"BAGU/1_consistent_hash.md","ref":"./BAGU/1_consistent_hash.md","articles":[]},{"title":"Golang","level":"1.10.3","depth":2,"path":"BAGU/2_golang.md","ref":"./BAGU/2_golang.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BAGU/0_classic.md","mtime":"2023-03-26T15:56:10.119Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-26T15:57:04.144Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"老一套","level":"1.10.1","depth":2,"next":{"title":"一致性hash","level":"1.10.2","depth":2,"path":"BAGU/1_consistent_hash.md","ref":"./BAGU/1_consistent_hash.md","articles":[]},"previous":{"title":"八股","level":"1.10","depth":1,"ref":"","articles":[{"title":"老一套","level":"1.10.1","depth":2,"path":"BAGU/0_classic.md","ref":"./BAGU/0_classic.md","articles":[]},{"title":"一致性hash","level":"1.10.2","depth":2,"path":"BAGU/1_consistent_hash.md","ref":"./BAGU/1_consistent_hash.md","articles":[]},{"title":"Golang","level":"1.10.3","depth":2,"path":"BAGU/2_golang.md","ref":"./BAGU/2_golang.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BAGU/0_classic.md","mtime":"2023-03-27T15:49:38.893Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-27T15:49:57.793Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
