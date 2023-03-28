@@ -59,7 +59,7 @@ spec:
 - endpoints controller 是负责生成和维护所有 endpoints 对象的控制器，监听 service 和对应 pod 的变化，更新对应 service 的 endpoints 对象。当用户创建 service 后 endpoints controller 会监听 pod 的状态，当 pod 处于 running 且准备就绪时，endpoints controller 会将 pod ip 记录到 endpoints 对象中，因此，service 的容器发现是通过 endpoints 来实现的。
 - kube-proxy 会监听 service 和 endpoints 的更新并调用其代理模块在主机上刷新路由转发规则。
 
-![工作原理](./_img/service工作原理.png)
+![工作原理](_img/service工作原理.png)
 
 另外，可以在集群中部署 CoreDNS 服务， 来达到集群内部的 pod 通过DNS 的方式进行集群内部各个服务之间的通讯。
 
@@ -71,19 +71,19 @@ spec:
 
 # 4. kube-proxy实现
 
-![kube-proxy实现](./_img/kube-proxy.png)
+![kube-proxy实现](_img/kube-proxy.png)
 
 kube-proxy启动时根据ProxyMode参数来初始化对应的proxier实例，最终的刷新规则函数是借助BoundedFrequencyRunner来调用。
 
 ## 4.1. iptables
 
-![netfilter](./_img/netfilter.png)
+![netfilter](_img/netfilter.png)
 
-![iptables](./_img/iptables.png)
+![iptables](_img/iptables.png)
 
-![iptables](./_img/iptables-2.png)
+![iptables](_img/iptables-2.png)
 
-![iptables](./_img/iptables-3.png)
+![iptables](_img/iptables-3.png)
 
 iptables有五链、五表。
 
@@ -103,7 +103,7 @@ syncProxyRules：为 service、clusterIP、externalIP、ingress、nodePort、end
 
 ## 4.2. ipvs
 
-![ipvs](./_img/ipvs.png)
+![ipvs](_img/ipvs.png)
 
 三种模式：
 - DR
@@ -112,7 +112,7 @@ syncProxyRules：为 service、clusterIP、externalIP、ingress、nodePort、end
 
 只有 NAT 模式可以进行端口映射。所以 kubernetes 中 ipvs 的实现使用了 NAT 模式，将 service[ip:port] 映射为 container[ip:port]。
 
-![ipvs-nat](./_img/ipvs-nat.png)
+![ipvs-nat](_img/ipvs-nat.png)
 
 linux 内核原生的 ipvs 模式只支持 DNAT，不支持 SNAT，所以还是需要依赖iptables。但无论有多少 pod/service，iptables 的规则数都是固定的。
 
