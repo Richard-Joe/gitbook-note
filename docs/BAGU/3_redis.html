@@ -1,0 +1,1896 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Redis · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-intopic-toc/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="2_golang.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../gitbook/">
+            
+                <a href="../gitbook/">
+            
+                    
+                    gitbook搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    网络
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../network/basic/">
+            
+                <a href="../network/basic/">
+            
+                    
+                    网络基础
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../network/basic/recv_one_package.html">
+            
+                <a href="../network/basic/recv_one_package.html">
+            
+                    
+                    内核是如何接收一个网络包的
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../network/basic/dma.html">
+            
+                <a href="../network/basic/dma.html">
+            
+                    
+                    内核DMA机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="../network/basic/veth.html">
+            
+                <a href="../network/basic/veth.html">
+            
+                    
+                    veth设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="../network/basic/tun-tap.html">
+            
+                <a href="../network/basic/tun-tap.html">
+            
+                    
+                    tun/tap设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="../network/basic/bridge.html">
+            
+                <a href="../network/basic/bridge.html">
+            
+                    
+                    Bridge
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.6" data-path="../network/basic/vxlan.html">
+            
+                <a href="../network/basic/vxlan.html">
+            
+                    
+                    VXLAN
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.7" data-path="../network/basic/gre.html">
+            
+                <a href="../network/basic/gre.html">
+            
+                    
+                    GRE
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.8" data-path="../network/basic/neighbor.html">
+            
+                <a href="../network/basic/neighbor.html">
+            
+                    
+                    邻居子系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.9" data-path="../network/basic/route.html">
+            
+                <a href="../network/basic/route.html">
+            
+                    
+                    路由子系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.10" data-path="../network/basic/netfilter.html">
+            
+                <a href="../network/basic/netfilter.html">
+            
+                    
+                    netfilter
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../network/lb/">
+            
+                <a href="../network/lb/">
+            
+                    
+                    负载均衡
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../network/lb/LVS.html">
+            
+                <a href="../network/lb/LVS.html">
+            
+                    
+                    LVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../network/lb/Maglev.html">
+            
+                <a href="../network/lb/Maglev.html">
+            
+                    
+                    Maglev
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../network/traffic_control/tc.html">
+            
+                <a href="../network/traffic_control/tc.html">
+            
+                    
+                    流量控制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="../network/traffic_control/bufferbloat.html">
+            
+                <a href="../network/traffic_control/bufferbloat.html">
+            
+                    
+                    缓冲膨胀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="../network/traffic_control/fq_codel.html">
+            
+                <a href="../network/traffic_control/fq_codel.html">
+            
+                    
+                    公平队列控制延迟
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    Kubernetes
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../Kubernetes/Jobs.html">
+            
+                <a href="../Kubernetes/Jobs.html">
+            
+                    
+                    Jobs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../Kubernetes/CronJob.html">
+            
+                <a href="../Kubernetes/CronJob.html">
+            
+                    
+                    CronJob
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../Kubernetes/CRD.html">
+            
+                <a href="../Kubernetes/CRD.html">
+            
+                    
+                    CRD
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../Kubernetes/Operator.html">
+            
+                <a href="../Kubernetes/Operator.html">
+            
+                    
+                    Operator
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../Kubernetes/kubelet.html">
+            
+                <a href="../Kubernetes/kubelet.html">
+            
+                    
+                    kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../OVS/">
+            
+                <a href="../OVS/">
+            
+                    
+                    OVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../eBPF/">
+            
+                <a href="../eBPF/">
+            
+                    
+                    eBPF
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../XDP/">
+            
+                <a href="../XDP/">
+            
+                    
+                    XDP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../cilium/">
+            
+                <a href="../cilium/">
+            
+                    
+                    cilium
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" >
+            
+                <span>
+            
+                    
+                    内核
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../kernel/进程调度.html">
+            
+                <a href="../kernel/进程调度.html">
+            
+                    
+                    进程调度
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1.1" data-path="../kernel/ps-1-cfs.html">
+            
+                <a href="../kernel/ps-1-cfs.html">
+            
+                    
+                    CFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.1.2" data-path="../kernel/ps-2-eevdf.html">
+            
+                <a href="../kernel/ps-2-eevdf.html">
+            
+                    
+                    EEVDF
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../kernel/内存管理.html">
+            
+                <a href="../kernel/内存管理.html">
+            
+                    
+                    内存管理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.2.1" data-path="../kernel/mm-1-va2pa.html">
+            
+                <a href="../kernel/mm-1-va2pa.html">
+            
+                    
+                    将虚拟地址转换为物理地址
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2.2" data-path="../kernel/mm-2-physical-memory-model.html">
+            
+                <a href="../kernel/mm-2-physical-memory-model.html">
+            
+                    
+                    物理内存模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2.3" data-path="../kernel/mm-3-memblock.html">
+            
+                <a href="../kernel/mm-3-memblock.html">
+            
+                    
+                    memblock
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../kernel/kdump.html">
+            
+                <a href="../kernel/kdump.html">
+            
+                    
+                    Kdump
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../kernel/coredump.html">
+            
+                <a href="../kernel/coredump.html">
+            
+                    
+                    coredump
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="../kernel/kprobe.html">
+            
+                <a href="../kernel/kprobe.html">
+            
+                    
+                    Kprobes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="../kernel/systemtap.html">
+            
+                <a href="../kernel/systemtap.html">
+            
+                    
+                    Systemtap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="../kernel/rcu.html">
+            
+                <a href="../kernel/rcu.html">
+            
+                    
+                    RCU
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" >
+            
+                <span>
+            
+                    
+                    八股
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="0_classic.html">
+            
+                <a href="0_classic.html">
+            
+                    
+                    老一套
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="1_consistent_hash.html">
+            
+                <a href="1_consistent_hash.html">
+            
+                    
+                    一致性hash
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="2_golang.html">
+            
+                <a href="2_golang.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.10.4" data-path="3_redis.html">
+            
+                <a href="3_redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" >
+            
+                <span>
+            
+                    
+                    杂项
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../misc/centos-install-v2ray.html">
+            
+                <a href="../misc/centos-install-v2ray.html">
+            
+                    
+                    centos安装v2ray
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../misc/docker-pull-use-proxy.html">
+            
+                <a href="../misc/docker-pull-use-proxy.html">
+            
+                    
+                    docker/containerd设置代理实现从外网拉取镜像
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../misc/install-ovs.html">
+            
+                <a href="../misc/install-ovs.html">
+            
+                    
+                    编译安装ovs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../misc/docker-to-containerd.html">
+            
+                <a href="../misc/docker-to-containerd.html">
+            
+                    
+                    k8s 将docker切换为containerd
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.5" data-path="../misc/compile-kernel.html">
+            
+                <a href="../misc/compile-kernel.html">
+            
+                    
+                    编译内核
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../KEEP.html">
+            
+                <a href="../KEEP.html">
+            
+                    
+                    时间线
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Redis</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="redis">Redis</h1>
+<p>[TOC]</p>
+<h2 id="1-sds">1. SDS</h2>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> __attribute ((__packed__)) sdshdr8 {
+    <span class="hljs-keyword">uint8_t</span> len;    <span class="hljs-comment">/* used */</span>
+    <span class="hljs-keyword">uint8_t</span> alloc;  <span class="hljs-comment">/* excluding the header and null terminator */</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> flags;
+    <span class="hljs-keyword">char</span> buf[];
+};
+
+<span class="hljs-keyword">struct</span> __attribute ((__packed__)) sdshdr16 {...};
+<span class="hljs-keyword">struct</span> __attribute ((__packed__)) sdshdr32 {...};
+<span class="hljs-keyword">struct</span> __attribute ((__packed__)) sdshdr64 {...};
+</code></pre>
+<h3 id="11-&#x8BF4;&#x660E;sds&#x548C;c&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x4E0D;&#x540C;&#x4E4B;&#x5904;&#xFF0C;&#x89E3;&#x91CA;&#x4E3A;&#x4EC0;&#x4E48;redis&#x8981;&#x4F7F;&#x7528;sds&#x800C;&#x4E0D;&#x662F;c&#x5B57;&#x7B26;&#x4E32;&#xFF1F;">1.1. &#x8BF4;&#x660E;SDS&#x548C;C&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x4E0D;&#x540C;&#x4E4B;&#x5904;&#xFF0C;&#x89E3;&#x91CA;&#x4E3A;&#x4EC0;&#x4E48;Redis&#x8981;&#x4F7F;&#x7528;SDS&#x800C;&#x4E0D;&#x662F;C&#x5B57;&#x7B26;&#x4E32;&#xFF1F;</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">C&#x5B57;&#x7B26;&#x4E32;</th>
+<th style="text-align:left">SDS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">&#x83B7;&#x53D6;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;&#x7684;&#x590D;&#x6742;&#x5EA6;&#x4E3A;O(N)</td>
+<td style="text-align:left">&#x83B7;&#x53D6;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;&#x7684;&#x590D;&#x6742;&#x5EA6;&#x4E3A;O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left">API&#x662F;&#x4E0D;&#x5B89;&#x5168;&#x7684;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x9020;&#x6210;&#x7F13;&#x51B2;&#x533A;&#x6EA2;&#x51FA;</td>
+<td style="text-align:left">API&#x662F;&#x5B89;&#x5168;&#x7684;&#xFF0C;&#x4E0D;&#x4F1A;&#x9020;&#x6210;&#x7F13;&#x51B2;&#x533A;&#x6EA2;&#x51FA;</td>
+</tr>
+<tr>
+<td style="text-align:left">&#x4FEE;&#x6539;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;N&#x6B21;&#x5FC5;&#x7136;&#x9700;&#x8981;&#x6267;&#x884C;N&#x6B21;&#x5185;&#x5B58;&#x91CD;&#x5206;&#x914D;</td>
+<td style="text-align:left">&#x4FEE;&#x6539;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;N&#x6B21;&#x6700;&#x591A;&#x9700;&#x8981;&#x6267;&#x884C;N&#x6B21;&#x5185;&#x5B58;&#x91CD;&#x5206;&#x914D;</td>
+</tr>
+<tr>
+<td style="text-align:left">&#x53EA;&#x80FD;&#x4FDD;&#x5B58;&#x6587;&#x672C;&#x6570;&#x636E;</td>
+<td style="text-align:left">&#x53EF;&#x4EE5;&#x4FDD;&#x5B58;&#x6587;&#x672C;&#x6216;&#x8005;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x636E;</td>
+</tr>
+<tr>
+<td style="text-align:left">&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x6240;&#x6709;<string.h>&#x5E93;&#x4E2D;&#x7684;&#x51FD;&#x6570;</string.h></td>
+<td style="text-align:left">&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x90E8;&#x5206;<string.h>&#x5E93;&#x4E2D;&#x7684;&#x51FD;&#x6570;</string.h></td>
+</tr>
+</tbody>
+</table>
+<h4 id="111-o1-&#x590D;&#x6742;&#x5EA6;&#x83B7;&#x53D6;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;">1.1.1. O(1) &#x590D;&#x6742;&#x5EA6;&#x83B7;&#x53D6;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;</h4>
+<p>C&#x5B57;&#x7B26;&#x4E32;&#xFF1A;&#x9700;&#x8981;&#x904D;&#x5386;&#x6574;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;</p>
+<p>SDS&#xFF1A;&#x76F4;&#x63A5;&#x83B7;&#x53D6;len&#x5C5E;&#x6027;</p>
+<h4 id="112-&#x675C;&#x7EDD;&#x7F13;&#x51B2;&#x533A;&#x6EA2;&#x51FA;">1.1.2. &#x675C;&#x7EDD;&#x7F13;&#x51B2;&#x533A;&#x6EA2;&#x51FA;</h4>
+<p>strcat&#x51FD;&#x6570;&#x4E0D;&#x4F1A;&#x5224;&#x65AD;&#x7A7A;&#x95F4;&#x662F;&#x5426;&#x8DB3;&#x591F;</p>
+<p>sdscat&#x51FD;&#x6570;&#x4F1A;&#x5148;&#x68C0;&#x67E5;sds&#x7A7A;&#x95F4;&#x662F;&#x5426;&#x6EE1;&#x8DB3;&#x9700;&#x6C42;&#xFF0C;&#x82E5;&#x4E0D;&#x6EE1;&#x8DB3;&#xFF0C;&#x4F1A;&#x81EA;&#x52A8;&#x8FDB;&#x884C;sds&#x7A7A;&#x95F4;&#x6269;&#x5C55;&#xFF0C;&#x7136;&#x540E;&#x624D;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#x64CD;&#x4F5C;&#x3002;</p>
+<h4 id="113-&#x5185;&#x5B58;&#x91CD;&#x5206;&#x914D;&#x4F18;&#x5316;">1.1.3. &#x5185;&#x5B58;&#x91CD;&#x5206;&#x914D;&#x4F18;&#x5316;</h4>
+<p>&#x5185;&#x5B58;&#x91CD;&#x5206;&#x914D;&#x901A;&#x5E38;&#x662F;&#x4E00;&#x4E2A;&#x8017;&#x65F6;&#x7684;&#x64CD;&#x4F5C;&#x3002;&#x901A;&#x8FC7;&#x672A;&#x4F7F;&#x7528;&#x7684;&#x7A7A;&#x95F4;&#xFF0C;SDS&#x5B9E;&#x73B0;&#x4E86;&#x7A7A;&#x95F4;&#x9884;&#x5206;&#x914D;&#x548C;&#x60F0;&#x6027;&#x7A7A;&#x95F4;&#x91CA;&#x653E;&#x4E24;&#x79CD;&#x4F18;&#x5316;&#x7B56;&#x7565;&#x3002;</p>
+<h5 id="1131-&#x7A7A;&#x95F4;&#x9884;&#x5206;&#x914D;">1.1.3.1. &#x7A7A;&#x95F4;&#x9884;&#x5206;&#x914D;</h5>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> SDS_MAX_PREALLOC (1024*1024)</span>
+
+<span class="hljs-keyword">if</span> (newlen &lt; SDS_MAX_PREALLOC)
+    newlen *= <span class="hljs-number">2</span>;
+<span class="hljs-keyword">else</span>
+    newlen += SDS_MAX_PREALLOC;
+</code></pre>
+<h5 id="1132-&#x60F0;&#x6027;&#x7A7A;&#x95F4;&#x91CA;&#x653E;">1.1.3.2. &#x60F0;&#x6027;&#x7A7A;&#x95F4;&#x91CA;&#x653E;</h5>
+<p>SDS &#x907F;&#x514D;&#x4E86;&#x7F29;&#x77ED;&#x5B57;&#x7B26;&#x4E32;&#x65F6;&#x7684;&#x5185;&#x5B58;&#x91CD;&#x5206;&#x914D;&#x64CD;&#x4F5C;&#xFF0C;&#x5E76;&#x4E3A;&#x672A;&#x6765;&#x53EF;&#x80FD;&#x7684;&#x589E;&#x957F;&#x64CD;&#x4F5C;&#x63D0;&#x4F9B;&#x4F18;&#x5316;&#x3002;</p>
+<p>SDS &#x63D0;&#x4F9B;&#x4E86;API&#xFF0C;&#x9700;&#x8981;&#x65F6;&#xFF0C;&#x53EF;&#x771F;&#x6B63;&#x7684;&#x91CA;&#x653E;SDS&#x672A;&#x4F7F;&#x7528;&#x7684;&#x7A7A;&#x95F4;&#x3002;</p>
+<h4 id="114-&#x4E8C;&#x8FDB;&#x5236;&#x5B89;&#x5168;">1.1.4. &#x4E8C;&#x8FDB;&#x5236;&#x5B89;&#x5168;</h4>
+<p>C&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x4E0D;&#x80FD;&#x5305;&#x542B;&#x7A7A;&#x5B57;&#x7B26;&#xFF0C;&#x4F7F;&#x5F97;C&#x5B57;&#x7B26;&#x4E32;&#x53EA;&#x80FD;&#x4FDD;&#x5B58;&#x6587;&#x672C;&#x6570;&#x636E;&#xFF0C;&#x800C;&#x4E0D;&#x80FD;&#x4FDD;&#x5B58;&#x56FE;&#x7247;/&#x97F3;&#x89C6;&#x9891;&#x7B49;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x636E;&#x3002;</p>
+<h4 id="115-&#x4E8C;&#x8FDB;&#x5236;&#x5B89;&#x5168;">1.1.5. &#x4E8C;&#x8FDB;&#x5236;&#x5B89;&#x5168;</h4>
+<p>SDS&#x603B;&#x4F1A;&#x591A;&#x5206;&#x914D;&#x4E00;&#x4E2A;&#x5B57;&#x8282;&#x6765;&#x5BB9;&#x7EB3;&#x672B;&#x5C3E;&#x7684;&#x7A7A;&#x5B57;&#x7B26;&#xFF0C;&#x8FD9;&#x6837;&#x53EF;&#x4EE5;&#x8BA9;&#x4FDD;&#x5B58;&#x6587;&#x672C;&#x6570;&#x636E;&#x7684;SDS&#x91CD;&#x7528;&#x4E00;&#x90E8;&#x5206;<string.h>&#x5E93;&#x51FD;&#x6570;&#x3002;</string.h></p>
+<h3 id="12-&#x5E94;&#x7528;">1.2. &#x5E94;&#x7528;</h3>
+<ul>
+<li>&#x4FDD;&#x5B58;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x5B57;&#x7B26;&#x4E32;</li>
+<li>&#x7F13;&#x51B2;&#x533A;<ul>
+<li>AOF &#x7F13;&#x51B2;&#x533A;</li>
+<li>&#x5BA2;&#x6237;&#x7AEF;&#x72B6;&#x6001;&#x7684;&#x8F93;&#x5165;&#x7F13;&#x51B2;&#x533A;</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-&#x94FE;&#x8868;">2. &#x94FE;&#x8868;</h2>
+<pre><code class="lang-c"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> listNode {
+    <span class="hljs-keyword">struct</span> listNode *prev;
+    <span class="hljs-keyword">struct</span> listNode *next;
+    <span class="hljs-keyword">void</span> *value;
+} listNode;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> <span class="hljs-built_in">list</span> {
+    listNode *head;
+    listNode *tail;
+    <span class="hljs-keyword">void</span> *(*dup)(<span class="hljs-keyword">void</span> *ptr);
+    <span class="hljs-keyword">void</span> (*<span class="hljs-built_in">free</span>)(<span class="hljs-keyword">void</span> *ptr);
+    <span class="hljs-keyword">int</span> (*match)(<span class="hljs-keyword">void</span> *ptr, <span class="hljs-keyword">void</span> *key);
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> len;
+} <span class="hljs-built_in">list</span>;
+</code></pre>
+<h3 id="21-&#x7279;&#x6027;">2.1. &#x7279;&#x6027;</h3>
+<ul>
+<li>&#x53CC;&#x7AEF;</li>
+<li>&#x65E0;&#x73AF;</li>
+<li>&#x83B7;&#x53D6;&#x8868;&#x5934;&#x3001;&#x8868;&#x5C3E;&#x7684;&#x590D;&#x6742;&#x5EA6;&#x4E3A;O(1)</li>
+<li>&#x83B7;&#x53D6;&#x8282;&#x70B9;&#x6570;&#x91CF;&#x7684;&#x590D;&#x6742;&#x5EA6;&#x4E3A;O(1)</li>
+<li>&#x591A;&#x6001;&#xFF1A;void * &#x6307;&#x9488;&#x6765;&#x4FDD;&#x5B58;&#x8282;&#x70B9;&#x503C;&#xFF0C;&#x7ED3;&#x5408;dup&#x3001;free&#x3001;match&#xFF0C;&#x53EF;&#x4EE5;&#x4FDD;&#x5B58;&#x5404;&#x79CD;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;&#x503C;&#x3002;</li>
+</ul>
+<h3 id="22-&#x5E94;&#x7528;">2.2. &#x5E94;&#x7528;</h3>
+<ul>
+<li>&#x5217;&#x8868;&#x952E;<ul>
+<li>&#x6BD4;&#x5982;&#xFF1A;LRANGE integers 0 10</li>
+</ul>
+</li>
+<li>&#x53D1;&#x5E03;&#x548C;&#x8BA2;&#x9605;</li>
+<li>&#x6162;&#x67E5;&#x8BE2;</li>
+<li>&#x76D1;&#x89C6;&#x5668;</li>
+<li>Redis&#x670D;&#x52A1;&#x5668;&#xFF1A;<ul>
+<li>&#x4F7F;&#x7528;&#x94FE;&#x8868;&#x4FDD;&#x5B58;&#x591A;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x7684;&#x4FE1;&#x606F;</li>
+<li>&#x4F7F;&#x7528;&#x94FE;&#x8868;&#x6765;&#x6784;&#x5EFA;&#x5BA2;&#x6237;&#x7AEF;&#x8F93;&#x51FA;&#x7F13;&#x51B2;&#x533A;</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-&#x5B57;&#x5178;">3. &#x5B57;&#x5178;</h2>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> dict {
+    dictType *type;
+
+    dictEntry **ht_table[<span class="hljs-number">2</span>];
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> ht_used[<span class="hljs-number">2</span>];
+
+    <span class="hljs-keyword">long</span> rehashidx; <span class="hljs-comment">/* rehashing not in progress if rehashidx == -1 */</span>
+
+    <span class="hljs-comment">/* Keep small vars at end for optimal (minimal) struct padding */</span>
+    <span class="hljs-keyword">int16_t</span> pauserehash; <span class="hljs-comment">/* If &gt;0 rehashing is paused (&lt;0 indicates coding error) */</span>
+    <span class="hljs-keyword">signed</span> <span class="hljs-keyword">char</span> ht_size_exp[<span class="hljs-number">2</span>]; <span class="hljs-comment">/* exponent of size. (size = 1&lt;&lt;exp) */</span>
+};
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> dictEntry {
+    <span class="hljs-keyword">void</span> *key;
+    <span class="hljs-keyword">union</span> {
+        <span class="hljs-keyword">void</span> *val;
+        <span class="hljs-keyword">uint64_t</span> u64;
+        <span class="hljs-keyword">int64_t</span> s64;
+        <span class="hljs-keyword">double</span> d;
+    } v;
+    <span class="hljs-keyword">struct</span> dictEntry *next;     <span class="hljs-comment">/* Next entry in the same hash bucket. */</span>
+    <span class="hljs-keyword">void</span> *metadata[];           <span class="hljs-comment">/* An arbitrary number of bytes (starting at a
+                                 * pointer-aligned address) of size as returned
+                                 * by dictType&apos;s dictEntryMetadataBytes(). */</span>
+} dictEntry;
+</code></pre>
+<h3 id="31-&#x7279;&#x6027;">3.1. &#x7279;&#x6027;</h3>
+<ul>
+<li>&#x5E95;&#x5C42;&#x4F7F;&#x7528;&#x54C8;&#x5E0C;&#x8868;</li>
+<li>&#x4F7F;&#x7528;&#x94FE;&#x5730;&#x5740;&#x6CD5;&#x89E3;&#x51B3;&#x952E;&#x51B2;&#x7A81;</li>
+<li>&#x4E3A;&#x4E86;&#x8BA9;&#x54C8;&#x5E0C;&#x8868;&#x7684;&#x8D1F;&#x8F7D;&#x56E0;&#x5B50;&#xFF08;load factor&#xFF09;&#x7EF4;&#x6301;&#x5728;&#x4E00;&#x4E2A;&#x5408;&#x7406;&#x7684;&#x8303;&#x56F4;&#x5185;&#xFF0C;&#x7A0B;&#x5E8F;&#x901A;&#x8FC7;rehash&#x64CD;&#x4F5C;&#x6765;&#x6269;&#x5C55;&#x548C;&#x6536;&#x7F29;&#x54C8;&#x5E0C;&#x8868;</li>
+<li>&#x6BCF;&#x4E2A;&#x5B57;&#x5178;&#x5E26;&#x6709;&#x4E24;&#x4E2A;&#x54C8;&#x5E0C;&#x8868;&#xFF0C;&#x4E00;&#x4E2A;&#x5E73;&#x65F6;&#x4F7F;&#x7528;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x4EC5;&#x5728;rehash&#x65F6;&#x4F7F;&#x7528;</li>
+<li>rehash&#x4E0D;&#x662F;&#x4E00;&#x6B21;&#x6027;&#x5B8C;&#x6210;&#x7684;&#xFF0C;&#x800C;&#x662F;&#x5206;&#x591A;&#x6B21;&#x3001;&#x6E10;&#x8FDB;&#x5F0F;&#x5730;&#x5B8C;&#x6210;&#x7684;&#x3002;&#x5C06;&#x8BA1;&#x7B97;&#x5DE5;&#x4F5C;&#x5747;&#x644A;&#x5230;&#x5BF9;&#x5B57;&#x5178;&#x7684;&#x6DFB;&#x52A0;&#x3001;&#x5220;&#x9664;&#x3001;&#x67E5;&#x627E;&#x3001;&#x66F4;&#x65B0;&#x64CD;&#x4F5C;&#x4E0A;&#x3002;</li>
+</ul>
+<h3 id="32-&#x5E94;&#x7528;">3.2. &#x5E94;&#x7528;</h3>
+<ul>
+<li>&#x6570;&#x636E;&#x5E93;</li>
+<li>&#x54C8;&#x5E0C;&#x952E;</li>
+</ul>
+<h2 id="4-&#x8DF3;&#x8DC3;&#x8868;">4. &#x8DF3;&#x8DC3;&#x8868;</h2>
+<pre><code class="lang-c"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> zskiplistNode {
+    sds ele;
+    <span class="hljs-keyword">double</span> score;                        <span class="hljs-comment">// &#x5206;&#x503C;</span>
+    <span class="hljs-keyword">struct</span> zskiplistNode *backward;      <span class="hljs-comment">// &#x540E;&#x9000;&#x6307;&#x9488;</span>
+    <span class="hljs-keyword">struct</span> zskiplistLevel {
+        <span class="hljs-keyword">struct</span> zskiplistNode *forward;   <span class="hljs-comment">// &#x524D;&#x8FDB;&#x6307;&#x9488;</span>
+        <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> span;              <span class="hljs-comment">// &#x8DE8;&#x5EA6;</span>
+    } level[];  <span class="hljs-comment">// &#x5C42;</span>
+} zskiplistNode;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> zskiplist {
+    <span class="hljs-keyword">struct</span> zskiplistNode *header, *tail;  <span class="hljs-comment">// &#x8DF3;&#x8DC3;&#x8868;&#x5934;&#x5C3E;&#x8282;&#x70B9;</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> length;                 <span class="hljs-comment">// &#x8282;&#x70B9;&#x6570;&#x91CF;&#xFF08;&#x4E0D;&#x7B97;&#x8868;&#x5934;&#xFF09;</span>
+    <span class="hljs-keyword">int</span> level;          <span class="hljs-comment">// &#x5C42;&#x6570;&#x6700;&#x5927;&#x7684;&#x90A3;&#x4E2A;&#x8282;&#x70B9;&#x7684;&#x5C42;&#x6570;&#xFF08;&#x4E0D;&#x7B97;&#x8868;&#x5934;&#xFF09;</span>
+} zskiplist;
+</code></pre>
+<h3 id="41-&#x7279;&#x6027;">4.1. &#x7279;&#x6027;</h3>
+<ul>
+<li>zskiplist&#x7528;&#x4E8E;&#x4FDD;&#x5B58;&#x8DF3;&#x8DC3;&#x8868;&#x4FE1;&#x606F;&#xFF08;&#x5934;&#x5C3E;&#x8282;&#x70B9;&#x3001;&#x957F;&#x5EA6;&#xFF09;&#x3001;zskiplistNode&#x7528;&#x4E8E;&#x8868;&#x793A;&#x8DF3;&#x8DC3;&#x8868;&#x8282;&#x70B9;</li>
+<li>&#x6BCF;&#x4E2A;&#x8DF3;&#x8DC3;&#x8868;&#x8282;&#x70B9;&#x7684;&#x5C42;&#x9AD8;&#x90FD;&#x662F; 1 &#x81F3; 32 &#x4E4B;&#x95F4;&#x7684;&#x968F;&#x673A;&#x6570;</li>
+<li>&#x540C;&#x4E00;&#x4E2A;&#x8DF3;&#x8DC3;&#x8868;&#x4E2D;&#xFF0C;&#x591A;&#x4E2A;&#x8282;&#x70B9;&#x53EF;&#x4EE5;&#x5305;&#x542B;&#x76F8;&#x540C;&#x7684;score&#xFF0C;&#x4F46;ele&#x5FC5;&#x987B;&#x662F;&#x552F;&#x4E00;&#x7684;</li>
+<li>&#x8282;&#x70B9;&#x6309;score&#x5927;&#x5C0F;&#x8FDB;&#x884C;&#x6392;&#x5E8F;&#xFF08;&#x5347;&#x5E8F;&#xFF09;&#xFF0C;&#x5206;&#x503C;&#x76F8;&#x540C;&#x65F6;&#xFF0C;&#x6309;ele&#x6392;&#x5E8F;</li>
+</ul>
+<h4 id="411-&#x968F;&#x673A;&#x751F;&#x6210;&#x5C42;&#x6570;">4.1.1. &#x968F;&#x673A;&#x751F;&#x6210;&#x5C42;&#x6570;</h4>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> ZSKIPLIST_P 0.25      <span class="hljs-comment">/* Skiplist P = 1/4 */</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">zslRandomLevel</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> threshold = ZSKIPLIST_P*RAND_MAX;
+    <span class="hljs-keyword">int</span> level = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">while</span> (random() &lt; threshold)
+        level += <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> (level&lt;ZSKIPLIST_MAXLEVEL) ? level : ZSKIPLIST_MAXLEVEL;
+}
+</code></pre>
+<p>&#x968F;&#x673A;&#xFF1A;&#x91C7;&#x7528;&#x7C7B;&#x4F3C;&#x5E42;&#x5F8B;&#x5206;&#x5E03;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x8F83;&#x9AD8;&#x7684;level&#x4E0D;&#x592A;&#x53EF;&#x80FD;&#x8FD4;&#x56DE;</p>
+<ul>
+<li>&#x9996;&#x5148;&#xFF0C;random &#x968F;&#x673A;&#x7ED3;&#x679C; &lt; threshold &#x7684;&#x6982;&#x7387;&#x4E3A; P</li>
+<li>level &#x4E3A; 1 &#x7684;&#x6982;&#x7387;&#x4E3A; 1-P</li>
+<li>level &#x4E3A; 2 &#x7684;&#x6982;&#x7387;&#x4E3A; P(1-P)</li>
+<li>level &#x4E3A; 3 &#x7684;&#x6982;&#x7387;&#x4E3A; P^2(1-P)</li>
+<li>level &#x4E3A; 4 &#x7684;&#x6982;&#x7387;&#x4E3A; P^3(1-P)</li>
+<li>......</li>
+</ul>
+<p>&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x7684;&#x5E73;&#x5747;&#x5C42;&#x6570;&#x4E3A;&#xFF1A;1(1-p) + 2P(1-P) +  3P^2(1-P) + 4P^3(1-P) + ... &#x2248; 1/(1-P)</p>
+<p>&#x6240;&#x4EE5;&#xFF0C;&#x5F53; P = 1/4 &#x65F6;&#xFF0C;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x6240;&#x5305;&#x542B;&#x7684;&#x5E73;&#x5747;&#x6307;&#x9488;&#x6570;&#x76EE;&#x4E3A;1.33 &#x3002;&#x8FD9;&#x4E5F;&#x662F;Redis&#x91CC;&#x7684;skiplist&#x5B9E;&#x73B0;&#x5728;&#x7A7A;&#x95F4;&#x4E0A;&#x7684;&#x5F00;&#x9500;&#x3002;</p>
+<h4 id="412-&#x63D2;&#x5165;">4.1.2. &#x63D2;&#x5165;</h4>
+<p>&#x7B80;&#x8981;&#x6B65;&#x9AA4;&#xFF1A;</p>
+<ol>
+<li>&#x67E5;&#x627E;&#x63D2;&#x5165;&#x4F4D;&#x7F6E;</li>
+<li>&#x4E3A;&#x65B0;&#x8282;&#x70B9;&#x968F;&#x673A;&#x751F;&#x6210;level&#xFF0C;&#x5E76;&#x8C03;&#x6574;&#x8868;&#x6700;&#x5927;&#x5C42;&#x6570;</li>
+<li>&#x521B;&#x5EFA;&#x5E76;&#x63D2;&#x5165;&#x65B0;&#x8282;&#x70B9;&#xFF0C;&#x66F4;&#x65B0;&#x6307;&#x5411;&#x65B0;&#x8282;&#x70B9;&#x7684;&#x6BCF;&#x4E00;&#x5C42;forward&#x6307;&#x9488;&#x548C;span</li>
+<li>&#x5C42;&#x6570;&#x5927;&#x4E8E;&#x65B0;&#x8282;&#x70B9;&#x5C42;&#x6570;&#x7684;&#x524D;&#x7F6E;&#x8282;&#x70B9;&#xFF0C;span&#x52A0;1</li>
+<li>&#x8C03;&#x6574;&#x65B0;&#x8282;&#x70B9;&#x7684;backward&#x6307;&#x9488;</li>
+<li>&#x8868;&#x957F;&#x5EA6;&#x52A0;1</li>
+</ol>
+<pre><code class="lang-c">zskiplistNode *zslInsert(zskiplist *zsl, double score, sds ele) {
+    // update &#x8BB0;&#x5F55;&#x6BCF;&#x4E00;&#x5C42;&#x9700;&#x8981;&#x6307;&#x5411;&#x65B0;&#x8282;&#x70B9;&#x7684;&#x8282;&#x70B9;&#xFF0C;x &#x4E3A;&#x65B0;&#x8282;&#x70B9;
+    zskiplistNode *update[ZSKIPLIST_MAXLEVEL], *x;
+    // rank &#x8BB0;&#x5F55;&#x6BCF;&#x4E00;&#x5C42;&#x9700;&#x8981;&#x6307;&#x5411;&#x65B0;&#x8282;&#x70B9;&#x7684;&#x8282;&#x70B9;&#x6392;&#x540D;&#xFF0C;&#x7528;&#x4E8E;&#x66F4;&#x65B0;span&#x503C;
+    unsigned long rank[ZSKIPLIST_MAXLEVEL];
+    int i, level;
+
+    serverAssert(!isnan(score));
+
+    // &#x67E5;&#x627E;&#x63D2;&#x5165;&#x4F4D;&#x7F6E;
+    x = zsl-&gt;header;
+    for (i = zsl-&gt;level-1; i &gt;= 0; i--) {
+        /* store rank that is crossed to reach the insert position */
+        rank[i] = i == (zsl-&gt;level-1) ? 0 : rank[i+1];
+        while (x-&gt;level[i].forward &amp;&amp;
+                (x-&gt;level[i].forward-&gt;score &lt; score ||
+                    (x-&gt;level[i].forward-&gt;score == score &amp;&amp;
+                    sdscmp(x-&gt;level[i].forward-&gt;ele,ele) &lt; 0)))
+        {
+            rank[i] += x-&gt;level[i].span;
+            x = x-&gt;level[i].forward;
+        }
+        update[i] = x;
+    }
+
+    // &#x968F;&#x673A;&#x751F;&#x6210;&#x65B0;&#x8282;&#x70B9;&#x7684;level
+    level = zslRandomLevel();
+
+    // &#x5982;&#x679C;&#x65B0;&#x8282;&#x70B9;&#x7684;level&#x8D85;&#x8FC7;&#x4E86;&#x6700;&#x5927;&#x5C42;&#x6570;
+    if (level &gt; zsl-&gt;level) {
+        // &#x589E;&#x52A0;&#x7684;&#x8FD9;&#x4E9B;&#x5C42;&#xFF0C;&#x9700;&#x8981;&#x66F4;&#x65B0;header&#x8282;&#x70B9;&#x6307;&#x5411;&#x65B0;&#x8282;&#x70B9;&#xFF0C;&#x5148;&#x8BB0;&#x5F55;&#x8BE5;&#x5C42;&#x9700;&#x66F4;&#x65B0;&#x7684;&#x8282;&#x70B9;&#xFF08;&#x8BBE;&#x7F6E;&#x4E3A;header&#xFF09;
+        for (i = zsl-&gt;level; i &lt; level; i++) {
+            rank[i] = 0;
+            update[i] = zsl-&gt;header;
+            update[i]-&gt;level[i].span = zsl-&gt;length;
+        }
+        // &#x4FEE;&#x6539;&#x8868;&#x6700;&#x5927;&#x5C42;&#x6570;
+        zsl-&gt;level = level;
+    }
+    // &#x521B;&#x5EFA;&#x65B0;&#x8282;&#x70B9;
+    x = zslCreateNode(level,score,ele);
+    for (i = 0; i &lt; level; i++) {
+        // &#x63D2;&#x5165;&#x65B0;&#x8282;&#x70B9;&#xFF0C;&#x9488;&#x5BF9;&#x65B0;&#x8282;&#x70B9;&#x7684;&#x6BCF;&#x4E00;&#x5C42;&#xFF0C;&#x4FEE;&#x6539;&#x94FE;&#x8868;&#x6307;&#x9488;
+        x-&gt;level[i].forward = update[i]-&gt;level[i].forward;
+        update[i]-&gt;level[i].forward = x;
+
+        // &#x4FEE;&#x6539;&#x65B0;&#x8282;&#x70B9;&#x6BCF;&#x4E00;&#x5C42;&#x7684;span&#x503C;
+        x-&gt;level[i].span = update[i]-&gt;level[i].span - (rank[0] - rank[i]);
+        // &#x4FEE;&#x6539;&#x6307;&#x5411;&#x65B0;&#x8282;&#x70B9;&#x7684;&#x8282;&#x70B9;&#x6BCF;&#x4E00;&#x5C42;&#x7684;span&#x503C;
+        update[i]-&gt;level[i].span = (rank[0] - rank[i]) + 1;
+    }
+
+    // &#x5BF9;&#x4E8E;&#x8282;&#x70B9;&#x5C42;&#x6570;&#x5927;&#x4E8E;&#x65B0;&#x8282;&#x70B9;&#x7684;&#x524D;&#x7F6E;&#x8282;&#x70B9;&#xFF0C;&#x7ED9;&#x5B83;&#x4EEC;&#x7684;span+1
+    for (i = level; i &lt; zsl-&gt;level; i++) {
+        update[i]-&gt;level[i].span++;
+    }
+
+    // &#x8BBE;&#x7F6E;&#x65B0;&#x8282;&#x70B9;&#x7684;&#x540E;&#x9000;&#x6307;&#x9488;
+    x-&gt;backward = (update[0] == zsl-&gt;header) ? NULL : update[0];
+    if (x-&gt;level[0].forward)
+        // &#x8BBE;&#x7F6E;&#x540E;&#x9000;&#x6307;&#x9488;&#x6307;&#x5411;&#x65B0;&#x8282;&#x70B9;
+        x-&gt;level[0].forward-&gt;backward = x;
+    else
+        zsl-&gt;tail = x;
+    // &#x8868;&#x957F;&#x5EA6;&#x52A0;1
+    zsl-&gt;length++;
+    return x;
+}
+</code></pre>
+<h3 id="42-&#x5E94;&#x7528;">4.2. &#x5E94;&#x7528;</h3>
+<ul>
+<li>&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x952E;</li>
+<li>&#x5728;&#x96C6;&#x7FA4;&#x8282;&#x70B9;&#x4E2D;&#x7528;&#x4F5C;&#x5185;&#x90E8;&#x6570;&#x636E;&#x7ED3;&#x6784;</li>
+</ul>
+<h3 id="43-skiplist-&#x548C;-&#x5E73;&#x8861;&#x6811;&#x3001;&#x54C8;&#x5E0C;&#x8868;-&#x7684;&#x6BD4;&#x8F83;&#xFF08;redis&#x4E3A;&#x4EC0;&#x4E48;&#x7528;skiplist&#x800C;&#x4E0D;&#x7528;&#x5E73;&#x8861;&#x6811;&#xFF1F;&#xFF09;">4.3. skiplist &#x548C; &#x5E73;&#x8861;&#x6811;&#x3001;&#x54C8;&#x5E0C;&#x8868; &#x7684;&#x6BD4;&#x8F83;&#xFF08;Redis&#x4E3A;&#x4EC0;&#x4E48;&#x7528;skiplist&#x800C;&#x4E0D;&#x7528;&#x5E73;&#x8861;&#x6811;&#xFF1F;&#xFF09;</h3>
+<ul>
+<li>skiplist &#x548C; &#x5E73;&#x8861;&#x6811; &#x7684;&#x5143;&#x7D20;&#x662F;&#x6709;&#x5E8F;&#x6392;&#x5217;&#x7684;&#xFF0C;&#x800C;&#x54C8;&#x5E0C;&#x8868;&#x4E0D;&#x662F;&#x6709;&#x5E8F;&#x7684;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x54C8;&#x5E0C;&#x8868;&#x4E0A;&#x53EA;&#x80FD;&#x505A;&#x5355;&#x4E2A;Key&#x67E5;&#x627E;&#xFF0C;&#x4E0D;&#x9002;&#x7528;&#x505A; <strong>&#x8303;&#x56F4;&#x67E5;&#x627E;</strong>&#xFF08;&#x6307;&#x7684;&#x662F;&#x67E5;&#x627E;&#x90A3;&#x4E9B;&#x5927;&#x5C0F;&#x5728;&#x6307;&#x5B9A;&#x7684;&#x4E24;&#x4E2A;&#x503C;&#x4E4B;&#x95F4;&#x7684;&#x6240;&#x6709;&#x8282;&#x70B9;&#xFF09;&#x3002;</li>
+<li>&#x5728;&#x505A;&#x8303;&#x56F4;&#x67E5;&#x627E;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5E73;&#x8861;&#x6811;&#x6BD4;skiplist&#x64CD;&#x4F5C;&#x8981;&#x590D;&#x6742;&#x3002;&#x5728;&#x5E73;&#x8861;&#x6811;&#x4E0A;&#xFF0C;&#x6211;&#x4EEC;&#x627E;&#x5230;&#x6307;&#x5B9A;&#x8303;&#x56F4;&#x7684;&#x5C0F;&#x503C;&#x4E4B;&#x540E;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x4EE5;&#x4E2D;&#x5E8F;&#x904D;&#x5386;&#x7684;&#x987A;&#x5E8F;&#x7EE7;&#x7EED;&#x5BFB;&#x627E;&#x5176;&#x5B83;&#x4E0D;&#x8D85;&#x8FC7;&#x5927;&#x503C;&#x7684;&#x8282;&#x70B9;&#x3002;&#x8FD9;&#x91CC;&#x7684;&#x4E2D;&#x5E8F;&#x904D;&#x5386;&#x4E0D;&#x6613;&#x5B9E;&#x73B0;&#x3002;<strong>&#x800C;&#x5728;skiplist&#x4E0A;&#x8FDB;&#x884C;&#x8303;&#x56F4;&#x67E5;&#x627E;&#x5C31;&#x975E;&#x5E38;&#x7B80;&#x5355;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5728;&#x627E;&#x5230;&#x5C0F;&#x503C;&#x4E4B;&#x540E;&#xFF0C;&#x5BF9;&#x7B2C;1&#x5C42;&#x94FE;&#x8868;&#x8FDB;&#x884C;&#x82E5;&#x5E72;&#x6B65;&#x7684;&#x904D;&#x5386;&#x5C31;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x3002;</strong></li>
+<li><strong>&#x5E73;&#x8861;&#x6811;&#x7684;&#x63D2;&#x5165;&#x548C;&#x5220;&#x9664;&#x64CD;&#x4F5C;&#x53EF;&#x80FD;&#x5F15;&#x53D1;&#x5B50;&#x6811;&#x7684;&#x8C03;&#x6574;&#xFF0C;&#x903B;&#x8F91;&#x590D;&#x6742;&#xFF0C;&#x800C;skiplist&#x7684;&#x63D2;&#x5165;&#x548C;&#x5220;&#x9664;&#x53EA;&#x9700;&#x8981;&#x4FEE;&#x6539;&#x76F8;&#x90BB;&#x8282;&#x70B9;&#x7684;&#x6307;&#x9488;&#xFF0C;&#x64CD;&#x4F5C;&#x7B80;&#x5355;&#x53C8;&#x5FEB;&#x901F;&#x3002;</strong></li>
+<li>&#x4ECE;&#x5185;&#x5B58;&#x5360;&#x7528;&#x4E0A;&#x6765;&#x8BF4;&#xFF0C;skiplist&#x6BD4;&#x5E73;&#x8861;&#x6811;&#x66F4;&#x7075;&#x6D3B;&#x4E00;&#x4E9B;&#x3002;&#x5E73;&#x8861;&#x6811;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x5305;&#x542B;2&#x4E2A;&#x6307;&#x9488;&#xFF0C;&#x800C;skiplist&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x5305;&#x542B;&#x7684;&#x6307;&#x9488;&#x6570;&#x76EE;&#x5E73;&#x5747;&#x4E3A;1/(1-p)&#x3002;</li>
+<li>&#x67E5;&#x627E;&#x5355;&#x4E2A;key&#xFF0C;<strong>skiplist&#x548C;&#x5E73;&#x8861;&#x6811;&#x7684;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x90FD;&#x4E3A;O(log n)</strong>&#x3002;&#x800C;&#x54C8;&#x5E0C;&#x8868;&#x5728;&#x4FDD;&#x6301;&#x8F83;&#x4F4E;&#x7684;&#x54C8;&#x5E0C;&#x503C;&#x51B2;&#x7A81;&#x6982;&#x7387;&#x7684;&#x524D;&#x63D0;&#x4E0B;&#xFF0C;&#x67E5;&#x627E;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x63A5;&#x8FD1;O(1)&#xFF0C;&#x6027;&#x80FD;&#x66F4;&#x9AD8;&#x4E00;&#x4E9B;&#x3002;</li>
+<li>&#x4ECE;&#x7B97;&#x6CD5;&#x5B9E;&#x73B0;&#x96BE;&#x5EA6;&#x4E0A;&#x6765;&#x6BD4;&#x8F83;&#xFF0C;skiplist&#x6BD4;&#x5E73;&#x8861;&#x6811;&#x8981;&#x7B80;&#x5355;&#x5F97;&#x591A;&#x3002;</li>
+</ul>
+<h3 id="44-&#x53C2;&#x8003;&#x8D44;&#x6599;">4.4. &#x53C2;&#x8003;&#x8D44;&#x6599;</h3>
+<p><a href="http://zhangtielei.com/posts/blog-redis-skiplist.html" target="_blank">http://zhangtielei.com/posts/blog-redis-skiplist.html</a>
+<a href="https://leetcode.cn/problems/design-skiplist/" target="_blank">https://leetcode.cn/problems/design-skiplist/</a>
+<a href="https://zhuanlan.zhihu.com/p/340929045" target="_blank">https://zhuanlan.zhihu.com/p/340929045</a></p>
+<h2 id="4-&#x6574;&#x6570;&#x96C6;&#x5408;">4. &#x6574;&#x6570;&#x96C6;&#x5408;</h2>
+<pre><code class="lang-c"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> intset {
+    <span class="hljs-keyword">uint32_t</span> encoding;
+    <span class="hljs-keyword">uint32_t</span> length;
+    <span class="hljs-keyword">int8_t</span> contents[];
+} intset;
+</code></pre>
+<h3 id="41-&#x7279;&#x6027;">4.1. &#x7279;&#x6027;</h3>
+<ul>
+<li>&#x5E95;&#x5C42;&#x5B9E;&#x73B0;&#x4E3A;&#x6570;&#x7EC4;&#xFF0C;&#x4EE5;&#x6709;&#x5E8F;&#x3001;&#x65E0;&#x91CD;&#x590D;&#x7684;&#x65B9;&#x5F0F;&#x4FDD;&#x5B58;&#x96C6;&#x5408;&#x5143;&#x7D20;</li>
+<li>&#x5347;&#x7EA7;&#x64CD;&#x4F5C;&#x4E3A;&#x6574;&#x6570;&#x96C6;&#x5408;&#x5E26;&#x6765;&#x4E86;&#x64CD;&#x4F5C;&#x4E0A;&#x7684;&#x7075;&#x6D3B;&#x6027;&#xFF0C;&#x5E76;&#x5C3D;&#x53EF;&#x80FD;&#x5730;&#x8282;&#x7EA6;&#x5185;&#x5B58;</li>
+<li>&#x4E0D;&#x652F;&#x6301;&#x964D;&#x7EA7;</li>
+</ul>
+<h4 id="411-&#x5347;&#x7EA7;">4.1.1. &#x5347;&#x7EA7;</h4>
+<ol>
+<li>&#x6839;&#x636E;&#x65B0;&#x5143;&#x7D20;&#x7C7B;&#x578B;&#xFF0C;&#x6269;&#x5C55;&#x6574;&#x6570;&#x96C6;&#x5408;&#x5E95;&#x5C42;&#x6570;&#x7EC4;&#x7684;&#x7A7A;&#x95F4;&#x5927;&#x5C0F;&#xFF0C;&#x5E76;&#x4E3A;&#x65B0;&#x5143;&#x7D20;&#x5206;&#x914D;&#x7A7A;&#x95F4;</li>
+<li>&#x5C06;&#x5E95;&#x5C42;&#x6570;&#x7EC4;&#x6240;&#x6709;&#x5143;&#x7D20;&#x8F6C;&#x6362;&#x4E3A;&#x65B0;&#x7C7B;&#x578B;&#xFF0C;&#x5E76;&#x653E;&#x7F6E;&#x5230;&#x6B63;&#x786E;&#x4F4D;&#x7F6E;&#x4E0A;</li>
+<li>&#x5C06;&#x65B0;&#x5143;&#x7D20;&#x6DFB;&#x52A0;&#x5230;&#x5E95;&#x5C42;&#x6570;&#x7EC4;&#x91CC;&#x9762;</li>
+</ol>
+<h3 id="42-&#x5E94;&#x7528;">4.2. &#x5E94;&#x7528;</h3>
+<ul>
+<li>&#x96C6;&#x5408;&#x952E;&#xFF08;&#x5F53;&#x4E00;&#x4E2A;&#x96C6;&#x5408;&#x53EA;&#x5305;&#x6DB5;&#x6574;&#x6570;&#x503C;&#x5143;&#x7D20;&#xFF0C;&#x5E76;&#x4E14;&#x8FD9;&#x4E2A;&#x96C6;&#x5408;&#x7684;&#x5143;&#x7D20;&#x6570;&#x91CF;&#x4E0D;&#x591A;&#x65F6;&#xFF0C;Redis&#x5C31;&#x4F1A;&#x4F7F;&#x7528;&#x6574;&#x6570;&#x4F5C;&#x4E3A;&#x96C6;&#x5408;&#x952E;&#x7684;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;&#xFF09;</li>
+</ul>
+<h2 id="5-&#x538B;&#x7F29;&#x5217;&#x8868;">5. &#x538B;&#x7F29;&#x5217;&#x8868;</h2>
+<pre><code class="lang-c">-------------------------------------------------------------------------
+|  zlbytes   |   zltail   |   zllen   | entry1 | ... | entryN |  zlend  |
+-------------------------------------------------------------------------
+|  <span class="hljs-keyword">uint32_t</span>  |  <span class="hljs-keyword">uint32_t</span>  |  <span class="hljs-keyword">uint16_t</span> |          ...          | <span class="hljs-keyword">uint8_t</span> |
+</code></pre>
+<ul>
+<li><code>zlbytes</code>&#xFF1A;&#x8BB0;&#x5F55;&#x6574;&#x4E2A;&#x538B;&#x7F29;&#x5217;&#x8868;&#x5360;&#x7528;&#x7684;&#x5185;&#x5B58;&#x5B57;&#x8282;&#x6570;</li>
+<li><code>zltail</code>  &#xFF1A;&#x8BB0;&#x5F55;&#x8D77;&#x59CB;&#x5730;&#x5740;&#x5230;&#x8868;&#x5C3E;&#x8282;&#x70B9;&#x7684;&#x5B57;&#x8282;&#x6570;</li>
+<li><code>zllen</code>    &#xFF1A;zllen &lt; UINT16_MAX &#x8BB0;&#x5F55;&#x538B;&#x7F29;&#x5217;&#x8868;&#x5305;&#x542B;&#x7684;&#x8282;&#x70B9;&#x6570;&#x91CF;&#xFF1B;zllen == UINT16_MAX&#xFF0C;&#x8282;&#x70B9;&#x7684;&#x771F;&#x5B9E;&#x6570;&#x91CF;&#x9700;&#x8981;&#x904D;&#x5386;&#x6574;&#x4E2A;&#x5217;&#x8868;&#x5F97;&#x51FA;&#x3002;</li>
+<li><code>zlend</code>    &#xFF1A;&#x7279;&#x6B8A;&#x503C; 0xFF&#xFF0C;&#x7528;&#x4E8E;&#x6807;&#x8BB0;&#x538B;&#x7F29;&#x5217;&#x8868;&#x7684;&#x672B;&#x7AEF;</li>
+</ul>
+<pre><code class="lang-c">-------------------------------------------------------------------------
+|  previous_entry_length  |      encoding       |   content   |
+-------------------------------------------------------------------------
+|       <span class="hljs-number">1</span> or <span class="hljs-number">5</span> bytes      |  <span class="hljs-number">1</span> or <span class="hljs-number">2</span> or <span class="hljs-number">5</span> bytes  |     ...     |
+</code></pre>
+<ul>
+<li><code>previous_entry_length</code>&#xFF1A; &#x8BB0;&#x5F55;&#x524D;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x7684;&#x957F;&#x5EA6;&#x3002;&#x5982;&#x679C;&#x524D;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x957F;&#x5EA6;&#x5C0F;&#x4E8E; 254 &#x5B57;&#x8282;&#xFF0C;&#x5219;previous_entry_length&#x5360;&#x7528; 1 &#x5B57;&#x8282;&#x3002;&#x5426;&#x5219;&#xFF0C;&#x5360;&#x7528;5&#x5B57;&#x8282;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x8282;&#x8BBE;&#x7F6E;&#x4E3A; 0xFE&#xFF0C;&#x540E;&#x9762;&#x56DB;&#x4E2A;&#x5B57;&#x8282;&#x4FDD;&#x5B58;&#x524D;&#x4E00;&#x8282;&#x70B9;&#x7684;&#x957F;&#x5EA6;&#x3002;</li>
+<li><code>encoding</code>&#xFF1A; &#x8BB0;&#x5F55;&#x4E86;&#x8282;&#x70B9;&#x7684;content&#x5C5E;&#x6027;&#x6240;&#x4FDD;&#x5B58;&#x6570;&#x636E;&#x7684;&#x7C7B;&#x578B;&#x548C;&#x957F;&#x5EA6;&#xFF0C;&#x524D;&#x4E24;&#x4F4D;&#x7F16;&#x7801;&#x4EE3;&#x8868;&#x7C7B;&#x578B;&#xFF1A;<ul>
+<li>00&#xFF1A;1 &#x5B57;&#x8282;&#x957F;&#x7684;&#x6570;&#x7EC4;&#x7F16;&#x7801;&#xFF0C;content&#x957F;&#x5EA6; &#x5C0F;&#x4E8E; 1 &lt;&lt; 6 </li>
+<li>01&#xFF1A;2 &#x5B57;&#x8282;&#x957F;&#x7684;&#x6570;&#x7EC4;&#x7F16;&#x7801;&#xFF0C;content&#x957F;&#x5EA6; &#x5C0F;&#x4E8E; 1 &lt;&lt; 14 </li>
+<li>10&#xFF1A;5 &#x5B57;&#x8282;&#x957F;&#x7684;&#x6570;&#x7EC4;&#x7F16;&#x7801;&#xFF0C;content&#x957F;&#x5EA6; &#x5C0F;&#x4E8E; 1 &lt;&lt; 32 &#xFF08;&#x53EA;&#x4F7F;&#x7528;&#x540E;&#x9762;4&#x4E2A;&#x5B57;&#x8282;&#xFF09; </li>
+<li>11&#xFF1A;&#x6574;&#x6570;&#x7F16;&#x7801;&#xFF08;&#x5360;&#x7528;1&#x5B57;&#x8282;&#xFF09;</li>
+</ul>
+</li>
+<li><code>content</code>&#xFF1A;&#x4FDD;&#x5B58;&#x8282;&#x70B9;&#x7684;&#x503C;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x5B57;&#x8282;&#x6570;&#x7EC4;&#x6216;&#x6574;&#x6570;</li>
+</ul>
+<h3 id="51-&#x8FDE;&#x9501;&#x66F4;&#x65B0;">5.1. &#x8FDE;&#x9501;&#x66F4;&#x65B0;</h3>
+<p>&#x6DFB;&#x52A0;&#x65B0;&#x8282;&#x70B9;&#x6216;&#x5220;&#x9664;&#x8282;&#x70B9;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x5F15;&#x53D1;&#x8FDE;&#x9501;&#x66F4;&#x65B0;&#x64CD;&#x4F5C;&#xFF08;&#x5E73;&#x5747;O(n)&#xFF0C;&#x6700;&#x574F;O(n^2)&#xFF09;&#xFF0C;&#x4F46;&#x8FD9;&#x79CD;&#x64CD;&#x4F5C;&#x51FA;&#x73B0;&#x7684;&#x51E0;&#x7387;&#x5E76;&#x4E0D;&#x9AD8;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x8BA9;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x7684;previous_entry_length&#x90FD;&#x7B26;&#x5408;&#x538B;&#x7F29;&#x5217;&#x8868;&#x5BF9;&#x8282;&#x70B9;&#x7684;&#x8981;&#x6C42;&#xFF0C;&#x7A0B;&#x5E8F;&#x9700;&#x8981;&#x4E0D;&#x65AD;&#x5730;&#x5BF9;&#x538B;&#x7F29;&#x5217;&#x8868;&#x6267;&#x884C;&#x7A7A;&#x95F4;&#x91CD;&#x5206;&#x914D;&#x64CD;&#x4F5C;&#xFF0C;&#x76F4;&#x5230;entryN&#x4E3A;&#x6B62;&#x3002;</p>
+<p>&#x6700;&#x574F;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x9700;&#x6267;&#x884C;N&#x6B21;&#x7A7A;&#x95F4;&#x91CD;&#x5206;&#x914D;&#xFF0C;&#x6BCF;&#x6B21;&#x7A7A;&#x95F4;&#x91CD;&#x5206;&#x914D;&#x7684;&#x6700;&#x574F;&#x590D;&#x6742;&#x5EA6;&#x4E3A;O(N)&#xFF0C;&#x6240;&#x4EE5;&#x8FDE;&#x9501;&#x66F4;&#x65B0;&#x7684;&#x6700;&#x574F;&#x590D;&#x6742;&#x5EA6;&#x4E3A;O(n^2)&#x3002;</p>
+<h3 id="52-&#x5E94;&#x7528;">5.2. &#x5E94;&#x7528;</h3>
+<ul>
+<li>&#x5217;&#x8868;&#x952E;&#xFF08;&#x5F53;&#x4E00;&#x4E2A;&#x5217;&#x8868;&#x952E;&#x53EA;&#x5305;&#x542B;&#x5C11;&#x91CF;&#x5217;&#x8868;&#x9879;&#xFF08;&#x5C0F;&#x6574;&#x6570;&#x503C;&#x3001;&#x77ED;&#x5B57;&#x7B26;&#x4E32;&#xFF09;&#xFF0C;Redis&#x5C31;&#x4F1A;&#x4F7F;&#x7528;&#x538B;&#x7F29;&#x5217;&#x8868;&#x6765;&#x505A;&#x5217;&#x8868;&#x952E;&#x7684;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;&#xFF09;</li>
+<li>&#x54C8;&#x5E0C;&#x952E;&#xFF08;&#x5F53;&#x4E00;&#x4E2A;&#x54C8;&#x5E0C;&#x952E;&#x53EA;&#x5305;&#x542B;&#x5C11;&#x91CF;&#x952E;&#x503C;&#x5BF9;&#xFF08;&#x5C0F;&#x6574;&#x6570;&#x503C;&#x3001;&#x77ED;&#x5B57;&#x7B26;&#x4E32;&#xFF09;&#xFF0C;Redis&#x5C31;&#x4F1A;&#x4F7F;&#x7528;&#x538B;&#x7F29;&#x5217;&#x8868;&#x6765;&#x505A;&#x54C8;&#x5E0C;&#x952E;&#x7684;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;&#xFF09;</li>
+</ul>
+<h2 id="6-&#x5BF9;&#x8C61;">6. &#x5BF9;&#x8C61;</h2>
+<pre><code class="lang-c"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> redisObject {
+    <span class="hljs-keyword">unsigned</span> type:<span class="hljs-number">4</span>;
+    <span class="hljs-keyword">unsigned</span> encoding:<span class="hljs-number">4</span>;
+    <span class="hljs-keyword">unsigned</span> lru:LRU_BITS; <span class="hljs-comment">/* LRU time (relative to global lru_clock) or
+                            * LFU data (least significant 8 bits frequency
+                            * and most significant 16 bits access time). */</span>
+    <span class="hljs-keyword">int</span> refcount;
+    <span class="hljs-keyword">void</span> *ptr;
+} robj;
+</code></pre>
+<p>Redis&#x6570;&#x636E;&#x5E93;&#x4FDD;&#x5B58;&#x7684;&#x952E;&#x503C;&#x5BF9;&#xFF0C;&#x952E;&#x603B;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x5BF9;&#x8C61;&#xFF0C;&#x503C;&#x53EF;&#x4EE5;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#x5BF9;&#x8C61;&#x3001;&#x5217;&#x8868;&#x5BF9;&#x8C61;&#x3001;&#x54C8;&#x5E0C;&#x5BF9;&#x8C61;&#x3001;&#x96C6;&#x5408;&#x5BF9;&#x8C61;&#x3001;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x5BF9;&#x8C61;&#x3002;</p>
+<p><code>TYPE</code> &#x547D;&#x4EE4;&#x8FD4;&#x56DE;&#x7684;&#x7ED3;&#x679C;&#x662F; &#x6570;&#x636E;&#x5E93;&#x952E;&#x5BF9;&#x5E94; <strong>&#x503C;&#x7684;&#x5BF9;&#x8C61;&#x7C7B;&#x578B;</strong>
+<code>OBJECT ENCODING</code> &#x547D;&#x4EE4;&#x53EF;&#x4EE5;&#x67E5;&#x770B; &#x6570;&#x636E;&#x5E93;&#x952E;&#x5BF9;&#x5E94; <strong>&#x503C;&#x5BF9;&#x8C61;&#x7684;&#x7F16;&#x7801;</strong></p>
+<p>&#x5BF9;&#x8C61;&#x7C7B;&#x578B;&#x548C;&#x5BF9;&#x8C61;&#x7F16;&#x7801;&#xFF1A;
+| &#x7C7B;&#x578B;   | &#x7F16;&#x7801;                |
+| ------ | ------------------- |
+| string | int&#x3001;embstr&#x3001;raw    |
+| list   | quicklist           |
+| hash   | listpack&#x3001;hashtable |
+| set    | intset&#x3001;hashtable   |
+| zset   | listpack&#x3001;skiplist  |</p>
+<p>&#x5907;&#x6CE8;&#xFF1A;redis&#x540E;&#x9762;&#x7528;listpack&#x66FF;&#x4EE3;ziplist&#x3002;</p>
+<p>&#x770B;&#x6E90;&#x7801;&#x5B9A;&#x4E49;&#xFF0C;zipmap&#x3001;linkedlist&#x3001;ziplist&#x4E0D;&#x518D;&#x4F7F;&#x7528;&#x4E86;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> OBJ_ENCODING_RAW 0     <span class="hljs-comment">/* Raw representation */</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> OBJ_ENCODING_INT 1     <span class="hljs-comment">/* Encoded as integer */</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> OBJ_ENCODING_HT 2      <span class="hljs-comment">/* Encoded as hash table */</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> OBJ_ENCODING_ZIPMAP 3  <span class="hljs-comment">/* No longer used: old hash encoding. */</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> OBJ_ENCODING_LINKEDLIST 4 <span class="hljs-comment">/* No longer used: old list encoding. */</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> OBJ_ENCODING_ZIPLIST 5 <span class="hljs-comment">/* No longer used: old list/hash/zset encoding. */</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> OBJ_ENCODING_INTSET 6  <span class="hljs-comment">/* Encoded as intset */</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> OBJ_ENCODING_SKIPLIST 7  <span class="hljs-comment">/* Encoded as skiplist */</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> OBJ_ENCODING_EMBSTR 8  <span class="hljs-comment">/* Embedded sds string encoding */</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> OBJ_ENCODING_QUICKLIST 9 <span class="hljs-comment">/* Encoded as linked list of listpacks */</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> OBJ_ENCODING_STREAM 10 <span class="hljs-comment">/* Encoded as a radix tree of listpacks */</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> OBJ_ENCODING_LISTPACK 11 <span class="hljs-comment">/* Encoded as a listpack */</span></span>
+</code></pre>
+<h3 id="61-&#x4E3A;&#x4EC0;&#x4E48;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x9700;&#x8981;&#x540C;&#x65F6;&#x4F7F;&#x7528;&#x8DF3;&#x8DC3;&#x8868;&#x548C;&#x5B57;&#x5178;&#x5B9E;&#x73B0;&#xFF1F;">6.1. &#x4E3A;&#x4EC0;&#x4E48;&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x9700;&#x8981;&#x540C;&#x65F6;&#x4F7F;&#x7528;&#x8DF3;&#x8DC3;&#x8868;&#x548C;&#x5B57;&#x5178;&#x5B9E;&#x73B0;&#xFF1F;</h3>
+<pre><code class="lang-c"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> zset {
+    dict *dict;
+    zskiplist *zsl;
+} zset;
+</code></pre>
+<p>&#x9996;&#x5148;&#xFF0C;</p>
+<ul>
+<li>&#x8DF3;&#x8DC3;&#x8868;&#x7528;&#x4E8E;&#x8303;&#x56F4;&#x64CD;&#x4F5C;</li>
+<li><p>&#x5B57;&#x5178;&#x7528;&#x4E8E;ele&#x5230;score&#x7684;&#x6620;&#x5C04;</p>
+</li>
+<li><p>&#x5355;&#x72EC;&#x4F7F;&#x7528;&#x5B57;&#x5178;&#xFF0C;&#x5B57;&#x5178;&#x662F;&#x65E0;&#x5E8F;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x505A;&#x8303;&#x56F4;&#x64CD;&#x4F5C;&#xFF08;ZRANK&#x3001;ZRANGE&#xFF09;&#xFF0C;&#x9700;&#x8981;&#x6392;&#x5E8F;&#x81F3;&#x5C11;O(NlogN)&#x590D;&#x6742;&#x5EA6;&#xFF0C;&#x989D;&#x5916;O(N)&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x3002;</p>
+</li>
+<li>&#x5355;&#x72EC;&#x4F7F;&#x7528;&#x8DF3;&#x8DC3;&#x8868;&#xFF0C;&#x6839;&#x636E;ele&#x67E5;&#x627E;score&#x590D;&#x6742;&#x5EA6;&#x5C06;&#x4ECE;O(1)&#x53D8;&#x4E3A;O(logN)&#x3002;</li>
+</ul>
+<h3 id="62-&#x5185;&#x5B58;&#x56DE;&#x6536;">6.2. &#x5185;&#x5B58;&#x56DE;&#x6536;</h3>
+<p>Redis&#x5728;&#x5BF9;&#x8C61;&#x4E2D;&#x4F7F;&#x7528; <strong>&#x5F15;&#x7528;&#x8BA1;&#x6570;</strong> &#x5B9E;&#x73B0;&#x5185;&#x5B58;&#x56DE;&#x6536;&#x673A;&#x5236;</p>
+<h3 id="63-&#x5BF9;&#x8C61;&#x5171;&#x4EAB;">6.3. &#x5BF9;&#x8C61;&#x5171;&#x4EAB;</h3>
+<p>&#x591A;&#x4E2A;&#x952E;&#x5171;&#x4EAB;&#x540C;&#x4E00;&#x4E2A;&#x503C;&#x5BF9;&#x8C61;&#xFF1A;</p>
+<ol>
+<li>&#x5C06;&#x6570;&#x636E;&#x5E93;&#x952E;&#x7684;&#x503C;&#x6307;&#x9488;&#x6307;&#x5411;&#x4E00;&#x4E2A;&#x73B0;&#x6709;&#x7684;&#x503C;&#x5BF9;&#x8C61;</li>
+<li>&#x5C06;&#x88AB;&#x5171;&#x4EAB;&#x7684;&#x503C;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x52A0; 1</li>
+</ol>
+<h2 id="7-&#x6570;&#x636E;&#x5E93;">7. &#x6570;&#x636E;&#x5E93;</h2>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> redisServer {
+    ...
+    redisDb *db;
+    <span class="hljs-keyword">int</span> dbnum;                      <span class="hljs-comment">/* Total number of configured DBs */</span>
+    ...
+};
+</code></pre>
+<p>&#x521D;&#x59CB;&#x5316;&#x670D;&#x52A1;&#x5668;&#x65F6;&#xFF0C;&#x4F1A;&#x521B;&#x5EFA;dbnum&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x3002;&#xFF08;&#x9ED8;&#x8BA4; 16 &#x4E2A;&#xFF09;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">static</span> <span class="hljs-keyword">struct</span> config {
+    <span class="hljs-keyword">int</span> dbnum; <span class="hljs-comment">/* db num currently selected */</span>
+} config;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> **argv)</span> </span>{
+    config.dbnum = <span class="hljs-number">0</span>;
+}
+</code></pre>
+<p>redis-cli &#x9ED8;&#x8BA4;&#x9009;&#x62E9;0&#x53F7;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; SELECT &#x547D;&#x4EE4;&#x5207;&#x6362;&#x6570;&#x636E;&#x5E93;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> redisDb {
+    dict *dict;                 <span class="hljs-comment">/* The keyspace for this DB */</span>
+    dict *expires;              <span class="hljs-comment">/* Timeout of keys with a timeout set */</span>
+    dict *blocking_keys;        <span class="hljs-comment">/* Keys with clients waiting for data (BLPOP)*/</span>
+    dict *ready_keys;           <span class="hljs-comment">/* Blocked keys that received a PUSH */</span>
+    dict *watched_keys;         <span class="hljs-comment">/* WATCHED keys for MULTI/EXEC CAS */</span>
+};
+</code></pre>
+<p>&#x4F7F;&#x7528;dict&#x4FDD;&#x5B58;&#x4E86;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x6240;&#x6709;&#x7684;&#x952E;&#x503C;&#x5BF9;&#xFF0C;&#x79F0;&#x8FD9;&#x4E2A;&#x5B57;&#x5178;&#x4E3A;&#x952E;&#x7A7A;&#x95F4;&#x3002;
+&#x64CD;&#x4F5C;&#xFF1A;<code>SET</code>&#x3001;<code>GET</code>&#x3001;<code>DEL</code>&#x3001;<code>FLUSHDB</code>&#x3001;<code>RANDOMKEY</code>&#x3001;<code>EXISTS</code>&#x3001;<code>KEYS</code>...
+&#x8FC7;&#x671F;&#x64CD;&#x4F5C;&#xFF1A;<code>EXPIRE</code>&#x3001;<code>PEXPIRE</code>&#x3001;<code>EXPIREAT</code>&#x3001;<code>PEXPIREAT</code>&#x3001;&#x2019;<code>TTL</code>&#x3001;<code>PTTL</code></p>
+<h3 id="71-redis-&#x8FC7;&#x671F;&#x952E;&#x5220;&#x9664;&#x7B56;&#x7565;">7.1. Redis &#x8FC7;&#x671F;&#x952E;&#x5220;&#x9664;&#x7B56;&#x7565;</h3>
+<ol>
+<li>&#x60F0;&#x6027;&#x5220;&#x9664;&#xFF08;expireIfNeeded&#xFF09;
+ &#x6240;&#x6709;&#x8BFB;&#x5199;&#x6570;&#x636E;&#x5E93;&#x7684;&#x547D;&#x4EE4;&#x5728;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x90FD;&#x4F1A;&#x8C03;&#x7528; expireIfNeeded &#x505A;&#x68C0;&#x67E5;&#xFF1A;
+ a. &#x952E;&#x8FC7;&#x671F;&#xFF0C;&#x5219;&#x5220;&#x9664;
+ b. &#x952E;&#x672A;&#x8FC7;&#x671F;&#xFF0C;&#x5219;&#x4E0D;&#x505A;&#x52A8;&#x4F5C;</li>
+<li><p>&#x5B9A;&#x671F;&#x5220;&#x9664;&#xFF08;activeExpireCycle&#xFF09;
+ &#x5728;&#x89C4;&#x5B9A;&#x65F6;&#x95F4;&#x5185;&#xFF0C;&#x5206;&#x591A;&#x6B21;&#x904D;&#x5386;&#x5404;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x4ECE;db-&gt;expires&#x5B57;&#x5178;&#x4E2D;&#x68C0;&#x67E5;&#x4E00;&#x90E8;&#x5206;&#x952E;&#x7684;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#xFF0C;&#x5E76;&#x5220;&#x9664;&#x5176;&#x4E2D;&#x7684;&#x8FC7;&#x671F;&#x952E;&#x3002;</p>
+</li>
+<li><p>&#x751F;&#x6210;RDB&#x6587;&#x4EF6;&#x65F6;&#xFF0C;&#x8FC7;&#x671F;&#x952E;&#x4E0D;&#x4F1A;&#x88AB;&#x4FDD;&#x5B58;&#x3002;</p>
+</li>
+<li>&#x8F7D;&#x5165;RDB&#x6587;&#x4EF6;&#x65F6;&#xFF0C;<ul>
+<li>master&#x6A21;&#x5F0F;&#xFF1A;&#x8FC7;&#x671F;&#x952E;&#x88AB;&#x5FFD;&#x7565;&#x3002;</li>
+<li>slave&#x6A21;&#x5F0F;&#xFF1A;&#x8FC7;&#x671F;&#x952E;&#x88AB;&#x8F7D;&#x5165;&#x3002;&#xFF08;&#x4E3B;&#x4ECE;&#x540C;&#x6B65;&#x4F1A;&#x6E05;&#x7A7A;&#x4ECE;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x65E0;&#x5F71;&#x54CD;&#xFF09;</li>
+</ul>
+</li>
+<li>&#x8FC7;&#x671F;&#x952E;&#x88AB;&#x5220;&#x9664;&#x540E;&#xFF0C;AOF&#x6587;&#x4EF6;&#x4E2D;&#x4F1A;&#x8FFD;&#x52A0; DEL &#x547D;&#x4EE4;&#x3002;</li>
+<li>&#x8FC7;&#x671F;&#x952E;&#x4E0D;&#x4F1A;&#x88AB;&#x4FDD;&#x5B58;&#x5230;&#x91CD;&#x5199;&#x540E;&#x7684;AOF&#x6587;&#x4EF6;&#x4E2D;&#x3002;</li>
+<li>&#x590D;&#x5236;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;<ul>
+<li>&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x5220;&#x9664;&#x8FC7;&#x671F;&#x952E;&#xFF0C;&#x4F1A;&#x5411;&#x6240;&#x6709;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x53D1;&#x9001;DEL&#x547D;&#x4EE4;</li>
+<li>&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x6267;&#x884C;&#x8BFB;&#x547D;&#x4EE4;&#x65F6;&#xFF0C;&#x5373;&#x4F7F;&#x952E;&#x8FC7;&#x671F;&#xFF0C;&#x4E5F;&#x4E0D;&#x4F1A;&#x88AB;&#x5220;&#x9664;</li>
+<li>&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x53EA;&#x6709;&#x63A5;&#x6536;&#x5230;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x7684;DEL&#x547D;&#x4EE4;&#xFF0C;&#x624D;&#x4F1A;&#x5220;&#x9664;&#x8FC7;&#x671F;&#x952E;</li>
+</ul>
+</li>
+</ol>
+<h3 id="72-&#x6570;&#x636E;&#x5E93;&#x901A;&#x77E5;">7.2. &#x6570;&#x636E;&#x5E93;&#x901A;&#x77E5;</h3>
+<p>redis&#x547D;&#x4EE4;&#x5BF9;&#x6570;&#x636E;&#x5E93;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#x540E;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x4F1A;&#x6839;&#x636E;&#x914D;&#x7F6E;&#x5411;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x9001;&#x6570;&#x636E;&#x5E93;&#x901A;&#x77E5;&#x3002;</p>
+<h2 id="8-rdb-&#x6301;&#x4E45;&#x5316;">8. RDB &#x6301;&#x4E45;&#x5316;</h2>
+<ul>
+<li>SAVE &#x547D;&#x4EE4;&#x4F1A;&#x963B;&#x585E;Redis&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x7A0B;</li>
+<li>BGSAVE &#x4F1A;&#x6D3E;&#x751F;&#x5B50;&#x8FDB;&#x7A0B;&#x5904;&#x7406;</li>
+<li>&#x5982;&#x679C;&#x5F00;&#x542F;&#x4E86;AOF&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x4F1A;&#x4F18;&#x5148;&#x4F7F;&#x7528;AOF&#x6587;&#x4EF6;&#x6765;&#x8FD8;&#x539F;&#x6570;&#x636E;&#x5E93;&#x72B6;&#x6001;&#x3002;</li>
+<li>&#x670D;&#x52A1;&#x5668;&#x5728;&#x8F7D;&#x5165; RDB &#x6587;&#x4EF6;&#x671F;&#x95F4;&#xFF0C;&#x4F1A;&#x4E00;&#x76F4;&#x5904;&#x4E8E;&#x963B;&#x585E;&#x72B6;&#x6001;</li>
+<li>&#x7528;&#x6237;&#x901A;&#x8FC7;&#x914D;&#x7F6E;save&#x9009;&#x9879;&#xFF0C;&#x8BA9;&#x670D;&#x52A1;&#x5668;&#x6BCF;&#x9694;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x81EA;&#x52A8;&#x6267;&#x884C;&#x4E00;&#x6B21;BGSAVE&#x547D;&#x4EE4;&#x3002;</li>
+<li>RDB&#x6587;&#x4EF6;&#x662F;&#x4E00;&#x4E2A;&#x7ECF;&#x8FC7;&#x538B;&#x7F29;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;&#xFF0C;&#x5BF9;&#x4E8E;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;&#x952E;&#x503C;&#x5BF9;&#xFF0C;&#x4F1A;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x65B9;&#x5F0F;&#x4FDD;&#x5B58;&#x3002;</li>
+</ul>
+<h2 id="8-aof-&#x6301;&#x4E45;&#x5316;">8. AOF &#x6301;&#x4E45;&#x5316;</h2>
+<ul>
+<li>&#x547D;&#x4EE4;&#x8BF7;&#x6C42;&#x4F1A;&#x5148;&#x4FDD;&#x5B58;&#x5230; <code>AOF&#x7F13;&#x51B2;&#x533A;</code>&#xFF0C;&#x4E4B;&#x540E;&#x518D;&#x5B9A;&#x671F;&#x5199;&#x5165;&#x5E76;&#x540C;&#x6B65;&#x5230;AOF&#x6587;&#x4EF6;&#x3002;</li>
+<li>AOF&#x91CD;&#x5199;&#xFF1A;&#x4ECE;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x8BFB;&#x53D6;&#x952E;&#x73B0;&#x5728;&#x7684;&#x503C;&#xFF0C;&#x7136;&#x540E;&#x7528;&#x4E00;&#x6761;&#x547D;&#x4EE4;&#x53BB;&#x8BB0;&#x5F55;&#x952E;&#x503C;&#x5BF9;&#xFF0C;&#x4EE3;&#x66FF;&#x4E4B;&#x524D;&#x8BB0;&#x5F55;&#x8FD9;&#x4E2A;&#x952E;&#x503C;&#x5BF9;&#x7684;&#x591A;&#x6761;&#x547D;&#x4EE4;&#x3002;</li>
+<li>AOF&#x91CD;&#x5199;&#x653E;&#x5728;&#x5B50;&#x8FDB;&#x7A0B;&#x4E2D;&#x6267;&#x884C;&#xFF0C;redis&#x670D;&#x52A1;&#x5668;&#x4F1A;&#x7EF4;&#x62A4;&#x4E00;&#x4E2A; <code>AOF&#x91CD;&#x5199;&#x7F13;&#x51B2;&#x533A;</code> &#xFF0C;&#x5728;&#x5B50;&#x8FDB;&#x7A0B;&#x521B;&#x5EFA;&#x65B0;AOF&#x6587;&#x4EF6;&#x671F;&#x95F4;&#xFF0C;&#x8BB0;&#x5F55;&#x670D;&#x52A1;&#x5668;&#x6267;&#x884C;&#x7684;&#x6240;&#x6709;&#x5199;&#x547D;&#x4EE4;&#x3002;&#x5B50;&#x8FDB;&#x7A0B;&#x5B8C;&#x6210;&#x5DE5;&#x4F5C;&#x540E;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x4F1A;&#x5C06;AOF&#x91CD;&#x5199;&#x7F13;&#x51B2;&#x533A;&#x7684;&#x5185;&#x5BB9;&#x8FFD;&#x52A0;&#x5230;&#x65B0;AOF&#x6587;&#x4EF6;&#x672B;&#x5C3E;&#xFF0C;&#x4F7F;&#x5F97;&#x6570;&#x636E;&#x5E93;&#x72B6;&#x6001;&#x4FDD;&#x6301;&#x4E00;&#x81F4;&#x3002;</li>
+</ul>
+<h2 id="9-&#x5BA2;&#x6237;&#x7AEF;">9. &#x5BA2;&#x6237;&#x7AEF;</h2>
+<pre><code class="lang-c"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> client {
+    connection *conn;
+    redisDb *db;            <span class="hljs-comment">/* Pointer to currently SELECTed DB. */</span>
+    robj *name;             <span class="hljs-comment">/* As set by CLIENT SETNAME. */</span>
+    sds querybuf;           <span class="hljs-comment">/* Buffer we use to accumulate client queries. */</span>
+    <span class="hljs-keyword">struct</span> redisCommand *cmd, *lastcmd;  <span class="hljs-comment">/* Last command executed. */</span>
+} client;
+</code></pre>
+<p>&#x4F2A;&#x5BA2;&#x6237;&#x7AEF;&#xFF1A;</p>
+<ol>
+<li>&#x8D1F;&#x8D23;&#x6267;&#x884C;lua&#x811A;&#x672C;&#x7684;&#x4F2A;&#x5BA2;&#x6237;&#x7AEF;</li>
+<li>&#x8D1F;&#x8D23;&#x6267;&#x884C;AOF&#x6587;&#x4EF6;&#x547D;&#x4EE4;&#x7684;&#x4F2A;&#x5BA2;&#x6237;&#x7AEF;</li>
+</ol>
+<h2 id="10-&#x4E3B;&#x4ECE;&#x590D;&#x5236;">10. &#x4E3B;&#x4ECE;&#x590D;&#x5236;</h2>
+<p><code>PSYNC</code> &#x547D;&#x4EE4;&#x5177;&#x6709; <code>&#x5B8C;&#x6574;&#x91CD;&#x540C;&#x6B65;</code> &#x548C; <code>&#x90E8;&#x5206;&#x91CD;&#x540C;&#x6B65;</code>&#x4E24;&#x79CD;&#x6A21;&#x5F0F;&#xFF1A;</p>
+<ul>
+<li>&#x5B8C;&#x6574;&#x91CD;&#x540C;&#x6B65;&#xFF08;&#x9996;&#x6B21;&#x590D;&#x5236;&#xFF09;&#xFF1A;&#x8BA9;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x521B;&#x5EFA;&#x5E76;&#x53D1;&#x9001;RDB&#x6587;&#x4EF6;&#xFF0C;&#x4EE5;&#x53CA;&#x5411;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x53D1;&#x9001;&#x4FDD;&#x5B58;&#x5728;&#x7F13;&#x51B2;&#x533A;&#x7684;&#x5199;&#x547D;&#x4EE4;</li>
+<li>&#x90E8;&#x5206;&#x91CD;&#x540C;&#x6B65;&#xFF08;&#x65AD;&#x7EBF;&#x540E;&#x91CD;&#x590D;&#x5236;&#xFF09;&#xFF1A;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x5C06;&#x65AD;&#x7EBF;&#x671F;&#x95F4;&#x6267;&#x884C;&#x7684;&#x5199;&#x547D;&#x4EE4;&#x53D1;&#x9001;&#x7ED9;&#x4ECE;&#x670D;&#x52A1;&#x5668;<ul>
+<li>&#x4E3B;/&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x7684;&#x590D;&#x5236;&#x504F;&#x79FB;&#x91CF;</li>
+<li>&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x7684;&#x590D;&#x5236;&#x79EF;&#x538B;&#x7F13;&#x51B2;&#x533A;</li>
+<li>&#x670D;&#x52A1;&#x5668;&#x7684;&#x8FD0;&#x884C;ID</li>
+</ul>
+</li>
+</ul>
+<p>&#x547D;&#x4EE4;&#x4F7F;&#x7528;&#xFF1A;<code>PSYNC replicationid offset</code></p>
+<h3 id="101-&#x590D;&#x5236;&#x79EF;&#x538B;&#x7F13;&#x51B2;&#x533A;">10.1. &#x590D;&#x5236;&#x79EF;&#x538B;&#x7F13;&#x51B2;&#x533A;</h3>
+<p>&#x7531;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x7EF4;&#x62A4;&#x7684;&#x4E00;&#x4E2A;<code>&#x56FA;&#x5B9A;&#x957F;&#x5EA6;&#x7684;&#x5148;&#x8FDB;&#x5148;&#x51FA;&#x961F;&#x5217;</code>&#x3002;</p>
+<p>&#x7F13;&#x51B2;&#x533A;&#x5927;&#x5C0F;&#x8BBE;&#x7F6E;&#xFF1A;<code>2 * second * write_size_per_second</code></p>
+<ul>
+<li>second&#xFF1A;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x65AD;&#x7EBF;&#x91CD;&#x8FDE;&#x6240;&#x9700;&#x5E73;&#x5747;&#x65F6;&#x95F4;</li>
+<li>write_size_per_second&#xFF1A;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x5E73;&#x5747;&#x6BCF;&#x79D2;&#x5199;&#x547D;&#x4EE4;&#x7684;&#x6570;&#x636E;&#x91CF;</li>
+</ul>
+<h3 id="102-&#x590D;&#x5236;&#x7684;&#x5B9E;&#x73B0;">10.2. &#x590D;&#x5236;&#x7684;&#x5B9E;&#x73B0;</h3>
+<p>&#x547D;&#x4EE4;&#xFF1A;<code>SLAVEOF host port</code></p>
+<ol>
+<li>&#x8BBE;&#x7F6E;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5730;&#x5740;&#x548C;&#x7AEF;&#x53E3;</li>
+<li>&#x5EFA;&#x7ACB;&#x5957;&#x63A5;&#x5B57;&#x8FDE;&#x63A5;</li>
+<li>&#x53D1;&#x9001; PING &#x547D;&#x4EE4;
+ a. &#x68C0;&#x67E5;&#x5957;&#x63A5;&#x5B57;&#x8BFB;&#x5199;&#x72B6;&#x6001;&#x662F;&#x5426;&#x6B63;&#x5E38;
+ b. &#x68C0;&#x67E5;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x80FD;&#x5426;&#x6B63;&#x5E38;&#x5904;&#x7406;&#x547D;&#x4EE4;&#x8BF7;&#x6C42;</li>
+<li>&#x8EAB;&#x4EFD;&#x9A8C;&#x8BC1;</li>
+<li>&#x53D1;&#x9001;&#x7AEF;&#x53E3;&#x4FE1;&#x606F;</li>
+<li>&#x540C;&#x6B65;&#xFF08;&#x4ECE; &#x5411; &#x4E3B; &#x53D1;&#x9001; PSYNC&#x547D;&#x4EE4;&#xFF09;</li>
+<li>&#x547D;&#x4EE4;&#x4F20;&#x64AD;&#xFF08;&#x540C;&#x6B65;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x4E3B;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x5165;&#x547D;&#x4EE4;&#x4F20;&#x64AD;&#x9636;&#x6BB5;&#xFF0C;&#x4E3B; &#x4E00;&#x76F4;&#x5C06;&#x81EA;&#x5DF1;&#x7684;&#x5199;&#x547D;&#x4EE4;&#x53D1;&#x9001;&#x7ED9; &#x4ECE;&#xFF09;</li>
+</ol>
+<h3 id="103-&#x5FC3;&#x8DF3;&#x68C0;&#x6D4B;">10.3. &#x5FC3;&#x8DF3;&#x68C0;&#x6D4B;</h3>
+<p>&#x547D;&#x4EE4;&#xFF1A;<code>REPLCONF ACK offset</code></p>
+<p>offset &#x662F;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x5F53;&#x524D;&#x7684;&#x590D;&#x5236;&#x504F;&#x79FB;&#x91CF;</p>
+<p>&#x6709;&#x4E09;&#x4E2A;&#x4F5C;&#x7528;&#xFF1A;</p>
+<ul>
+<li>&#x68C0;&#x6D4B;&#x4E3B;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x7684;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#x72B6;&#x6001;</li>
+<li>&#x8F85;&#x52A9;&#x5B9E;&#x73B0; min-slaves &#x9009;&#x578B;</li>
+<li>&#x68C0;&#x6D4B;&#x547D;&#x4EE4;&#x4E22;&#x5931;</li>
+</ul>
+<h2 id="11-&#x54E8;&#x5175;">11. &#x54E8;&#x5175;</h2>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> sentinelState {
+    <span class="hljs-keyword">char</span> myid[CONFIG_RUN_ID_SIZE+<span class="hljs-number">1</span>]; <span class="hljs-comment">/* This sentinel ID. */</span>
+    dict *masters;      <span class="hljs-comment">/* Dictionary of master sentinelRedisInstances.
+                           Key is the instance name, value is the
+                           sentinelRedisInstance structure pointer. */</span>
+} sentinel;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> sentinelRedisInstance {
+    <span class="hljs-keyword">int</span> flags;      <span class="hljs-comment">/* See SRI_... defines */</span>
+    <span class="hljs-keyword">char</span> *name;     <span class="hljs-comment">/* Master name from the point of view of this sentinel. */</span>
+    <span class="hljs-keyword">char</span> *runid;    <span class="hljs-comment">/* Run ID of this instance, or unique ID if is a Sentinel.*/</span>
+    sentinelAddr *addr; <span class="hljs-comment">/* Master host. */</span>
+    dict *sentinels;    <span class="hljs-comment">/* Other sentinels monitoring the same master. */</span>
+    dict *slaves;       <span class="hljs-comment">/* Slaves for this master instance. */</span>
+} sentinelRedisInstance;
+</code></pre>
+<p>&#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A;&#x88AB;&#x76D1;&#x89C6;&#x7684;&#x4E3B;/&#x4ECE;&#x670D;&#x52A1;&#x5668;&#xFF0C;Sentinel &#x4F1A;&#x521B;&#x5EFA;&#x4E24;&#x4E2A;&#x8FDE;&#x5411;&#x4E3B;/&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x7684;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#xFF1A;</p>
+<ul>
+<li>&#x547D;&#x4EE4;&#x8FDE;&#x63A5;&#xFF0C;&#x7528;&#x4E8E;&#x5411;&#x670D;&#x52A1;&#x5668;&#x53D1;&#x9001;&#x547D;&#x4EE4;&#xFF0C;&#x5E76;&#x63A5;&#x53D7;&#x547D;&#x4EE4;&#x56DE;&#x590D;</li>
+<li>&#x8BA2;&#x9605;&#x8FDE;&#x63A5;&#xFF0C;&#x7528;&#x4E8E;&#x8BA2;&#x9605;&#x670D;&#x52A1;&#x5668;&#x7684; <code>__sentinel__:hello</code> &#x9891;&#x9053;</li>
+</ul>
+<h3 id="111-&#x83B7;&#x53D6;&#x4E3B;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x4FE1;&#x606F;">11.1. &#x83B7;&#x53D6;&#x4E3B;/&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x4FE1;&#x606F;</h3>
+<p>Sentinel &#x9ED8;&#x8BA4;&#x6BCF;<code>10</code>&#x79D2;&#x4E00;&#x6B21;&#xFF0C;&#x901A;&#x8FC7;&#x547D;&#x4EE4;&#x8FDE;&#x63A5;&#x5411;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x53D1;&#x9001; <code>INFO</code> &#x547D;&#x4EE4;&#xFF0C;&#x5E76;&#x5206;&#x6790;&#x547D;&#x4EE4;&#x56DE;&#x590D;&#xFF1A;</p>
+<ul>
+<li>&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x7684;&#xFF1A;run_id&#x3001;role</li>
+<li>&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x7684;&#xFF1A;ip&#x3001;port&#x3001;state&#x3001;offset&#x3001;lag  &#xFF08;&#x6839;&#x636E;ip:port&#xFF0C;&#x53EF;&#x81EA;&#x52A8;&#x53D1;&#x73B0;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#xFF09;</li>
+</ul>
+<p>Sentinel &#x9ED8;&#x8BA4;&#x6BCF;<code>10</code>&#x79D2;&#x4E00;&#x6B21;&#xFF0C;&#x901A;&#x8FC7;&#x547D;&#x4EE4;&#x8FDE;&#x63A5;&#x5411;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x53D1;&#x9001; <code>INFO</code> &#x547D;&#x4EE4;&#xFF0C;&#x5E76;&#x5206;&#x6790;&#x547D;&#x4EE4;&#x56DE;&#x590D;&#xFF1A;</p>
+<ul>
+<li>&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x7684;&#xFF1A;run_id&#x3001;role</li>
+<li>&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x7684;&#xFF1A;master_ip&#x3001;master_port&#x3001;master_link_status&#x3001;...</li>
+</ul>
+<h3 id="112-&#x8BA2;&#x9605;&#x9891;&#x9053;">11.2. &#x8BA2;&#x9605;&#x9891;&#x9053;</h3>
+<p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;Sentinel &#x4F1A;<code>2</code>&#x79D2;&#x4E00;&#x6B21;&#xFF0C;&#x901A;&#x8FC7;&#x547D;&#x4EE4;&#x8FDE;&#x63A5;&#x5411;&#x6240;&#x6709;&#x88AB;&#x76D1;&#x89C6;&#x7684;&#x4E3B;/&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x53D1;&#x9001;&#xFF1A;</p>
+<p><code>PUBLISH __sentinel__:hello &quot;&lt;s_ip&gt;,&lt;s_port&gt;,&lt;s_runid&gt;,&lt;s_epoch&gt;,&lt;m_name&gt;,&lt;m_ip&gt;,&lt;m_ip&gt;,&lt;m_epoch&gt;,&quot;</code></p>
+<p>&#x5F53; Sentinel &#x4E0E;&#x4E00;&#x4E2A;&#x4E3B;/&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x5EFA;&#x7ACB; <code>&#x8BA2;&#x9605;&#x8FDE;&#x63A5;</code> &#x540E;&#xFF0C;Sentinel&#x5C31;&#x4F1A;&#x901A;&#x8FC7;&#x8BA2;&#x9605;&#x8FDE;&#x63A5;&#xFF0C;&#x53D1;&#x9001;&#xFF1A;</p>
+<p><code>SUBSCRIBE __sentinel__:hello</code></p>
+<p>&#x6240;&#x4EE5;&#xFF0C;&#x6BCF;&#x4E2A; Sentinel&#x5B58;&#x5728;&#x4E24;&#x4E2A;&#x8FDE;&#x63A5;&#xFF1A;</p>
+<ul>
+<li>&#x901A;&#x8FC7;&#x547D;&#x4EE4;&#x8FDE;&#x63A5;&#x53D1;&#x9001;&#x4FE1;&#x606F;&#x5230;&#x9891;&#x9053;</li>
+<li>&#x901A;&#x8FC7;&#x8BA2;&#x9605;&#x8FDE;&#x63A5;&#x4ECE;&#x9891;&#x9053;&#x63A5;&#x6536;&#x4FE1;&#x606F;</li>
+</ul>
+<p><img src="images/3/sentinel_1.PNG" alt="sentinel_1"></p>
+<p>&#x591A;&#x4E2A; Sentinel&#x7684;&#x60C5;&#x5F62;&#xFF1A;</p>
+<p><img src="images/3/sentinel_2.PNG" alt="sentinel_2"></p>
+<p>&#x5F53;Sentinel&#x901A;&#x8FC7;&#x9891;&#x9053;&#x4FE1;&#x606F;&#x53D1;&#x73B0;&#x4E00;&#x4E2A;&#x65B0;&#x7684;Sentinel&#x65F6;&#xFF0C;&#x5B83;&#x4E0D;&#x4EC5;&#x4F1A;&#x4E3A;&#x65B0;&#x7684;Sentinel&#x5728;<code>sentinelRedisInstance-&gt;sentinels</code>&#x5B57;&#x5178;&#x4E2D;&#x521B;&#x5EFA;&#x76F8;&#x5E94;&#x5B9E;&#x4F8B;&#x7ED3;&#x6784;&#xFF0C;&#x8FD8;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x8FDE;&#x5411;&#x65B0;Sentinel&#x7684;&#x547D;&#x4EE4;&#x8FDE;&#x63A5;&#xFF0C;&#x800C;&#x65B0;&#x7684;Sentinel&#x4E5F;&#x540C;&#x6837;&#x4F1A;&#x521B;&#x5EFA;&#x8FDE;&#x5411;&#x8FD9;&#x4E2A;Sentinel&#x7684;&#x547D;&#x4EE4;&#x8FDE;&#x63A5;&#x3002;</p>
+<p><img src="images/3/sentinel_3.PNG" alt="sentinel_3"></p>
+<h3 id="113-&#x4E0B;&#x7EBF;">11.3. &#x4E0B;&#x7EBF;</h3>
+<h4 id="1131-&#x4E3B;&#x89C2;&#x4E0B;&#x7EBF;">11.3.1. &#x4E3B;&#x89C2;&#x4E0B;&#x7EBF;</h4>
+<p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;Sentinel&#x4F1A;&#x6BCF;&#x79D2;&#x4E00;&#x6B21;&#x5411;&#x6240;&#x6709;&#x4E0E;&#x5B83;&#x521B;&#x5EFA;&#x4E86;&#x547D;&#x4EE4;&#x8FDE;&#x63A5;&#x7684;&#x5B9E;&#x4F8B;&#xFF08;&#x4E3B;&#x3001;&#x4ECE;&#x3001;&#x5176;&#x4ED6;Sentinel&#xFF09;&#x53D1;&#x9001;<code>PING</code>&#x547D;&#x4EE4;&#xFF0C;&#x5E76;&#x901A;&#x8FC7;&#x8FD4;&#x56DE;&#x56DE;&#x590D;&#x6765;&#x5224;&#x65AD;&#x662F;&#x5426;&#x5728;&#x7EBF;&#x3002;</p>
+<p>Sentinel&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D; <code>sentinel down-after-milliseconds mymaster 30000</code>&#x6307;&#x5B9A;&#x4E86;Sentinel&#x5224;&#x65AD;&#x5B9E;&#x4F8B;&#x8FDB;&#x5165;&#x4E3B;&#x89C2;&#x4E0B;&#x7EBF;&#x6240;&#x9700;&#x7684;&#x65F6;&#x95F4;&#x3002;</p>
+<p><code>sentinelRedisInstance-&gt;flags</code>&#x5C5E;&#x6027;&#x4E2D;&#x6253;&#x5F00;<code>SRI_S_DOWN</code>&#xFF0C;&#x8868;&#x793A;&#x8FDB;&#x5165;&#x4E3B;&#x89C2;&#x4E0B;&#x7EBF;&#x72B6;&#x6001;</p>
+<h4 id="1131-&#x5BA2;&#x89C2;&#x4E0B;&#x7EBF;">11.3.1. &#x5BA2;&#x89C2;&#x4E0B;&#x7EBF;</h4>
+<p>&#x5F53; Sentinel &#x5C06;&#x4E00;&#x4E2A;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x5224;&#x65AD;&#x4E3A; <code>&#x4E3B;&#x89C2;&#x4E0B;&#x7EBF;</code> &#x540E;&#xFF0C;&#x5B83;&#x4F1A;&#x5411;&#x540C;&#x6837;&#x76D1;&#x89C6;&#x8FD9;&#x4E2A;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5176;&#x4ED6;Sentinel&#x8FDB;&#x884C;&#x8BE2;&#x95EE;&#xFF0C;&#x770B;&#x5B83;&#x4EEC;&#x662F;&#x5426;&#x4E5F;&#x8BA4;&#x4E3A;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x5DF2;&#x7ECF;&#x8FDB;&#x5165;&#x4E86;&#x4E0B;&#x7EBF;&#x72B6;&#x6001;&#xFF08;&#x53EF;&#x4EE5;&#x662F;&#x4E3B;&#x89C2;&#xFF0C;&#x6216;&#x8005;&#x5BA2;&#x89C2;&#xFF09;&#x3002;&#x5F53;&#x63A5;&#x6536;&#x5230;&#x8DB3;&#x591F;&#x6570;&#x91CF;&#x7684;&#x5DF2;&#x4E0B;&#x7EBF;&#x5224;&#x65AD;&#xFF0C;Sentinel&#x5C06;&#x4F1A;&#x5224;&#x5B9A;<code>&#x4ECE;&#x670D;&#x52A1;&#x5668;</code>&#x4E3A;&#x5BA2;&#x89C2;&#x4E0B;&#x7EBF;&#xFF0C;&#x5E76;&#x5BF9;<code>&#x4E3B;&#x670D;&#x52A1;&#x5668;</code>&#x6267;&#x884C;<code>&#x6545;&#x969C;&#x8F6C;&#x79FB;</code>&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x8BE2;&#x95EE;&#x5176;&#x4ED6;Sentinel&#x662F;&#x5426;&#x540C;&#x610F;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x5DF2;&#x4E0B;&#x7EBF;&#xFF1A;</p>
+<p><code>SENTINEL is-master-down-by-addr &lt;ip&gt; &lt;port&gt; &lt;current_epoch&gt; &lt;runid&gt;</code></p>
+<p>&#x5BA2;&#x89C2;&#x4E0B;&#x7EBF;&#x5224;&#x65AD;&#x6761;&#x4EF6;&#xFF1A;</p>
+<p><code>sentinel monitor mymaster 127.0.0.1 6379 2</code></p>
+<p>&#x5F53;&#x8BA4;&#x4E3A;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x5DF2;&#x4E0B;&#x7EBF;&#x7684;Sentinel&#x6570;&#x91CF;&#xFF0C;&#x8D85;&#x8FC7;&#x8BBE;&#x7F6E;&#x7684;&#x53C2;&#x6570;&#x503C;&#x65F6;&#xFF0C;&#x8BE5;Sentinel&#x5C31;&#x4F1A;&#x8BA4;&#x4E3A;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x5165;&#x5BA2;&#x89C2;&#x4E0B;&#x7EBF;&#x72B6;&#x6001;&#x3002;</p>
+<p><code>sentinelRedisInstance-&gt;flags</code>&#x5C5E;&#x6027;&#x4E2D;&#x6253;&#x5F00;<code>SRI_O_DOWN</code>&#xFF0C;&#x8868;&#x793A;&#x8FDB;&#x5165;&#x5BA2;&#x89C2;&#x4E0B;&#x7EBF;&#x72B6;&#x6001;&#x3002;</p>
+<h3 id="114-&#x9009;&#x4E3E;&#x9886;&#x5934;">11.4. &#x9009;&#x4E3E;&#x9886;&#x5934;</h3>
+<p>&#x5F53;&#x4E00;&#x4E2A;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x88AB;&#x5224;&#x65AD;&#x4E3A;&#x5BA2;&#x89C2;&#x4E0B;&#x7EBF;&#x65F6;&#xFF0C;&#x76D1;&#x89C6;&#x8FD9;&#x4E2A;&#x4E0B;&#x7EBF;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5404;&#x4E2A;Sentinel&#x4F1A;&#x8FDB;&#x884C;&#x534F;&#x5546;&#xFF0C;&#x9009;&#x4E3E;&#x51FA;&#x4E00;&#x4E2A;&#x9886;&#x5934;Sentinel&#xFF0C;&#x5E76;&#x7531;&#x9886;&#x5934;Sentinel&#x5BF9;&#x4E0B;&#x7EBF;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x6545;&#x969C;&#x8F6C;&#x79FB;&#x64CD;&#x4F5C;&#x3002;</p>
+<ol>
+<li>&#x6240;&#x6709;&#x5728;&#x7EBF;&#x7684;Sentinel&#x90FD;&#x4F1A;&#x53C2;&#x4E0E;&#x9009;&#x4E3E;</li>
+<li>&#x6240;&#x6709;Sentinel&#x90FD;&#x6709;&#x4E00;&#x6B21;&#x5C06;&#x67D0;&#x4E2A;Sentinel&#x8BBE;&#x7F6E;&#x4E3A;&#x5C40;&#x90E8;&#x9886;&#x5934;Sentinel&#x7684;&#x673A;&#x4F1A;&#xFF0C;&#x4E00;&#x65E6;&#x8BBE;&#x7F6E;&#xFF0C;&#x4E0D;&#x80FD;&#x66F4;&#x6539;</li>
+<li>&#x6BCF;&#x4E2A;&#x53D1;&#x73B0;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x5165;&#x5BA2;&#x89C2;&#x4E0B;&#x7EBF;Sentinel&#x90FD;&#x4F1A;&#x8981;&#x6C42;&#x5176;&#x4ED6;Sentinel&#x5C06;&#x81EA;&#x5DF1;&#x8BBE;&#x7F6E;&#x4E3A;&#x5C40;&#x90E8;&#x9886;&#x5934;</li>
+<li>&#x53D1;&#x9001;<code>SENTINEL is-master-down-by-addr</code>&#x547D;&#x4EE4;&#xFF0C;runid&#x53C2;&#x6570;&#x4E3A;&#x53D1;&#x9001;&#x65B9;&#x7684;runid&#xFF08;&#x4E0D;&#x662F; * &#xFF09;&#xFF0C;&#x8868;&#x793A;&#x8981;&#x6C42;&#x63A5;&#x6536;&#x65B9;&#x5C06;&#x53D1;&#x9001;&#x65B9;&#x8BBE;&#x7F6E;&#x4E3A;&#x5C40;&#x90E8;&#x9886;&#x5934;</li>
+<li>&#x63A5;&#x6536;&#x65B9;&#x91C7;&#x7528;<code>&#x5148;&#x5230;&#x5148;&#x5F97;</code>&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x540E;&#x63A5;&#x6536;&#x5230;&#x7684;&#x8BBE;&#x7F6E;&#x8BF7;&#x6C42;&#x90FD;&#x4F1A;&#x62D2;&#x7EDD;</li>
+<li>&#x63A5;&#x6536;&#x65B9;&#x56DE;&#x590D;&#x4E2D;<code>leader_runid</code>&#x548C;<code>leader_epoch</code>&#x8BB0;&#x5F55;&#x4E86;&#x5C40;&#x90E8;&#x9886;&#x5934;&#x7684;runid&#x548C;epoch</li>
+<li>&#x53D1;&#x9001;&#x65B9;&#x6536;&#x5230;&#x56DE;&#x590D;&#x540E;&#xFF0C;&#x68C0;&#x67E5;<code>leader_runid</code>&#x548C;<code>leader_epoch</code>&#x662F;&#x5426;&#x548C;&#x81EA;&#x5DF1;&#x4E00;&#x81F4;&#xFF0C;<strong>&#x5982;&#x679C;&#x67D0;&#x4E2A;Sentinel&#x88AB;&#x534A;&#x6570;&#x4EE5;&#x4E0A;&#x7684;Sentinel&#x8BBE;&#x7F6E;&#x6210;&#x4E86;&#x5C40;&#x90E8;&#x9886;&#x5934;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;Sentinel&#x5C31;&#x6210;&#x4E3A;&#x9886;&#x5934;&#x3002;</strong></li>
+<li>&#x7ED9;&#x5B9A;&#x65F6;&#x95F4;&#x5185;&#xFF0C;&#x672A;&#x9009;&#x4E3E;&#x51FA;&#x9886;&#x5934;&#xFF0C;&#x5C06;&#x5728;&#x7ED3;&#x675F;&#x540E;&#x518D;&#x6B21;&#x9009;&#x4E3E;&#xFF0C;&#x76F4;&#x5230;&#x9009;&#x51FA;&#x4E3A;&#x6B62;&#x3002;</li>
+</ol>
+<h3 id="115-&#x6545;&#x969C;&#x8F6C;&#x79FB;">11.5. &#x6545;&#x969C;&#x8F6C;&#x79FB;</h3>
+<p>&#x9009;&#x4E3E;&#x6210;&#x529F;&#x540E;&#xFF0C;&#x9886;&#x5934;Sentinel&#x5BF9;&#x5DF2;&#x4E0B;&#x7EBF;&#x7684;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x6267;&#x884C;&#x6545;&#x969C;&#x8F6C;&#x79FB;&#xFF1A;</p>
+<ol>
+<li><p>&#x5728;&#x5DF2;&#x4E0B;&#x7EBF;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x7684;&#x6240;&#x6709;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x91CC;&#x9762;&#xFF0C;&#x6311;&#x9009;&#x4E00;&#x4E2A;&#xFF0C;&#x8F6C;&#x6362;&#x4E3A;&#x4E3B;&#x670D;&#x52A1;&#x5668;</p>
+<blockquote>
+<ul>
+<li>&#x6311;&#x9009;&#x89C4;&#x5219;&#xFF1A;<ul>
+<li>&#x5220;&#x9664;&#x4E0B;&#x7EBF;&#x7684;&#x4ECE;&#x670D;&#x52A1;&#x5668;</li>
+<li>&#x5220;&#x9664;&#x6700;&#x8FD1;5&#x79D2;&#x5185;&#x6CA1;&#x6709;&#x56DE;&#x590D;&#x8FC7;&#x9886;&#x5934;Sentinel INFO&#x547D;&#x4EE4;&#x7684;&#x4ECE;&#x670D;&#x52A1;&#x5668;</li>
+<li>&#x5220;&#x9664;&#x4E0E;&#x5DF2;&#x4E0B;&#x7EBF;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x8FDE;&#x63A5;&#x65AD;&#x5F00;&#x8D85;&#x8FC7;<code>down-after-milliseconds * 10</code>&#x6BEB;&#x79D2;&#x7684;&#x4ECE;&#x670D;&#x52A1;&#x5668;</li>
+<li>&#x4F9D;&#x6B21;&#x6309;&#x7167;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x7684; <code>priority</code>&#x6700;&#x5927;&#x3001;<code>offset</code>&#x6700;&#x5927;&#x3001;<code>runid</code>&#x6700;&#x5C0F; &#x8FDB;&#x884C;&#x6392;&#x5E8F;</li>
+</ul>
+</li>
+<li>&#x53D1;&#x9001;<code>SLAVEOF no one</code>&#xFF0C;&#x4F7F;&#x5176;&#x8F6C;&#x4E3A;&#x4E3B;&#x670D;&#x52A1;&#x5668;</li>
+</ul>
+</blockquote>
+</li>
+<li><p>&#x5C06;&#x6240;&#x6709;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x6539;&#x4E3A; replication &#x65B0;&#x7684;&#x4E3B;&#x670D;&#x52A1;&#x5668;</p>
+<blockquote>
+<ul>
+<li>&#x53D1;&#x9001;<code>SLAVEOF &lt;new_master_ip&gt; &lt;new_master_port&gt;</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>&#x5C06;&#x5DF2;&#x4E0B;&#x7EBF;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x6539;&#x4E3A; replication &#x65B0;&#x7684;&#x4E3B;&#x670D;&#x52A1;&#x5668;</p>
+<blockquote>
+<ul>
+<li>&#x5F85;&#x91CD;&#x65B0;&#x4E0A;&#x7EBF;&#x65F6;&#xFF0C;Sentinel&#x5C31;&#x4F1A;&#x53D1;&#x9001;<code>SLAVEOF &lt;new_master_ip&gt; &lt;new_master_port&gt;</code></li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<h3 id="116-raft-&#x7B97;&#x6CD5;">11.6. Raft &#x7B97;&#x6CD5;</h3>
+<p><a href="https://blog.csdn.net/daaikuaichuan/article/details/98627822" target="_blank">https://blog.csdn.net/daaikuaichuan/article/details/98627822</a></p>
+<h2 id="12-&#x96C6;&#x7FA4;">12. &#x96C6;&#x7FA4;</h2>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> redisServer {
+    ...
+    <span class="hljs-keyword">int</span> cluster_enabled;      <span class="hljs-comment">/* Is cluster enabled? */</span>
+    <span class="hljs-keyword">struct</span> clusterState *cluster;  <span class="hljs-comment">/* State of the cluster */</span>
+    ...
+};
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> clusterState {
+    clusterNode *myself;  <span class="hljs-comment">/* This node */</span>
+    <span class="hljs-keyword">uint64_t</span> currentEpoch;
+    <span class="hljs-keyword">int</span> state;            <span class="hljs-comment">/* CLUSTER_OK, CLUSTER_FAIL, ... */</span>
+    <span class="hljs-keyword">int</span> size;             <span class="hljs-comment">/* Num of master nodes with at least one slot */</span>
+    dict *nodes;          <span class="hljs-comment">/* Hash table of name -&gt; clusterNode structures */</span>
+    clusterNode *slots[CLUSTER_SLOTS];
+} clusterState;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> clusterNode {
+    <span class="hljs-keyword">mstime_t</span> ctime; <span class="hljs-comment">/* Node object creation time. */</span>
+    <span class="hljs-keyword">char</span> name[CLUSTER_NAMELEN]; <span class="hljs-comment">/* Node name, hex string, sha1-size */</span>
+    <span class="hljs-keyword">int</span> flags;      <span class="hljs-comment">/* CLUSTER_NODE_... */</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> slots[CLUSTER_SLOTS/<span class="hljs-number">8</span>]; <span class="hljs-comment">/* slots handled by this node */</span>
+    <span class="hljs-keyword">int</span> numslots;   <span class="hljs-comment">/* Number of slots handled by this node */</span>
+    <span class="hljs-keyword">char</span> ip[NET_IP_STR_LEN];    <span class="hljs-comment">/* Latest known IP address of this node */</span>
+    <span class="hljs-keyword">int</span> port;                   <span class="hljs-comment">/* Latest known clients port (TLS or plain). */</span>
+    clusterLink *link;          <span class="hljs-comment">/* TCP/IP link established toward this node */</span>
+} clusterNode;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> clusterLink {
+    <span class="hljs-keyword">mstime_t</span> ctime;             <span class="hljs-comment">/* Link creation time */</span>
+    connection *conn;           <span class="hljs-comment">/* Connection to remote node */</span>
+    sds sndbuf;                 <span class="hljs-comment">/* Packet send buffer */</span>
+    <span class="hljs-keyword">char</span> *rcvbuf;               <span class="hljs-comment">/* Packet reception buffer */</span>
+    <span class="hljs-keyword">size_t</span> rcvbuf_len;          <span class="hljs-comment">/* Used size of rcvbuf */</span>
+    <span class="hljs-keyword">size_t</span> rcvbuf_alloc;        <span class="hljs-comment">/* Allocated size of rcvbuf */</span>
+    <span class="hljs-keyword">struct</span> clusterNode *node;   <span class="hljs-comment">/* Node related to this link. Initialized to NULL when unknown */</span>
+    <span class="hljs-keyword">int</span> inbound;                <span class="hljs-comment">/* 1 if this link is an inbound link accepted from the related node */</span>
+} clusterLink;
+</code></pre>
+<p>&#x547D;&#x4EE4;&#xFF1A;<code>CLUSTER MEET &lt;ip&gt; &lt;port&gt;</code></p>
+<p><img src="images/3/cluster_1.png" alt="cluster_1"></p>
+<p>&#x8282;&#x70B9;A&#x548C;&#x8282;&#x70B9;B&#x63E1;&#x624B;&#x4E4B;&#x540E;&#xFF0C;A &#x4F1A;&#x5C06; B &#x7684;&#x4FE1;&#x606F;&#x901A;&#x8FC7; Gossip &#x534F;&#x8BAE;&#x4F20;&#x64AD;&#x7ED9;&#x96C6;&#x7FA4;&#x7684;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#xFF0C;&#x8BA9;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x4E5F;&#x4E0E;&#x8282;&#x70B9; B &#x8FDB;&#x884C;&#x63E1;&#x624B;&#xFF0C;&#x6700;&#x7EC8;&#xFF0C;&#x8282;&#x70B9; B &#x4F1A;&#x88AB;&#x96C6;&#x7FA4;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x8282;&#x70B9;&#x8BA4;&#x8BC6;&#x3002;</p>
+<h3 id="121-&#x69FD;">12.1. &#x69FD;</h3>
+<p>redis&#x96C6;&#x7FA4;&#x901A;&#x8FC7;&#x5206;&#x7247;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x4FDD;&#x6301;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x952E;&#x503C;&#x5BF9;&#xFF0C;&#x96C6;&#x7FA4;&#x7684;&#x6574;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x88AB;&#x5206;&#x4E3A; <code>16384</code> &#x4E2A;&#x69FD;&#xFF08;slot&#xFF09;&#x3002; &#x5F53;&#x6BCF;&#x4E2A;&#x69FD;&#x90FD;&#x6709;&#x8282;&#x70B9;&#x5904;&#x7406;&#x65F6;&#xFF0C;&#x96C6;&#x7FA4;&#x5904;&#x4E8E;&#x4E0A;&#x7EBF;&#x72B6;&#x6001;&#xFF1B;&#x5426;&#x5219;&#xFF0C;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#x69FD;&#x6CA1;&#x6709;&#x5F97;&#x5230;&#x5904;&#x7406;&#xFF0C;&#x96C6;&#x7FA4;&#x5904;&#x4E8E;&#x4E0B;&#x7EBF;&#x72B6;&#x6001;&#x3002;</p>
+<p>&#x5206;&#x914D;&#x69FD;&#xFF1A;<code>CLUSTER ADDSLOTS &lt;slot&gt; [slot ...]</code></p>
+<p>&#x8282;&#x70B9;&#x9664;&#x4E86;&#x4F1A;&#x8BB0;&#x5F55;&#x81EA;&#x5DF1;&#x69FD;&#xFF0C;&#x8FD8;&#x4F1A;&#x5C06;&#x81EA;&#x5DF1;&#x7684;&#x69FD;&#x4FE1;&#x606F;&#x544A;&#x77E5;&#x5230;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x3002;</p>
+<p><code>clusterState-&gt;slots</code>&#x8BB0;&#x5F55;&#x4E86;&#x96C6;&#x7FA4;&#x4E2D;&#x6240;&#x6709;&#x69FD;&#x7684;&#x6307;&#x6D3E;&#x4FE1;&#x606F;&#x3002;&#x8FD9;&#x6837;&#x68C0;&#x67E5;&#x69FD;&#x662F;&#x5426;&#x88AB;&#x5206;&#x914D;&#xFF0C;&#x53D6;&#x5F97;&#x8D1F;&#x8D23;&#x69FD;&#x7684;&#x8282;&#x70B9;&#xFF0C;&#x4EC5;&#x4E3A;O(1)&#x590D;&#x6742;&#x5EA6;&#x3002;</p>
+<h4 id="1211-&#x4E3A;&#x4EC0;&#x4E48;&#x4F7F;&#x7528;clusterstate-slots&#xFF0C;&#x8FD8;&#x8981;&#x4F7F;&#x7528;clusternode-slots-">12.1.1. &#x4E3A;&#x4EC0;&#x4E48;&#x4F7F;&#x7528;<code>clusterState-&gt;slots</code>&#xFF0C;&#x8FD8;&#x8981;&#x4F7F;&#x7528;<code>clusterNode-&gt;slots</code> ?</h4>
+<ul>
+<li>&#x69FD;&#x4FE1;&#x606F;&#x901A;&#x544A;&#x5230;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x65F6;&#xFF0C;&#x76F4;&#x63A5;&#x53D1;&#x9001;<code>clusterNode-&gt;slots</code>&#x5C31;&#x53EF;&#x4EE5;&#x4E86;</li>
+<li>&#x5982;&#x679C;&#x4E0D;&#x4F7F;&#x7528;<code>clusterNode-&gt;slots</code>&#xFF0C;&#x800C;&#x5355;&#x72EC;&#x4F7F;&#x7528;<code>clusterState-&gt;slots</code>&#xFF0C;&#x90A3;&#x4E48;&#x6BCF;&#x6B21;&#x901A;&#x544A;&#x69FD;&#x4FE1;&#x606F;&#xFF0C;&#x90FD;&#x9700;&#x8981;&#x904D;&#x5386;&#x6574;&#x4E2A;<code>clusterState-&gt;slots</code>&#x6570;&#x7EC4;&#xFF0C;&#x6765;&#x7EDF;&#x8BA1;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x8D1F;&#x8D23;&#x5904;&#x7406;&#x90A3;&#x4E9B;&#x69FD;&#xFF0C;&#x7136;&#x540E;&#x624D;&#x80FD;&#x53D1;&#x9001;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x7684;&#x69FD;&#x4FE1;&#x606F;&#x3002;&#x8F83;&#x4E3A;&#x9EBB;&#x70E6;&#x548C;&#x4F4E;&#x6548;&#x3002;</li>
+</ul>
+<h3 id="122-&#x6267;&#x884C;&#x547D;&#x4EE4;">12.2. &#x6267;&#x884C;&#x547D;&#x4EE4;</h3>
+<p><img src="images/3/cluster_2.png" alt="cluster_2"></p>
+<h4 id="1221-&#x8282;&#x70B9;&#x6570;&#x636E;&#x5E93;">12.2.1. &#x8282;&#x70B9;&#x6570;&#x636E;&#x5E93;</h4>
+<p>&#x96C6;&#x7FA4;&#x8282;&#x70B9;&#x4FDD;&#x5B58;&#x952E;&#x503C;&#x5BF9;&#x4EE5;&#x53CA;&#x5176;&#x8FC7;&#x671F;&#x65B9;&#x5F0F;&#xFF0C;&#x4E0E;&#x5355;&#x673A;redis&#x670D;&#x52A1;&#x5668;&#x5B8C;&#x5168;&#x76F8;&#x540C;&#x3002;</p>
+<p>&#x533A;&#x522B;&#x662F;&#xFF1A;&#x8282;&#x70B9;&#x53EA;&#x80FD;&#x4F7F;&#x7528;0&#x53F7;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x5355;&#x673A;&#x6CA1;&#x9650;&#x5236;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> redisDb {
+    dict *dict;                 <span class="hljs-comment">/* The keyspace for this DB */</span>
+    dict *expires;              <span class="hljs-comment">/* Timeout of keys with a timeout set */</span>
+    clusterSlotToKeyMapping *slots_to_keys; <span class="hljs-comment">/* Array of slots to keys. Only used in cluster mode (db 0). */</span>
+} redisDb;
+</code></pre>
+<p><code>slots_to_keys</code> &#x4FDD;&#x5B58;&#x69FD;&#x548C;&#x952E;&#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;</p>
+<h3 id="123-&#x91CD;&#x65B0;&#x5206;&#x7247;">12.3. &#x91CD;&#x65B0;&#x5206;&#x7247;</h3>
+<p>&#x53EF;&#x4EE5;&#x5C06;&#x4EFB;&#x610F;&#x6570;&#x91CF;&#x5DF2;&#x7ECF;&#x6307;&#x6D3E;&#x7ED9;&#x67D0;&#x4E2A;&#x8282;&#x70B9;&#x7684;&#x69FD;&#x6539;&#x4E3A;&#x6307;&#x6D3E;&#x7ED9;&#x53E6;&#x4E00;&#x8282;&#x70B9;&#xFF0C;&#x5E76;&#x4E14;&#x76F8;&#x5173;&#x69FD;&#x6240;&#x5C5E;&#x7684;&#x952E;&#x503C;&#x5BF9;&#x4E5F;&#x4F1A;&#x4ECE;&#x6E90;&#x8282;&#x70B9;&#x79FB;&#x52A8;&#x5230;&#x76EE;&#x6807;&#x8282;&#x70B9;&#x3002;</p>
+<p>&#x91CD;&#x65B0;&#x5206;&#x7247;&#x53EF;&#x4EE5;&#x5728;&#x7EBF;&#x8FDB;&#x884C;&#xFF0C;&#x96C6;&#x7FA4;&#x4E0D;&#x9700;&#x8981;&#x4E0B;&#x7EBF;&#xFF0C;&#x4E14;&#x6E90;&#x3001;&#x76EE;&#x6807;&#x8282;&#x70B9;&#x5747;&#x53EF;&#x7EE7;&#x7EED;&#x5904;&#x7406;&#x547D;&#x4EE4;&#x8BF7;&#x6C42;&#x3002;</p>
+<p><img src="images/3/cluster_3.png" alt="cluster_3"></p>
+<p><img src="images/3/cluster_4.png" alt="cluster_4"></p>
+<h4 id="1231-ask&#x9519;&#x8BEF;">12.3.1. ASK&#x9519;&#x8BEF;</h4>
+<p><img src="images/3/cluster_5.png" alt="cluster_5"></p>
+<h3 id="124-&#x590D;&#x5236;&#x548C;&#x6545;&#x969C;&#x8F6C;&#x79FB;">12.4. &#x590D;&#x5236;&#x548C;&#x6545;&#x969C;&#x8F6C;&#x79FB;</h3>
+<p>&#x8BBE;&#x7F6E;&#x4ECE;&#x8282;&#x70B9;&#xFF1A;<code>CLUSTER REPLICATE &lt;node_id&gt;</code></p>
+<pre><code class="lang-c"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> clusterNode {
+    <span class="hljs-keyword">int</span> numslaves;  <span class="hljs-comment">/* Number of slave nodes, if this is a master */</span>
+    <span class="hljs-keyword">struct</span> clusterNode **slaves; <span class="hljs-comment">/* pointers to slave nodes */</span>
+    <span class="hljs-keyword">struct</span> clusterNode *slaveof; <span class="hljs-comment">/* pointer to the master node. Note that it
+                                    may be NULL even if the node is a slave
+                                    if we don&apos;t have the master node in our
+                                    tables. */</span>
+    <span class="hljs-built_in">list</span> *fail_reports;         <span class="hljs-comment">/* List of nodes signaling this as failing */</span>
+} clusterNode;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> clusterNodeFailReport {
+    <span class="hljs-keyword">struct</span> clusterNode *node;  <span class="hljs-comment">/* Node reporting the failure condition. */</span>
+    <span class="hljs-keyword">mstime_t</span> time;             <span class="hljs-comment">/* Time of the last report from this node. */</span>
+} clusterNodeFailReport;
+</code></pre>
+<h4 id="1241-&#x6545;&#x969C;&#x68C0;&#x6D4B;">12.4.1. &#x6545;&#x969C;&#x68C0;&#x6D4B;</h4>
+<ul>
+<li>&#x96C6;&#x7FA4;&#x4E2D;&#x7684;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x90FD;&#x4F1A;&#x5B9A;&#x671F;&#x5411;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x53D1;&#x9001; PING &#x6D88;&#x606F;&#xFF0C;&#x89C4;&#x5B9A;&#x65F6;&#x95F4;&#x5185;&#x672A;&#x56DE;&#x590D; PONG &#x6D88;&#x606F;&#xFF0C;&#x5219;&#x6807;&#x8BB0;&#x4E3A;<code>&#x7591;&#x4F3C;&#x4E0B;&#x7EBF;&#xFF08;probeble fail&#xFF0C;PFAIL&#xFF09;</code>&#x3002;</li>
+<li>&#x96C6;&#x7FA4;&#x5404;&#x4E2A;&#x8282;&#x70B9;&#x4F1A;&#x901A;&#x8FC7;&#x4E92;&#x76F8;&#x53D1;&#x9001;&#x6D88;&#x606F;&#x6765;&#x4EA4;&#x6362;&#x96C6;&#x7FA4;&#x4E2D;&#x5404;&#x4E2A;&#x8282;&#x70B9;&#x7684;&#x72B6;&#x6001;&#x4FE1;&#x606F;&#xFF08;&#x8282;&#x70B9;&#x72B6;&#x6001;&#xFF1A;&#x5728;&#x7EBF;&#x3001;&#x7591;&#x4F3C;&#x4E0B;&#x7EBF;&#x3001;&#x5DF2;&#x4E0B;&#x7EBF;&#xFF09;</li>
+<li>&#x534A;&#x6570;&#x4EE5;&#x4E0A;&#x8D1F;&#x8D23;&#x5904;&#x7406;&#x69FD;&#x7684;&#x4E3B;&#x8282;&#x70B9;&#x90FD;&#x5C06;&#x67D0;&#x4E2A;&#x8282;&#x70B9; x &#x62A5;&#x544A;&#x4E3A;&#x7591;&#x4F3C;&#x4E0B;&#x7EBF;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A; x &#x8282;&#x70B9;&#x5C06;&#x88AB;&#x6807;&#x8BB0;&#x4E3A;&#x5DF2;&#x4E0B;&#x7EBF;&#xFF0C;&#x7136;&#x540E;&#x5C06;x&#x6807;&#x8BB0;&#x4E3A;&#x5DF2;&#x4E0B;&#x7EBF;&#x7684;&#x8282;&#x70B9;<code>&#x4F1A;&#x5411;&#x96C6;&#x7FA4;&#x5E7F;&#x64AD;</code> &#x4E3B;&#x8282;&#x70B9;x&#x7684;FAIL&#x6D88;&#x606F;&#xFF0C;&#x6240;&#x6709;&#x6536;&#x5230;&#x8FD9;&#x6761;FAIL&#x6D88;&#x606F;&#x7684;&#x8282;&#x70B9;&#x90FD;&#x4F1A;&#x7ACB;&#x5373;&#x5C06;&#x4E3B;&#x8282;&#x70B9;x&#x6807;&#x8BB0;&#x4E3A;&#x5DF2;&#x4E0B;&#x7EBF;&#x3002;</li>
+<li><code>fail_reports</code>&#x8BB0;&#x5F55;&#x4E86;&#x6240;&#x6709;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x5BF9;&#x8BE5;&#x8282;&#x70B9;&#x7684;&#x4E0B;&#x7EBF;&#x62A5;&#x544A;</li>
+</ul>
+<h4 id="1242-&#x6545;&#x969C;&#x8F6C;&#x79FB;">12.4.2. &#x6545;&#x969C;&#x8F6C;&#x79FB;</h4>
+<p>&#x5F53;&#x4E00;&#x4E2A;&#x4ECE;&#x8282;&#x70B9;&#x53D1;&#x73B0;&#x81EA;&#x5DF1;&#x6B63;&#x5728;&#x590D;&#x5236;&#x7684;&#x4E3B;&#x8282;&#x70B9;&#x8FDB;&#x5165;&#x4E86;&#x5DF2;&#x4E0B;&#x7EBF;&#x72B6;&#x6001;&#xFF0C;&#x4ECE;&#x8282;&#x70B9;&#x5F00;&#x59CB;&#x5BF9;&#x4E0B;&#x7EBF;&#x4E3B;&#x8282;&#x70B9;&#x8FDB;&#x884C;&#x6545;&#x969C;&#x8F6C;&#x79FB;&#xFF1A;</p>
+<ul>
+<li>&#x6311;&#x9009;&#x4E00;&#x4E2A;&#x4ECE;&#x8282;&#x70B9;</li>
+<li>&#x6267;&#x884C;SLAVEOF no one&#xFF0C;&#x6210;&#x4E3A;&#x65B0;&#x4E3B;&#x8282;&#x70B9;</li>
+<li>&#x65B0;&#x4E3B;&#x8282;&#x70B9;&#x4F1A;&#x64A4;&#x9500;&#x6240;&#x6709;&#x5BF9;&#x5DF2;&#x4E0B;&#x7EBF;&#x4E3B;&#x8282;&#x70B9;&#x7684;&#x69FD;&#xFF0C;&#x5E76;&#x5C06;&#x8FD9;&#x4E9B;&#x69FD;&#x5206;&#x914D;&#x7ED9;&#x81EA;&#x5DF1;</li>
+<li>&#x65B0;&#x4E3B;&#x8282;&#x70B9;&#x5411;&#x96C6;&#x7FA4;&#x5E7F;&#x64AD; PONG&#x6D88;&#x606F;&#xFF0C;&#x8BA9;&#x96C6;&#x7FA4;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x77E5;&#x9053;&#xFF1A;1. &#x6211;&#x53D8;&#x6210;&#x4E86;&#x4E3B;&#x8282;&#x70B9;&#xFF1B;2. &#x6211;&#x63A5;&#x7BA1;&#x4E86;&#x4E4B;&#x524D;&#x7684;&#x69FD;</li>
+<li>&#x65B0;&#x4E3B;&#x8282;&#x70B9;&#x5F00;&#x59CB;&#x63A5;&#x6536;&#x548C;&#x5904;&#x7406;&#x81EA;&#x5DF1;&#x8D1F;&#x8D23;&#x69FD;&#x6709;&#x5173;&#x7684;&#x547D;&#x4EE4;&#x8BF7;&#x6C42;&#xFF0C;&#x6545;&#x969C;&#x8F6C;&#x79FB;&#x5B8C;&#x6210;&#x3002;</li>
+</ul>
+<h4 id="1243-&#x9009;&#x4E3E;">12.4.3. &#x9009;&#x4E3E;</h4>
+<ul>
+<li>&#x5F53;&#x4ECE;&#x8282;&#x70B9;&#x53D1;&#x73B0;&#x4E3B;&#x8282;&#x70B9;&#x5DF2;&#x4E0B;&#x7EBF;&#xFF0C;&#x5411;&#x96C6;&#x7FA4;&#x5E7F;&#x64AD;<code>CLUSTERMSG_TYPE_FAILOVER_AUTH_REQUEST</code>&#x6D88;&#x606F;&#xFF0C;&#x8981;&#x6C42;&#x6536;&#x5230;&#x6D88;&#x606F;&#x7684;&#x4E3B;&#x8282;&#x70B9;&#xFF0C;&#x5411;&#x8FD9;&#x4E2A;&#x4ECE;&#x8282;&#x70B9;&#x6295;&#x7968;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x6536;&#x5230;&#x6D88;&#x606F;&#x7684;&#x4E3B;&#x8282;&#x70B9;&#x5177;&#x6709;&#x6295;&#x7968;&#x6743;&#xFF0C;&#x4E14;&#x5C1A;&#x672A;&#x6295;&#x7968;&#x7ED9;&#x5176;&#x4ED6;&#x4ECE;&#x8282;&#x70B9;&#xFF0C;&#x90A3;&#x4E48;&#x4E3B;&#x8282;&#x70B9;&#x8FD4;&#x56DE;<code>CLUSTERMSG_TYPE_FAILOVER_AUTH_ACK</code> &#x6D88;&#x606F;&#xFF0C;&#x8868;&#x793A;&#x652F;&#x6301;&#x3002;</li>
+<li>&#x6CA1;&#x4E2A;&#x53C2;&#x4E0E;&#x9009;&#x4E3E;&#x7684;&#x4ECE;&#x8282;&#x70B9;&#x90FD;&#x4F1A;&#x6536;&#x5230;<code>CLUSTERMSG_TYPE_FAILOVER_AUTH_ACK</code> &#x6D88;&#x606F;&#xFF0C;&#x5E76;&#x7EDF;&#x8BA1;&#x81EA;&#x5DF1;&#x83B7;&#x5F97;&#x7684;&#x7968;&#x6570;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x5927;&#x4E8E;&#x534A;&#x6570;&#xFF0C;&#x5219;&#x8FD9;&#x4E2A;&#x4ECE;&#x8282;&#x70B9;&#x5F53;&#x9009;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x6CA1;&#x80FD;&#x6210;&#x529F;&#xFF0C;&#x5219;&#x518D;&#x6B21;&#x9009;&#x4E3E;&#xFF0C;&#x76F4;&#x5230;&#x9009;&#x51FA;&#x3002;</li>
+</ul>
+<h3 id="125-&#x6D88;&#x606F;">12.5. &#x6D88;&#x606F;</h3>
+<p>&#x96C6;&#x7FA4;&#x8282;&#x70B9;&#x53D1;&#x9001;&#x7684;&#x6D88;&#x606F;&#x6709;&#xFF1A;</p>
+<ul>
+<li>MEET &#x6D88;&#x606F;</li>
+<li>PING &#x6D88;&#x606F;</li>
+<li>PONG &#x6D88;&#x606F;</li>
+<li>FAIL &#x6D88;&#x606F;</li>
+<li>PUBLISH &#x6D88;&#x606F;</li>
+</ul>
+<h2 id="13-&#x53D1;&#x5E03;&#x548C;&#x8BA2;&#x9605;">13. &#x53D1;&#x5E03;&#x548C;&#x8BA2;&#x9605;</h2>
+<p>&#x8BA2;&#x9605;&#x9891;&#x9053;&#xFF1A;<code>SUBSCRIBE channel [channel ...]</code></p>
+<p>&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#xFF1A;<code>PSUBSCRIBE pattern [pattern ...]</code></p>
+<p>&#x53D1;&#x5E03;&#x6D88;&#x606F;&#xFF1A;<code>PUBLISH channel message</code></p>
+<p>&#x9000;&#x8BA2;&#x9891;&#x9053;&#xFF1A;<code>UNSUBSCRIBE [channel [channel ...]]</code></p>
+<p>&#x9000;&#x8BA2;&#x9891;&#x9053;&#xFF1A;<code>PUNSUBSCRIBE [pattern [pattern ...]]</code></p>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> redisServer {
+    dict *pubsub_channels;  <span class="hljs-comment">/* Map channels to list of subscribed clients */</span>
+    dict *pubsub_patterns;  <span class="hljs-comment">/* A dict of pubsub_patterns */</span>
+};
+</code></pre>
+<h2 id="14-&#x4E8B;&#x52A1;">14. &#x4E8B;&#x52A1;</h2>
+<p>&#x547D;&#x4EE4;&#xFF1A;<code>MULTI</code>&#x3001;<code>EXEC</code>&#x3001;<code>WATCH</code></p>
+<pre><code class="lang-c"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> client {
+    multiState mstate;      <span class="hljs-comment">/* MULTI/EXEC state */</span>
+} client;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> multiState {
+    multiCmd *commands;     <span class="hljs-comment">/* Array of MULTI commands */</span>
+    <span class="hljs-keyword">int</span> count;              <span class="hljs-comment">/* Total number of MULTI commands */</span>
+    <span class="hljs-keyword">int</span> cmd_flags;          <span class="hljs-comment">/* The accumulated command flags OR-ed together.
+                               So if at least a command has a given flag, it
+                               will be set in this field. */</span>
+    <span class="hljs-keyword">int</span> cmd_inv_flags;      <span class="hljs-comment">/* Same as cmd_flags, OR-ing the ~flags. so that it
+                               is possible to know if all the commands have a
+                               certain flag. */</span>
+    <span class="hljs-keyword">size_t</span> argv_len_sums;    <span class="hljs-comment">/* mem used by all commands arguments */</span>
+} multiState;
+</code></pre>
+<p><code>WATCH</code> &#x547D;&#x4EE4;&#xFF0C;&#x53EF;&#x4EE5;&#x76D1;&#x89C6;&#x4EFB;&#x610F;&#x6570;&#x91CF;&#x7684;&#x6570;&#x636E;&#x5E93;&#x952E;&#xFF0C;&#x5E76;&#x5728;EXEC&#x547D;&#x4EE4;&#x6267;&#x884C;&#x65F6;&#xFF0C;&#x68C0;&#x67E5;&#x88AB;&#x76D1;&#x89C6;&#x7684;&#x952E;&#x662F;&#x5426;&#x81F3;&#x5C11;&#x6709;&#x4E00;&#x4E2A;&#x5DF2;&#x7ECF;&#x88AB;&#x4FEE;&#x6539;&#x8FC7;&#x4E86;&#xFF0C;&#x5982;&#x679C;&#x662F;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x5C06;&#x62D2;&#x7EDD;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x7A7A;&#x56DE;&#x590D;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> redisDb {
+    dict *watched_keys;         <span class="hljs-comment">/* WATCHED keys for MULTI/EXEC CAS */</span>
+} redisDb;
+</code></pre>
+<h3 id="141-acid">14.1. ACID</h3>
+<p>Redis &#x4E8B;&#x52A1;&#x5177;&#x6709;&#x4EE5;&#x4E0B;&#x6027;&#x8D28;&#xFF1A;</p>
+<ul>
+<li>&#x539F;&#x5B50;&#x6027;&#xFF08;Atomicity&#xFF09;</li>
+<li>&#x4E00;&#x81F4;&#x6027;&#xFF08;Consistency&#xFF09;&#xFF1A;&#x6307;&#x6CA1;&#x6709;&#x5305;&#x542B;&#x975E;&#x6CD5;&#x6216;&#x65E0;&#x6548;&#x7684;&#x9519;&#x8BEF;&#x6570;&#x636E;</li>
+<li>&#x9694;&#x79BB;&#x6027;&#xFF08;Isolation&#xFF09;&#xFF1A;Redis&#x4F7F;&#x7528;&#x5355;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#xFF0C;&#x4E14;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#x671F;&#x95F4;&#x4E0D;&#x4F1A;&#x88AB;&#x4E2D;&#x65AD;&#x3002;&#xFF08;&#x4E8B;&#x52A1;&#x4EE5;&#x4E32;&#x884C;&#x65B9;&#x5F0F;&#x8FD0;&#x884C;&#xFF09;</li>
+<li>&#x8010;&#x4E45;&#x6027;&#xFF08;Durability&#xFF09;&#xFF1A;&#x6839;&#x636E;RDB&#x6216;AOF&#x6765;&#x4FDD;&#x8BC1;</li>
+</ul>
+<h2 id="15-&#x6392;&#x5E8F;">15. &#x6392;&#x5E8F;</h2>
+<pre><code class="lang-c"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> _redisSortObject {
+    robj *obj;
+    <span class="hljs-keyword">union</span> {
+        <span class="hljs-keyword">double</span> score;
+        robj *cmpobj;
+    } u;
+} redisSortObject;
+</code></pre>
+<p>SORT &#x547D;&#x4EE4;&#x4E3A;&#x6BCF;&#x4E2A;&#x88AB;&#x6392;&#x5E8F;&#x7684;&#x952E;&#x90FD;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x4E0E;&#x952E;&#x957F;&#x5EA6;&#x76F8;&#x540C;&#x7684;&#x6570;&#x7EC4;&#xFF0C;&#x6570;&#x7EC4;&#x7684;&#x6BCF;&#x4E2A;&#x9879;&#x90FD;&#x662F;redisSortObject&#x7ED3;&#x6784;&#x3002;</p>
+<p>&#x9009;&#x9879;&#xFF1A;<code>ALPHA</code>&#x3001;<code>ASC</code>&#x3001;<code>DESC</code>&#x3001;<code>BY</code>&#x3001;<code>LIMIT</code>&#x3001;<code>GET</code>&#x3001;<code>STORE</code>&#x3001;</p>
+<h2 id="16-&#x4E8C;&#x8FDB;&#x5236;&#x4F4D;&#x6570;&#x7EC4;">16. &#x4E8C;&#x8FDB;&#x5236;&#x4F4D;&#x6570;&#x7EC4;</h2>
+<ul>
+<li>redis &#x4F7F;&#x7528; <code>SDS</code> &#x4FDD;&#x5B58;&#x4F4D;&#x6570;&#x7EC4;</li>
+<li>SDS &#x4F7F;&#x7528;<code>&#x9006;&#x5E8F;</code>&#x6765;&#x4FDD;&#x5B58;&#x4F4D;&#x6570;&#x7EC4;&#x3002;&#xFF08;&#x7B80;&#x5316;SETBIT&#x547D;&#x4EE4;&#xFF1B;&#x4FBF;&#x4E8E;&#x5BF9;&#x4F4D;&#x6570;&#x7EC4;&#x8FDB;&#x884C;&#x7A7A;&#x95F4;&#x6269;&#x5C55;&#xFF09;</li>
+<li>&#x547D;&#x4EE4;&#xFF1A;<code>SETBIT</code>&#x3001;<code>GETBIT</code>&#x3001;<code>BITCOUNT</code>&#x3001;<code>BITOP</code></li>
+</ul>
+<h2 id="17-&#x6162;&#x67E5;&#x8BE2;&#x65E5;&#x5FD7;">17. &#x6162;&#x67E5;&#x8BE2;&#x65E5;&#x5FD7;</h2>
+<ul>
+<li><code>slowlog-log-slower-than</code> &#x6307;&#x5B9A;&#x6267;&#x884C;&#x65F6;&#x95F4;&#x8D85;&#x8FC7;&#x591A;&#x5C11;&#x5FAE;&#x5999;&#x7684;&#x547D;&#x4EE4;&#x8BF7;&#x6C42;&#x4F1A;&#x88AB;&#x8BB0;&#x5F55;&#x5230;&#x65E5;&#x5FD7;&#x4E0A;</li>
+<li><code>slowlog-max-len</code> &#x6307;&#x5B9A;&#x670D;&#x52A1;&#x5668;&#x6700;&#x591A;&#x4FDD;&#x5B58;&#x591A;&#x5C11;&#x6761;&#x6162;&#x67E5;&#x8BE2;&#x65E5;&#x5FD7;</li>
+</ul>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> redisServer {
+    <span class="hljs-built_in">list</span> *slowlog;                  <span class="hljs-comment">/* SLOWLOG list of commands */</span>
+    <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> slowlog_entry_id;     <span class="hljs-comment">/* SLOWLOG current entry ID */</span>
+    <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> slowlog_log_slower_than; <span class="hljs-comment">/* SLOWLOG time limit (to get logged) */</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> slowlog_max_len;     <span class="hljs-comment">/* SLOWLOG max number of items logged */</span>
+};
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> slowlogEntry {
+    robj **argv;
+    <span class="hljs-keyword">int</span> argc;
+    <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> id;       <span class="hljs-comment">/* Unique entry identifier. */</span>
+    <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> duration; <span class="hljs-comment">/* Time spent by the query, in microseconds. */</span>
+    <span class="hljs-keyword">time_t</span> time;        <span class="hljs-comment">/* Unix time at which the query was executed. */</span>
+    sds cname;          <span class="hljs-comment">/* Client name. */</span>
+    sds peerid;         <span class="hljs-comment">/* Client network address. */</span>
+} slowlogEntry;
+</code></pre>
+<h2 id="18-&#x76D1;&#x89C6;&#x5668;">18. &#x76D1;&#x89C6;&#x5668;</h2>
+<ul>
+<li>&#x5BA2;&#x6237;&#x7AEF;&#x6267;&#x884C;<code>MONITOR</code>&#x547D;&#x4EE4;&#xFF0C;&#x5C06;&#x8F6C;&#x6362;&#x4E3A;&#x76D1;&#x89C6;&#x5668;&#xFF0C;&#x63A5;&#x6536;&#x5E76;&#x6253;&#x5370;&#x670D;&#x52A1;&#x5668;&#x5904;&#x7406;&#x7684;&#x6BCF;&#x4E2A;&#x547D;&#x4EE4;&#x8BF7;&#x6C42;&#x3002;</li>
+<li>&#x6807;&#x8BC6;&#xFF1A;REDIS_MONITOR</li>
+<li>&#x670D;&#x52A1;&#x5668;&#x5C06;&#x76D1;&#x89C6;&#x5668;&#x8BB0;&#x5F55;&#x5728;monitors&#x94FE;&#x8868;&#x4E2D;</li>
+<li>&#x6BCF;&#x6B21;&#x5904;&#x7406;&#x547D;&#x4EE4;&#x8BF7;&#x6C42;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x4F1A;&#x904D;&#x5386;monitor&#x94FE;&#x8868;&#xFF0C;&#x5C06;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#x53D1;&#x7ED9;&#x76D1;&#x89C6;&#x5668;</li>
+</ul>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> redisServer {
+    <span class="hljs-built_in">list</span> *monitors;    <span class="hljs-comment">/* List of MONITORs */</span>
+};
+</code></pre>
+<h2 id="19-&#x4E8B;&#x4EF6;">19. &#x4E8B;&#x4EF6;</h2>
+<h3 id="191-&#x6587;&#x4EF6;&#x4E8B;&#x4EF6;">19.1. &#x6587;&#x4EF6;&#x4E8B;&#x4EF6;</h3>
+<h3 id="192-&#x65F6;&#x95F4;&#x4E8B;&#x4EF6;">19.2. &#x65F6;&#x95F4;&#x4E8B;&#x4EF6;</h3>
+<h2 id="20-&#x603B;&#x7ED3;">20. &#x603B;&#x7ED3;</h2>
+<h3 id="201-&#x4E8B;&#x4EF6;&#x7C7B;">20.1. &#x4E8B;&#x4EF6;&#x7C7B;</h3>
+<h4 id="2011-&#x6027;&#x80FD;&#x9AD8;&#x7684;&#x539F;&#x56E0;&#xFF0C;io&#x591A;&#x8DEF;&#x590D;&#x7528;&#x7684;&#x539F;&#x7406;&#x4EE5;&#x53CA;&#x5176;&#x4ED6;&#x4F18;&#x70B9;">20.1.1. &#x6027;&#x80FD;&#x9AD8;&#x7684;&#x539F;&#x56E0;&#xFF0C;IO&#x591A;&#x8DEF;&#x590D;&#x7528;&#x7684;&#x539F;&#x7406;&#x4EE5;&#x53CA;&#x5176;&#x4ED6;&#x4F18;&#x70B9;</h4>
+<h4 id="2012-&#x8BBE;&#x8BA1;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x6846;&#x67B6;">20.1.2. &#x8BBE;&#x8BA1;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x6846;&#x67B6;</h4>
+<h3 id="202-&#x9501;&#x7C7B;">20.2. &#x9501;&#x7C7B;</h3>
+<h4 id="2021-&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#xFF0C;&#x5982;&#x679C;&#x4FDD;&#x8BC1;&#x9501;&#x88AB;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x5360;&#x7528;&#x540E;&#x8D85;&#x51FA;&#x65F6;&#x95F4;&#x540E;&#xFF0C;&#x5176;&#x4ED6;&#x4EFB;&#x52A1;&#x662F;&#x6B63;&#x5E38;&#x7684;">20.2.1. &#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#xFF0C;&#x5982;&#x679C;&#x4FDD;&#x8BC1;&#x9501;&#x88AB;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x5360;&#x7528;&#x540E;&#x8D85;&#x51FA;&#x65F6;&#x95F4;&#x540E;&#xFF0C;&#x5176;&#x4ED6;&#x4EFB;&#x52A1;&#x662F;&#x6B63;&#x5E38;&#x7684;</h4>
+<h3 id="203-&#x9AD8;&#x53EF;&#x9760;&#x7C7B;">20.3. &#x9AD8;&#x53EF;&#x9760;&#x7C7B;</h3>
+<h4 id="2031-&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#xFF08;&#x5177;&#x4F53;&#x8FC7;&#x7A0B;&#xFF0C;&#x9700;&#x6CE8;&#x610F;&#x4EC0;&#x4E48;&#x95EE;&#x9898;&#xFF09;">20.3.1. &#x4E3B;&#x4ECE;&#x590D;&#x5236;&#xFF08;&#x5177;&#x4F53;&#x8FC7;&#x7A0B;&#xFF0C;&#x9700;&#x6CE8;&#x610F;&#x4EC0;&#x4E48;&#x95EE;&#x9898;&#xFF09;</h4>
+<h4 id="2032-&#x54E8;&#x5175;&#x3001;&#x96C6;&#x7FA4;">20.3.2. &#x54E8;&#x5175;&#x3001;&#x96C6;&#x7FA4;</h4>
+<h3 id="204-&#x6301;&#x4E45;&#x5316;&#x7C7B;">20.4. &#x6301;&#x4E45;&#x5316;&#x7C7B;</h3>
+<h4 id="2041-&#x6301;&#x4E45;&#x5316;&#x539F;&#x7406;&#x3001;&#x4F18;&#x7F3A;&#x70B9;">20.4.1. &#x6301;&#x4E45;&#x5316;&#x539F;&#x7406;&#x3001;&#x4F18;&#x7F3A;&#x70B9;</h4>
+<h4 id="2041-redis&#x54C8;&#x5E0C;&#x8868;&#x6269;&#x5BB9;&#x65F6;&#x5B95;&#x673A;&#x4E86;&#x600E;&#x4E48;&#x6062;&#x590D;&#x6570;&#x636E;">20.4.1. redis&#x54C8;&#x5E0C;&#x8868;&#x6269;&#x5BB9;&#x65F6;&#x5B95;&#x673A;&#x4E86;&#x600E;&#x4E48;&#x6062;&#x590D;&#x6570;&#x636E;</h4>
+<h2 id="x-fk">X. FK</h2>
+<p><a href="https://baijiahao.baidu.com/s?id=1718316080906441023&amp;wfr=spider&amp;for=pc" target="_blank">https://baijiahao.baidu.com/s?id=1718316080906441023&amp;wfr=spider&amp;for=pc</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="2_golang.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Golang">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Redis","level":"1.10.4","depth":2,"next":{"title":"杂项","level":"1.11","depth":1,"ref":"","articles":[{"title":"centos安装v2ray","level":"1.11.1","depth":2,"path":"misc/centos-install-v2ray.md","ref":"./misc/centos-install-v2ray.md","articles":[]},{"title":"docker/containerd设置代理实现从外网拉取镜像","level":"1.11.2","depth":2,"path":"misc/docker-pull-use-proxy.md","ref":"./misc/docker-pull-use-proxy.md","articles":[]},{"title":"编译安装ovs","level":"1.11.3","depth":2,"path":"misc/install-ovs.md","ref":"./misc/install-ovs.md","articles":[]},{"title":"k8s 将docker切换为containerd","level":"1.11.4","depth":2,"path":"misc/docker-to-containerd.md","ref":"./misc/docker-to-containerd.md","articles":[]},{"title":"编译内核","level":"1.11.5","depth":2,"path":"misc/compile-kernel.md","ref":"./misc/compile-kernel.md","articles":[]}]},"previous":{"title":"Golang","level":"1.10.3","depth":2,"path":"BAGU/2_golang.md","ref":"./BAGU/2_golang.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BAGU/3_redis.md","mtime":"2023-03-28T14:13:40.251Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-28T15:18:23.842Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-intopic-toc/anchor.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-intopic-toc/gumshoe.polyfills.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-intopic-toc/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

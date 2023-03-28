@@ -546,6 +546,38 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1.1" data-path="../../kernel/ps-1-cfs.html">
+            
+                <a href="../../kernel/ps-1-cfs.html">
+            
+                    
+                    CFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.1.2" data-path="../../kernel/ps-2-eevdf.html">
+            
+                <a href="../../kernel/ps-2-eevdf.html">
+            
+                    
+                    EEVDF
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9.2" data-path="../../kernel/内存管理.html">
@@ -729,6 +761,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.10.4" data-path="../../BAGU/3_redis.html">
+            
+                <a href="../../BAGU/3_redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -876,7 +921,112 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="load-balance">Load Balance</h1>
+                                <h1 id="1-&#x4EC0;&#x4E48;&#x662F;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#xFF1F;">1. &#x4EC0;&#x4E48;&#x662F;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#xFF1F;</h1>
+<p>&#x4E00;&#x79CD;&#x5145;&#x5F53;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x7684;&#x8BBE;&#x5907;&#xFF0C;&#x5C06;&#x7F51;&#x7EDC;&#x6216;&#x5E94;&#x7528;&#x6D41;&#x91CF;&#x5206;&#x914D;&#x4E0E;&#x591A;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x4EE5;&#x63D0;&#x9AD8;&#x5E76;&#x53D1;&#x80FD;&#x529B;&#x548C;&#x53EF;&#x7528;&#x6027;&#x3002;</p>
+<p>&#x5DE5;&#x4F5C;&#x5C42;&#xFF1A;</p>
+<ul>
+<li>3&#x5C42;&#xFF1A;&#x6839;&#x636E;IP&#x5206;&#x53D1;&#x8BF7;&#x6C42;&#xFF0C;&#x6BD4;&#x5982;&#x7B49;&#x4EF7;&#x8DEF;&#x7531;&#xFF08;ECMP&#xFF09;</li>
+<li>4&#x5C42;&#xFF1A;&#x6839;&#x636E;TCP&#x3001;UDP&#x5206;&#x53D1;&#x8BF7;&#x6C42;&#xFF0C;&#x6BD4;&#x5982;LVS</li>
+<li>7&#x5C42;&#xFF1A;&#x6839;&#x636E;HTTP&#x3001;HTTPS&#x5206;&#x53D1;&#x8BF7;&#x6C42;&#xFF0C;&#x6BD4;&#x5982;Nginx</li>
+</ul>
+<p>&#x89E3;&#x51B3;&#x573A;&#x666F;&#xFF1A;</p>
+<ul>
+<li>&#x8D1F;&#x8F7D;&#x5206;&#x62C5;&#xFF1A;&#x5206;&#x62C5;&#x4E1A;&#x52A1;&#x538B;&#x529B;&#xFF0C;&#x901A;&#x8FC7;&#x67D0;&#x79CD;&#x7B97;&#x6CD5;&#x5C06;&#x8D1F;&#x8F7D;&#x5206;&#x53D1;&#x5230;&#x5404;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x3002;</li>
+<li>&#x5B89;&#x5168;&#xFF1A;&#x5BA2;&#x6237;&#x4E0D;&#x77E5;&#x9053;&#x771F;&#x5B9E;&#x7684;&#x670D;&#x52A1;&#x5668;&#x3002;</li>
+<li>&#x6545;&#x969C;&#x9694;&#x79BB;&#xFF1A;&#x67D0;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x51FA;&#x73B0;&#x6545;&#x969C;&#x65F6;&#xFF0C;&#x65E0;&#x4EBA;&#x5DE5;&#x5E72;&#x9884;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x81EA;&#x52A8;&#x88AB;&#x9694;&#x79BB;&#x3002;</li>
+<li>&#x9AD8;&#x53EF;&#x7528;&#xFF1A;&#x540E;&#x7AEF;&#x670D;&#x52A1;&#x5668;&#x5728;&#x6545;&#x969C;&#x3001;&#x5347;&#x7EA7;&#x3001;&#x91CD;&#x542F;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x80FD;&#x4E0D;&#x95F4;&#x65AD;&#x4E3A;&#x5BA2;&#x6237;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x3002;</li>
+<li>&#x5176;&#x4ED6;&#xFF1A;&#x8BBF;&#x95EE;&#x63A7;&#x5236;&#x3001;&#x6D41;&#x91CF;&#x76D1;&#x63A7;&#x7B49;</li>
+</ul>
+<h1 id="2-kubernetes&#x4E2D;&#x7684;&#x8D1F;&#x8F7D;&#x5747;&#x8861;">2. kubernetes&#x4E2D;&#x7684;&#x8D1F;&#x8F7D;&#x5747;&#x8861;</h1>
+<h2 id="21-kubernetes-service">2.1. kubernetes service</h2>
+<p>service &#x662F;&#x4E00;&#x7EC4;&#x5177;&#x6709;&#x76F8;&#x540C; label pod &#x96C6;&#x5408;&#x7684;&#x62BD;&#x8C61;&#xFF0C;&#x96C6;&#x7FA4;&#x5185;&#x5916;&#x7684;&#x5404;&#x4E2A;&#x670D;&#x52A1;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; service &#x8FDB;&#x884C;&#x4E92;&#x76F8;&#x901A;&#x4FE1;&#x3002;service &#x53EA;&#x662F;&#x5C06;&#x591A;&#x4E2A; pod &#x8FDB;&#x884C;&#x5173;&#x8054;&#xFF0C;&#x5B9E;&#x9645;&#x7684;&#x8DEF;&#x7531;&#x8F6C;&#x53D1;&#x9700;&#x8981;&#x4F9D;&#x8D56;&#x5176;&#x4ED6;&#x7EC4;&#x4EF6;&#x6765;&#x5B9E;&#x73B0;&#x3002;</p>
+<p>&#x63D0;&#x4F9B;&#x80FD;&#x529B;&#x7684;&#x7EC4;&#x4EF6;&#xFF1A;</p>
+<ul>
+<li>kube-proxy&#xFF08;iptables&#x3001;ipvs&#xFF09;</li>
+<li>cilium&#xFF08;ebpf&#xFF09;</li>
+<li>metallb&#xFF08;&#x63D0;&#x4F9B;LoadBalancer Service&#x80FD;&#x529B;&#xFF09;</li>
+</ul>
+<h3 id="211-service-&#x7C7B;&#x578B;">2.1.1. service &#x7C7B;&#x578B;</h3>
+<ul>
+<li>ClusterIP</li>
+<li>NodePort</li>
+<li>LoadBalancer</li>
+<li>ExternelName</li>
+<li>Headless</li>
+</ul>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> v1
+<span class="hljs-attr">kind:</span> Service
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> my-service
+<span class="hljs-attr">  namespace:</span> prod
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  type:</span> ExternalName
+<span class="hljs-attr">  externalName:</span> nginx.default.svc.cluster.local
+
+<span class="hljs-comment"># &#x5F53;&#x67E5;&#x627E;&#x4E3B;&#x673A; my-service.prod.svc.cluster.local &#x65F6;&#xFF0C;&#x96C6;&#x7FA4;DNS&#x670D;&#x52A1;&#x8FD4;&#x56DE; CNAME &#x8BB0;&#x5F55;&#xFF0C;&#x5176;&#x503C;&#x4E3A; nginx.default.svc.cluster.local</span>
+<span class="hljs-comment"># ExternalName &#x8FD9;&#x79CD; service &#x7C7B;&#x578B;&#x7684;&#x4F5C;&#x7528;&#x7C7B;&#x4F3C;&#x8F6F;&#x94FE;&#x63A5;&#x6216;&#x8005;&#x5FEB;&#x6377;&#x65B9;&#x5F0F;&#x3002;</span>
+<span class="hljs-comment"># client -&gt; my svc -&gt; nginx svc -&gt; nginx pod</span>
+</code></pre>
+<h2 id="22-kubernetes-ingress">2.2. kubernetes ingress</h2>
+<h1 id="3-service&#x539F;&#x7406;">3. service&#x539F;&#x7406;</h1>
+<ul>
+<li>endpoints controller &#x662F;&#x8D1F;&#x8D23;&#x751F;&#x6210;&#x548C;&#x7EF4;&#x62A4;&#x6240;&#x6709; endpoints &#x5BF9;&#x8C61;&#x7684;&#x63A7;&#x5236;&#x5668;&#xFF0C;&#x76D1;&#x542C; service &#x548C;&#x5BF9;&#x5E94; pod &#x7684;&#x53D8;&#x5316;&#xFF0C;&#x66F4;&#x65B0;&#x5BF9;&#x5E94; service &#x7684; endpoints &#x5BF9;&#x8C61;&#x3002;&#x5F53;&#x7528;&#x6237;&#x521B;&#x5EFA; service &#x540E; endpoints controller &#x4F1A;&#x76D1;&#x542C; pod &#x7684;&#x72B6;&#x6001;&#xFF0C;&#x5F53; pod &#x5904;&#x4E8E; running &#x4E14;&#x51C6;&#x5907;&#x5C31;&#x7EEA;&#x65F6;&#xFF0C;endpoints controller &#x4F1A;&#x5C06; pod ip &#x8BB0;&#x5F55;&#x5230; endpoints &#x5BF9;&#x8C61;&#x4E2D;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;service &#x7684;&#x5BB9;&#x5668;&#x53D1;&#x73B0;&#x662F;&#x901A;&#x8FC7; endpoints &#x6765;&#x5B9E;&#x73B0;&#x7684;&#x3002;</li>
+<li>kube-proxy &#x4F1A;&#x76D1;&#x542C; service &#x548C; endpoints &#x7684;&#x66F4;&#x65B0;&#x5E76;&#x8C03;&#x7528;&#x5176;&#x4EE3;&#x7406;&#x6A21;&#x5757;&#x5728;&#x4E3B;&#x673A;&#x4E0A;&#x5237;&#x65B0;&#x8DEF;&#x7531;&#x8F6C;&#x53D1;&#x89C4;&#x5219;&#x3002;</li>
+</ul>
+<p><img src="_img/service&#x5DE5;&#x4F5C;&#x539F;&#x7406;.png" alt="&#x5DE5;&#x4F5C;&#x539F;&#x7406;"></p>
+<p>&#x53E6;&#x5916;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x96C6;&#x7FA4;&#x4E2D;&#x90E8;&#x7F72; CoreDNS &#x670D;&#x52A1;&#xFF0C; &#x6765;&#x8FBE;&#x5230;&#x96C6;&#x7FA4;&#x5185;&#x90E8;&#x7684; pod &#x901A;&#x8FC7;DNS &#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x96C6;&#x7FA4;&#x5185;&#x90E8;&#x5404;&#x4E2A;&#x670D;&#x52A1;&#x4E4B;&#x95F4;&#x7684;&#x901A;&#x8BAF;&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#xFF0C;service</p>
+<ul>
+<li>&#x5BB9;&#x5668;&#x53D1;&#x73B0;&#xFF0C;&#x662F;&#x901A;&#x8FC7; endpoints &#x6765;&#x5B9E;&#x73B0;&#xFF1B;</li>
+<li>&#x670D;&#x52A1;&#x53D1;&#x73B0;&#xFF0C;&#x662F;&#x901A;&#x8FC7; DNS &#x6765;&#x5B9E;&#x73B0;&#xFF1B;</li>
+<li>&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x4EE5;&#x53CA;&#x8F6C;&#x53D1;&#x662F;&#x901A;&#x8FC7;kube-proxy&#xFF08;&#x6216;&#x5176;&#x4ED6;&#x66FF;&#x4EE3;&#x7EC4;&#x4EF6;&#xFF09;&#x5B9E;&#x73B0;&#x7684;&#xFF1B;</li>
+</ul>
+<h1 id="4-kube-proxy&#x5B9E;&#x73B0;">4. kube-proxy&#x5B9E;&#x73B0;</h1>
+<p><img src="_img/kube-proxy.png" alt="kube-proxy&#x5B9E;&#x73B0;"></p>
+<p>kube-proxy&#x542F;&#x52A8;&#x65F6;&#x6839;&#x636E;ProxyMode&#x53C2;&#x6570;&#x6765;&#x521D;&#x59CB;&#x5316;&#x5BF9;&#x5E94;&#x7684;proxier&#x5B9E;&#x4F8B;&#xFF0C;&#x6700;&#x7EC8;&#x7684;&#x5237;&#x65B0;&#x89C4;&#x5219;&#x51FD;&#x6570;&#x662F;&#x501F;&#x52A9;BoundedFrequencyRunner&#x6765;&#x8C03;&#x7528;&#x3002;</p>
+<h2 id="41-iptables">4.1. iptables</h2>
+<p><img src="_img/netfilter.png" alt="netfilter"></p>
+<p><img src="_img/iptables.png" alt="iptables"></p>
+<p><img src="_img/iptables-2.png" alt="iptables"></p>
+<p><img src="_img/iptables-3.png" alt="iptables"></p>
+<p>iptables&#x6709;&#x4E94;&#x94FE;&#x3001;&#x4E94;&#x8868;&#x3002;</p>
+<ul>
+<li>filter &#x8868;&#xFF1A;accept&#x3001;drop&#x3001;reject&#xFF1B;</li>
+<li>nat &#x8868;&#xFF1A;dnat&#x3001;snat&#xFF1B;</li>
+<li>mangle &#x8868;&#xFF1A;&#x7528;&#x4E8E;&#x4FEE;&#x6539;&#x6570;&#x636E;&#x5305;&#x7684; IP &#x5934;&#x4FE1;&#x606F;&#xFF1B;</li>
+<li>raw &#x8868;&#xFF1A;iptables &#x662F;&#x6709;&#x72B6;&#x6001;&#x7684;&#xFF0C;&#x5176;&#x5BF9;&#x6570;&#x636E;&#x5305;&#x6709;&#x94FE;&#x63A5;&#x8FFD;&#x8E2A;&#x673A;&#x5236;&#xFF0C;&#x8FDE;&#x63A5;&#x8FFD;&#x8E2A;&#x4FE1;&#x606F;&#x5728; /proc/net/nf_conntrack &#x4E2D;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8BB0;&#x5F55;&#xFF0C;&#x800C; raw &#x662F;&#x7528;&#x6765;&#x53BB;&#x9664;&#x94FE;&#x63A5;&#x8FFD;&#x8E2A;&#x673A;&#x5236;&#x7684;&#xFF1B;</li>
+<li>security &#x8868;&#xFF1A;&#x6700;&#x4E0D;&#x5E38;&#x7528;&#x7684;&#x8868;&#xFF0C;&#x7528;&#x5728; SELinux &#x4E0A;&#xFF1B;</li>
+</ul>
+<p>kube-proxy&#x4E2D;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x529F;&#x80FD;&#xFF1A;</p>
+<ul>
+<li>&#x6D41;&#x91CF;&#x8F6C;&#x53D1;&#xFF1A;DNAT &#x5B9E;&#x73B0; IP &#x5730;&#x5740;&#x548C;&#x7AEF;&#x53E3;&#x7684;&#x6620;&#x5C04;&#xFF1B;</li>
+<li>&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#xFF1A;statistic &#x6A21;&#x5757;&#x4E3A;&#x6BCF;&#x4E2A;&#x540E;&#x7AEF;&#x8BBE;&#x7F6E;&#x6743;&#x91CD;&#xFF1B;</li>
+<li>&#x4F1A;&#x8BDD;&#x4FDD;&#x6301;&#xFF1A;recent &#x6A21;&#x5757;&#x8BBE;&#x7F6E;&#x4F1A;&#x8BDD;&#x4FDD;&#x6301;&#x65F6;&#x95F4;&#xFF1B;</li>
+</ul>
+<p>syncProxyRules&#xFF1A;&#x4E3A; service&#x3001;clusterIP&#x3001;externalIP&#x3001;ingress&#x3001;nodePort&#x3001;endpoint &#x751F;&#x6210;&#x89C4;&#x5219;&#x94FE;&#xFF0C;&#x4F7F;&#x7528;iptables-restore&#x5237;&#x65B0;&#x89C4;&#x5219;&#x3002;</p>
+<h2 id="42-ipvs">4.2. ipvs</h2>
+<p><img src="_img/ipvs.png" alt="ipvs"></p>
+<p>&#x4E09;&#x79CD;&#x6A21;&#x5F0F;&#xFF1A;</p>
+<ul>
+<li>DR</li>
+<li>NAT</li>
+<li>TUN</li>
+</ul>
+<p>&#x53EA;&#x6709; NAT &#x6A21;&#x5F0F;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x7AEF;&#x53E3;&#x6620;&#x5C04;&#x3002;&#x6240;&#x4EE5; kubernetes &#x4E2D; ipvs &#x7684;&#x5B9E;&#x73B0;&#x4F7F;&#x7528;&#x4E86; NAT &#x6A21;&#x5F0F;&#xFF0C;&#x5C06; service[ip:port] &#x6620;&#x5C04;&#x4E3A; container[ip:port]&#x3002;</p>
+<p><img src="_img/ipvs-nat.png" alt="ipvs-nat"></p>
+<p>linux &#x5185;&#x6838;&#x539F;&#x751F;&#x7684; ipvs &#x6A21;&#x5F0F;&#x53EA;&#x652F;&#x6301; DNAT&#xFF0C;&#x4E0D;&#x652F;&#x6301; SNAT&#xFF0C;&#x6240;&#x4EE5;&#x8FD8;&#x662F;&#x9700;&#x8981;&#x4F9D;&#x8D56;iptables&#x3002;&#x4F46;&#x65E0;&#x8BBA;&#x6709;&#x591A;&#x5C11; pod/service&#xFF0C;iptables &#x7684;&#x89C4;&#x5219;&#x6570;&#x90FD;&#x662F;&#x56FA;&#x5B9A;&#x7684;&#x3002;</p>
+<p>syncProxyRules&#xFF1A;&#x751F;&#x6210;ipvs&#x89C4;&#x5219;&#x3001;ipset&#x5217;&#x8868;&#xFF0C;&#x6700;&#x540E;&#x540C;&#x6B65;ipset&#xFF0C;&#x5237;&#x65B0;iptables&#x89C4;&#x5219;&#x3002;</p>
+<h2 id="43-&#x533A;&#x522B;">4.3. &#x533A;&#x522B;</h2>
+<p>&#x4E8C;&#x8005;&#x90FD;&#x662F;&#x57FA;&#x4E8E;netfilter&#xFF0C;</p>
+<ul>
+<li>iptables&#xFF1A;&#x5E95;&#x5C42;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x4E3A;&#x94FE;&#x8868;&#xFF1B;&#x53EA;&#x652F;&#x6301;&#x968F;&#x673A;&#x3001;&#x8F6E;&#x8BE2;&#x4E24;&#x79CD;&#x7B97;&#x6CD5;&#xFF1B;&#x5DE5;&#x5177;&#x4E3A;iptables</li>
+<li><p>ipvs&#xFF1A;&#x5E95;&#x5C42;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x4E3A;&#x54C8;&#x5E0C;&#x8868;&#xFF1B;&#x652F;&#x6301;&#x591A;&#x8FBE;8&#x79CD;&#x7B97;&#x6CD5;&#xFF1B;&#x5DE5;&#x5177;&#x4E3A;ipvsadm</p>
+<p>ipvs &#x8FD8;&#x652F;&#x6301; realserver &#x8FD0;&#x884C;&#x72B6;&#x51B5;&#x68C0;&#x67E5;&#x3001;&#x8FDE;&#x63A5;&#x91CD;&#x8BD5;&#x3001;&#x7AEF;&#x53E3;&#x6620;&#x5C04;&#x3001;&#x4F1A;&#x8BDD;&#x4FDD;&#x6301;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+</li>
+</ul>
+<h1 id="5-cilium">5. cilium</h1>
+<p>cilium&#x76F4;&#x63A5;&#x5728;lxc&#x7F51;&#x5361;&#x6302;&#x8F7D;tc ingress&#x7A0B;&#x5E8F;[from-container]&#xFF0C;&#x9488;&#x5BF9;&#x8BBF;&#x95EE;service&#x7684;&#x6D41;&#x91CF;&#xFF0C;&#x6839;&#x636E;&#x8D1F;&#x8F7D;&#x7B97;&#x6CD5;[random&#x3001;maglev]&#x9009;&#x62E9;backend&#x3002;</p>
+<h1 id="6-metallb">6. metallb</h1>
 
                                 
                                 </section>
@@ -920,7 +1070,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"负载均衡","level":"1.3.2","depth":2,"next":{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]},"previous":{"title":"netfilter","level":"1.3.1.10","depth":3,"path":"network/basic/netfilter.md","ref":"./network/basic/netfilter.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/lb/index.md","mtime":"2023-02-19T13:48:35.427Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-27T15:49:57.793Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"负载均衡","level":"1.3.2","depth":2,"next":{"title":"LVS","level":"1.3.2.1","depth":3,"path":"network/lb/LVS.md","ref":"./network/lb/LVS.md","articles":[]},"previous":{"title":"netfilter","level":"1.3.1.10","depth":3,"path":"network/basic/netfilter.md","ref":"./network/basic/netfilter.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/lb/index.md","mtime":"2023-03-28T14:09:32.236Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-03-28T15:18:23.842Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

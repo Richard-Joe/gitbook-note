@@ -205,6 +205,83 @@ Linux 6.2引入了多级LRU：
 - 借鉴了老化算法的思路，按照页面的生成（分配）时间将LRU表分为若干Generation。
 - 在LRU页面扫面的时候，使用增量的方式扫描，根据周期内访问过的页面对页表进行扫描，除非这段时间内访问的内存分布非常稀疏，通常页表相对于倒排页表有更好的局部性，进而可以提升CPU的缓存命中率。
 
+### 2.8. 零拷贝技术
+
+【磁盘高速缓存】PageCache 的优点主要是两个：
+
+- **缓存最近被访问的数据**；
+- **预读功能**；
+
+#### 2.8.1. DMA
+
+![dma](images/0/dma.png)
+
+#### 2.8.2. read + write
+
+![read_write](images/0/read_write.png)
+
+发生了：
+
+- **4 次用户态与内核态的上下文切换**：两次系统调用；
+- **4 次数据拷贝**：2次CPU拷贝，2次DMA拷贝；
+
+#### 2.8.3. mmap + write
+
+![mmap_write](images/0/mmap_write.png)
+
+- **4 次用户态与内核态的上下文切换**
+- **3 次数据拷贝**
+
+#### 2.8.4. sendfile
+
+```c
+ssize_t sendfile(int out_fd, int in_fd, off_t *offset, size_t count);
+```
+
+![sendfile](images/0/sendfile.png)
+
+- **2 次用户态与内核态的上下文切换**
+- **3 次数据拷贝**
+
+#### 2.8.5. 什么是真正的零拷贝？
+
+`sendfile() + 网卡 SG-DMA（The Scatter-Gather Direct Memory Access）技术。`
+
+```bash
+$ ethtool -k eth0 | grep scatter-gather
+scatter-gather: on
+```
+
+![sg_dma](images/0/sg_dma.png)
+
+- **2 次用户态与内核态的上下文切换**
+- **2 次数据拷贝**：无需CPU参与。
+
+这就是所谓的**零拷贝（Zero-copy）技术**，全程没有通过 CPU 来搬运数据，所有的数据都是通过 DMA 来进行传输的。
+
+#### 2.8.6. kafka
+
+kafka中文件传输，调用了Java NIO库中的 `transferTo` 方法，最后就会使用到 `sendfile()` 系统调用。
+
+#### 2.8.7. 大文件应该怎么传输？
+
+- **传输大文件的时候，使用「异步 I/O + 直接 I/O」**；
+	- 异步I/O表示无阻塞；
+	- 直接I/O表示绕过PageCache；
+- **传输小文件的时候，则使用「零拷贝技术」**；
+
+比如在nginx中，可以配置如下：
+
+当文件大小大于 directio 值后，使用「异步 I/O + 直接 I/O」，否则使用「零拷贝技术」。
+
+```nginx
+location /video/ { 
+    sendfile on;
+    aio on;
+    directio 1024m;
+}
+```
+
 ## 3. 网络篇
 
 ## 4. 内核篇

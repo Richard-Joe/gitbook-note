@@ -42,6 +42,8 @@
 
 * [内核]()
   * [进程调度](./kernel/进程调度.md)
+    * [CFS](./kernel/ps-1-cfs.md)
+    * [EEVDF](./kernel/ps-2-eevdf.md)
   * [内存管理](./kernel/内存管理.md)
     * [将虚拟地址转换为物理地址](./kernel/mm-1-va2pa.md)
     * [物理内存模型](./kernel/mm-2-physical-memory-model.md)
@@ -56,6 +58,7 @@
   * [老一套](./BAGU/0_classic.md)
   * [一致性hash](./BAGU/1_consistent_hash.md)
   * [Golang](./BAGU/2_golang.md)
+  * [Redis](./BAGU/3_redis.md)
 
 * [杂项]()
   * [centos安装v2ray](./misc/centos-install-v2ray.md)
