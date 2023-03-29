@@ -17,7 +17,7 @@
     * [路由子系统](./network/basic/route.md)
     * [netfilter](./network/basic/netfilter.md)
 
-  * [负载均衡](./network/lb/index.md)
+  * [负载均衡](./network/lb/LB.md)
     * [LVS](./network/lb/LVS.md)
     * [Maglev](./network/lb/Maglev.md)
 
@@ -39,6 +39,8 @@
 * [XDP](./XDP/index.md)
 
 * [cilium](./cilium/index.md)
+
+* [Prometheus](./Prometheus/prometheus.md)
 
 * [内核]()
   * [进程调度](./kernel/进程调度.md)
