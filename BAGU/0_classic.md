@@ -621,7 +621,7 @@ $ ss -lnt
 State      Recv-Q     Send-Q           Local Address:Port            Peer Address:Port     Process                  
 LISTEN     3          33                     0.0.0.0:1234                 0.0.0.0:*
 
-# Send-Q：表示TCP全连接队列的最大长度。代码listen(server_fd, 33);
+# Send-Q：表示TCP全连接队列的最大长度。
 # Recv-Q：表示当前已完成三次握手并等待服务端 accept() 的 TCP 连接；
 
 $ ss -nt
@@ -633,6 +633,17 @@ ESTAB     78         0                    127.0.0.1:1234               127.0.0.1
 # Send-Q：已发送但未收到确认的字节数；
 # Recv-Q：已收到但未被应用进程读取的字节数；
 ```
+
+TCP全连接队列最大长度由 `min(somaxconn, backlog)` 控制：
+
+- /proc/sys/net/core/somaxconn
+- int listen(int sockfd, int backlog); 中的backlog
+
+TCP半连接队列长度由三个参数控制，计算比较复杂：
+
+- int listen(int sockfd, int backlog); 中的backlog
+- /proc/sys/net/core/somaxconn
+- /proc/sys/net/ipv4/tcp_max_syn_backlog
 
 ## 参考
 
