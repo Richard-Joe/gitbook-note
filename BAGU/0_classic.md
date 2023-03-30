@@ -616,7 +616,7 @@ ps -o majflt,minflt -p <pid>
 
 ### 6.2. ss
 
-```
+```bash
 $ ss -lnt
 State      Recv-Q     Send-Q           Local Address:Port            Peer Address:Port     Process                  
 LISTEN     3          33                     0.0.0.0:1234                 0.0.0.0:*
