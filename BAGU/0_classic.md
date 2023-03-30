@@ -614,6 +614,26 @@ ARM架构下支持 7 种异常：
 ps -o majflt,minflt -p <pid>
 ```
 
+### 6.2. ss
+
+```
+$ ss -lnt
+State      Recv-Q     Send-Q           Local Address:Port            Peer Address:Port     Process                  
+LISTEN     3          33                     0.0.0.0:1234                 0.0.0.0:*
+
+# Send-Q：表示TCP全连接队列的最大长度。代码listen(server_fd, 33);
+# Recv-Q：表示当前已完成三次握手并等待服务端 accept() 的 TCP 连接；
+
+$ ss -nt
+State     Recv-Q     Send-Q           Local Address:Port            Peer Address:Port      Process                
+ESTAB     78         0                    127.0.0.1:1234               127.0.0.1:45288               
+ESTAB     78         0                    127.0.0.1:1234               127.0.0.1:45274                 
+ESTAB     78         0                    127.0.0.1:1234               127.0.0.1:45300
+
+# Send-Q：已发送但未收到确认的字节数；
+# Recv-Q：已收到但未被应用进程读取的字节数；
+```
+
 ## 参考
 
 https://blog.csdn.net/shulianghan/article/details/80163777
