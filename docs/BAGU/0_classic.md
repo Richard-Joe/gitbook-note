@@ -305,22 +305,22 @@ location /video/ {
 
 **那么当如果一个 IP 分片丢失，整个 IP 报文的所有分片都得重传。为了达到最佳的传输效能 TCP 协议在建立连接的时候通常要协商双方的 MSS 值，当 TCP 层发现数据超过 MSS 时，则就先会进行分片，当然由它形成的 IP 包的长度也就不会大于 MTU ，自然也就不用 IP 分片了。**
 
-##### 3.1.1.3. 第一次握手丢失了，会发生什么？
+##### 3.1.1.3. 第一次握手（SYN）丢失了，会发生什么？
 
 当客户端在 **1 秒** 后没收到服务端的 SYN-ACK 报文后，客户端就会重发 SYN 报文。客户端的 SYN 报文最大重传次数由 **`tcp_syn_retries`** 内核参数控制。默认值是5。重传后等待时间是上一次的 2 倍。`1s -> 2s -> 4s -> 8s -> 16s -> 32s`
 
-##### 3.1.1.4. 第二次握手丢失了，会发生什么？
+##### 3.1.1.4. 第二次握手（SYN+ACK）丢失了，会发生什么？
 
 - 客户端重传 SYN 报文；
 - 服务端重传 SYN-ACK 报文；最大重传次数由 **`tcp_synack_retries`** 内核参数决定。（逻辑控制跟上面类似。）
 
-##### 3.1.1.5. 第三次握手丢失了，会发生什么？
+##### 3.1.1.5. 第三次握手（ACK）丢失了，会发生什么？
 
 此时，客户端状态已经进入到 ESTABLISH 状态。
 
 - 服务端重传 SYN-ACK 报文；
 
-##### 3.1.1.6. SYN攻击
+##### 3.1.1.6. SYN 攻击
 
 在 TCP 三次握手的时候，Linux 内核会维护两个队列，它们都有最大长度限制，超过限制时，默认情况都会丢弃报文。
 
@@ -355,6 +355,51 @@ location /video/ {
 
 结论：**如果「没有数据要发送」，同时「没有开启 TCP_QUICKACK」，那么服务端的FIN和ACK就会合并传输，这样就出现了三次挥手。**
 
+##### 3.1.2.2. 第一次挥手（FIN）丢失了，会发生什么？
+
+客户端此时位于 FIN_WAIT_1 状态，重传 FIN 报文，重传次数由 `tcp_orphan_retries` 参数控制。次数用完，则进入 CLOSE 状态。
+
+##### 3.1.2.3. 第二次挥手（ACK）丢失了，会发生什么？
+
+客户端此时位于 FIN_WAIT_1 状态，重传 FIN 报文，重传次数由 `tcp_orphan_retries` 参数控制。次数用完，则进入 CLOSE 状态。
+
+##### 3.1.2.4. 第三次挥手（FIN）丢失了，会发生什么？
+
+客户端此时位于 FIN_WAIT_2 状态，服务端此时位于 LAST_ACK 状态；
+
+服务端就会重传 FIN 报文，重传次数由 `tcp_orphan_retries` 参数控制。次数用完，则进入 CLOSE 状态。
+
+客户端由于 FIN_WAIT_2 状态有超时限制，超时后也会进入 CLOSE 状态。
+
+##### 3.1.2.5. 第四次挥手（ACK）丢失了，会发生什么？
+
+客户端此时位于 TIME_WAIT 状态，服务端此时位于 LAST_ACK 状态；
+
+服务端就会重传 FIN 报文，重传次数由 `tcp_orphan_retries` 参数控制。次数用完，则进入 CLOSE 状态。
+
+客户端进入位于 TIME_WAIT 状态后，会开启时长为 2MSL 的定时器，如果途中再次收到第三次挥手（FIN 报文）后，就会重置定时器，当等待 2MSL 时长后，客户端就会进入 CLOSE 状态。
+
+##### 3.1.2.6. 为什么 TIME_WAIT 等待的时间是 2MSL？
+
+MSL 是 Maximum Segment Lifetime，报文最大生存时间。一个 MSL 默认是 30 秒。
+
+考虑第四次挥手（ACK）丢了，服务端会重传 FIN ，这一去一回是 2MSL ，这样允许报文丢失一次。
+
+##### 3.1.2.7. 为什么需要 TIME_WAIT 状态？
+
+- 确保两个方向上的数据包都在网络中消失，不会对后续的连接（相同四元组）产生影响。
+- 等待足够的时间以确保最后的 ACK 能让 被动关闭方 接收，从而帮助其正常关闭。
+
+##### 3.1.2.8. TIME_WAIT 过多
+
+危害：占用文件描述符，占用端口，占用内存等；
+
+如何优化？
+
+- 打开 net.ipv4.tcp_tw_reuse 和 net.ipv4.tcp_timestamps 选项；
+- net.ipv4.tcp_max_tw_buckets
+- 程序中使用 SO_LINGER ，应用强制使用 RST 关闭。（不建议使用）
+
 #### 3.1.3. socket 编程
 
 ![tcp_4](images/0/tcp_4.png)
@@ -372,6 +417,20 @@ location /video/ {
 **首先，如果服务端没有listen，内核找不到监听端口的socket，会发送reset包。**
 
 **但，TCP客户端，可以自己连自己。**
+
+#### 3.1.4. TCP 粘包
+
+TCP 是面向字节流的协议。**当两个消息的某个部分内容被分到同一个 TCP 报文时**，就是我们常说的 TCP 粘包问题，这时接收方不知道消息的边界的话，是无法读出有效的消息。
+
+如何解决：
+
+- 特殊字符作为边界。比如HTTP中的\r\n
+- 自定义消息结构。比如由包头和数据组成。
+
+#### 3.1.5. TCP keepalive 和 HTTP keepalive
+
+- TCP keepalive：内核实现，用来保活；
+- HTTP keepalive：应用层实现，用来连接复用；
 
 ## 4. 内核篇
 
@@ -554,6 +613,37 @@ ARM架构下支持 7 种异常：
 ```bash
 ps -o majflt,minflt -p <pid>
 ```
+
+### 6.2. ss
+
+```bash
+$ ss -lnt
+State      Recv-Q     Send-Q           Local Address:Port            Peer Address:Port     Process                  
+LISTEN     3          33                     0.0.0.0:1234                 0.0.0.0:*
+
+# Send-Q：表示TCP全连接队列的最大长度。
+# Recv-Q：表示当前已完成三次握手并等待服务端 accept() 的 TCP 连接；
+
+$ ss -nt
+State     Recv-Q     Send-Q           Local Address:Port            Peer Address:Port      Process                
+ESTAB     78         0                    127.0.0.1:1234               127.0.0.1:45288               
+ESTAB     78         0                    127.0.0.1:1234               127.0.0.1:45274                 
+ESTAB     78         0                    127.0.0.1:1234               127.0.0.1:45300
+
+# Send-Q：已发送但未收到确认的字节数；
+# Recv-Q：已收到但未被应用进程读取的字节数；
+```
+
+TCP全连接队列最大长度由 `min(somaxconn, backlog)` 控制：
+
+- /proc/sys/net/core/somaxconn
+- int listen(int sockfd, int backlog); 中的backlog
+
+TCP半连接队列长度由三个参数控制，计算比较复杂：
+
+- int listen(int sockfd, int backlog); 中的backlog
+- /proc/sys/net/core/somaxconn
+- /proc/sys/net/ipv4/tcp_max_syn_backlog
 
 ## 参考
 
