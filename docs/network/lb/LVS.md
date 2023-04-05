@@ -1,4 +1,5 @@
-# LVS-理论知识
+# LVS
+## LVS-理论知识
 
 - LVS: Introduction
 
@@ -154,3 +155,7 @@
 - LVS 中的持久化处理
 - 针对 DoS 攻击的 LVS 防御策略
 - IPVS 连接同步
+
+## LVS-HOWTO
+
+http://www.austintek.com/LVS/LVS-HOWTO/HOWTO/
