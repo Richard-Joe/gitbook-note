@@ -19,6 +19,7 @@
 
   * [负载均衡](./network/lb/LB.md)
     * [LVS](./network/lb/LVS.md)
+      * [实验](./network/lb/lvs-test.md)
     * [Maglev](./network/lb/Maglev.md)
 
   * [流量控制](./network/traffic_control/tc.md)
