@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Systemtap · GitBook</title>
+        <title>fork · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -69,10 +69,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="rcu.html" />
+    <link rel="next" href="kdump.html" />
     
-    
-    <link rel="prev" href="kprobe.html" />
     
 
     </head>
@@ -684,7 +682,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.3.1" data-path="syscall-fork.html">
+        <li class="chapter active" data-level="1.10.3.1" data-path="syscall-fork.html">
             
                 <a href="syscall-fork.html">
             
@@ -741,7 +739,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.10.7" data-path="systemtap.html">
+        <li class="chapter " data-level="1.10.7" data-path="systemtap.html">
             
                 <a href="systemtap.html">
             
@@ -970,7 +968,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Systemtap</a>
+        <a href=".." >fork</a>
     </h1>
 </div>
 
@@ -985,16 +983,137 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="systemtap">Systemtap</h1>
-<h2 id="&#x5DE5;&#x4F5C;&#x539F;&#x7406;">&#x5DE5;&#x4F5C;&#x539F;&#x7406;</h2>
-<pre><code class="lang-bash">scripts -&gt; parse -&gt; translate -&gt; build -&gt; run
+                                <h1 id="kernelclone">kernel_clone</h1>
+<p>&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x901A;&#x8FC7; <code>fork()</code> &#x51FD;&#x6570;&#xFF0C; <code>vfork()</code> &#x51FD;&#x6570;&#xFF0C; <code>pthread_create()</code> &#x51FD;&#x6570;&#x521B;&#x5EFA;&#x8FDB;&#x7A0B;/&#x7EBF;&#x7A0B;&#xFF0C;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x901A;&#x8FC7; <code>kernel_thread()</code> &#x51FD;&#x6570;&#x521B;&#x5EFA;&#x7EBF;&#x7A0B;&#xFF0C;&#x6700;&#x7EC8;&#x90FD;&#x4F1A;&#x901A;&#x8FC7;<code>kernel_clone()</code> &#x51FD;&#x6570;&#x521B;&#x5EFA;&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-keyword">pid_t</span> kernel_clone(<span class="hljs-keyword">struct</span> kernel_clone_args *args)
+{
+    <span class="hljs-keyword">struct</span> task_struct *p;
+    <span class="hljs-keyword">struct</span> pid *pid;
+
+    ...
+    <span class="hljs-comment">// &#x521B;&#x5EFA;&#x8FDB;&#x7A0B;&#x7684;&#x4E3B;&#x8981;&#x51FD;&#x6570;&#xFF0C;&#x5305;&#x62EC;&#x590D;&#x5236;&#x7236;&#x8FDB;&#x7A0B;&#x7684;&#x76F8;&#x5173;&#x8D44;&#x6E90;&#xFF1B;</span>
+    p = copy_process(<span class="hljs-literal">NULL</span>, trace, NUMA_NO_NODE, args);
+    ...
+    <span class="hljs-comment">// &#x4E3A;&#x5B50;&#x8FDB;&#x7A0B;&#x5206;&#x914D;PID</span>
+    pid = get_task_pid(p, PIDTYPE_PID);
+    ...
+    <span class="hljs-comment">// &#x5C06;&#x5B50;&#x8FDB;&#x7A0B;&#x52A0;&#x5165;&#x5C31;&#x7EEA;&#x961F;&#x5217;&#xFF0C;&#x7B49;&#x5F85;&#x88AB;&#x8C03;&#x5EA6;&#xFF1B;</span>
+    wake_up_new_task(p);
+    ...
+}
 </code></pre>
-<p><img src="images/systemtap.png" alt="systemtap"></p>
-<h2 id="&#x5B66;&#x4E60;&#x8D44;&#x6599;">&#x5B66;&#x4E60;&#x8D44;&#x6599;</h2>
-<p><a href="https://sourceware.org/systemtap/documentation.html" target="_blank">https://sourceware.org/systemtap/documentation.html</a>
-<a href="https://www.sourceware.org/systemtap/examples/" target="_blank">https://www.sourceware.org/systemtap/examples/</a>
-<a href="https://github.com/lichuang/awesome-systemtap-cn" target="_blank">https://github.com/lichuang/awesome-systemtap-cn</a>
-<a href="https://github.com/brendangregg/systemtap-lwtools" target="_blank">https://github.com/brendangregg/systemtap-lwtools</a></p>
+<h2 id="copyprocess">copy_process</h2>
+<pre><code class="lang-c">copy_process()
+  | p = dup_task_struct(current, node); <span class="hljs-comment">// &#x521B;&#x5EFA;&#x65B0;&#x7684;task_struct&#x7ED3;&#x6784;&#x4F53;&#xFF0C;&#x7136;&#x540E;&#x590D;&#x5236;&#x7236;&#x8FDB;&#x7A0B;&#x7684;task_struct&#x5230;&#x5B50;&#x8FDB;&#x7A0B;&#xFF1B;</span>
+    | tsk = alloc_task_struct_node(node); <span class="hljs-comment">// &#x4ECE;kmem_cache&#x4E2D;&#x521B;&#x5EFA;task_struct&#x7ED3;&#x6784;&#x4F53;&#xFF1B;</span>
+    | err = arch_dup_task_struct(tsk, orig); <span class="hljs-comment">// &#x590D;&#x5236;&#x7236;&#x8FDB;&#x7A0B;&#x7684;task_struct&#x5230;&#x5B50;&#x8FDB;&#x7A0B;&#xFF1B;</span>
+    | err = alloc_thread_stack_node(tsk, node); <span class="hljs-comment">// &#x4E3A;task_struct&#x5206;&#x914D;&#x5185;&#x6838;&#x6808;&#x7A7A;&#x95F4;&#xFF1B;</span>
+    | clear_tsk_need_resched(tsk); <span class="hljs-comment">// &#x6E05;&#x7A7A;&#x5B50;&#x8FDB;&#x7A0B;&#x9700;&#x8981;&#x8C03;&#x5EA6;&#x7684;&#x6807;&#x5FD7;&#x4F4D;&#xFF1B;</span>
+    | set_task_stack_end_magic(tsk); <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x6808;&#x9876;&#x6807;&#x8BB0;&#xFF0C;&#x7528;&#x6765;&#x68C0;&#x6D4B;&#x6808;&#x6EA2;&#x51FA;&#xFF1B;</span>
+
+  | retval = copy_creds(p, clone_flags); <span class="hljs-comment">// &#x590D;&#x5236;&#x7236;&#x8FDB;&#x7A0B;&#x7684;credentials&#xFF1B;</span>
+
+  | retval = sched_fork(clone_flags, p); 
+    | __sched_fork(clone_flags, p); <span class="hljs-comment">// &#x5BF9;task_struct&#x4E2D;&#x4E0E;&#x8C03;&#x5EA6;&#x76F8;&#x5173;&#x7684;&#x4FE1;&#x606F;&#x8FDB;&#x884C;&#x521D;&#x59CB;&#x5316;&#xFF1B;</span>
+    | p-&gt;__state = TASK_NEW; <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x8FDB;&#x7A0B;&#x72B6;&#x6001;&#xFF0C;&#x8868;&#x793A;&#x65B0;&#x521B;&#x5EFA;&#x7684;&#x8FDB;&#x7A0B;&#xFF1B;</span>
+    | p-&gt;prio = current-&gt;normal_prio; <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;&#xFF1B;</span>
+    | <span class="hljs-keyword">if</span> (rt_prio(p-&gt;prio)) p-&gt;sched_class = &amp;rt_sched_class;
+    | <span class="hljs-keyword">else</span> p-&gt;sched_class = &amp;fair_sched_class; <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x8FDB;&#x7A0B;&#x8C03;&#x5EA6;&#x7C7B;&#xFF1B;</span>
+    | init_task_preempt_count(p); <span class="hljs-comment">// &#x521D;&#x59CB;&#x5316;&#x8FDB;&#x7A0B;preempt_count&#xFF1B;</span>
+
+  | retval = copy_files(clone_flags, p); <span class="hljs-comment">// &#x590D;&#x5236;&#x8FDB;&#x7A0B;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x8868;&#xFF1B;</span>
+
+  | retval = copy_fs(clone_flags, p); <span class="hljs-comment">// &#x590D;&#x5236;&#x8FDB;&#x7A0B;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4FE1;&#x606F;&#xFF1B;&#xFF08;&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#x3001;&#x6839;&#x76EE;&#x5F55;&#x3001;&#x6302;&#x8F7D;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7B49;&#x4FE1;&#x606F;&#xFF09;</span>
+
+  | retval = copy_sighand(clone_flags, p); <span class="hljs-comment">// &#x590D;&#x5236;&#x8FDB;&#x7A0B;&#x7684;&#x4FE1;&#x53F7;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#xFF08;signal handler&#xFF09;&#x8868;&#xFF1B;</span>
+
+  | retval = copy_signal(clone_flags, p); <span class="hljs-comment">// &#x590D;&#x5236;&#x4FE1;&#x53F7;&#x76F8;&#x5173;&#x7684;&#x6761;&#x4EF6;&#xFF0C;&#x6BD4;&#x5982;rlimit&#x3001;oom_score_adj&#xFF1B;</span>
+
+  | retval = copy_mm(clone_flags, p); <span class="hljs-comment">// &#x590D;&#x5236;&#x8FDB;&#x7A0B;&#x7684;&#x5185;&#x5B58;&#x4FE1;&#x606F;&#xFF1B;</span>
+    | <span class="hljs-keyword">if</span> (clone_flags &amp; CLONE_VM) mm = oldmm; <span class="hljs-comment">// &#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E86;CLONE_VM&#xFF0C;&#x65B0;&#x8FDB;&#x7A0B;&#x5219;&#x4E0E;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;&#x5171;&#x4EAB;mm&#xFF1B;</span>
+    | <span class="hljs-keyword">else</span> mm = dup_mm(tsk, current-&gt;mm); <span class="hljs-comment">// &#x5426;&#x5219;&#xFF0C;&#x590D;&#x5236;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;&#x7684;mm_struct&#xFF1B;&#xFF08;&#x5206;&#x914D;&#x4E00;&#x4E2A;mm_struct&#xFF0C;&#x590D;&#x5236;&#x7236;&#x8FDB;&#x7A0B;&#x7684;VMA&#xFF09;</span>
+
+  | retval = copy_namespaces(clone_flags, p); <span class="hljs-comment">// &#x6839;&#x636E;clone&#x65F6;&#x4F20;&#x7684;&#x6807;&#x5FD7;&#xFF0C;&#x6765;&#x4E3A;&#x5B50;&#x8FDB;&#x7A0B;&#x521B;&#x5EFA;&#x72EC;&#x7ACB;&#x7684;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#xFF08;mnt/uts/ipc/pid/cgroup/net/time&#xFF09;</span>
+
+  | retval = copy_thread(p, args); <span class="hljs-comment">// &#x590D;&#x5236;&#x8FDB;&#x7A0B;&#x7684;CPU&#x4F53;&#x7CFB;&#x7ED3;&#x6784;&#x7684;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#xFF1B;</span>
+
+  | pid = alloc_pid(...); <span class="hljs-comment">// &#x5206;&#x914D;pid&#x7ED3;&#x6784;;</span>
+
+  | copy_seccomp(p); <span class="hljs-comment">// &#x590D;&#x5236;&#x7236;&#x8FDB;&#x7A0B;&#x7684;&#x5B89;&#x5168;&#x8FC7;&#x6EE4;&#x5668;&#xFF08;seccomp filter&#xFF09;;</span>
+</code></pre>
+<h3 id="copythread">copy_thread</h3>
+<pre><code class="lang-c"><span class="hljs-keyword">struct</span> task_struct {
+    <span class="hljs-keyword">struct</span> thread_info        thread_info;
+    ...
+    <span class="hljs-keyword">void</span>                *<span class="hljs-built_in">stack</span>;
+    ...
+    <span class="hljs-comment">/* CPU-specific state of this task: */</span>
+    <span class="hljs-keyword">struct</span> thread_struct        thread;
+};
+
+<span class="hljs-comment">/* arm64 */</span>
+<span class="hljs-keyword">struct</span> cpu_context {
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> x19;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> x20;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> x21;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> x22;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> x23;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> x24;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> x25;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> x26;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> x27;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> x28;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> fp;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> sp;
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> pc;
+};
+
+<span class="hljs-keyword">struct</span> thread_struct {
+    <span class="hljs-keyword">struct</span> cpu_context    cpu_context;    <span class="hljs-comment">/* cpu context */</span>
+    ...
+};
+
+<span class="hljs-keyword">struct</span> pt_regs {
+    <span class="hljs-keyword">union</span> {
+        <span class="hljs-keyword">struct</span> user_pt_regs user_regs;
+        <span class="hljs-keyword">struct</span> {
+            u64 regs[<span class="hljs-number">31</span>];
+            u64 sp;
+            u64 pc;
+            u64 pstate;
+        };
+    };
+    ...
+};
+</code></pre>
+<ul>
+<li><code>cpu_context</code>&#xFF1A;&#x5728;&#x8FDB;&#x7A0B;&#x5207;&#x6362;&#x65F6;&#x7528;&#x6765;&#x4FDD;&#x5B58;&#x4E0A;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x5BC4;&#x5B58;&#x5668;&#x7684;&#x503C;&#xFF1B;</li>
+<li><code>thread_struct</code>&#xFF1A;&#x5728;&#x5185;&#x6838;&#x6001;&#x7684;&#x4E24;&#x4E2A;&#x8FDB;&#x7A0B;&#x53D1;&#x751F;&#x5207;&#x6362;&#x65F6;&#xFF0C;&#x7528;&#x6765;&#x4FDD;&#x5B58;&#x4E0A;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x76F8;&#x5173;&#x5BC4;&#x5B58;&#x5668;&#xFF1B;</li>
+<li><code>pt_regs</code>&#xFF1A;&#x5F53;&#x7528;&#x6237;&#x6001;&#x8FDB;&#x7A0B;&#x53D1;&#x751F;&#x5F02;&#x5E38;&#xFF08;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x3001;&#x4E2D;&#x65AD;&#x7B49;&#xFF09;&#x5E76;&#x8FDB;&#x5165;&#x5185;&#x6838;&#x6001;&#x65F6;&#xFF0C;&#x7528;&#x6765;&#x4FDD;&#x5B58;&#x7528;&#x6237;&#x6001;&#x8FDB;&#x7A0B;&#x7684;&#x5BC4;&#x5B58;&#x5668;&#x72B6;&#x6001;&#xFF1B;</li>
+</ul>
+<pre><code class="lang-c">copy_thread()
+  | <span class="hljs-built_in">memset</span>(&amp;p-&gt;thread.cpu_context, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> cpu_context));
+  | p-&gt;thread.cpu_context.pc = (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>)ret_from_fork; <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x65B0;&#x8FDB;&#x7A0B;&#x7684;PC&#x6307;&#x9488;&#x4E3A;ret_from_fork&#xFF1B;&#x65B0;&#x8FDB;&#x7A0B;&#x8FD0;&#x884C;&#x65F6;&#x4F1A;&#x4ECE;ret_from_fork&#x8FD0;&#x884C;&#xFF0C;&#x5B83;&#x662F;&#x6C47;&#x7F16;&#x8BED;&#x8A00;&#x7F16;&#x5199;&#x7684;&#xFF1B;</span>
+</code></pre>
+<h2 id="wakeupnewtask">wake_up_new_task</h2>
+<pre><code class="lang-c">wake_up_new_task(<span class="hljs-keyword">struct</span> task_struct *p)
+  | WRITE_ONCE(p-&gt;__state, TASK_RUNNING); <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x8FDB;&#x7A0B;&#x72B6;&#x6001;&#x4E3A;TASK_RUNNING</span>
+  | __set_task_cpu(p, select_task_rq(p, task_cpu(p), WF_FORK)); <span class="hljs-comment">// &#x9009;&#x62E9;&#x5728;&#x54EA;&#x4E2A;CPU&#x4E0A;&#x8FD0;&#x884C;&#xFF1B;</span>
+  | activate_task(rq, p, ENQUEUE_NOCLOCK); <span class="hljs-comment">// &#x52A0;&#x5165;&#x8BE5;CPU&#x7684;&#x5C31;&#x7EEA;&#x961F;&#x5217;&#xFF0C;&#x7B49;&#x5F85;&#x8C03;&#x5EA6;&#xFF1B;</span>
+</code></pre>
+<h2 id="retfromfork">ret_from_fork</h2>
+<pre><code class="lang-armasm"><span class="hljs-symbol">SYM_CODE_START</span>(ret_from_fork)
+    <span class="hljs-keyword">bl </span>   schedule_tail
+    <span class="hljs-keyword">cbz </span>   x19, <span class="hljs-number">1</span>f                // not a kernel thread
+    <span class="hljs-keyword">mov </span>   x0, x20
+    <span class="hljs-keyword">blr </span>   x19
+<span class="hljs-number">1</span>:    get_current_task tsk
+    <span class="hljs-keyword">mov </span>   x0, <span class="hljs-built_in">sp</span>
+    <span class="hljs-keyword">bl </span>   asm_exit_to_user_mode
+    <span class="hljs-keyword">b </span>   ret_to_user
+<span class="hljs-symbol">SYM_CODE_END</span>(ret_from_fork)
+<span class="hljs-symbol">NOKPROBE</span>(ret_from_fork)
+</code></pre>
 
                                 
                                 </section>
@@ -1022,12 +1141,8 @@
 
             
                 
-                <a href="kprobe.html" class="navigation navigation-prev " aria-label="Previous page: Kprobes">
-                    <i class="fa fa-angle-left"></i>
-                </a>
                 
-                
-                <a href="rcu.html" class="navigation navigation-next " aria-label="Next page: RCU">
+                <a href="kdump.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Kdump">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1038,7 +1153,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Systemtap","level":"1.10.7","depth":2,"next":{"title":"RCU","level":"1.10.8","depth":2,"path":"kernel/rcu.md","ref":"./kernel/rcu.md","articles":[]},"previous":{"title":"Kprobes","level":"1.10.6","depth":2,"path":"kernel/kprobe.md","ref":"./kernel/kprobe.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"kernel/systemtap.md","mtime":"2023-03-04T12:00:52.680Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-04-10T16:09:26.774Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"fork","level":"1.10.3.1","depth":3,"next":{"title":"Kdump","level":"1.10.4","depth":2,"path":"kernel/kdump.md","ref":"./kernel/kdump.md","articles":[]},"previous":{"title":"系统调用","level":"1.10.3","depth":2,"ref":"","articles":[{"title":"fork","level":"1.10.3.1","depth":3,"path":"kernel/syscall-fork.md","ref":"./kernel/syscall-fork.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"kernel/syscall-fork.md","mtime":"2023-04-10T16:08:45.557Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-04-10T16:09:26.774Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

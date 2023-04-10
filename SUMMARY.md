@@ -51,6 +51,8 @@
     * [将虚拟地址转换为物理地址](./kernel/mm-1-va2pa.md)
     * [物理内存模型](./kernel/mm-2-physical-memory-model.md)
     * [memblock](./kernel/mm-3-memblock.md)
+  * [系统调用]()
+    * [fork](./kernel/syscall-fork.md)
   * [Kdump](./kernel/kdump.md)
   * [coredump](./kernel/coredump.md)
   * [Kprobes](./kernel/kprobe.md)
