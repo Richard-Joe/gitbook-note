@@ -59,6 +59,12 @@
   * [Systemtap](./kernel/systemtap.md)
   * [RCU](./kernel/rcu.md)
 
+* [共识算法]()
+
+* [一致性算法]()
+  * [Gossip](./consistency/gossip.md)
+  * [MemberList](./consistency/memberlist.md)
+
 * [八股]()
   * [老一套](./BAGU/0_classic.md)
   * [一致性hash](./BAGU/1_consistent_hash.md)
