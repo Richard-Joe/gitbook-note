@@ -55,6 +55,7 @@
     * [fork](./kernel/syscall-fork.md)
   * [Kdump](./kernel/kdump.md)
   * [coredump](./kernel/coredump.md)
+  * [tcpdump](./kernel/tcpdump.md)
   * [Kprobes](./kernel/kprobe.md)
   * [Systemtap](./kernel/systemtap.md)
   * [RCU](./kernel/rcu.md)
