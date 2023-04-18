@@ -103,10 +103,16 @@ func main() {
 }
 ```
 
-## 实现
+## 实现原理
 
-协程：
+主要流程：
 
-- probe协程：节点状态维护；
-- pushpull协程：节点状态、用户数据同步；
-- gossip协程：udp广播发送消息；
+- tcp listen：处理tcp消息（ping、push/pull）；
+- udp listen：处理udp消息（ping、indirect ping、ack/nack、state msg）；
+- packet handler：节点状态需要广播时，生成广播消息并入队；
+- probe：发ping来探测节点状态，并维护状态（走udp）；
+- pushpull：发送本端节点状态，接收远端节点状态，并合并状态（走tcp）；
+- gossip：发送udp广播消息；（从队列中获取广播消息，并发送）
+- join：新节点加入，会走pushpull流程；
+
+![memberlist](images/memberlist.png)
