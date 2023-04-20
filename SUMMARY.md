@@ -32,6 +32,7 @@
   * [CRD](./Kubernetes/CRD.md)
   * [Operator](./Kubernetes/Operator.md)
   * [kubelet](./Kubernetes/kubelet.md)
+  * [Informer](./Kubernetes/Informer.md)
 
 * [OVS](./OVS/index.md)
 
