@@ -35,3 +35,11 @@
 [(2023-4-18 ) memberlist](https://richard-joe.github.io/gitbook-note/consistency/memberlist.html)
 
 [(2023-4-22 ) Informer](https://richard-joe.github.io/gitbook-note/Kubernetes/Informer.html)
+
+五月份学习计划：
+
+- Rust语言
+- https://github.com/tikv/tikv
+- https://github.com/larksuite/rsmpeg
+- https://github.com/embassy-rs/embassy
+- https://github.com/rust-lang/rust
