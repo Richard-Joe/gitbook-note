@@ -67,6 +67,9 @@
   * [Gossip](./consistency/gossip.md)
   * [MemberList](./consistency/memberlist.md)
 
+* [排障与性能优化]()
+  * [nc在容器网络下的udp无法通讯问题](./trouble/nc-udp.md)
+
 * [八股]()
   * [老一套](./BAGU/0_classic.md)
   * [一致性hash](./BAGU/1_consistent_hash.md)
