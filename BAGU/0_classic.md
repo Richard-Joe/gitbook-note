@@ -448,7 +448,6 @@ tcp listen 做了什么工作：
 - 设置 sock 的状态为 TCP_LISTEN；
 - 检查port是否被占用；
 - 将sock加入全局hash表；
-- 初始化全连接队列和半连接队列；
 
 ### 3.2. UDP
 
