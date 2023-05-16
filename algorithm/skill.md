@@ -251,3 +251,65 @@ class Solution:
             cur = nxt
         return pre
 ```
+
+## 快排
+
+### 快排
+
+```python3
+def partition(self, nums, left, right):
+    pivot = left
+    j = pivot+1
+    for i in range(j, right+1):
+        if nums[i] < nums[pivot]:
+            nums[i], nums[j] = nums[j], nums[i]
+            j += 1
+    nums[pivot], nums[j-1] = nums[j-1], nums[pivot]
+    return j-1
+
+def quickSort(self, nums, left, right):
+    if left < right:
+        p = self.partition(nums, left, right)
+        self.quickSort(nums, left, p-1)
+        self.quickSort(nums, p+1, right)
+```
+
+### 随机化版本
+
+```python3
+def randomPartition(self, nums, left, right):
+    i = random.randint(left, right)
+    nums[i], nums[left] = nums[left], nums[i]
+    return self.partition(nums, left, right)
+
+def randomQuickSort(self, nums, left, right):
+    if left < right:
+        p = self.randomPartition(nums, left, right)
+        self.randomQuickSort(nums, left, p-1)
+        self.randomQuickSort(nums, p+1, right)
+```
+
+### 数组中的第K个最大元素
+
+```python3
+# 快排分区思想：找出一个数的正确位置，使得左边比它小，右边比它大
+# 要找出第k大的元素，快排按降序排序，找到第k-1的位置
+# partition写成降序
+
+def randomPartitionWithK(self, nums, left, right, k):
+    if left >= right:
+        return
+    # 获取随机位置
+    i = random.randint(left, right)
+    nums[i], nums[left] = nums[left], nums[i]
+    index = partition(nums, left, right)
+    # 如果位置大于k，则在左边继续分区
+    # 如果位置小于k，则在右边继续分区
+    # 如果位置等于k，则停止分区
+    if index > k: self.randomPartitionWithK(nums, left, index-1, k)
+    elif index < k: self.randomPartitionWithK(nums, index+1, right, k)
+
+def findKthLargest(self, nums: List[int], k: int) -> int:
+    self.randomPartitionWithK(nums, 0, len(nums)-1, k)
+    return nums[k-1]
+```

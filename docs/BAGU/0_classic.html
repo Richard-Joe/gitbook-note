@@ -962,6 +962,38 @@
                 <span>
             
                     
+                    刷题总结
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../algorithm/skill.html">
+            
+                <a href="../algorithm/skill.html">
+            
+                    
+                    技巧篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" >
+            
+                <span>
+            
+                    
                     杂项
             
                 </span>
@@ -971,7 +1003,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.15.1" data-path="../misc/centos-install-v2ray.html">
+        <li class="chapter " data-level="1.16.1" data-path="../misc/centos-install-v2ray.html">
             
                 <a href="../misc/centos-install-v2ray.html">
             
@@ -984,7 +1016,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15.2" data-path="../misc/docker-pull-use-proxy.html">
+        <li class="chapter " data-level="1.16.2" data-path="../misc/docker-pull-use-proxy.html">
             
                 <a href="../misc/docker-pull-use-proxy.html">
             
@@ -997,7 +1029,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15.3" data-path="../misc/install-ovs.html">
+        <li class="chapter " data-level="1.16.3" data-path="../misc/install-ovs.html">
             
                 <a href="../misc/install-ovs.html">
             
@@ -1010,7 +1042,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15.4" data-path="../misc/docker-to-containerd.html">
+        <li class="chapter " data-level="1.16.4" data-path="../misc/docker-to-containerd.html">
             
                 <a href="../misc/docker-to-containerd.html">
             
@@ -1023,7 +1055,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15.5" data-path="../misc/compile-kernel.html">
+        <li class="chapter " data-level="1.16.5" data-path="../misc/compile-kernel.html">
             
                 <a href="../misc/compile-kernel.html">
             
@@ -1041,7 +1073,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.16" data-path="../KEEP.html">
+        <li class="chapter " data-level="1.17" data-path="../KEEP.html">
             
                 <a href="../KEEP.html">
             
@@ -1459,6 +1491,32 @@ scatter-gather: on
 <li>&#x5E8F;&#x5217;&#x53F7; = &#x4E0A;&#x4E00;&#x6B21;&#x53D1;&#x9001;&#x7684;&#x5E8F;&#x5217;&#x53F7; + len&#xFF08;&#x6570;&#x636E;&#x957F;&#x5EA6;&#xFF09;&#x3002;&#x7279;&#x6B8A;&#x60C5;&#x51B5;&#xFF0C;&#x5982;&#x679C;&#x4E0A;&#x4E00;&#x6B21;&#x53D1;&#x9001;&#x7684;&#x62A5;&#x6587;&#x662F; SYN &#x62A5;&#x6587;&#x6216;&#x8005; FIN &#x62A5;&#x6587;&#xFF0C;&#x5219;&#x6539;&#x4E3A; &#x4E0A;&#x4E00;&#x6B21;&#x53D1;&#x9001;&#x7684;&#x5E8F;&#x5217;&#x53F7; + 1&#x3002;</li>
 <li>&#x786E;&#x8BA4;&#x53F7; = &#x4E0A;&#x4E00;&#x6B21;&#x6536;&#x5230;&#x7684;&#x62A5;&#x6587;&#x4E2D;&#x7684;&#x5E8F;&#x5217;&#x53F7; + len&#xFF08;&#x6570;&#x636E;&#x957F;&#x5EA6;&#xFF09;&#x3002;&#x7279;&#x6B8A;&#x60C5;&#x51B5;&#xFF0C;&#x5982;&#x679C;&#x6536;&#x5230;&#x7684;&#x662F; SYN &#x62A5;&#x6587;&#x6216;&#x8005; FIN &#x62A5;&#x6587;&#xFF0C;&#x5219;&#x6539;&#x4E3A;&#x4E0A;&#x4E00;&#x6B21;&#x6536;&#x5230;&#x7684;&#x62A5;&#x6587;&#x4E2D;&#x7684;&#x5E8F;&#x5217;&#x53F7; + 1&#x3002;</li>
 </ul>
+<h4 id="317-tcp-&#x670D;&#x52A1;&#x7AEF;&#x4E0D;&#x8C03;&#x7528;-listen&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x8D77;&#x8FDE;&#x63A5;&#x4F1A;&#x5982;&#x4F55;&#xFF1F;">3.1.7. TCP &#x670D;&#x52A1;&#x7AEF;&#x4E0D;&#x8C03;&#x7528; listen&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x8D77;&#x8FDE;&#x63A5;&#x4F1A;&#x5982;&#x4F55;&#xFF1F;</h4>
+<p>&#x670D;&#x52A1;&#x7AEF;&#x4F1A;&#x56DE; RST &#x62A5;&#x6587;&#x3002;</p>
+<p>TCP&#x6536;&#x5305;&#x5904;&#x7406;&#x65F6;&#xFF0C;&#x4F1A;&#x5148;&#x67E5;&#x627E;socket&#xFF0C;&#x7531;&#x4E8E;&#x6CA1;&#x6709;&#x8C03;&#x7528;listen&#xFF0C;&#x4F1A;&#x627E;&#x4E0D;&#x5230;socket&#xFF0C;&#x7136;&#x540E;&#x53D1;&#x9001; RST &#x5305;&#x3002;</p>
+<p>tcp listen &#x505A;&#x4E86;&#x4EC0;&#x4E48;&#x5DE5;&#x4F5C;&#xFF1A;</p>
+<ul>
+<li>&#x8BBE;&#x7F6E; sock &#x7684;&#x72B6;&#x6001;&#x4E3A; TCP_LISTEN&#xFF1B;</li>
+<li>&#x68C0;&#x67E5;port&#x662F;&#x5426;&#x88AB;&#x5360;&#x7528;&#xFF1B;</li>
+<li>&#x5C06;sock&#x52A0;&#x5165;&#x5168;&#x5C40;hash&#x8868;&#xFF1B;</li>
+</ul>
+<h3 id="32-udp">3.2. UDP</h3>
+<h4 id="321-udp-&#x53EF;&#x4EE5;&#x8C03;&#x7528;-connect-&#x51FD;&#x6570;&#x5417;&#xFF1F;">3.2.1. UDP &#x53EF;&#x4EE5;&#x8C03;&#x7528; connect &#x51FD;&#x6570;&#x5417;&#xFF1F;</h4>
+<p>&#x53EF;&#x4EE5;&#x3002;udp &#x7684; connect &#x51FD;&#x6570;&#x5DE5;&#x4F5C;&#xFF1A;</p>
+<ul>
+<li>&#x6839;&#x636E;sockaddr&#x53C2;&#x6570;&#x5185;&#x5BB9;&#xFF0C;&#x67E5;&#x8DEF;&#x7531;&#x8868;&#xFF0C;&#x786E;&#x5B9A;&#x6E90;IP&#x5730;&#x5740;&#xFF1B;</li>
+<li>&#x8BB0;&#x5F55;&#x6E90;IP&#xFF0C;&#x6E90;port&#xFF0C;&#x76EE;&#x7684;IP&#xFF0C;&#x76EE;&#x7684;Port&#x5230; sock &#x7ED3;&#x6784;&#x4E2D;&#xFF1B;</li>
+<li>&#x8BBE;&#x7F6E; sock &#x7684;&#x72B6;&#x6001;&#x4E3A; TCP_ESTABLISHED&#xFF1B;</li>
+</ul>
+<h4 id="322-udp-&#x53EF;&#x4EE5;&#x8C03;&#x7528;-listen-&#x51FD;&#x6570;&#x5417;&#xFF1F;">3.2.2. UDP &#x53EF;&#x4EE5;&#x8C03;&#x7528; listen &#x51FD;&#x6570;&#x5417;&#xFF1F;</h4>
+<p>&#x4F1A;&#x8FD4;&#x56DE;&#xFF1A;-EOPNOTSUPP</p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sock_no_listen</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> socket *sock, <span class="hljs-keyword">int</span> backlog)</span>
+</span>{
+    <span class="hljs-keyword">return</span> -EOPNOTSUPP;
+}
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span>    EOPNOTSUPP    95    <span class="hljs-comment">/* Operation not supported on transport endpoint */</span></span>
+</code></pre>
 <h2 id="4-&#x5185;&#x6838;&#x7BC7;">4. &#x5185;&#x6838;&#x7BC7;</h2>
 <h3 id="41-linux&#x542F;&#x52A8;&#x505A;&#x4E86;&#x54EA;&#x4E9B;&#x4E8B;&#x60C5;">4.1. linux&#x542F;&#x52A8;&#x505A;&#x4E86;&#x54EA;&#x4E9B;&#x4E8B;&#x60C5;</h3>
 <p>&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E09;&#x4E2A;&#x9636;&#x6BB5;&#xFF1A;</p>
@@ -1686,7 +1744,7 @@ ESTAB     78         0                    127.0.0.1:1234               127.0.0.1
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"老一套","level":"1.14.1","depth":2,"next":{"title":"一致性hash","level":"1.14.2","depth":2,"path":"BAGU/1_consistent_hash.md","ref":"./BAGU/1_consistent_hash.md","articles":[]},"previous":{"title":"八股","level":"1.14","depth":1,"ref":"","articles":[{"title":"老一套","level":"1.14.1","depth":2,"path":"BAGU/0_classic.md","ref":"./BAGU/0_classic.md","articles":[]},{"title":"一致性hash","level":"1.14.2","depth":2,"path":"BAGU/1_consistent_hash.md","ref":"./BAGU/1_consistent_hash.md","articles":[]},{"title":"Golang","level":"1.14.3","depth":2,"path":"BAGU/2_golang.md","ref":"./BAGU/2_golang.md","articles":[]},{"title":"Redis","level":"1.14.4","depth":2,"path":"BAGU/3_redis.md","ref":"./BAGU/3_redis.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BAGU/0_classic.md","mtime":"2023-05-10T13:14:29.391Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-05-10T15:22:43.658Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"老一套","level":"1.14.1","depth":2,"next":{"title":"一致性hash","level":"1.14.2","depth":2,"path":"BAGU/1_consistent_hash.md","ref":"./BAGU/1_consistent_hash.md","articles":[]},"previous":{"title":"八股","level":"1.14","depth":1,"ref":"","articles":[{"title":"老一套","level":"1.14.1","depth":2,"path":"BAGU/0_classic.md","ref":"./BAGU/0_classic.md","articles":[]},{"title":"一致性hash","level":"1.14.2","depth":2,"path":"BAGU/1_consistent_hash.md","ref":"./BAGU/1_consistent_hash.md","articles":[]},{"title":"Golang","level":"1.14.3","depth":2,"path":"BAGU/2_golang.md","ref":"./BAGU/2_golang.md","articles":[]},{"title":"Redis","level":"1.14.4","depth":2,"path":"BAGU/3_redis.md","ref":"./BAGU/3_redis.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BAGU/0_classic.md","mtime":"2023-05-13T09:02:28.896Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-05-16T16:37:29.168Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

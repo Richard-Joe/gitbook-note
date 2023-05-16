@@ -76,6 +76,9 @@
   * [Golang](./BAGU/2_golang.md)
   * [Redis](./BAGU/3_redis.md)
 
+* [刷题总结]()
+  * [技巧篇](./algorithm/skill.md)
+
 * [杂项]()
   * [centos安装v2ray](./misc/centos-install-v2ray.md)
   * [docker/containerd设置代理实现从外网拉取镜像](./misc/docker-pull-use-proxy.md)

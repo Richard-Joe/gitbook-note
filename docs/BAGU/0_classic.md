@@ -437,6 +437,41 @@ TCP 是面向字节流的协议。**当两个消息的某个部分内容被分�
 - 序列号 = 上一次发送的序列号 + len（数据长度）。特殊情况，如果上一次发送的报文是 SYN 报文或者 FIN 报文，则改为 上一次发送的序列号 + 1。
 - 确认号 = 上一次收到的报文中的序列号 + len（数据长度）。特殊情况，如果收到的是 SYN 报文或者 FIN 报文，则改为上一次收到的报文中的序列号 + 1。
 
+#### 3.1.7. TCP 服务端不调用 listen，客户端发起连接会如何？
+
+服务端会回 RST 报文。
+
+TCP收包处理时，会先查找socket，由于没有调用listen，会找不到socket，然后发送 RST 包。
+
+tcp listen 做了什么工作：
+
+- 设置 sock 的状态为 TCP_LISTEN；
+- 检查port是否被占用；
+- 将sock加入全局hash表；
+
+### 3.2. UDP
+
+#### 3.2.1. UDP 可以调用 connect 函数吗？
+
+可以。udp 的 connect 函数工作：
+
+- 根据sockaddr参数内容，查路由表，确定源IP地址；
+- 记录源IP，源port，目的IP，目的Port到 sock 结构中；
+- 设置 sock 的状态为 TCP_ESTABLISHED；
+
+#### 3.2.2. UDP 可以调用 listen 函数吗？
+
+会返回：-EOPNOTSUPP
+
+```c
+int sock_no_listen(struct socket *sock, int backlog)
+{
+	return -EOPNOTSUPP;
+}
+
+#define	EOPNOTSUPP	95	/* Operation not supported on transport endpoint */
+```
+
 ## 4. 内核篇
 
 ### 4.1. linux启动做了哪些事情
