@@ -3,12 +3,30 @@
 ### 1.1. 网络
 
 1. 网络特长
-2. vlan问题，access和trunk区别
+2. vlan问题，access和trunk区别（两种端口模式，access端口只能属于一个vlan，trunk端口可以属于多个vlan，trunk可以收发多个vlan的报文）
 3. ospf和bgp等，建立邻居有什么区别
-4. NAT场景：静态nat、动态nat、NAPT；将多个私有地址映射到少量的共有IP？
-5. 选路算法
-6. 三次握手和四次挥手
-7. tcp/udp区别是什么？
+
+两者都是动态路由协议，路由器创建并维护一个数据库，相邻路由器共享路由表信息，如果存在到外部网络多条路径，路由器会计算到外部网络的最优路径。
+
+- ospf：内部网关协议，IGP，工作在一个AS内，常用于LAN；用来发现、计算路由；使用**路径带宽**作为决定路径选择的主要因素；OSPF的**收敛速度**比BGP快。
+- bgp：外部网关协议，EGP，工作在AS间，常用于互联网冗余、WAN；用来传递、控制路由；决定路径的因素有很多：路由weight值，到目的网络的最短路径等；
+
+1、OSPF的数据包有五种，分别是Hello包、DBD包、LSR、LSU、LSACK
+BGP的数据包四种，分别是Open、Keeplive、Update、Notification
+
+2、OSPF状态机一般有七个，分别是down、init、two-way、exstart、exchange、loading、full
+BGP的状态机有六个，分别是Idle、Connect、Active、Opensent、Openconfirm、Establish
+
+3、OSPF选路规则有五个人为控制的只有cost，BGP有十二个，管理员可以灵活地控制
+4、OSPF建邻条件很多，有10个；BGP的建邻只需要邻居间可达、路由表中有邻居路由即可
+5、两种协议的追求不同，OSPF属于IGP协议，追求的是收敛快、选路佳、占用资源少；BGP属于EGP，追求的是可靠性、可控性强，还有就是以一个AS为一跳，即AS-BY-AS
+6、防环机制不同，OSPF的防环机制主要依靠它的算法本身还有区域间水平分割等，BGP的防环机制主要有IBGP水平分割和EBGP水平分割
+
+
+5. NAT场景：静态nat、动态nat、NAPT；将多个私有地址映射到少量的共有IP？
+6. 选路算法
+7. 三次握手和四次挥手
+8. tcp/udp区别是什么？
  tcp面向链接，udp不是
  tcp开销大，udp开销小
  tcp有拥塞控制，可以慢开始，拥塞避免，快重传和快恢复，udp没有，不管网络是否拥塞，udp客户端都可以一直发
