@@ -117,3 +117,57 @@ QUIC协议（HTTP/3）如何解决的：
 6
 
 ### 1.4. 语言篇 golang
+
+
+## 2. 问题复盘
+
+1. ebpf如何保证安全的
+2. 如何优化ipvs性能（dpdk-dpvs）
+3. 如何实现选路的？
+4. 负载均衡有哪几层？如何实现
+5. 内核如何实现网桥的？
+6. 讲一下netfilter
+7. 讲一下NAT
+8. 讲一下连接跟踪
+9. ebpf如何实现连接跟踪的
+
+算法题：
+1. https://leetcode.cn/problems/ugly-number/description/
+
+```c++
+class Solution {
+public:
+    bool isUgly(int n) {
+        if (n <= 0) {
+            return false;
+        }
+        vector<int> factors = {2, 3, 5};
+        for (int factor : factors) {
+            while (n % factor == 0) {
+                n /= factor;
+            }
+        }
+        return n == 1;
+    }
+};
+```
+
+2. https://leetcode.cn/problems/ugly-number-ii/description/
+
+```c++
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        int i=0,j=0,k=0;
+	    int result[n];
+	    result[0]=1;
+	    for(int cnt=1;cnt<n;cnt++) {
+		    result[cnt]=min(result[i]*2,min(result[j]*3,result[k]*5));
+		    if(result[cnt]==result[i]*2)i++;
+		    if(result[cnt]==result[j]*3)j++;
+		    if(result[cnt]==result[k]*5)k++;
+        }
+        return result[n-1];
+    }
+};
+```
