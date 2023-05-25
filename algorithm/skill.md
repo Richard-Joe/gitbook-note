@@ -234,7 +234,7 @@ x & (x-1) == 0
 
 ## 反转链表
 
-```python3
+```python
 ## 递归法
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
@@ -261,7 +261,7 @@ class Solution:
 
 ### 快排
 
-```python3
+```python
 def partition(self, nums, left, right):
     pivot = left
     j = pivot+1
@@ -281,7 +281,7 @@ def quickSort(self, nums, left, right):
 
 ### 随机化版本
 
-```python3
+```python
 def randomPartition(self, nums, left, right):
     i = random.randint(left, right)
     nums[i], nums[left] = nums[left], nums[i]
@@ -296,7 +296,7 @@ def randomQuickSort(self, nums, left, right):
 
 ### 数组中的第K个最大元素
 
-```python3
+```python
 # 快排分区思想：找出一个数的正确位置，使得左边比它小，右边比它大
 # 要找出第k大的元素，快排按降序排序，找到第k-1的位置
 # partition写成降序
