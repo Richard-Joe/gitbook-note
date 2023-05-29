@@ -154,9 +154,9 @@ ipv4_conntrack_defrag
 
 从4.1可以得知，
 ```c
-PRE_ROUTING: nf_confirm -> nf_conntrack_confirm
+PRE_ROUTING: ipv4_conntrack_in -> nf_conntrack_in
 
-LOCAL_OUT: nf_confirm -> nf_conntrack_confirm
+LOCAL_OUT: ipv4_conntrack_local -> nf_conntrack_in
 ```
 
 **为什么是这两个 hook 点呢？**因为它们都是**新连接的第一个包最先达到**的地方
@@ -172,9 +172,9 @@ LOCAL_OUT: nf_confirm -> nf_conntrack_confirm
 
 从4.1可以得知，
 ```c
-LOCAL_IN: ipv4_conntrack_in -> nf_conntrack_in
+LOCAL_IN: nf_confirm -> nf_conntrack_confirm
 
-POST_ROUTING: ipv4_conntrack_local -> nf_conntrack_in
+POST_ROUTING: nf_confirm -> nf_conntrack_confirm
 ```
 **为什么是这两个 hook 点呢？**因为如果新连接的第一个包没有被丢弃，那这 **是它们离开 netfilter 之前的最后 hook 点**：
 

@@ -62,6 +62,21 @@ QUIC协议（HTTP/3）如何解决的：
 - 更快建立连接：QUIC 使用的是 TLS1.3，因此仅需 1 个 RTT建立首次连接；第二次连接只需0-RTT。
 - 如何迁移连接：没有用四元组，QUIC 通过 连接ID 来标记通信的两个端点。
 
+10. 内核是如何收包的？
+
+- 网卡中的信号转换模块，将信号转换到网卡中的缓冲区；
+- 网卡通过DMA将数据包复制到内核缓冲区（ring buffer）；
+- 网卡会向CPU发起一个硬中断，通知CPU有数据到达。（（由网卡驱动程序注册）硬中断处理函数做的事情非常少，它把napi poll挂到当前cpu的sd上，触发一个收包软中断，就结束了）
+- 内核线程来执行收包软中断处理函数，调用网卡驱动注册的poll函数，读取ring buffer中的数据，经过GRO优化（分片重组），RPS优化（将数据包负载均衡到CPU，入队backlog），这时候数据包已经是协议栈能够处理的sk_buff。
+- ip_rcv，netfilter，tcp/udp rcv，送入到socket的接收buffer。
+
+11. 网络性能优化
+
+- 调整ring buffer
+- 开启网卡多队列
+- 单队列网卡怎么办？开启RPS/RFS，RPS（把数据包均衡到不同的 CPU），RFS（将相同 flow 的包送到相同的 CPU 进行处理，充分利用CPU cache）
+- 协议栈呢？TCP的半连接队列/全连接队列，SYN重传次数，SYN攻击（开启tcp_syncookies）
+
 ### 1.2. 操作系统
 
 1. 进程和线程区别
@@ -119,7 +134,7 @@ QUIC协议（HTTP/3）如何解决的：
 ### 1.4. 语言篇 golang
 
 
-## 2. 问题复盘
+## 2. 问题复盘（2023-05-17）
 
 1. ebpf如何保证安全的
 
@@ -134,14 +149,75 @@ Linux kernel为了保证eBPF程序的安全性，在加载的时候添加了许�
 - 根据程序类型，限制可以调用哪些内核函数、可以访问哪些数据结构、是否可以访问网络数据包内容；
 
 2. 如何优化ipvs性能（dpdk-dpvs）
+
 3. SDWAN网络架构 ？
+
 4. SDWAN如何实现选路的？
+
+- 链路质量选路：可以指定应用的主备链路，当主链路质量不满足应用SLA要求时，应用流量自动进行主备链路的切换。
+- 负载均衡选路：当两个站点之间存在多条链路时，系统按照链路的接口带宽比例，对流量进行同比例的逐流负载分担。
+- 带宽选路：通过设置链路的带宽占用阈值，当链路带宽占用超过阈值时，流量选择其他链路进行转发。即基于链路的带宽占用率，提供过载保护功能，避免链路超负荷使用。
+- 应用优先级选路：为应用设置优先级，当链路拥塞时，低优先级应用切换到其他链路以避让高优先级的应用。
+
 5. 负载均衡有哪几层？如何实现
+
+- 三层：基于IP分发，等价路由（等价多路径，ECMP）
+- 四层：基于TCP/UDP分发，iptables、LVS
+- 七层：基于HTTP分发，Nginx
+
 6. 内核如何实现网桥的？
+
+- 传统HUB：每收到一个数据包，就在其所有端口广播，由接收主机来判断数据包是不是给自己的。浪费网络资源。
+- 网桥：学习MAC地址，建立 [MAC地址--端口] 对照表。发包时，查表来选择端口发送。
+
+- 我们使用ip link add br0 type bridge等命令时，内核帮我们注册一个net_device，并执行了设备初始化函数。比如设置了发包函数br_dev_xmit。
+- 我们给网桥添加端口（interface）时，内核给这个端口设备，设置收包函数br_handle_frame。
+
+- br_handle_frame：如果是本机mac地址，执行local_in hook，进IP协议栈了。执行 pre hook，查fdb表，找得到就指定端口转发br_forward，找不到就所有端口转发br_flood。执行 forward hook，然后post_routing hook，最后dev_queue_xmit发包。
+- br_dev_xmit：根据skb目的MAC地址匹配，广播地址就br_flood，多播地址就br_multicast_flood，fdb表能查到就br_forward
+
+STP：生成树协议。桥接设备之间通过使用网桥协议数据单元（Bridge Protocol Data Unit，BPDU）交换各自状态信息。避免网桥环路。
+
 7. 讲一下netfilter
+
+- 地址族和hook：arp、bridge、ip、netdev
+- 拿IP层举例：五个hook点
+
 8. 讲一下NAT
+
+- SNAT hook 挂在两个位置：LOCAL_IN、POST_ROUTING
+- DNAT hook 挂在两个位置：PRE_ROUTING、LOCAL_OUT
+- 流程：执行hook（iptables），匹配和修改tuple，执行NAT操作。
+
 9. 讲一下连接跟踪
-10. ebpf如何实现连接跟踪的
+
+基本元素：
+
+- 根据**元组**（五元组），来跟踪一条连接；
+- 解释下**连接**，非TCP/UDP中的连接概念。ICMP也会被跟踪，但不是所有协议都能被跟踪。目前支持的协议：TCP、UDP、ICMP、DCCP、SCTP、GRE。
+- **连接跟踪表**：hash表，用于连接插入，查找等。key就是根据tuple来计算。
+- GC：回收。
+- Zone：多租户。多租户环境下，无法只用 tuple 来区分 CT
+
+基本流程：
+
+- nf_conntrack_in：PRE_ROUTING，LOCAL_OUT。负责创建CT，记录到skb中。
+- nf_conntrack_confirm：LOCAL_IN、POST_ROUTING。负责确认CT，将CT插入到hash表中。
+
+nf_conntrack_confirm为什么放在最后处理？（关闭/开启软中断、对hash槽加解锁，影响性能）
+
+10. cilium如何使用ebpf实现连接跟踪的
+
+首先如果卸载netfilter，cilium缺什么功能？（1. NAT；2. NAT依赖连接跟踪）
+
+- 内核里的CT基于netfilter hooks
+- cilium的CT基于BPF hooks（lxc，host，netdev，overlay）
+
+流程：
+
+- 比如，service ip转换为pod ip，执行DNAT时，用到连接跟踪。
+- 首包，根据service信息选择一个backend，创建CT，记录backend_id到CT中，并记录CT到map中。
+- flow包，根据tuple信息，从bpf map中查ct，根据记录的backend_id来执行DNAT操作。
 
 算法题：
 1. https://leetcode.cn/problems/ugly-number/description/
@@ -183,3 +259,15 @@ public:
     }
 };
 ```
+
+## 3. 问题复盘（2023-05-29）
+
+1. 如何阅读内核代码
+2. 项目
+3. 算法
+
+迷宫，二维数组，1代表墙，0代表过道，给起点和终点，问能否逃脱？
+
+回溯解决。（空间复杂度和时间复杂度）
+
+回溯的时间复杂度如何计算？
