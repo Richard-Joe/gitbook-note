@@ -551,6 +551,8 @@ int sock_no_listen(struct socket *sock, int backlog)
 	- 优点：可以处理突发流量；
 	- 缺点：实现复杂；对时间精度要求高；
 
+参考：https://mp.weixin.qq.com/s/_zOs2V1muTGbQrmti7ar_g
+
 ## 4. 内核篇
 
 ### 4.1. linux启动做了哪些事情
