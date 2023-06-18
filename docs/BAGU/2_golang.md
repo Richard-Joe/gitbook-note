@@ -252,6 +252,8 @@ return 不是原子级操作的，执行过程是: `保存返回值 —> 执行 
 - deferproc()：创建defer。在声明 defer 处调用，其将 defer 函数存入 goroutine 的链表中；（单链表，表头存，表头取，保证FIFO）
 - deferreturn()：执行defer。在 ret 指令前调用，其将 defer 从 goroutine链表中取出并执行。
 
+### 11. channel
+
 ### 参考：
 
 https://zhuanlan.zhihu.com/p/323271088

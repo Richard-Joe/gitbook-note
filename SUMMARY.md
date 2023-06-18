@@ -75,6 +75,7 @@
   * [一致性hash](./BAGU/1_consistent_hash.md)
   * [Golang](./BAGU/2_golang.md)
   * [Redis](./BAGU/3_redis.md)
+  * [MySQL](./BAGU/5_mysql.md)
 
 * [刷题总结]()
   * [技巧篇](./algorithm/skill.md)
