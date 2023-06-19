@@ -27,14 +27,18 @@ mysql> show engines;
 
 ### 1.4. MyISAM 和 InnoDB 如何选择？
 
-### 1.5. MySQL的索引类型
+### 1.5. 什么是索引？为什么要用索引？
 
-- MYISAM 和 InnoDB 存储引擎只支持 **`BTREE索引`**；
-- MEMORY 和 HEAP 存储引擎可以支持 **`HASH 和 BTREE索引`**;
+索引的定义：帮助存储引擎快速获取数据的一种数据结构，形象的说就是索引是数据的目录。
 
-### 1.6. BTREE 和 HASH 的区别？
+为了快速查找数据。
 
-### 1.7. 为什么要用索引？
+### 1.6. MySQL的索引类型
+
+- 按「数据结构」分类：**B+tree索引、Hash索引、Full-text索引**。
+- 按「物理存储」分类：**聚簇索引（主键索引）、二级索引（辅助索引）**。
+- 按「字段特性」分类：**主键索引、唯一索引、普通索引、前缀索引**。
+- 按「字段个数」分类：**单列索引、联合索引**。
 
 ## 2. 基础
 
@@ -157,7 +161,7 @@ Compressed 和 Dynamic 行格式在发生行溢出后的处理：
 
 ![dynamic-overflow](images/5/dynamic-overflow.png)
 
-### 2.1. 执行一条 select 语句的过程
+### 2.9. 执行一条 select 语句的过程
 
 ![select](images/5/select.png)
 
@@ -173,5 +177,7 @@ Compressed 和 Dynamic 行格式在发生行溢出后的处理：
 		- 索引下推：比如：`where age > 20 and reward = 10`，age和reward为联合索引，使用索引下推；
 
 ## 3. 索引
+
+
 
 ## 4. 事务
