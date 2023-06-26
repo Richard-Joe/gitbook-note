@@ -410,6 +410,43 @@ MySQL InnoDB 引擎的默认隔离级别虽然是「可重复读」，但是 **�
 
 由于先加了 记录锁+间隙锁，另外一个事务的(增、删、改)操作会被阻塞。
 
-### 5.3. MySQL 死锁了，怎么办？
+### 5.3. 如何查看加了哪些锁？
 
-### 5.4. 加了什么锁，导致死锁的？
+```mysql
+select * from performance_schema.data_locks\G
+```
+
+**LOCK_TYPE**：
+
+- TABLE：表级锁
+- RECORD：行级锁
+
+表级锁，**LOCK_MODE**：
+
+- **IX**：X 型意向锁
+
+行级锁，**LOCK_MODE**：
+
+- **X**：Next-Key 锁；
+- **X, REC_NOT_GAP**：记录锁；
+- **X, GAP**：间隙锁；
+
+行级锁，**LOCK_DATA**：
+
+- 主键值
+- supremum pseudo-record：间隙锁中，正无穷
+- infimum pseudo-record：间隙锁中，负无穷
+
+### 5.4. MySQL 如何加 行级锁 的？
+
+先确定场景讨论， InnoDB 引擎的 可重复读 隔离级别。
+
+**普通的 select 语句是不会对记录加锁的**，因为它属于快照读，是通过 MVCC（多版本并发控制）实现的。
+
+
+
+#### 5.4.1. 
+
+### 5.5. MySQL 死锁了，怎么办？
+
+### 5.6. 加了什么锁，导致死锁的？
