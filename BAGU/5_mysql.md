@@ -584,3 +584,17 @@ select * from user where age >= 22 for update;
 ### 5.5. MySQL 死锁了，怎么办？
 
 ### 5.6. 加了什么锁，导致死锁的？
+
+### 5.7 mysql 参数 sql_safe_updates
+
+当 sql_safe_updates 设置为 1 时。
+
+update 语句必须满足如下条件之一才能执行成功：
+
+- 使用 where，并且 where 条件中必须有索引列；
+- 使用 limit；
+- 同时使用 where 和 limit，此时 where 条件中可以没有索引列；
+
+delete 语句必须满足以下条件能执行成功：
+
+- 同时使用 where 和 limit，此时 where 条件中可以没有索引列；
