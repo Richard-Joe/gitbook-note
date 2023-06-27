@@ -625,16 +625,15 @@ insert user values (31, "CCC", 41, 100000);
 # 二级索引 age：11, 22, 39
 begin;
 
-# 主键冲突
+# 主键索引冲突
 # 事务在 id = 20 这条记录的主键索引上，加  S 型 记录 锁。
 insert user values (20, "CCC", 40);
 
-# 二级冲突
-# 事务在 id = 20 这条记录的主键索引上，加  S 型 记录 锁。
-insert user values (20, "CCC", 40);
+# 唯一二级索引冲突
+# 事务在 age = 39 这条记录的二级索引上，加  S 型 next-key 锁。
+# 事务在 id = 20 这条记录的主键索引上，加  X 型 间隙 锁
+insert user values (19, "CCC", 39);
 ```
-
-### 5.6. 加了什么锁，导致死锁的？
 
 ### 5.7 mysql 参数 sql_safe_updates
 
@@ -649,3 +648,29 @@ update 语句必须满足如下条件之一才能执行成功：
 delete 语句必须满足以下条件能执行成功：
 
 - 同时使用 where 和 limit，此时 where 条件中可以没有索引列；
+
+### 5.8. 字节分析题
+
+```mysql
+# 比如现在表中数据是：
+# 主键索引  id： 5, 10, 20
+
+# 事务A
+begin;
+update user set reward=5000 where id=15;      # 时间 1 运行
+insert user values (15, "CCC", 40, 100000);   # 时间 3 运行
+```
+
+```mysql
+# 事务B
+begin;
+update user set reward=5000 where id=16;      # 时间 2 运行
+insert user values (16, "CCC", 41, 100000);   # 时间 4 运行
+```
+
+分析：
+
+- update 会加 X 型 间隙 锁
+- insert 会加 X 型 插入意向 锁
+
+冲突导致**死锁**
