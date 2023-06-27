@@ -581,7 +581,37 @@ select * from user where age >= 22 for update;
 
 本质上，**每一条记录的索引上都会加 next-key 锁**。
 
-### 5.5. MySQL 死锁了，怎么办？
+### 5.5. MySQL 死锁
+
+示例，age是二级索引，目前age最大记录是39。
+
+```mysql
+# 事务A
+begin;
+select * from user where age=40 for update;
+insert user values (30, "CCC", 40, 100000);
+```
+
+```mysql
+# 事务B
+begin;
+select * from user where age=41 for update;
+insert user values (31, "CCC", 41, 100000);
+```
+
+分析：
+
+- select ... for update 会对二级索引加 X 型 next-key 锁，范围是 (39, +∞]
+- insert 会对二级索引加 X 型 插入意向 锁
+
+**插入意向锁与间隙锁是冲突的**，insert会阻塞。
+
+死锁的四个必要条件：**互斥、占有且等待、不可强占用、循环等待。**
+
+【mysql 解除死锁：】
+
+- **设置事务等待锁的超时时间**。`innodb_lock_wait_timeout`
+- **开启主动死锁检测**。`innodb_deadlock_detect`。（主动死锁检测在发现死锁后，主动回滚死锁链条中的某一个事务，让其他事务得以继续执行。）
 
 ### 5.6. 加了什么锁，导致死锁的？
 
