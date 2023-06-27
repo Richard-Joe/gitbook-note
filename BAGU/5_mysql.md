@@ -435,8 +435,8 @@ select * from performance_schema.data_locks\G
 
 - 主键索引值：如果是记录锁，表示锁定这条记录；如果是间隙锁，表示区间右边界。
 - 二级索引值，主键索引值：
-- supremum pseudo-record：间隙锁中，正无穷
-- infimum pseudo-record：间隙锁中，负无穷
+- supremum pseudo-record：正无穷
+- infimum pseudo-record：负无穷
 
 ### 5.4. MySQL 如何加 行级锁 的？
 
