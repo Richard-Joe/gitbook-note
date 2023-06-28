@@ -43,3 +43,13 @@
 - https://github.com/larksuite/rsmpeg
 - https://github.com/embassy-rs/embassy
 - https://github.com/rust-lang/rust
+
+[(2023-6-28 ) MySQL](https://richard-joe.github.io/gitbook-note/BAGU/5_mysql.html)
+
+七月份学习计划：
+
+- k8s NetworkPolicy and cilium NetworkPolicy
+- cilium Bandwidth Manager
+- kata with cilium
+- cilium multi-cluster networking
+- Submariner
