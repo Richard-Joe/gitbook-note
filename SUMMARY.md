@@ -25,6 +25,7 @@
   * [流量控制](./network/traffic_control/tc.md)
     * [缓冲膨胀](./network/traffic_control/bufferbloat.md)
     * [公平队列控制延迟](./network/traffic_control/fq_codel.md)
+    * [EDT](./network/traffic_control/edt.md)
 
 * [Kubernetes]()
   * [Jobs](./Kubernetes/Jobs.md)
@@ -41,6 +42,7 @@
 * [XDP](./XDP/index.md)
 
 * [cilium](./cilium/index.md)
+  * [Bandwidth Manager](./cilium/bandwidth-manager.md)
 
 * [Prometheus](./Prometheus/prometheus.md)
 

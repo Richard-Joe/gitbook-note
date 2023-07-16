@@ -1,0 +1,1320 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>EDT · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-intopic-toc/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="fq_codel.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../gitbook/">
+            
+                <a href="../../gitbook/">
+            
+                    
+                    gitbook搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    网络
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../basic/">
+            
+                <a href="../basic/">
+            
+                    
+                    网络基础
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../basic/recv_one_package.html">
+            
+                <a href="../basic/recv_one_package.html">
+            
+                    
+                    内核是如何接收一个网络包的
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../basic/dma.html">
+            
+                <a href="../basic/dma.html">
+            
+                    
+                    内核DMA机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="../basic/veth.html">
+            
+                <a href="../basic/veth.html">
+            
+                    
+                    veth设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="../basic/tun-tap.html">
+            
+                <a href="../basic/tun-tap.html">
+            
+                    
+                    tun/tap设备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="../basic/bridge.html">
+            
+                <a href="../basic/bridge.html">
+            
+                    
+                    Bridge
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.6" data-path="../basic/vxlan.html">
+            
+                <a href="../basic/vxlan.html">
+            
+                    
+                    VXLAN
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.7" data-path="../basic/gre.html">
+            
+                <a href="../basic/gre.html">
+            
+                    
+                    GRE
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.8" data-path="../basic/neighbor.html">
+            
+                <a href="../basic/neighbor.html">
+            
+                    
+                    邻居子系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.9" data-path="../basic/route.html">
+            
+                <a href="../basic/route.html">
+            
+                    
+                    路由子系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.10" data-path="../basic/netfilter.html">
+            
+                <a href="../basic/netfilter.html">
+            
+                    
+                    netfilter
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../lb/LB.html">
+            
+                <a href="../lb/LB.html">
+            
+                    
+                    负载均衡
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../lb/LVS.html">
+            
+                <a href="../lb/LVS.html">
+            
+                    
+                    LVS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1.1" data-path="../lb/lvs-test.html">
+            
+                <a href="../lb/lvs-test.html">
+            
+                    
+                    实验
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../lb/Maglev.html">
+            
+                <a href="../lb/Maglev.html">
+            
+                    
+                    Maglev
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="tc.html">
+            
+                <a href="tc.html">
+            
+                    
+                    流量控制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="bufferbloat.html">
+            
+                <a href="bufferbloat.html">
+            
+                    
+                    缓冲膨胀
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="fq_codel.html">
+            
+                <a href="fq_codel.html">
+            
+                    
+                    公平队列控制延迟
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.3.3" data-path="edt.html">
+            
+                <a href="edt.html">
+            
+                    
+                    EDT
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    Kubernetes
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../../Kubernetes/Jobs.html">
+            
+                <a href="../../Kubernetes/Jobs.html">
+            
+                    
+                    Jobs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../../Kubernetes/CronJob.html">
+            
+                <a href="../../Kubernetes/CronJob.html">
+            
+                    
+                    CronJob
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../../Kubernetes/CRD.html">
+            
+                <a href="../../Kubernetes/CRD.html">
+            
+                    
+                    CRD
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../../Kubernetes/Operator.html">
+            
+                <a href="../../Kubernetes/Operator.html">
+            
+                    
+                    Operator
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../../Kubernetes/kubelet.html">
+            
+                <a href="../../Kubernetes/kubelet.html">
+            
+                    
+                    kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../../Kubernetes/Informer.html">
+            
+                <a href="../../Kubernetes/Informer.html">
+            
+                    
+                    Informer
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../OVS/">
+            
+                <a href="../../OVS/">
+            
+                    
+                    OVS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../../eBPF/">
+            
+                <a href="../../eBPF/">
+            
+                    
+                    eBPF
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../../XDP/">
+            
+                <a href="../../XDP/">
+            
+                    
+                    XDP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../../cilium/">
+            
+                <a href="../../cilium/">
+            
+                    
+                    cilium
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../../cilium/bandwidth-manager.html">
+            
+                <a href="../../cilium/bandwidth-manager.html">
+            
+                    
+                    Bandwidth Manager
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../../Prometheus/prometheus.html">
+            
+                <a href="../../Prometheus/prometheus.html">
+            
+                    
+                    Prometheus
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" >
+            
+                <span>
+            
+                    
+                    内核
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../../kernel/进程调度.html">
+            
+                <a href="../../kernel/进程调度.html">
+            
+                    
+                    进程调度
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="../../kernel/ps-1-cfs.html">
+            
+                <a href="../../kernel/ps-1-cfs.html">
+            
+                    
+                    CFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="../../kernel/ps-2-eevdf.html">
+            
+                <a href="../../kernel/ps-2-eevdf.html">
+            
+                    
+                    EEVDF
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../../kernel/内存管理.html">
+            
+                <a href="../../kernel/内存管理.html">
+            
+                    
+                    内存管理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="../../kernel/mm-1-va2pa.html">
+            
+                <a href="../../kernel/mm-1-va2pa.html">
+            
+                    
+                    将虚拟地址转换为物理地址
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.2" data-path="../../kernel/mm-2-physical-memory-model.html">
+            
+                <a href="../../kernel/mm-2-physical-memory-model.html">
+            
+                    
+                    物理内存模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.3" data-path="../../kernel/mm-3-memblock.html">
+            
+                <a href="../../kernel/mm-3-memblock.html">
+            
+                    
+                    memblock
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" >
+            
+                <span>
+            
+                    
+                    系统调用
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.3.1" data-path="../../kernel/syscall-fork.html">
+            
+                <a href="../../kernel/syscall-fork.html">
+            
+                    
+                    fork
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="../../kernel/kdump.html">
+            
+                <a href="../../kernel/kdump.html">
+            
+                    
+                    Kdump
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="../../kernel/coredump.html">
+            
+                <a href="../../kernel/coredump.html">
+            
+                    
+                    coredump
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="../../kernel/tcpdump.html">
+            
+                <a href="../../kernel/tcpdump.html">
+            
+                    
+                    tcpdump
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="../../kernel/kprobe.html">
+            
+                <a href="../../kernel/kprobe.html">
+            
+                    
+                    Kprobes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8" data-path="../../kernel/systemtap.html">
+            
+                <a href="../../kernel/systemtap.html">
+            
+                    
+                    Systemtap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9" data-path="../../kernel/rcu.html">
+            
+                <a href="../../kernel/rcu.html">
+            
+                    
+                    RCU
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" >
+            
+                <span>
+            
+                    
+                    共识算法
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" >
+            
+                <span>
+            
+                    
+                    一致性算法
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../../consistency/gossip.html">
+            
+                <a href="../../consistency/gossip.html">
+            
+                    
+                    Gossip
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../../consistency/memberlist.html">
+            
+                <a href="../../consistency/memberlist.html">
+            
+                    
+                    MemberList
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" >
+            
+                <span>
+            
+                    
+                    排障与性能优化
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../../trouble/nc-udp.html">
+            
+                <a href="../../trouble/nc-udp.html">
+            
+                    
+                    nc在容器网络下的udp无法通讯问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" >
+            
+                <span>
+            
+                    
+                    八股
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../../BAGU/0_classic.html">
+            
+                <a href="../../BAGU/0_classic.html">
+            
+                    
+                    老一套
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="../../BAGU/1_consistent_hash.html">
+            
+                <a href="../../BAGU/1_consistent_hash.html">
+            
+                    
+                    一致性hash
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="../../BAGU/2_golang.html">
+            
+                <a href="../../BAGU/2_golang.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="../../BAGU/3_redis.html">
+            
+                <a href="../../BAGU/3_redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="../../BAGU/5_mysql.html">
+            
+                <a href="../../BAGU/5_mysql.html">
+            
+                    
+                    MySQL
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" >
+            
+                <span>
+            
+                    
+                    刷题总结
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../../algorithm/skill.html">
+            
+                <a href="../../algorithm/skill.html">
+            
+                    
+                    技巧篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" >
+            
+                <span>
+            
+                    
+                    杂项
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="../../misc/centos-install-v2ray.html">
+            
+                <a href="../../misc/centos-install-v2ray.html">
+            
+                    
+                    centos安装v2ray
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="../../misc/docker-pull-use-proxy.html">
+            
+                <a href="../../misc/docker-pull-use-proxy.html">
+            
+                    
+                    docker/containerd设置代理实现从外网拉取镜像
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="../../misc/install-ovs.html">
+            
+                <a href="../../misc/install-ovs.html">
+            
+                    
+                    编译安装ovs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="../../misc/docker-to-containerd.html">
+            
+                <a href="../../misc/docker-to-containerd.html">
+            
+                    
+                    k8s 将docker切换为containerd
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.5" data-path="../../misc/compile-kernel.html">
+            
+                <a href="../../misc/compile-kernel.html">
+            
+                    
+                    编译内核
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../../KEEP.html">
+            
+                <a href="../../KEEP.html">
+            
+                    
+                    时间线
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >EDT</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="earliest-departure-time">Earliest Departure Time</h1>
+<h2 id="1-&#x57FA;&#x4E8E;-queue-&#x7684;&#x6D41;&#x91CF;&#x6574;&#x5F62;">1. &#x57FA;&#x4E8E; queue &#x7684;&#x6D41;&#x91CF;&#x6574;&#x5F62;</h2>
+<p><img src="edt-images/shaping-with-queues.png" alt="shaper"></p>
+<ol>
+<li>&#x4E3B;&#x673A; egress &#x6D41;&#x91CF;&#x7ECF;&#x8FC7;&#x5206;&#x7C7B;&#x5668;&#xFF08;classifier&#xFF09;&#x8FDB;&#x884C;&#x5206;&#x7C7B;&#xFF1B;</li>
+<li>&#x6D41;&#x91CF;&#x7ECF;&#x8FC7;&#x5206;&#x7C7B;&#x540E;&#x5206;&#x522B;&#x653E;&#x5165;&#x4E0D;&#x540C;&#x7684; queue &#xFF0C;&#x5404; queue &#x7684;&#x53D1;&#x9001;&#x901F;&#x7387;&#x9650;&#x5236;&#x53EF;&#x80FD;&#x662F;&#x4E0D;&#x540C;&#x7684;&#xFF1B;</li>
+<li>&#x67D0;&#x4E2A;&#x8C03;&#x5EA6;&#x5668;&#xFF08;scheduler&#xFF09;&#x8D1F;&#x8D23;&#x7EDF;&#x4E00;&#x8C03;&#x5EA6;&#x4EE5;&#x4E0A;&#x6240;&#x6709; queue &#x7684;&#x53D1;&#x5305;&#xFF0C;&#x5C06;&#x5305;&#x4ECE; queue &#x4E2D;&#x53D6;&#x51FA;&#x653E;&#x5230;&#x4E3B;&#x673A;&#x7F51;&#x5361;&#x7684; TX queue &#x4E2D;&#xFF1B;</li>
+<li>&#x7F51;&#x5361;&#x5C06; TX queue &#x4E2D;&#x5305;&#x65E0;&#x5DEE;&#x522B;&#x5730;&#x53D1;&#x9001;&#x51FA;&#x53BB;&#x3002;</li>
+</ol>
+<p>&#x4E09;&#x4E2A;&#x7EC4;&#x4EF6;&#xFF1A;classifier&#x3001;queue&#x3001;scheduler</p>
+<h3 id="11-&#x5EF6;&#x8FDF;&#x548C;&#x4E22;&#x5305;">1.1. &#x5EF6;&#x8FDF;&#x548C;&#x4E22;&#x5305;</h3>
+<p>&#x5728;&#x8FC7;&#x53BB;25&#x5E74;&#x5185;&#xFF0C;&#x4EE5;&#x592A;&#x7F51;&#x5E26;&#x5BBD; &#x4ECE; 10Mbps &#x6F14;&#x8FDB;&#x5230; 100Gbps&#xFF0C;&#x53D1;&#x9001;&#x901F;&#x7387;&#x4E0A;&#x9650;&#x53D6;&#x51B3;&#x4E8E;&#x4E3B;&#x673A;&#x4FA7;&#x3002;&#x5F53;&#x5E0C;&#x671B;&#x53D1;&#x9001;&#x66F4;&#x5FEB;&#x65F6;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5C06;&#x7F51;&#x5361;&#x53CA;&#x7F51;&#x7EBF;&#x4ECE; 100Mbps &#x6362;&#x6210; 1000Mbps&#xFF0C;&#x975E;&#x5E38;&#x7B80;&#x5355;&#x76F4;&#x63A5;&#x3002; &#x4E3B;&#x673A;&#x5916;&#x9762;&#x7684;&#x4E1C;&#x897F;&#x4E0D;&#x7528;&#x62C5;&#x5FC3;&#xFF0C;&#x81EA;&#x7136;&#x4F1A;&#x6709;&#x4EBA;&#x548C;&#x6280;&#x672F;&#x80FD;&#x652F;&#x6491;&#x4E3B;&#x673A;&#x7684;&#x53D1;&#x9001;&#x3002;</p>
+<p><img src="edt-images/data-rate-growing-faster.png" alt="moore"></p>
+<p>&#x6469;&#x5C14;&#x5B9A;&#x5F8B;&#x8BF4;&#xFF1A;&#x6BCF;18&#x4E2A;&#x6708;&#x5E26;&#x5BBD;&#x5C31;&#x80FD;&#x7FFB;&#x4E00;&#x756A;&#x3002;</p>
+<p>&#x4F46;&#x5230;2003&#x5E74;&#xFF0C;Intel &#x7A81;&#x7136;&#x544A;&#x8BC9;&#x6211;&#x4EEC;&#x4E0B;&#x4E00;&#x4EE3;&#x5904;&#x7406;&#x5668;&#x4E0D;&#x80FD;&#x5FEB;&#x4E00;&#x500D;&#x4E86; &#x2014;&#x2014;&#x751A;&#x81F3;&#x5B9E;&#x9645;&#x4E0A;&#x8FD8;&#x4F1A;&#x6162;&#x4E00;&#x70B9;&#xFF0C; &#x7136;&#x540E;&#x901A;&#x8FC7;<strong>&#x591A;&#x6838;</strong>&#x6765;&#x63D0;&#x5347;&#x6574;&#x4F53;&#x6027;&#x80FD;&#x3002;</p>
+<p>&#x5E26;&#x6765;&#x7684;&#x5F71;&#x54CD;&#xFF1A;</p>
+<ol>
+<li>&#x670D;&#x52A1;&#x5668;&#x7684;&#x7F51;&#x5361;&#x5E26;&#x5BBD;&#x8FFD;&#x5E73;&#x4E86;&#x4EA4;&#x6362;&#x673A;&#x4E4B;&#x95F4;&#x7684;&#x4E92;&#x8054;&#x5E26;&#x5BBD;&#xFF0C;&#x6211;&#x4EEC;<strong>&#x65E0;&#x6CD5;&#x9020;&#x51FA;&#x901F;&#x5EA6;&#x6C38;&#x8FDC;&#x6BD4;&#x7F51;&#x5361;&#x5FEB;&#x4E00;&#x4E2A;&#x6570;&#x91CF;&#x7EA7;&#x7684;&#x4EA4;&#x6362;&#x673A;</strong>&#x4E86;&#x3002;</li>
+<li>&#x539F;&#x6765;&#x5355;&#x6838;&#x6216;&#x5355;&#x4E3B;&#x673A;&#x80FD;&#x5B8C;&#x6210;&#x7684;&#x4E8B;&#x60C5;&#xFF0C;&#x73B0;&#x5728;&#x53EA;&#x80FD;<strong>&#x5206;&#x53D1;&#x5230;&#x591A;&#x6838;&#x3001;&#x591A;&#x4E3B;&#x673A;</strong>&#x4E0A;&#x53BB;&#x3002;</li>
+<li>&#x4E4B;&#x524D;&#x901A;&#x8FC7;&#x5347;&#x7EA7;&#x786C;&#x4EF6;&#x8BBE;&#x65BD;&#x6765;&#x907F;&#x514D;&#x5EF6;&#x8FDF;&#x548C;&#x4E22;&#x5305;&#xFF0C;&#x73B0;&#x5728;&#x884C;&#x4E0D;&#x901A;&#x4E86;&#x3002;&#x751A;&#x81F3;<strong>&#x613F;&#x610F;&#x5FCD;&#x53D7;&#x66F4;&#x5927;&#x7684;&#x5EF6;&#x8FDF;&#x4E5F;&#x65E0;&#x6CD5;&#x907F;&#x514D;&#x4E22;&#x5305;</strong>&#x3002;</li>
+</ol>
+<p>&#x8FC7;&#x53BB;&#xFF0C;&#x6D41;&#x91CF;&#x7BA1;&#x7406;&#x5728;&#x4E2D;&#x95F4;&#x8BBE;&#x5907;&#xFF08;&#x8DEF;&#x7531;&#x5668;/&#x4EA4;&#x6362;&#x673A;&#xFF09;&#xFF0C;&#x57FA;&#x4E8E;&#x7F13;&#x51B2;&#x961F;&#x5217;&#xFF08;queue&#xFF09;&#x5B9E;&#x73B0;&#xFF0C;&#x5DF2;&#x65E0;&#x6CD5;&#x9002;&#x7528;&#x5F53;&#x524D;&#x7684;&#x7F51;&#x7EDC;&#x73B0;&#x72B6;&#x4E86;&#x3002;</p>
+<h3 id="12-&#x57FA;&#x4E8E;-queue-&#x5B58;&#x5728;&#x4EC0;&#x4E48;&#x95EE;&#x9898;&#xFF1F;">1.2. &#x57FA;&#x4E8E; queue &#x5B58;&#x5728;&#x4EC0;&#x4E48;&#x95EE;&#x9898;&#xFF1F;</h3>
+<ol>
+<li>CPU&#x5F00;&#x9500;&#x968F; queue &#x6570;&#x91CF; &#x7EBF;&#x6027;&#x589E;&#x957F;&#xFF1B;</li>
+<li>&#x591A;&#x4E2A;CPU&#x5171;&#x4EAB;&#x591A;&#x4E2A;queue&#xFF0C;&#x5BFC;&#x81F4;CPU&#x4E4B;&#x524D;&#x7ADE;&#x4E89;&#x5F00;&#x9500;&#xFF08;&#x9501;&#xFF09;&#xFF1B;</li>
+</ol>
+<h2 id="2-&#x57FA;&#x4E8E;-time-&#x7684;&#x6D41;&#x91CF;&#x6574;&#x5F62;">2. &#x57FA;&#x4E8E; time &#x7684;&#x6D41;&#x91CF;&#x6574;&#x5F62;</h2>
+<p>Google &#x7684;&#x89E3;&#x51B3;&#x601D;&#x8DEF;&#x662F;&#xFF1A;<strong>&#x611F;&#x77E5;&#x7F51;&#x7EDC;&#x74F6;&#x9888;&#xFF0C;&#x4EE5;&#x74F6;&#x9888;&#x5904;&#x7684;&#x6700;&#x5927;&#x53D1;&#x9001;&#x901F;&#x7387;&#x53D1;&#x9001;&#x6570;&#x636E;&#x5305;</strong>&#x3002;</p>
+<p>&#x4F9D;&#x8D56;&#x7684;&#x6700;&#x91CD;&#x8981;&#x56E0;&#x7D20;&#x4E0D;&#x518D;&#x662F; queue&#xFF0C;&#x800C;&#x662F;<strong>&#x65F6;&#x95F4;&#xFF08;time&#xFF09;</strong>&#x3002;</p>
+<p><img src="edt-images/token-bucket-vs-edt.png" alt="edt"></p>
+<p>&#x5F15;&#x5165;&#x4E86; EDT&#xFF08;earliest departure time&#xFF09;&#x6A21;&#x578B;&#xFF1A;</p>
+<ul>
+<li>&#x7ED9;&#x6BCF;&#x4E2A;&#x5305;&#xFF08;skb&#xFF09;&#x6253;&#x4E0A;&#x4E00;&#x4E2A; Earliest Departure Time (EDT) &#x65F6;&#x95F4;&#x6233;&#xFF1B;&#xFF1B;</li>
+<li>&#x7528;&#x4E00;&#x4E2A;&#x65F6;&#x95F4;&#x8F6E;&#x8C03;&#x5EA6;&#x5668;&#xFF08;timing-wheel scheduler&#xFF09;&#x4EE3;&#x66FF;&#x539F;&#x6765;&#x7F13;&#x51B2;&#x961F;&#x5217;&#xFF08;queue&#xFF09;&#xFF0C;&#x6839;&#x636E;&#x65F6;&#x95F4;&#x6233;&#x63A7;&#x5236; egress &#x53D1;&#x5305;&#x3002;</li>
+</ul>
+<p><img src="edt-images/ts-based-shaper.png" alt="Carousel"></p>
+<ol>
+<li>&#x8C03;&#x5EA6;&#x590D;&#x6742;&#x5EA6; O(1)&#xFF0C;&#x5F85;&#x53D1;&#x9001;&#x7684;&#x5305;&#x662F;&#x6309;&#x65F6;&#x95F4;&#x6233;&#x6392;&#x597D;&#x5E8F;&#x7684;&#xFF1B;</li>
+<li>&#x8C03;&#x5EA6;&#x5668;&#x80FD;&#x76F4;&#x63A5;&#x7ED9; socket &#x53CD;&#x538B;&#xFF0C;&#x63A7;&#x5236; socket &#x53D1;&#x9001;&#x901F;&#x7387;&#xFF1B;</li>
+<li>&#x6BCF;&#x4E2A;CPU&#x4E00;&#x4E2A; shaper&#xFF0C;&#x65E0;&#x9501;&#xFF1B;</li>
+</ol>
+<p>&#x597D;&#x5904;&#xFF1A;</p>
+<ul>
+<li>&#x7F13;&#x5B58;&#x53CB;&#x597D; &#xFF08;&#x6CA1;&#x6709;&#x6307;&#x9488;&#x94FE;&#x4E86;&#xFF09;&#xFF1B;</li>
+<li>RCU&#x53CB;&#x597D;&#xFF08;&#x5355;&#x69FD;&#x66F4;&#x65B0;&#xFF09;&#xFF1B;</li>
+<li>Qdisc &#x53D8;&#x6210;&#x4E86;&#x7EAF;&#x8BA1;&#x7B97;&#x6A21;&#x5757;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x7EF4;&#x62A4;&#x5185;&#x90E8;&#x961F;&#x5217;&#x4E86;&#xFF1B;</li>
+</ul>
+<h2 id="&#x53C2;&#x8003;">&#x53C2;&#x8003;</h2>
+<p><a href="https://documents.pub/document/oct-2018-david-wetherall-presenter-nandita-dukkipati-talks2018davidwetherall.html?page=32" target="_blank">From Queues to Earliest Departure Time</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="fq_codel.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 公平队列控制延迟">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"EDT","level":"1.3.3.3","depth":3,"next":{"title":"Kubernetes","level":"1.4","depth":1,"ref":"","articles":[{"title":"Jobs","level":"1.4.1","depth":2,"path":"Kubernetes/Jobs.md","ref":"./Kubernetes/Jobs.md","articles":[]},{"title":"CronJob","level":"1.4.2","depth":2,"path":"Kubernetes/CronJob.md","ref":"./Kubernetes/CronJob.md","articles":[]},{"title":"CRD","level":"1.4.3","depth":2,"path":"Kubernetes/CRD.md","ref":"./Kubernetes/CRD.md","articles":[]},{"title":"Operator","level":"1.4.4","depth":2,"path":"Kubernetes/Operator.md","ref":"./Kubernetes/Operator.md","articles":[]},{"title":"kubelet","level":"1.4.5","depth":2,"path":"Kubernetes/kubelet.md","ref":"./Kubernetes/kubelet.md","articles":[]},{"title":"Informer","level":"1.4.6","depth":2,"path":"Kubernetes/Informer.md","ref":"./Kubernetes/Informer.md","articles":[]}]},"previous":{"title":"公平队列控制延迟","level":"1.3.3.2","depth":3,"path":"network/traffic_control/fq_codel.md","ref":"./network/traffic_control/fq_codel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"network/traffic_control/edt.md","mtime":"2023-07-16T08:33:38.173Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-07-16T11:49:35.543Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-intopic-toc/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-intopic-toc/gumshoe.polyfills.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-intopic-toc/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
