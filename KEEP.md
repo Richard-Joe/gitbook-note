@@ -46,6 +46,10 @@
 
 [(2023-6-28 ) MySQL](https://richard-joe.github.io/gitbook-note/BAGU/5_mysql.html)
 
+[(2023-7-16 ) EDT](https://richard-joe.github.io/gitbook-note/network/traffic_control/edt.html)
+
+[(2023-7-16 ) Bandwidth Manager](https://richard-joe.github.io/gitbook-note/cilium/bandwidth-manager.html)
+
 七月份学习计划：
 
 - k8s NetworkPolicy and cilium NetworkPolicy

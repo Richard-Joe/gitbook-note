@@ -59,6 +59,10 @@ Google 的解决思路是：**感知网络瓶颈，以瓶颈处的最大发送�
 - RCU友好（单槽更新）；
 - Qdisc 变成了纯计算模块，不需要维护内部队列了；
 
+## 3. cilium+EDT+FQ+BBR
+
+[Bandwidth Manager](https://richard-joe.github.io/gitbook-note/cilium/bandwidth-manager.html)
+
 ## 参考
 
 [From Queues to Earliest Departure Time](https://documents.pub/document/oct-2018-david-wetherall-presenter-nandita-dukkipati-talks2018davidwetherall.html?page=32)
