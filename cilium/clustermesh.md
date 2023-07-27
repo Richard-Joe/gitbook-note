@@ -45,8 +45,8 @@ function create_cluster() {
   helm install cilium cilium-1.13.4.tgz --kube-context $CLUSTER --set cluster.id=$1 --set cluster.name=$CLUSTER --set image.useDigest=false --set operator.image.useDigest=false --set certgen.image.tag=v0.1.8 --set clustermesh.useAPIServer=true --set clustermesh.apiserver.image.useDigest=false --set clustermesh.apiserver.etcd.image.tag=v3.5.7 --set clustermesh.apiserver.service.type=LoadBalancer
 
   helm install metallb metallb-0.13.9.tgz
-  sleep 3
-  kubectl apply -f ippool-$KNAME.yaml
+  sleep 10
+  kubectl --context $CLUSTER apply -f ippool-$KNAME.yaml
 }
 
 NUMS=(1)
@@ -55,4 +55,7 @@ for number in "${NUMS[@]}"
 do
   create_cluster $number
 done
+
+cilium clustermesh connect --context kind-c1 --destination-context kind-c2 -n default
+
 ```
