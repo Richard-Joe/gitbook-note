@@ -43,6 +43,7 @@
 
 * [cilium](./cilium/index.md)
   * [Bandwidth Manager](./cilium/bandwidth-manager.md)
+  * [Cluster Mesh](./cilium/clustermesh.md)
 
 * [Prometheus](./Prometheus/prometheus.md)
 
