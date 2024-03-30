@@ -47,6 +47,9 @@
 
 * [Prometheus](./Prometheus/prometheus.md)
 
+* [Rust]()
+  * [语言基础](./rust/lang.md)
+
 * [内核]()
   * [进程调度](./kernel/进程调度.md)
     * [CFS](./kernel/ps-1-cfs.md)
