@@ -1471,6 +1471,279 @@ Rust&#x8BA9; s1 &#x5931;&#x6548;&#xFF1B;
     <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;others&quot;</span>)
 }
 </code></pre>
+<h2 id="12-package&#x3001;crate&#x3001;module&#x3001;path">12. Package&#x3001;Crate&#x3001;Module&#x3001;Path</h2>
+<ul>
+<li><p><code>Crate</code>&#xFF1A;</p>
+<ul>
+<li>&#x4E24;&#x79CD;&#x7C7B;&#x578B;&#xFF1A;<code>binary</code>&#x3001;<code>library</code></li>
+<li><code>Crate Root</code>&#xFF1A;&#x6307;&#x6E90;&#x4EE3;&#x7801;&#x5165;&#x53E3;&#x6587;&#x4EF6;<ul>
+<li><code>src/main.rs</code>  ( binary )</li>
+<li><code>src/lib.rs</code>  ( library )</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>Package</code>&#xFF1A;</p>
+<ul>
+<li><code>Cargo.toml</code>&#xFF1A;&#x63CF;&#x8FF0;&#x4E86;&#x5982;&#x679C;&#x6784;&#x5EFA; <code>Crates</code></li>
+<li>&#x53EA;&#x80FD;&#x5305;&#x542B; <code>0-1</code> &#x4E2A; <code>library crate</code></li>
+<li>&#x53EF;&#x4EE5;&#x5305;&#x542B; <code>&#x4EFB;&#x610F;&#x6570;&#x91CF;</code> &#x7684; <code>binary crate</code></li>
+<li>&#x4F46;&#x5FC5;&#x987B;&#x81F3;&#x5C11;&#x5305;&#x542B;&#x4E00;&#x4E2A; <code>crate</code></li>
+</ul>
+</li>
+<li><p><code>Module</code>&#xFF1A;&#x5728;&#x4E00;&#x4E2A; <code>crate</code> &#x5185;&#xFF0C;&#x5C06;&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x5206;&#x7EC4;</p>
+<ul>
+<li>&#x63A7;&#x5236;&#x4F5C;&#x7528;&#x57DF;&#x548C;&#x79C1;&#x6709;&#x6027;&#xFF08;public&#x3001;private&#xFF09;</li>
+<li><strong><code>mod</code></strong> &#x5173;&#x952E;&#x5B57;&#xFF0C;&#x53EF;&#x5D4C;&#x5957;</li>
+</ul>
+</li>
+<li><p><code>Path</code>&#xFF1A;</p>
+<ul>
+<li>&#x4E24;&#x79CD;&#x5F62;&#x5F0F;&#xFF1A;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#xFF08;&#x63A8;&#x8350;&#xFF09;&#x3001;&#x76F8;&#x5BF9;&#x8DEF;&#x5F84;</li>
+<li>&#x6807;&#x8BC6;&#x7B26; <code>::</code></li>
+<li><strong><code>super</code></strong> &#x5173;&#x952E;&#x5B57;&#xFF0C;&#x7528;&#x6765;&#x8BBF;&#x95EE;&#x7236;&#x7EA7;&#x6A21;&#x5757;&#x8DEF;&#x5F84;&#x4E2D;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x7C7B;&#x4F3C;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;<code>..</code></li>
+</ul>
+</li>
+<li><p><code>privacy boundary</code>&#xFF1A;&#x79C1;&#x6709;&#x8FB9;&#x754C;</p>
+<ul>
+<li>Rust&#x4E2D;&#x6240;&#x6709;&#x6761;&#x76EE;&#xFF08;&#x51FD;&#x6570;&#x3001;&#x65B9;&#x6CD5;&#x3001;struct&#x3001;enum&#x3001;&#x6A21;&#x5757;&#x3001;&#x5E38;&#x91CF;&#xFF09;<strong>&#x9ED8;&#x8BA4;&#x662F;&#x79C1;&#x6709;&#x7684;</strong>&#x3002;</li>
+<li>&#x7236;&#x6A21;&#x5757;&#x65E0;&#x6CD5;&#x8BBF;&#x95EE;&#x5B50;&#x6A21;&#x5757;&#x7684;&#x79C1;&#x6709;&#x6761;&#x76EE;</li>
+<li>&#x5B50;&#x6A21;&#x5757;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x6240;&#x6709;&#x7956;&#x5148;&#x6A21;&#x5757;&#x4E2D;&#x7684;&#x6761;&#x76EE;</li>
+<li><strong><code>pub</code></strong> &#x5173;&#x952E;&#x5B57;&#x6807;&#x8BB0;&#x6761;&#x76EE;&#x4E3A;&#x516C;&#x5171;&#x7684;</li>
+</ul>
+</li>
+<li><p><strong><code>pub struct</code></strong>&#xFF1A;</p>
+<ul>
+<li><code>struct</code> &#x662F;&#x516C;&#x5171;&#x7684;&#xFF0C;&#x4F46;<strong>&#x91CC;&#x9762;&#x7684;&#x5B57;&#x6BB5;&#x9ED8;&#x8BA4;&#x662F;&#x79C1;&#x6709;&#x7684;</strong></li>
+<li>&#x91CC;&#x9762;&#x7684;&#x5B57;&#x6BB5;&#x9700;&#x8981;&#x5355;&#x72EC;&#x8BBE;&#x7F6E; <code>pub</code> &#x6765;&#x53D8;&#x6210;&#x516C;&#x6709;&#x7684;</li>
+</ul>
+</li>
+<li><p><strong><code>pub enum</code></strong>&#xFF1A;</p>
+<ul>
+<li><code>enum</code> &#x662F;&#x516C;&#x5171;&#x7684;&#xFF0C;</li>
+<li><strong><code>enum</code> &#x7684;&#x53D8;&#x4F53;&#x4E5F;&#x90FD;&#x662F;&#x516C;&#x5171;&#x7684;</strong></li>
+</ul>
+</li>
+<li><p><strong><code>use</code></strong>&#xFF1A;&#x5C06; <code>path</code> &#x5BFC;&#x5165;&#x5230;&#x4F5C;&#x7528;&#x57DF;&#x5185;&#xFF0C;&#xFF08;&#x4F5C;&#x7528;&#x57DF;&#x5185;<strong>&#x79C1;&#x6709;</strong>&#xFF09;</p>
+<ul>
+<li>&#x51FD;&#x6570;&#xFF1A;&#x60EF;&#x7528;&#x505A;&#x6CD5;&#x662F;&#x5C06;&#x51FD;&#x6570;&#x7684;&#x7236;&#x7EA7;&#x6A21;&#x5757;&#x5F15;&#x5165;&#x4F5C;&#x7528;&#x57DF;&#xFF08;&#x6307;&#x5B9A;&#x7236;&#x7EA7;&#xFF09;</li>
+<li><code>struct&#x3001;enum</code>&#xFF1A;&#x60EF;&#x7528;&#x505A;&#x6CD5;&#x6307;&#x5B9A;&#x5B8C;&#x6574;&#x8DEF;&#x5F84;&#xFF08;&#x6307;&#x5B9A;&#x672C;&#x7701;&#xFF09;&#xFF08;&#x9664;&#x975E;&#x4E24;&#x4E2A;&#x6A21;&#x5757;&#x4E2D;&#x7684;&#x7ED3;&#x6784;&#x4F53;&#x540D;&#x79F0;&#x76F8;&#x540C;&#xFF09;</li>
+<li><strong><code>as</code></strong> &#x5173;&#x952E;&#x5B57;&#xFF1A;&#x53EF;&#x4EE5;&#x7ED9;&#x5F15;&#x5165;&#x8DEF;&#x5F84;&#x6307;&#x5B9A;&#xFF08;&#x672C;&#x5730;&#xFF09;&#x522B;&#x540D;</li>
+<li><strong><code>pub use</code></strong>&#xFF1A;&#x91CD;&#x65B0;&#x5BFC;&#x51FA;&#x540D;&#x79F0;</li>
+<li>&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <strong>&#x5D4C;&#x5957;&#x8DEF;&#x5F84;</strong> &#x6E05;&#x7406;&#x5927;&#x91CF;&#x7684; <code>use</code> &#x8BED;&#x53E5;</li>
+<li>&#x652F;&#x6301;&#x901A;&#x914D;&#x7B26; <code>*</code></li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-comment">// &#x5D4C;&#x5957;&#x8DEF;&#x5F84;</span>
+<span class="hljs-keyword">use</span> std::{cmp::Ordering, io}
+<span class="hljs-keyword">use</span> std::io::{<span class="hljs-keyword">self</span>, Write}
+</code></pre>
+<ul>
+<li><strong>&#x5C06;&#x6A21;&#x5757;&#x5185;&#x5BB9;&#x79FB;&#x52A8;&#x5230;&#x5176;&#x4ED6;&#x6587;&#x4EF6;</strong><ul>
+<li>&#x6A21;&#x5757;&#x540D;&#x540E;&#x9762;&#x662F; <code>;</code></li>
+<li>Rust &#x4F1A;&#x4ECE;&#x4E0E;&#x6A21;&#x5757;&#x540C;&#x540D;&#x7684;&#x6587;&#x4EF6;&#x4E2D;&#x52A0;&#x8F7D;&#x5185;&#x5BB9;</li>
+</ul>
+</li>
+</ul>
+<h2 id="13-vector&#x3001;string&#x3001;hashmap">13. Vector&#x3001;String&#x3001;HashMap</h2>
+<ul>
+<li>Vector</li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-comment">// Vector</span>
+<span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> v: <span class="hljs-built_in">Vec</span>&lt;<span class="hljs-keyword">i32</span>&gt; = <span class="hljs-built_in">Vec</span>::new();
+<span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> v1 = <span class="hljs-built_in">vec!</span>[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>];
+v.push(<span class="hljs-number">99</span>);
+v.get(<span class="hljs-number">0</span>);
+<span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span>  v {}
+<span class="hljs-keyword">for</span> (i, item) <span class="hljs-keyword">in</span> v.iter().enumerate() {}
+
+<span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Cell</span></span> {
+    Int(<span class="hljs-keyword">i32</span>),
+    Float(<span class="hljs-keyword">f64</span>),
+    Text(<span class="hljs-built_in">String</span>),
+}
+<span class="hljs-keyword">let</span> row = <span class="hljs-built_in">vec!</span>[
+    Cell::Int(<span class="hljs-number">1</span>),
+    Cell::Float(<span class="hljs-number">2.34</span>),
+    Cell::Text(<span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;red&quot;</span>)),
+]
+</code></pre>
+<ul>
+<li>String&#xFF1A;<strong>&#x5B57;&#x7B26;&#x4E32;&#x5728;Rust&#x4E2D;&#x4F7F;&#x7528; <code>UTF-8</code> &#x7F16;&#x7801;</strong><ul>
+<li><code>String</code>  &#x6765;&#x81EA;&#x6807;&#x51C6;&#x5E93;</li>
+<li><code>&amp;str</code> &#x5B57;&#x7B26;&#x4E32;&#x5207;&#x7247;&#xFF0C;&#x6765;&#x81EA;Rust&#x6838;&#x5FC3;&#x8BED;&#x8A00;</li>
+<li>&#x5176;&#x4ED6;&#x5B57;&#x7B26;&#x4E32;&#x7C7B;&#x578B;&#xFF1A;<code>OsString&#x3001;OsStr&#x3001;CString&#x3001;CStr</code></li>
+<li><strong>Rust&#x4E2D;&#x5B57;&#x7B26;&#x4E32;&#x4E0D;&#x652F;&#x6301;&#x7D22;&#x5F15;&#x8BED;&#x6CD5;&#x8BBF;&#x95EE;</strong>&#x3002;&#x539F;&#x56E0;&#xFF1A;<ul>
+<li><ol>
+<li>&#x4E0D;&#x5B89;&#x5168;&#xFF0C;&#x8D8A;&#x754C;&#x95EE;&#x9898;&#xFF1B;</li>
+</ol>
+</li>
+<li><ol>
+<li>&#x7D22;&#x5F15;&#x64CD;&#x4F5C;&#x5E94;&#x6D88;&#x8017;O(1)&#xFF0C;&#x4F46;String&#x65E0;&#x6CD5;&#x4FDD;&#x8BC1;&#x8FD9;&#x4E2A;&#x65F6;&#x95F4;&#xFF0C;&#x56E0;&#x4E3A;&#x9700;&#x8981;&#x904D;&#x5386;&#x6240;&#x6709;&#x5185;&#x5BB9;&#x624D;&#x80FD;&#x786E;&#x5B9A;&#x6709;&#x591A;&#x5C11;&#x5408;&#x6CD5;&#x5B57;&#x7B26;&#xFF1B;</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><code>String</code> &#x662F;&#x5BF9; <code>Vec&lt;u8&gt;</code> &#x7684;&#x5305;&#x88C5;</li>
+<li>Rust&#x4E2D;&#x770B;&#x5F85;&#x5B57;&#x7B26;&#x4E32;&#x6709;&#x4E09;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;<ul>
+<li>&#x5B57;&#x8282;&#xFF08;Bytes&#xFF09;</li>
+<li>&#x6807;&#x91CF;&#x503C;&#xFF08;Scalar Values&#xFF09;</li>
+<li>&#x5B57;&#x5F62;&#x7C07;&#xFF08;Grapheme Clusters&#xFF09;</li>
+</ul>
+</li>
+<li>Rust&#x4E2D;&#xFF0C;<strong>&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x7684;&#x5B57;&#x7B26;&#x6240;&#x5360;&#x7684;&#x5B57;&#x8282;&#x6570;&#x662F;&#x53D8;&#x5316;&#x7684;</strong>&#xFF08;<strong><code>1-4</code>&#x4E2A;&#x5B57;&#x8282;</strong>&#xFF09;</li>
+<li>&#x5207;&#x5272;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5FC5;&#x987B;&#x8C28;&#x614E;&#x4F7F;&#x7528;&#xFF0C;<strong>&#x5982;&#x679C;&#x8DE8;&#x8D8A;&#x4E86;&#x5B57;&#x7B26;&#x8FB9;&#x754C;&#xFF0C;&#x7A0B;&#x5E8F;&#x5C31;&#x4F1A;panic</strong>&#x3002;</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-keyword">let</span> blue = <span class="hljs-string">&quot;Blue&quot;</span>.to_string();
+<span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> red = <span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;Red&quot;</span>);
+red.push_str(<span class="hljs-string">&quot;black&quot;</span>);
+red.push_str(&amp;blue);  <span class="hljs-comment">// &#x9644;&#x52A0;&#x5B57;&#x7B26;&#x4E32;&#x5207;&#x7247;</span>
+red.push(&apos;&#x1F602;&apos;);      <span class="hljs-comment">// &#x9644;&#x52A0;&#x5355;&#x4E2A;&#x5B57;&#x7B26;</span>
+
+<span class="hljs-keyword">let</span> color = red + &amp;blue; <span class="hljs-comment">// fn add(self, s: &amp;str) -&gt; String</span>
+<span class="hljs-comment">// &#x6CE8;&#x610F;&#xFF1A;red&#x53D1;&#x751F;&#x4E86;&#x79FB;&#x52A8;&#xFF0C;&#x6240;&#x6709;&#x6743;&#x8FDB;&#x884C;&#x4E86;&#x8F6C;&#x79FB;&#xFF0C;&#x540E;&#x7EED;&#x65E0;&#x6CD5;&#x7EE7;&#x7EED;&#x4F7F;&#x7528;</span>
+
+<span class="hljs-keyword">let</span> s = <span class="hljs-built_in">format!</span>(<span class="hljs-string">&quot;{}-{}&quot;</span>, <span class="hljs-string">&quot;foo&quot;</span>, <span class="hljs-string">&quot;bar&quot;</span>);
+
+<span class="hljs-comment">// &#x5B57;&#x7B26;&#x4E32;&#x662F; UTF-8 &#x7F16;&#x7801;</span>
+<span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;{}&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>.len());  <span class="hljs-comment">// &#x6253;&#x5370; 1</span>
+<span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;{}&quot;</span>, <span class="hljs-string">&quot;&#x434;&quot;</span>.len());  <span class="hljs-comment">// &#x6253;&#x5370; 2</span>
+<span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;{}&quot;</span>, <span class="hljs-string">&quot;&#x935;&quot;</span>.len());  <span class="hljs-comment">// &#x6253;&#x5370; 3</span>
+<span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;{}&quot;</span>, <span class="hljs-string">&quot;&#x1F602;&quot;</span>.len()); <span class="hljs-comment">// &#x6253;&#x5370; 4</span>
+
+<span class="hljs-comment">// &#x904D;&#x5386;</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> color.chars() {}  <span class="hljs-comment">// &#x60F3;&#x5F97;&#x5230; &#x6807;&#x91CF;&#x503C;</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> color.bytes() {}  <span class="hljs-comment">// &#x60F3;&#x5F97;&#x5230; &#x5B57;&#x8282;</span>
+</code></pre>
+<ul>
+<li>HashMap<ul>
+<li>&#x5728;&#x5143;&#x7D20;&#x7C7B;&#x578B;&#x4E3A; <code>Tuple</code>&#xFF08;&#x4E24;&#x4E2A;&#x503C;&#xFF09; &#x7684; <code>Vector</code> &#x4E0A;&#x4F7F;&#x7528; <code>collect</code>&#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x7EC4;&#x5EFA;&#x4E00;&#x4E2A; <code>HashMap</code> </li>
+<li><strong>&#x6240;&#x6709;&#x6743;</strong>&#xFF1A;<ul>
+<li><strong>&#x5BF9;&#x4E8E;&#x5B9E;&#x73B0;&#x4E86; <code>Copy trait</code> &#x7684;&#x7C7B;&#x578B;&#xFF0C;&#x503C;&#x4F1A;&#x88AB;&#x590D;&#x5236;&#x5230; <code>HashMap</code> &#x3002;</strong>&#x6BD4;&#x5982; <code>i32</code> </li>
+<li><strong>&#x5BF9;&#x4E8E;&#x62E5;&#x6709;&#x6240;&#x6709;&#x6743;&#x7684;&#x503C;&#xFF0C;&#x503C;&#x4F1A;&#x88AB;&#x79FB;&#x52A8;&#xFF0C;&#x6240;&#x6709;&#x6743;&#x4F1A;&#x8F6C;&#x79FB;&#x7ED9; <code>HashMap</code> &#x3002;</strong>&#x6BD4;&#x5982; <code>String</code> </li>
+<li>&#x5982;&#x679C;&#x5C06;<strong>&#x503C;&#x7684;&#x5F15;&#x7528;</strong>&#x63D2;&#x5165;&#x5230; <code>HashMap</code> &#xFF0C;&#x503C;&#x672C;&#x8EAB;&#x4E0D;&#x4F1A;&#x79FB;&#x52A8;&#xFF1B;&#x4F46;&#x8FD9;&#x671F;&#x95F4;&#x5FC5;&#x987B;&#x4FDD;&#x6301;&#x5F15;&#x7528;&#x7684;&#x503C;&#x6709;&#x6548;</li>
+</ul>
+</li>
+<li><strong>Hash&#x51FD;&#x6570;</strong>&#xFF1A;<ul>
+<li>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#x7684;hash&#x51FD;&#x6570;&#xFF0C;&#x53EF;&#x4EE5;&#x62B5;&#x6297;Dos&#x653B;&#x51FB;&#xFF0C;&#x5B89;&#x5168;&#x6027;&#x66F4;&#x597D;&#xFF0C;&#x4F46;&#x4E0D;&#x662F;&#x6700;&#x5FEB;&#x7684;&#x7B97;&#x6CD5;&#xFF1B;</li>
+<li>&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x4E0D;&#x540C;&#x7684; <code>hasher</code> &#xFF08;&#x6307;&#x5B9E;&#x73B0;&#x4E86; <code>BuildHasher trait</code> &#x7684;&#x7C7B;&#x578B;&#xFF09;&#x6765;&#x5207;&#x6362;&#xFF1B;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> map: HashMap&lt;<span class="hljs-keyword">i32</span>, <span class="hljs-built_in">String</span>&gt; = HashMap::new();
+map.insert(<span class="hljs-number">10</span>, <span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;red&quot;</span>));
+<span class="hljs-keyword">let</span> v = map.get(&amp;<span class="hljs-number">10</span>);
+<span class="hljs-keyword">match</span> v {
+    <span class="hljs-literal">None</span> =&gt; <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;not exist&quot;</span>),
+    <span class="hljs-literal">Some</span>(s) =&gt; <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;{}&quot;</span>, s),
+}
+
+<span class="hljs-keyword">let</span> color = <span class="hljs-built_in">vec!</span>[<span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;red&quot;</span>), <span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;blue&quot;</span>)];
+<span class="hljs-keyword">let</span> nums = <span class="hljs-built_in">vec!</span>[<span class="hljs-number">100</span>, <span class="hljs-number">200</span>];
+<span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> map: HashMap&lt;_, _&gt; = color.iter().zip(nums.iter()).collect();
+<span class="hljs-keyword">for</span> (k,v) <span class="hljs-keyword">in</span> &amp;map {
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;{}: {}&quot;</span>, k, v)
+}
+map.entry(&amp;<span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;black&quot;</span>)).or_insert(&amp;<span class="hljs-number">300</span>); <span class="hljs-comment">// key&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5219;&#x63D2;&#x5165;</span>
+
+<span class="hljs-keyword">let</span> text = <span class="hljs-string">&quot;hello world wonderful world&quot;</span>;
+<span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> map = HashMap::new();
+<span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> text.split_whitespace() {
+    <span class="hljs-keyword">let</span> count = map.entry(word).or_insert(<span class="hljs-number">0</span>);
+    *count += <span class="hljs-number">1</span>;
+}
+<span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;{:#?}&quot;</span>, map);
+<span class="hljs-comment">// entry&#x65B9;&#x6CD5;&#xFF1A;&#x8FD4;&#x56DE; enum Entry&#xFF0C;&#x4EE3;&#x8868;&#x503C;&#x662F;&#x5426;&#x5B58;&#x5728;</span>
+<span class="hljs-comment">// or_insert&#x65B9;&#x6CD5;&#xFF1A;</span>
+<span class="hljs-comment">//        &#x5982;&#x679C; key &#x5B58;&#x5728;&#xFF0C;&#x8FD4;&#x56DE; value &#x7684;&#x53EF;&#x53D8;&#x5F15;&#x7528;&#xFF1B;</span>
+<span class="hljs-comment">//        &#x5982;&#x679C; key &#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5C06;&#x65B0;&#x952E;&#x503C;(k,v)&#x63D2;&#x8FDB;&#x53BB;&#xFF0C;&#x8FD4;&#x56DE; value &#x7684;&#x53EF;&#x53D8;&#x5F15;&#x7528;&#xFF1B;</span>
+</code></pre>
+<h2 id="14-&#x9519;&#x8BEF;&#x5904;&#x7406;">14. &#x9519;&#x8BEF;&#x5904;&#x7406;</h2>
+<ul>
+<li>&#x53EF;&#x6062;&#x590D;&#xFF1A;<code>Result&lt;T, E&gt;</code></li>
+<li>&#x4E0D;&#x53EF;&#x6062;&#x590D;&#xFF1A;<code>panic!</code> &#x5B8F;</li>
+</ul>
+<p><strong>panic&#xFF1A;</strong></p>
+<ul>
+<li>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5F53; panic &#x53D1;&#x751F;&#x65F6;&#xFF0C;&#x7A0B;&#x5E8F;&#x4F1A; <strong>&#x5C55;&#x5F00;&#xFF08;unwind&#xFF09;</strong> &#x8C03;&#x7528;&#x6808;&#xFF1B;&#xFF08;Rust&#x6CBF;&#x8C03;&#x7528;&#x6808;&#x5F80;&#x56DE;&#x8D70;&#xFF0C;&#x6E05;&#x7406;&#x6BCF;&#x4E00;&#x4E2A;&#x9047;&#x5230;&#x7684;&#x6570;&#x636E;&#xFF09;</li>
+<li>&#x60F3;&#x8BA9;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;&#x66F4;&#x5C0F;&#xFF0C;&#x53EF;&#x4EE5;&#x628A;&#x8FD9;&#x4E00;&#x884C;&#x4E3A;&#x6539;&#x4E3A; <strong>&#x7ACB;&#x5373;&#x4E2D;&#x6B62;&#xFF08;abort&#xFF09;</strong> &#x8C03;&#x7528;&#x6808;&#xFF1B;&#xFF08;&#x7531;OS&#x8FDB;&#x884C;&#x6E05;&#x7406;&#xFF09;<ul>
+<li>&#x5728;Cargo.toml&#x4E2D;&#x8BBE;&#x7F6E;&#xFF1A;<pre><code class="lang-toml"><span class="hljs-section">[profile.release]</span>
+<span class="hljs-attr">panic</span> = <span class="hljs-string">&apos;abort&apos;</span>
+</code></pre>
+</li>
+</ul>
+</li>
+<li>&#x56DE;&#x6EAF;&#x4FE1;&#x606F;&#xFF1A;&#x8BBE;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF; <code>RUST_BACKTRACE</code>&#xFF1B;debug&#x6A21;&#x5F0F;&#xFF1B;</li>
+</ul>
+<p><strong>Result&#x679A;&#x4E3E;&#xFF1A;</strong></p>
+<pre><code class="lang-rust"><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Result</span></span>&lt;T, E&gt; {
+    <span class="hljs-literal">Ok</span>(T),
+    <span class="hljs-literal">Err</span>(E),
+}
+</code></pre>
+<p><strong>&#x9519;&#x8BEF;&#x5904;&#x7406;&#xFF1A;</strong></p>
+<ul>
+<li><strong><code>match</code></strong></li>
+<li><strong><code>unwrap</code></strong>&#xFF1A;match&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x4E00;&#x4E2A;&#x5FEB;&#x6377;&#x65B9;&#x5F0F;&#xFF1B;</li>
+<li><strong><code>expect</code></strong>&#xFF1A;&#x53EF;&#x6307;&#x5B9A;&#x9519;&#x8BEF;&#x4FE1;&#x606F;</li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-keyword">let</span> f = File::open(<span class="hljs-string">&quot;hello.ext&quot;</span>).unwrap();
+<span class="hljs-keyword">let</span> f = File::open(<span class="hljs-string">&quot;hello.ext&quot;</span>).expect(<span class="hljs-string">&quot;cannot open file&quot;</span>);
+</code></pre>
+<p><strong>&#x4F20;&#x64AD;&#x9519;&#x8BEF;&#xFF1A;</strong></p>
+<ul>
+<li><strong><code>?</code> &#x8FD0;&#x7B97;&#x6CD5;</strong>&#xFF1A;&#x4F20;&#x64AD;&#x9519;&#x8BEF;&#x7684;&#x5FEB;&#x6377;&#x65B9;&#x5F0F;</li>
+<li><strong><code>from</code> &#x51FD;&#x6570;</strong>&#xFF1A;&#x7528;&#x4E8E;&#x9519;&#x8BEF;&#x4E4B;&#x95F4;&#x7684;&#x8F6C;&#x6362;&#xFF1B;&#x573A;&#x666F;&#xFF1A;&#x9488;&#x5BF9;&#x4E0D;&#x540C;&#x7684;&#x9519;&#x8BEF;&#x539F;&#x56E0;&#xFF0C;&#x8FD4;&#x56DE;&#x540C;&#x4E00;&#x79CD;&#x9519;&#x8BEF;&#x7C7B;&#x578B;&#xFF1B;<ul>
+<li>&#x8981;&#x6C42;&#xFF1A;&#x6BCF;&#x4E2A;&#x9519;&#x8BEF;&#x7C7B;&#x578B;&#x90FD;&#x5B9E;&#x73B0;&#x4E86;&#x8F6C;&#x6362;&#x4E3A;&#x6240;&#x8FD4;&#x56DE;&#x7684;&#x9519;&#x8BEF;&#x7C7B;&#x578B;&#x7684;from&#x51FD;&#x6570;&#xFF1B;</li>
+</ul>
+</li>
+<li><strong><code>main</code> &#x51FD;&#x6570;</strong>&#x7684;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;&#x662F; <code>()</code>&#xFF0C;<code>main</code> &#x51FD;&#x6570;&#x7684;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;&#x4E5F;&#x53EF;&#x4EE5;&#x662F; <code>Result&lt;T, E&gt;</code><ul>
+<li>main &#x8FD4;&#x56DE;&#x7C7B;&#x578B;&#x5199;&#xFF1A;<code>Result&lt;(), Box&lt;dyn Error&gt;&gt;</code></li>
+<li><code>Box&lt;dyn Error&gt;</code> &#x662F; trait &#x5BF9;&#x8C61;&#xFF0C;&#x8868;&#x793A;&#x4EFB;&#x4F55;&#x53EF;&#x80FD;&#x7684;&#x9519;&#x8BEF;&#x7C7B;&#x578B;&#xFF1B;</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">open_file</span></span>() -&gt; <span class="hljs-built_in">Result</span>&lt;<span class="hljs-built_in">String</span>, io::Error&gt; {
+    <span class="hljs-keyword">let</span> f = File::open(<span class="hljs-string">&quot;hello.ext&quot;</span>)?;
+    <span class="hljs-literal">Ok</span>(<span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;ok&quot;</span>))
+}
+
+<span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">read_file</span></span>() -&gt; <span class="hljs-built_in">Result</span>&lt;<span class="hljs-built_in">String</span>, io::Error&gt; {
+    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> s = <span class="hljs-built_in">String</span>::new();
+    File::open(<span class="hljs-string">&quot;hello.ext&quot;</span>)?.read_to_string(&amp;<span class="hljs-keyword">mut</span> s)?;
+    <span class="hljs-literal">Ok</span>(s)
+}
+</code></pre>
+<h2 id="15-&#x6CDB;&#x578B;">15. &#x6CDB;&#x578B;</h2>
+<ul>
+<li>&#x4F7F;&#x7528;&#x6CDB;&#x578B;&#x7684;&#x4EE3;&#x7801;&#x548C;&#x4F7F;&#x7528;&#x5177;&#x4F53;&#x7C7B;&#x578B;&#x7684;&#x4EE3;&#x7801;&#x8FD0;&#x884C;&#x901F;&#x5EA6;&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;</li>
+<li>&#x5355;&#x6001;&#x5316;&#xFF08;monomorphization&#xFF09;&#xFF1A;&#x5728;&#x7F16;&#x8BD1;&#x65F6;&#x5C06;&#x6CDB;&#x578B;&#x66FF;&#x6362;&#x4E3A;&#x5177;&#x4F53;&#x7C7B;&#x578B;</li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-comment">// &#x51FD;&#x6570;</span>
+<span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">largest</span></span>&lt;T&gt;(list: &amp;[T]) -&gt; T {}
+
+<span class="hljs-comment">// &#x7ED3;&#x6784;&#x4F53;</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Point</span></span>&lt;T, U&gt; {
+    x: T,
+    y: U,
+}
+
+<span class="hljs-comment">// &#x679A;&#x4E3E;</span>
+<span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Result</span></span>&lt;T, E&gt; {
+    <span class="hljs-literal">Ok</span>(T),
+    <span class="hljs-literal">Err</span>(E),
+}
+
+<span class="hljs-comment">// &#x65B9;&#x6CD5;</span>
+<span class="hljs-keyword">impl</span>&lt;T, U&gt; Point&lt;T, U&gt; {
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">mixup</span></span>&lt;V, W&gt;(<span class="hljs-keyword">self</span>, other: Point&lt;V, W&gt;) -&gt; Point&lt;T, W&gt; {}
+}
+</code></pre>
 
                                 
                                 </section>
@@ -1506,7 +1779,7 @@ Rust&#x8BA9; s1 &#x5931;&#x6548;&#xFF1B;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"语言基础","level":"1.10.1","depth":2,"next":{"title":"内核","level":"1.11","depth":1,"ref":"","articles":[{"title":"进程调度","level":"1.11.1","depth":2,"path":"kernel/进程调度.md","ref":"./kernel/进程调度.md","articles":[{"title":"CFS","level":"1.11.1.1","depth":3,"path":"kernel/ps-1-cfs.md","ref":"./kernel/ps-1-cfs.md","articles":[]},{"title":"EEVDF","level":"1.11.1.2","depth":3,"path":"kernel/ps-2-eevdf.md","ref":"./kernel/ps-2-eevdf.md","articles":[]}]},{"title":"内存管理","level":"1.11.2","depth":2,"path":"kernel/内存管理.md","ref":"./kernel/内存管理.md","articles":[{"title":"将虚拟地址转换为物理地址","level":"1.11.2.1","depth":3,"path":"kernel/mm-1-va2pa.md","ref":"./kernel/mm-1-va2pa.md","articles":[]},{"title":"物理内存模型","level":"1.11.2.2","depth":3,"path":"kernel/mm-2-physical-memory-model.md","ref":"./kernel/mm-2-physical-memory-model.md","articles":[]},{"title":"memblock","level":"1.11.2.3","depth":3,"path":"kernel/mm-3-memblock.md","ref":"./kernel/mm-3-memblock.md","articles":[]}]},{"title":"系统调用","level":"1.11.3","depth":2,"ref":"","articles":[{"title":"fork","level":"1.11.3.1","depth":3,"path":"kernel/syscall-fork.md","ref":"./kernel/syscall-fork.md","articles":[]}]},{"title":"Kdump","level":"1.11.4","depth":2,"path":"kernel/kdump.md","ref":"./kernel/kdump.md","articles":[]},{"title":"coredump","level":"1.11.5","depth":2,"path":"kernel/coredump.md","ref":"./kernel/coredump.md","articles":[]},{"title":"tcpdump","level":"1.11.6","depth":2,"path":"kernel/tcpdump.md","ref":"./kernel/tcpdump.md","articles":[]},{"title":"Kprobes","level":"1.11.7","depth":2,"path":"kernel/kprobe.md","ref":"./kernel/kprobe.md","articles":[]},{"title":"Systemtap","level":"1.11.8","depth":2,"path":"kernel/systemtap.md","ref":"./kernel/systemtap.md","articles":[]},{"title":"RCU","level":"1.11.9","depth":2,"path":"kernel/rcu.md","ref":"./kernel/rcu.md","articles":[]}]},"previous":{"title":"Rust","level":"1.10","depth":1,"ref":"","articles":[{"title":"语言基础","level":"1.10.1","depth":2,"path":"rust/lang.md","ref":"./rust/lang.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"rust/lang.md","mtime":"2024-03-30T13:59:50.848Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-03-30T14:07:50.318Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"语言基础","level":"1.10.1","depth":2,"next":{"title":"内核","level":"1.11","depth":1,"ref":"","articles":[{"title":"进程调度","level":"1.11.1","depth":2,"path":"kernel/进程调度.md","ref":"./kernel/进程调度.md","articles":[{"title":"CFS","level":"1.11.1.1","depth":3,"path":"kernel/ps-1-cfs.md","ref":"./kernel/ps-1-cfs.md","articles":[]},{"title":"EEVDF","level":"1.11.1.2","depth":3,"path":"kernel/ps-2-eevdf.md","ref":"./kernel/ps-2-eevdf.md","articles":[]}]},{"title":"内存管理","level":"1.11.2","depth":2,"path":"kernel/内存管理.md","ref":"./kernel/内存管理.md","articles":[{"title":"将虚拟地址转换为物理地址","level":"1.11.2.1","depth":3,"path":"kernel/mm-1-va2pa.md","ref":"./kernel/mm-1-va2pa.md","articles":[]},{"title":"物理内存模型","level":"1.11.2.2","depth":3,"path":"kernel/mm-2-physical-memory-model.md","ref":"./kernel/mm-2-physical-memory-model.md","articles":[]},{"title":"memblock","level":"1.11.2.3","depth":3,"path":"kernel/mm-3-memblock.md","ref":"./kernel/mm-3-memblock.md","articles":[]}]},{"title":"系统调用","level":"1.11.3","depth":2,"ref":"","articles":[{"title":"fork","level":"1.11.3.1","depth":3,"path":"kernel/syscall-fork.md","ref":"./kernel/syscall-fork.md","articles":[]}]},{"title":"Kdump","level":"1.11.4","depth":2,"path":"kernel/kdump.md","ref":"./kernel/kdump.md","articles":[]},{"title":"coredump","level":"1.11.5","depth":2,"path":"kernel/coredump.md","ref":"./kernel/coredump.md","articles":[]},{"title":"tcpdump","level":"1.11.6","depth":2,"path":"kernel/tcpdump.md","ref":"./kernel/tcpdump.md","articles":[]},{"title":"Kprobes","level":"1.11.7","depth":2,"path":"kernel/kprobe.md","ref":"./kernel/kprobe.md","articles":[]},{"title":"Systemtap","level":"1.11.8","depth":2,"path":"kernel/systemtap.md","ref":"./kernel/systemtap.md","articles":[]},{"title":"RCU","level":"1.11.9","depth":2,"path":"kernel/rcu.md","ref":"./kernel/rcu.md","articles":[]}]},"previous":{"title":"Rust","level":"1.10","depth":1,"ref":"","articles":[{"title":"语言基础","level":"1.10.1","depth":2,"path":"rust/lang.md","ref":"./rust/lang.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"rust/lang.md","mtime":"2024-03-31T09:22:23.673Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-03-31T09:23:27.472Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
