@@ -1744,6 +1744,92 @@ map.entry(&amp;<span class="hljs-built_in">String</span>::from(<span class="hljs
     <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">mixup</span></span>&lt;V, W&gt;(<span class="hljs-keyword">self</span>, other: Point&lt;V, W&gt;) -&gt; Point&lt;T, W&gt; {}
 }
 </code></pre>
+<h2 id="16-trait">16. Trait</h2>
+<ul>
+<li>&#x7C7B;&#x4F3C;<code>Interface</code>&#xFF0C;&#x62BD;&#x8C61;&#x7684;&#x5B9A;&#x4E49;&#x5171;&#x4EAB;&#x884C;&#x4E3A;</li>
+<li><code>Trait bounds</code>&#xFF1A;&#x6CDB;&#x578B;&#x7C7B;&#x578B;&#x53C2;&#x6570;&#x6307;&#x5B9A;&#x4E3A;&#x5B9E;&#x73B0;&#x4E86;&#x7279;&#x5B9A;&#x884C;&#x4E3A;&#x7684;&#x7C7B;&#x578B;</li>
+<li><code>trait</code> &#x53EF;&#x4EE5;&#x6709;&#x591A;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x6BCF;&#x4E2A;&#x65B9;&#x6CD5;&#x7B7E;&#x540D;&#x5360;&#x4E00;&#x884C;&#xFF1B;</li>
+<li>&#x5B9E;&#x73B0;&#x8BE5; <code>trait</code> &#x7684;&#x7C7B;&#x578B;&#x5FC5;&#x987B;&#x63D0;&#x4F9B;&#x5177;&#x4F53;&#x7684;&#x65B9;&#x6CD5;&#x5B9E;&#x73B0;&#xFF1B;</li>
+<li>&#x5B9E;&#x73B0; <code>trait</code> &#x7684;&#x7EA6;&#x675F;&#xFF1A;<strong>&#x8FD9;&#x4E2A;&#x7C7B;&#x578B; &#x6216; &#x8FD9;&#x4E2A; trait &#x662F;&#x5728;&#x672C;&#x5730; <code>crate</code> &#x91CC;&#x5B9A;&#x4E49;&#x7684;</strong>&#xFF0C;&#x6240;&#x4EE5;<strong>&#x65E0;&#x6CD5;&#x4E3A;&#x5916;&#x90E8;&#x7C7B;&#x578B;&#x6765;&#x5B9E;&#x73B0;&#x5916;&#x90E8;&#x7684; trait</strong>&#xFF1B;</li>
+<li>&#x53EF;&#x4EE5;&#x5728; <code>trait</code> &#x91CC;&#x9762;&#x5B9A;&#x4E49;<strong>&#x9ED8;&#x8BA4;&#x5B9E;&#x73B0;&#x7684;&#x65B9;&#x6CD5;</strong>&#xFF1B;<strong>&#x9ED8;&#x8BA4;&#x5B9E;&#x73B0;&#x7684;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x8C03;&#x7528; trait &#x4E2D;&#x5176;&#x4ED6;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5373;&#x4F7F;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x6CA1;&#x6709;&#x9ED8;&#x8BA4;&#x5B9E;&#x73B0;</strong>&#xFF1B;</li>
+<li><strong>&#x65E0;&#x6CD5;&#x4ECE;&#x65B9;&#x6CD5;&#x7684;&#x91CD;&#x5199;&#x5B9E;&#x73B0;&#x91CC;&#x9762;&#x8C03;&#x7528;&#x9ED8;&#x8BA4;&#x7684;&#x5B9E;&#x73B0;</strong>&#xFF1B;</li>
+<li><code>trait</code> &#x53EF;&#x4EE5;<strong>&#x4F5C;&#x4E3A;&#x53C2;&#x6570;</strong>&#xFF0C;&#x4E09;&#x79CD;&#x5199;&#x6CD5;&#xFF1A;1. impl&#x3001;2. trait bound&#x3001;3. trait bound where</li>
+<li><code>trait</code> &#x53EF;&#x4EE5;<strong>&#x4F5C;&#x4E3A;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;</strong>&#xFF1B;<ul>
+<li><strong><code>impl Trait</code> &#x53EA;&#x80FD;&#x8FD4;&#x56DE;&#x4E00;&#x79CD;&#x786E;&#x5B9A;&#x7684;&#x7C7B;&#x578B;</strong>&#xFF0C;&#x8FD4;&#x56DE;&#x53EF;&#x80FD;&#x4E0D;&#x540C;&#x7684;&#x7C7B;&#x578B;&#x4F1A;&#x62A5;&#x9519;&#xFF1B;</li>
+</ul>
+</li>
+<li>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>Trait bound</code> <strong>&#x6709;&#x6761;&#x4EF6;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x6CD5;</strong></li>
+<li><strong>&#x8986;&#x76D6;&#x5B9E;&#x73B0;&#xFF08;blanket implementations&#xFF09;</strong>&#xFF1A;&#x53EF;&#x4EE5;&#x4E3A;&#x6EE1;&#x8DB3;<code>Trait bounds</code>&#x7684;&#x6240;&#x6709;&#x7C7B;&#x578B;&#x4E0A;&#x5B9E;&#x73B0;<code>trait</code></li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-comment">// &#x5B9A;&#x4E49; trait</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Summary</span></span> {
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">summarize</span></span>(&amp;<span class="hljs-keyword">self</span>) -&gt; string;
+
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">summarize_default</span></span>(&amp;<span class="hljs-keyword">self</span>) -&gt; string {
+        <span class="hljs-built_in">format!</span>(<span class="hljs-string">&quot;default {}&quot;</span>, <span class="hljs-keyword">self</span>.summarize())
+    }
+}
+
+<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">NewsArticle</span></span> {...}
+
+<span class="hljs-comment">// &#x5B9E;&#x73B0; trait</span>
+<span class="hljs-keyword">impl</span> Summary <span class="hljs-keyword">for</span> NewsArticle {
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">summarize</span></span>(&amp;<span class="hljs-keyword">self</span>) -&gt; string {
+        <span class="hljs-built_in">format!</span>(<span class="hljs-string">&quot;{}&quot;</span>, <span class="hljs-string">&quot;article&quot;</span>)
+    }
+}
+
+<span class="hljs-comment">// trait &#x4F5C;&#x4E3A;&#x53C2;&#x6570;</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">notify</span></span>(item: <span class="hljs-keyword">impl</span> Summary) {
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;news {}&quot;</span>, item.summarize())
+}
+<span class="hljs-comment">// &#x8981;&#x6C42; item &#x5B9E;&#x73B0;&#x4E86;&#x591A;&#x4E2A; trait</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">notify1</span></span>(item: <span class="hljs-keyword">impl</span> Summary + Display) {
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;news {}&quot;</span>, item.summarize())
+}
+
+<span class="hljs-comment">// Trait bound &#x5199;&#x6CD5;</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">notify</span></span>&lt;T: Summary + Display&gt;(item1: T, item2: T) {
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;news {}&quot;</span>, item.summarize())
+}
+
+<span class="hljs-comment">// Trait bound &#x4F7F;&#x7528; where</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">notify</span></span>&lt;T, U&gt;(a: T, b: U) -&gt; string
+<span class="hljs-keyword">where</span>
+    T: Summary + Display,
+    U: <span class="hljs-built_in">Clone</span> + Debug,
+{
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;news {}&quot;</span>, item.summarize())
+}
+
+<span class="hljs-comment">// trait &#x4F5C;&#x4E3A;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">notify</span></span>(s: &amp;<span class="hljs-keyword">str</span>) -&gt; <span class="hljs-keyword">impl</span> Summary {
+    NewsArticle {...}
+}
+
+<span class="hljs-comment">// Trait bound &#x6709;&#x6761;&#x4EF6;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x6CD5;</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Pair</span></span>&lt;T&gt; {
+    x: T,
+    y: T,
+}
+<span class="hljs-keyword">impl</span>&lt;T&gt; Pair&lt;T&gt; {
+    <span class="hljs-comment">// &#x6240;&#x6709;&#x7684;Pair&#x7C7B;&#x578B;&#xFF0C;&#x90FD;&#x6709;new&#x51FD;&#x6570;</span>
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">new</span></span>(x: T, y: T) -&gt; <span class="hljs-keyword">self</span>{
+        <span class="hljs-keyword">Self</span> { x, y }
+    }
+}
+<span class="hljs-keyword">impl</span>&lt;T: Display + <span class="hljs-built_in">PartialOrd</span>&gt; Pair&lt;T&gt; {
+    <span class="hljs-comment">// &#x53EA;&#x6709;&#x5B9E;&#x73B0;&#x4E86;(Display+PartialOrd)&#x8FD9;&#x4E24;&#x4E2A;trait&#x7684;Pair&#x7C7B;&#x578B;&#xFF0C;&#x624D;&#x62E5;&#x6709;cmp&#x51FD;&#x6570;</span>
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">cmp</span></span>(&amp;<span class="hljs-keyword">self</span>) {...}
+}
+
+<span class="hljs-comment">// &#x6807;&#x51C6;&#x5E93; string.rs &#x4E2D;&#xFF0C;&#x4F7F;&#x7528;&#x4E86;&#x8986;&#x76D6;&#x5B9E;&#x73B0;</span>
+<span class="hljs-comment">// &#x4E3A;&#x6240;&#x6709;&#x5B9E;&#x73B0;&#x4E86;Display&#x8FD9;&#x4E2A;trait&#x7684;&#x7C7B;&#x578B;T&#xFF0C;&#x5B9E;&#x73B0;ToString&#x8FD9;&#x4E2A;trait</span>
+<span class="hljs-keyword">impl</span>&lt;T: Display&gt; <span class="hljs-built_in">ToString</span> <span class="hljs-keyword">for</span> T {
+    default <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">to_string</span></span>(&amp;<span class="hljs-keyword">self</span>) -&gt; string {}
+}
+</code></pre>
+<h2 id="17-&#x751F;&#x547D;&#x5468;&#x671F;">17. &#x751F;&#x547D;&#x5468;&#x671F;</h2>
 
                                 
                                 </section>
@@ -1779,7 +1865,7 @@ map.entry(&amp;<span class="hljs-built_in">String</span>::from(<span class="hljs
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"语言基础","level":"1.10.1","depth":2,"next":{"title":"内核","level":"1.11","depth":1,"ref":"","articles":[{"title":"进程调度","level":"1.11.1","depth":2,"path":"kernel/进程调度.md","ref":"./kernel/进程调度.md","articles":[{"title":"CFS","level":"1.11.1.1","depth":3,"path":"kernel/ps-1-cfs.md","ref":"./kernel/ps-1-cfs.md","articles":[]},{"title":"EEVDF","level":"1.11.1.2","depth":3,"path":"kernel/ps-2-eevdf.md","ref":"./kernel/ps-2-eevdf.md","articles":[]}]},{"title":"内存管理","level":"1.11.2","depth":2,"path":"kernel/内存管理.md","ref":"./kernel/内存管理.md","articles":[{"title":"将虚拟地址转换为物理地址","level":"1.11.2.1","depth":3,"path":"kernel/mm-1-va2pa.md","ref":"./kernel/mm-1-va2pa.md","articles":[]},{"title":"物理内存模型","level":"1.11.2.2","depth":3,"path":"kernel/mm-2-physical-memory-model.md","ref":"./kernel/mm-2-physical-memory-model.md","articles":[]},{"title":"memblock","level":"1.11.2.3","depth":3,"path":"kernel/mm-3-memblock.md","ref":"./kernel/mm-3-memblock.md","articles":[]}]},{"title":"系统调用","level":"1.11.3","depth":2,"ref":"","articles":[{"title":"fork","level":"1.11.3.1","depth":3,"path":"kernel/syscall-fork.md","ref":"./kernel/syscall-fork.md","articles":[]}]},{"title":"Kdump","level":"1.11.4","depth":2,"path":"kernel/kdump.md","ref":"./kernel/kdump.md","articles":[]},{"title":"coredump","level":"1.11.5","depth":2,"path":"kernel/coredump.md","ref":"./kernel/coredump.md","articles":[]},{"title":"tcpdump","level":"1.11.6","depth":2,"path":"kernel/tcpdump.md","ref":"./kernel/tcpdump.md","articles":[]},{"title":"Kprobes","level":"1.11.7","depth":2,"path":"kernel/kprobe.md","ref":"./kernel/kprobe.md","articles":[]},{"title":"Systemtap","level":"1.11.8","depth":2,"path":"kernel/systemtap.md","ref":"./kernel/systemtap.md","articles":[]},{"title":"RCU","level":"1.11.9","depth":2,"path":"kernel/rcu.md","ref":"./kernel/rcu.md","articles":[]}]},"previous":{"title":"Rust","level":"1.10","depth":1,"ref":"","articles":[{"title":"语言基础","level":"1.10.1","depth":2,"path":"rust/lang.md","ref":"./rust/lang.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"rust/lang.md","mtime":"2024-03-31T09:22:23.673Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-03-31T09:23:27.472Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"语言基础","level":"1.10.1","depth":2,"next":{"title":"内核","level":"1.11","depth":1,"ref":"","articles":[{"title":"进程调度","level":"1.11.1","depth":2,"path":"kernel/进程调度.md","ref":"./kernel/进程调度.md","articles":[{"title":"CFS","level":"1.11.1.1","depth":3,"path":"kernel/ps-1-cfs.md","ref":"./kernel/ps-1-cfs.md","articles":[]},{"title":"EEVDF","level":"1.11.1.2","depth":3,"path":"kernel/ps-2-eevdf.md","ref":"./kernel/ps-2-eevdf.md","articles":[]}]},{"title":"内存管理","level":"1.11.2","depth":2,"path":"kernel/内存管理.md","ref":"./kernel/内存管理.md","articles":[{"title":"将虚拟地址转换为物理地址","level":"1.11.2.1","depth":3,"path":"kernel/mm-1-va2pa.md","ref":"./kernel/mm-1-va2pa.md","articles":[]},{"title":"物理内存模型","level":"1.11.2.2","depth":3,"path":"kernel/mm-2-physical-memory-model.md","ref":"./kernel/mm-2-physical-memory-model.md","articles":[]},{"title":"memblock","level":"1.11.2.3","depth":3,"path":"kernel/mm-3-memblock.md","ref":"./kernel/mm-3-memblock.md","articles":[]}]},{"title":"系统调用","level":"1.11.3","depth":2,"ref":"","articles":[{"title":"fork","level":"1.11.3.1","depth":3,"path":"kernel/syscall-fork.md","ref":"./kernel/syscall-fork.md","articles":[]}]},{"title":"Kdump","level":"1.11.4","depth":2,"path":"kernel/kdump.md","ref":"./kernel/kdump.md","articles":[]},{"title":"coredump","level":"1.11.5","depth":2,"path":"kernel/coredump.md","ref":"./kernel/coredump.md","articles":[]},{"title":"tcpdump","level":"1.11.6","depth":2,"path":"kernel/tcpdump.md","ref":"./kernel/tcpdump.md","articles":[]},{"title":"Kprobes","level":"1.11.7","depth":2,"path":"kernel/kprobe.md","ref":"./kernel/kprobe.md","articles":[]},{"title":"Systemtap","level":"1.11.8","depth":2,"path":"kernel/systemtap.md","ref":"./kernel/systemtap.md","articles":[]},{"title":"RCU","level":"1.11.9","depth":2,"path":"kernel/rcu.md","ref":"./kernel/rcu.md","articles":[]}]},"previous":{"title":"Rust","level":"1.10","depth":1,"ref":"","articles":[{"title":"语言基础","level":"1.10.1","depth":2,"path":"rust/lang.md","ref":"./rust/lang.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"rust/lang.md","mtime":"2024-04-01T16:17:20.239Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-01T16:17:36.620Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -492,3 +492,89 @@ impl<T, U> Point<T, U> {
 }
 ```
 
+## 16. Trait
+
+- 类似`Interface`，抽象的定义共享行为
+- `Trait bounds`：泛型类型参数指定为实现了特定行为的类型
+- `trait` 可以有多个方法，每个方法签名占一行；
+- 实现该 `trait` 的类型必须提供具体的方法实现；
+- 实现 `trait` 的约束：**这个类型 或 这个 trait 是在本地 `crate` 里定义的**，所以**无法为外部类型来实现外部的 trait**；
+- 可以在 `trait` 里面定义**默认实现的方法**；**默认实现的方法可以调用 trait 中其他的方法，即使这个方法没有默认实现**；
+- **无法从方法的重写实现里面调用默认的实现**；
+- `trait` 可以**作为参数**，三种写法：1. impl、2. trait bound、3. trait bound where
+- `trait` 可以**作为返回类型**；
+	- **`impl Trait` 只能返回一种确定的类型**，返回可能不同的类型会报错；
+- 可以使用`Trait bound` **有条件的实现方法**
+- **覆盖实现（blanket implementations）**：可以为满足`Trait bounds`的所有类型上实现`trait`
+
+```rust
+// 定义 trait
+pub trait Summary {
+    fn summarize(&self) -> string;
+
+    fn summarize_default(&self) -> string {
+        format!("default {}", self.summarize())
+    }
+}
+
+pub struct NewsArticle {...}
+
+// 实现 trait
+impl Summary for NewsArticle {
+    fn summarize(&self) -> string {
+        format!("{}", "article")
+    }
+}
+
+// trait 作为参数
+pub fn notify(item: impl Summary) {
+    println!("news {}", item.summarize())
+}
+// 要求 item 实现了多个 trait
+pub fn notify1(item: impl Summary + Display) {
+    println!("news {}", item.summarize())
+}
+
+// Trait bound 写法
+pub fn notify<T: Summary + Display>(item1: T, item2: T) {
+    println!("news {}", item.summarize())
+}
+
+// Trait bound 使用 where
+pub fn notify<T, U>(a: T, b: U) -> string
+where
+    T: Summary + Display,
+    U: Clone + Debug,
+{
+    println!("news {}", item.summarize())
+}
+
+// trait 作为返回类型
+pub fn notify(s: &str) -> impl Summary {
+    NewsArticle {...}
+}
+
+// Trait bound 有条件的实现方法
+struct Pair<T> {
+    x: T,
+    y: T,
+}
+impl<T> Pair<T> {
+    // 所有的Pair类型，都有new函数
+    fn new(x: T, y: T) -> self{
+        Self { x, y }
+    }
+}
+impl<T: Display + PartialOrd> Pair<T> {
+    // 只有实现了(Display+PartialOrd)这两个trait的Pair类型，才拥有cmp函数
+    fn cmp(&self) {...}
+}
+
+// 标准库 string.rs 中，使用了覆盖实现
+// 为所有实现了Display这个trait的类型T，实现ToString这个trait
+impl<T: Display> ToString for T {
+    default fn to_string(&self) -> string {}
+}
+```
+
+## 17. 生命周期
