@@ -654,3 +654,141 @@ where
 - 标准错误：`eprintln!`
 
 ## 19. 闭包
+
+- 匿名函数，可以保存为变量、作为参数
+- 闭包不要求标注参数和返回值的类型，编译器通常能推断出类型；但也可以手动添加类型标注
+- 记忆化（memoization）：创建一个 struct，**它持有闭包及其调用结果**
+	- struct 中需要指明闭包的类型
+	- **每个闭包实例都有自己唯一的匿名类型**，即使两个闭包签名完全一样
+	- 需要使用：**泛型和 Trait Bound**
+- **所有的闭包都至少实现了以下 trait 之一**：
+	- Fn
+	- FnMut
+	- FnOnce
+- **闭包可以访问定义它的作用域内的变量，而普通函数则不能**
+	- 会产生内存开销
+	- 闭包从所在环境中捕获值的方式：
+		- 取得所有权：FnOnce
+		- 可变借用：FnMut
+		- 不可变借用：Fn
+	- Rust如何推断具体使用哪个 trait：
+		- 所有的闭包都实现了 FnOnce
+		- 没有移动捕获变量的实现了 FnMut
+		- 无需可变访问捕获变量的闭包实现了 Fn
+- `move` 关键字：**可以强制闭包取得它所使用的环境值的所有权**
+	场景：当将闭包传递给新线程以移动数据使其归新线程所有时
+- 最佳实践：当指定 Fn trait bound 之一时，首先用 Fn，基于闭包体里的情况，编译器会再告诉你需要使用 FnOnce 或 FnMut
+
+```rust
+let c1 = |x: u32| -> u32 { x + 1 };
+let c2 = |x| { x + 1 };
+let c3 = |x| x + 1;
+
+let x = vec![1,2,3];
+let eq_x = move |z| z == x;
+// x 已发生移动，这后面无法再使用x
+```
+
+```rust
+struct Cacher<T>
+where
+    T: Fn(u32) -> u32,
+{
+    calculation: T,
+    map: HashMap<u32, u32>,
+}
+
+impl<T> Cacher<T>
+where
+    T: Fn(u32) -> u32,
+{
+    fn new(calculation: T) -> Cacher<T> {
+        Cacher {
+            calculation,
+            map: HashMap::new(),
+        }
+    }
+
+    fn value(&mut self, key: u32) -> u32 {
+        let v = self.map.get(&key);
+        match v {
+            Some(i) => *i,
+            None => {
+                let calc = (self.calculation)(key);
+                self.map.insert(key, calc);
+                calc
+            }
+        }
+    }
+}
+
+fn main() {
+    let mut closure = Cacher::new(|num| {
+        println!("calculation slowly...");
+        thread::sleep(Duration::from_secs(2));
+        num
+    });
+
+    println!("one {}", closure.value(99));
+    println!("two {}", closure.value(99));
+    println!("three {}", closure.value(99));
+    println!("one {}", closure.value(100));
+    println!("two {}", closure.value(100));
+}
+```
+
+## 20. 迭代器
+
+- 所有的迭代器都实现了 `Iterator trait`
+	- 实现 `Iterator trait` 需要定义个 Item 类型，它用于 next 方法的返回类型
+	- next 每次返回迭代器中的一项，返回结果包裹在 Some 里，迭代结束则返回 None
+- `iter` 方法：在不可变引用上创建迭代器
+- `into_iter` 方法：创建的迭代器会获得所有权
+- `iter_mut` 方法：迭代可变的引用
+- 消耗迭代器的方法：next、sum等
+- 迭代器适配器：把迭代器转换为不同种类的迭代器；比如 map、filter
+
+```rust
+pub trait Iterator {
+	type Item;
+	fn next(&mut self) -> Option<Self::Item>;
+}
+
+let v1 = vec![1, 3, 4, 6, 7, 9, 10];
+let it = v1.iter().filter(|x| *x % 2 == 0);
+```
+
+```rust
+struct Counter {
+    count: u32,
+}
+
+impl Counter {
+    fn new() -> Counter {
+        Counter { count: 0 }
+    }
+}
+
+impl Iterator for Counter {
+    type Item = u32;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.count < 5 {
+            self.count += 1;
+            Some(self.count)
+        } else {
+            None
+        }
+    }
+}
+
+fn main() {
+    let s: u32 = Counter::new()
+        .zip(Counter::new().skip(1))
+        .map(|(a, b)| a * b)
+        .filter(|x| x % 3 == 0)
+        .sum();
+
+    println!("{}", s);
+}
+```
