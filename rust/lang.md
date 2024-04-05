@@ -578,3 +578,79 @@ impl<T: Display> ToString for T {
 ```
 
 ## 17. 生命周期
+
+- Rust 的每个引用都有自己的生命周期
+- 生命周期：引用保持有效的作用域
+- 大多数情况下，生命周期是隐式的、可被推断的；当无法被编译器推断时，需要手动标注生命周期
+- 生命周期存在的主要目标：避免悬垂引用（dangling reference）
+- 借用检查器：比较作用域来判断所有的借用是否合法
+- 生命周期的标注不会改变引用的生命周期长度
+- 当指定了泛型生命周期参数，函数可以接收带有任何生命周期的引用
+- 生命周期的标注：描述了多个引用的生命周期的关系，但不影响生命周期
+- 静态生命周期：整个程序的持续时间。`let s: &'static str = "hello";`
+
+```rust
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+	if x > y {
+		x
+	} else {
+		y
+	}
+}
+
+struct ImportantExcerpt<'a> {
+	part: &'a str,
+}
+
+impl<'a> ImportantExcerpt<'a> {
+	fn level(&self) -> i32 {
+		3
+	}
+}
+
+fn longest_with_an_annoucement<'a, T>
+    (x: &'a str, y: &'a str, ann: T) -> &'a str
+where
+    T: Display,
+{
+	println!("Announcement! {}", ann)
+	if x > y {
+		x
+	} else {
+		y
+	}
+}
+```
+
+生命周期省略规则：
+
+- 编译器考虑的一些特殊情况，无需显示标注
+- 如果编译器无法推断，则编译错误
+- 输入生命周期：函数/方法的参数
+- 输出生命周期：函数/方法的返回值
+- 规则适用于 fn 定义和 impl 块
+
+三个省略规则：
+
+1. 每个引用类型的参数都有自己的生命周期；
+2. 如果只有 1 个输入生命周期参数，那么该生命周期被赋给所有的输出生命周期参数；
+3. 如果有多个输入生命周期参数，但其中一个是 &self 或 &mut self（方法），那么 self 的生命周期会被赋给所有的输出生命周期参数；
+
+
+## 18. 测试
+
+- 测试：`#[cfg(test)]`、`#[test]`
+- 断言：`assert!`、`assert_eq!`、`assert_ne!`
+- 恐慌：`#[should_panic]`
+- 可使用 `Result<T, E>` 作为返回类型
+- 默认 `cargo test` 并行运行测试，控制线程数量 `--test-threads`
+- 测试通过，不会看到打印到标准输出的内容；否则可以看到
+- 指定测试名称运行测试：`cargo test test-name`
+- 忽略测试：`#[ignore]`
+- 只运行被忽略的测试：`cargo test -- --ignored`
+- 集成测试：`tests`目录
+- 环境变量：`env::var("xx")`
+- 标准输出：`println!`
+- 标准错误：`eprintln!`
+
+## 19. 闭包
