@@ -792,3 +792,44 @@ fn main() {
     println!("{}", s);
 }
 ```
+
+## 21. 发布
+
+Cargo 主要有两个 profile：
+
+- dev profile：适用于开发，cargo build
+- release profile：适用于发布，cargo build --release
+
+自定义 profile时，在 `Cargo.toml` 里添加 `[profile.xxx]` 区域，覆盖默认配置的子集。
+
+crate 官方注册表：`https://crates.io` 
+
+- 登录账号：cargo login [token]
+- 发布：cargo publish （一旦发布，该版本代码无法覆盖，无法删除）
+- 撤回一个版本：cargo yank --vers 1.0.1 
+- 取消撤回：cargo yank --vers 1.0.1 --undo
+- 安装二进制 crate：cargo install
+
+文档注释：生成HTML文档；使用 `///` ；支持 Markdown
+
+- `cargo doc`、`cargo dock --open`：生成在 `target/doc` 目录下
+- 常用章节：
+	- `# Examples`：cargo test 可以把文档注释中的示例代码作为测试来运行
+	- `# Panics`：函数可能发生 panic 
+	- `# Errors`：如果函数返回 Result，描述可能的错误种类，以及可导致错误的条件
+	- `# Safety`：如果函数处于 unsafe 调用，就应该解释函数 unsafe 的原因，以及调用者确保的使用前提
+
+如果是描述 crate 和模块的注释，或记录一个模块整体，使用 `//!`
+
+使用 `pub use` 导出方便使用的公共 API
+
+工作空间：
+
+- 管理多个关联且需协同开发的crate
+- 就是一套共享同一个 Cargo.lock 和输出文件夹的包
+
+自定义命令扩展 cargo：
+
+- 二进制 cargo-abc；运行命令`cargo abc`
+- cargo --list
+
