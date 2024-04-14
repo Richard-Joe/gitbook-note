@@ -103,6 +103,7 @@
 - 引用：`&`符号，允许引用某些值而**不取得其所有权**；默认不可变的；
 - 借用：把引用作为函数参数这个行为叫做借用；`fn calc_len(s: & String) -> usize`
 - 可变引用：比如`mut & String`；**在特定作用域内，某块数据只能有一个可变引用。（避免竞争）**；
+- **借用规则**：
 	- 不可以同时拥有一个可变引用和一个不可变引用
 	- 可以同时拥有多个不可变引用
 
@@ -827,9 +828,286 @@ crate 官方注册表：`https://crates.io`
 
 - 管理多个关联且需协同开发的crate
 - 就是一套共享同一个 Cargo.lock 和输出文件夹的包
+- 工作空间内所有crate使用的依赖的版本都是相同的
 
 自定义命令扩展 cargo：
 
+- cargo install
 - 二进制 cargo-abc；运行命令`cargo abc`
 - cargo --list
 
+## 22. 智能指针
+
+- 智能指针：行为跟指针类似；有额外的元数据和功能；
+- 引用计数智能指针：
+	1. 通过记录所有者的数量，使一份数据被多个所有者同时持有
+	2. 在没有任何所有者时自动清理数据
+- 实现智能指针：
+	1. 通常使用 struct 实现，且实现了 `Deref` 和 `Drop` 这两个 trait
+	2. `Deref trait`：允许智能指针 struct 的实例像引用一样使用
+	3. `Drop trait`：允许你自定义当智能指针实例走出作用域时的代码
+
+比如：`String` 和 `Vec<T>` 就是智能指针。
+
+### 22.1. Box\<T\>
+
+`Box<T>`是最简单的智能指针：
+
+- 在heap上存储数据
+- 在stack上存储指向heap数据的指针
+- 没有性能开销和其他额外功能
+- 实现了`Deref` 和 `Drop` 两个 trait
+
+![Box](images/Box.png)
+
+使用场景：
+
+- 在编译时，某类型的大小无法确定。但使用该类型时，上下文却需要知道它的确切大小。
+- 当有大量数据，想移交所有权，但需要确保在操作时数据不会被复制。
+- 使用某个值时，你只关心它是否实现了特定的 trait，而不关心它的具体类型。
+
+```rust
+let b = Box::new(5);
+println!("b = {}", b);
+
+enum List {
+    Cons(i32, Box<List>),
+    Nil,
+}
+let list = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
+```
+
+### 22.2. Deref Trait
+
+实现 Deref Trait：
+
+- 使我们可以**自定义解引用运算符 `*` 的行为**
+- 使得智能指针可像常规引用一样来处理
+- 要求：**实现一个 `deref` 方法**
+	1. **该方法借用 `self`**
+	2. **返回一个指向内部数据的引用**
+
+`Box<T>` 被定义成拥有一个元素的 `tuple struct`
+
+```rust
+use std::ops::Deref;
+
+struct MyBox<T>(T);
+
+impl<T> MyBox<T> {
+    fn new(x: T) -> MyBox<T> {
+        MyBox(x)
+    }
+}
+
+impl<T> Deref for MyBox<T> {
+    type Target = T;
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+fn main() {
+    let x = 5;
+    let y = MyBox::new(x);
+
+    assert_eq!(5, x);
+    assert_eq!(5, *y); // 相当于 *(y.deref())
+}
+```
+
+函数和方法的**隐式解引用转化（Deref Coercion）**：
+
+- Deref Coercion 是为函数和方法提供的一种便捷特性；
+- 假设 T 实现了Deref Trait，那么Deref Coercion 可以把 **T 的引用** 转化为** T 经过 Deref 操作后生成的引用**；
+- 当把某类型的引用传递给函数或方法时，但它的类型和定义的参数类型不匹配，**Deref Coercion 就会自动发生**；**编译器会对 deref 进行一系列调用，来把它转为所需的参数类型**；（没有额外性能开销）
+
+```rust
+fn hello(name: &str) {
+    println!("Hello, {}", name)
+}
+
+let name = MyBox::new(String::from("Rust"));
+hello(&name);
+```
+
+解引用与可变性，下面三种情况发生时，Rust 会执行 Deref Coercion：
+
+- 当 `T: Dreft<Target=U>`，允许 `&T` 转换为 `&U`
+- 当 `T: DreftMut<Target=U>`，允许 `&mut T` 转换为 `&mut U`
+- 当 `T: Dreft<Target=U>`，允许 `&mut T` 转换为 `&U`
+
+### 22.3. Drop Trait
+
+- 自定义** 当值将要离开作用域时发生的动作**；
+- 任何类型都可以实现 Drop Trait；
+- 要求：实现 `drop` 方法，参数为对 `self` 的**可变引用**；
+- **不允许显示的调用 `drop` 方法**；但可以调用标准库中的 **`std::mem::drop` 函数**，来提前 drop 值；
+
+```rust
+struct SmartPointer {
+    data: String,
+}
+
+impl Drop for SmartPointer {
+    fn drop(&mut self) {
+        println!("Dropping data {}", self.data);
+    }
+}
+
+let p1 = SmartPointer {
+    data: String::from("one"),
+};
+std::mem::drop(p1);
+let p2 = SmartPointer {
+    data: String::from("two"),
+};
+```
+
+### 22.4. Rc\<T\>
+
+- 为了支持多重所有权，引入`Rc<T>`
+- `Rc<T>` 通过**不可变引用**，使得在程序不同地方可以共享只读数据
+- reference couting（引用计数）
+- 追踪所有到值的引用
+- 当0个引用时，该值可以被清理掉
+- `Rc::clone(&a)` 增加引用计数，不会执行数据的深度拷贝
+- `Rc::strong_count(&a)` 获得引用计数（强引用）
+- `Rc::weak_count(&a)` 获得引用计数（弱引用）
+- 使用场景：
+	1. 需要在heap上分配数据，数据被程序的多个地方读取（只读），但在编译时无法确定哪个部分最后使用完这些数据；
+	2. 只能用于**单线程**场景
+
+```rust
+enum List {
+    Cons(i32, Rc<List>),
+    Nil,
+}
+
+fn main() {
+    let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+    println!("count after creating a = {}", Rc::strong_count(&a));
+
+    let b = Cons(3, Rc::clone(&a));
+    println!("count after creating b = {}", Rc::strong_count(&a));
+
+    {
+        let c = Cons(4, Rc::clone(&a));
+        println!("count after creating c = {}", Rc::strong_count(&a));
+    }
+    println!("count after c goes out of scope = {}", Rc::strong_count(&a));
+}
+```
+
+### 22.5. RefCell\<T\>
+
+内部可变性（interior mutability）：**可变的借用一个不可变的值**。Rust设计模式之一，它**允许你在只持有不可变引用的前提下对数据进行修改**。（数据结构中使用了 unsafe 代码来绕过 Rust 正常的可变性和借用规则）
+
+- `RefCell<T>` 类型代表了其持有数据的唯一所有权
+- 只能用于**单线程**场景
+- `RefCell<T>` 会记录当前存在多少个活跃的`Ref<T>`和`RefMut<T>`智能指针
+- `borrow`方法：返回智能指针 `Ref<T>`，它实现了Deref
+	- 每次调用，不可变借用计数加 1；
+	- 任何一个`Ref<T>`的值离开作用域时，不可变借用计数减 1；
+- `borrow_mut`方法：返回智能指针 `RefMut<T>`，它实现了Deref
+	- 每次调用，可变借用计数加 1；
+	- 任何一个`RefMut<T>`的值离开作用域时，可变借用计数减 1；
+- 其他可实现内部可变性的类型：
+	- `Cell<T>`：通过复制来访问数据
+	- `Mutex<T>`：用于实现跨线程情形下的内部可变性模式
+
+```rust
+#[derive(Debug)]
+enum List {
+    Cons(Rc<RefCell<i32>>, Rc<List>),
+    Nil,
+}
+
+fn main() {
+    let value = Rc::new(RefCell::new(5));
+    let a = Rc::new(Cons(Rc::clone(&value), Rc::new(Nil)));
+    let b = Cons(Rc::new(RefCell::new(6)), Rc::clone(&a));
+    let c = Cons(Rc::new(RefCell::new(10)), Rc::clone(&a));
+
+    *value.borrow_mut() += 10;
+
+    println!("a = {:?}", a);
+    println!("b = {:?}", b);
+    println!("c = {:?}", c);
+}
+```
+
+### 22.6. Box\<T\> vs Rc\<T\> vs RefCell\<T\>
+
+![box_vs_rc_vs_refcell](images/box_vs_rc_vs_refcell.png)
+
+### 22.7. 循环引用导致内存泄漏
+
+使用`Rc<T>`和`RefCell<T>`可以创造出循环引用，从而发生内存泄漏；（每个项的引用数量不会变成0，值不会被清理掉）
+
+防止内存泄漏的解决方法：
+
+- 依靠开发者保证；
+- 重新组织数据结构：一些引用来表达所有权，一些引用不表达所有权
+- **把`Rc<T>`换成`Weak<T>`**
+	- `Rc<T>`的实例只有在 strong_count 为 0 时才会被清理；
+	- `Rc<T>`使用 weak_count 来追踪存在多少`Weak<T>`，**weak_count不为0并不影响`Rc<T>`实例的清理**；
+
+强弱引用：
+
+- Stong Reference（强引用）是关于如何分享 `Rc<T>`实例的所有权；
+- Weak Reference（弱引用）并不会创建循环引用，当Stong Reference数量为0时，Weak Reference会自动断开；
+- 在使用`Weak<T>`前，需要保证它指向的值仍然存在；（在`Weak<T>`实例上调用 upgrade 方法，返回`Option<Rc<T>>`）
+
+```rust
+#[derive(Debug)]
+struct Node {
+    value: i32,
+    parent: RefCell<Weak<Node>>,
+    children: RefCell<Vec<Rc<Node>>>,
+}
+
+fn main() {
+    let leaf = Rc::new(Node {
+        value: 3,
+        parent: RefCell::new(Weak::new()),
+        children: RefCell::new(vec![]),
+    });
+
+    println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
+    println!(
+        "leaf:   strong = {}, weak = {}",
+        Rc::strong_count(&leaf),
+        Rc::weak_count(&leaf)
+    );
+
+    {
+        let branch = Rc::new(Node {
+            value: 5,
+            parent: RefCell::new(Weak::new()),
+            children: RefCell::new(vec![Rc::clone(&leaf)]),
+        });
+
+        *leaf.parent.borrow_mut() = Rc::downgrade(&branch);
+        println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
+
+        println!(
+            "leaf:   strong = {}, weak = {}",
+            Rc::strong_count(&leaf),
+            Rc::weak_count(&leaf)
+        );
+        println!(
+            "branch: strong = {}, weak = {}",
+            Rc::strong_count(&branch),
+            Rc::weak_count(&branch)
+        );
+    }
+
+    println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
+    println!(
+        "leaf:   strong = {}, weak = {}",
+        Rc::strong_count(&leaf),
+        Rc::weak_count(&leaf)
+    );
+}
+```
