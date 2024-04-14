@@ -1037,7 +1037,7 @@ fn main() {
 }
 ```
 
-### 22.6. Box\<T\> vs Rc\<T\> vs RefCell\<T\>
+### 22.6. `Box<T> vs Rc<T> vs RefCell<T>`
 
 ![box_vs_rc_vs_refcell](images/box_vs_rc_vs_refcell.png)
 
