@@ -1334,7 +1334,8 @@ Rust&#x8BA9; s1 &#x5931;&#x6548;&#xFF1B;
 <ul>
 <li>&#x5F15;&#x7528;&#xFF1A;<code>&amp;</code>&#x7B26;&#x53F7;&#xFF0C;&#x5141;&#x8BB8;&#x5F15;&#x7528;&#x67D0;&#x4E9B;&#x503C;&#x800C;<strong>&#x4E0D;&#x53D6;&#x5F97;&#x5176;&#x6240;&#x6709;&#x6743;</strong>&#xFF1B;&#x9ED8;&#x8BA4;&#x4E0D;&#x53EF;&#x53D8;&#x7684;&#xFF1B;</li>
 <li>&#x501F;&#x7528;&#xFF1A;&#x628A;&#x5F15;&#x7528;&#x4F5C;&#x4E3A;&#x51FD;&#x6570;&#x53C2;&#x6570;&#x8FD9;&#x4E2A;&#x884C;&#x4E3A;&#x53EB;&#x505A;&#x501F;&#x7528;&#xFF1B;<code>fn calc_len(s: &amp; String) -&gt; usize</code></li>
-<li>&#x53EF;&#x53D8;&#x5F15;&#x7528;&#xFF1A;&#x6BD4;&#x5982;<code>mut &amp; String</code>&#xFF1B;<strong>&#x5728;&#x7279;&#x5B9A;&#x4F5C;&#x7528;&#x57DF;&#x5185;&#xFF0C;&#x67D0;&#x5757;&#x6570;&#x636E;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x53EF;&#x53D8;&#x5F15;&#x7528;&#x3002;&#xFF08;&#x907F;&#x514D;&#x7ADE;&#x4E89;&#xFF09;</strong>&#xFF1B;<ul>
+<li>&#x53EF;&#x53D8;&#x5F15;&#x7528;&#xFF1A;&#x6BD4;&#x5982;<code>mut &amp; String</code>&#xFF1B;<strong>&#x5728;&#x7279;&#x5B9A;&#x4F5C;&#x7528;&#x57DF;&#x5185;&#xFF0C;&#x67D0;&#x5757;&#x6570;&#x636E;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x53EF;&#x53D8;&#x5F15;&#x7528;&#x3002;&#xFF08;&#x907F;&#x514D;&#x7ADE;&#x4E89;&#xFF09;</strong>&#xFF1B;</li>
+<li><strong>&#x501F;&#x7528;&#x89C4;&#x5219;</strong>&#xFF1A;<ul>
 <li>&#x4E0D;&#x53EF;&#x4EE5;&#x540C;&#x65F6;&#x62E5;&#x6709;&#x4E00;&#x4E2A;&#x53EF;&#x53D8;&#x5F15;&#x7528;&#x548C;&#x4E00;&#x4E2A;&#x4E0D;&#x53EF;&#x53D8;&#x5F15;&#x7528;</li>
 <li>&#x53EF;&#x4EE5;&#x540C;&#x65F6;&#x62E5;&#x6709;&#x591A;&#x4E2A;&#x4E0D;&#x53EF;&#x53D8;&#x5F15;&#x7528;</li>
 </ul>
@@ -1830,6 +1831,530 @@ map.entry(&amp;<span class="hljs-built_in">String</span>::from(<span class="hljs
 }
 </code></pre>
 <h2 id="17-&#x751F;&#x547D;&#x5468;&#x671F;">17. &#x751F;&#x547D;&#x5468;&#x671F;</h2>
+<ul>
+<li>Rust &#x7684;&#x6BCF;&#x4E2A;&#x5F15;&#x7528;&#x90FD;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;</li>
+<li>&#x751F;&#x547D;&#x5468;&#x671F;&#xFF1A;&#x5F15;&#x7528;&#x4FDD;&#x6301;&#x6709;&#x6548;&#x7684;&#x4F5C;&#x7528;&#x57DF;</li>
+<li>&#x5927;&#x591A;&#x6570;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x751F;&#x547D;&#x5468;&#x671F;&#x662F;&#x9690;&#x5F0F;&#x7684;&#x3001;&#x53EF;&#x88AB;&#x63A8;&#x65AD;&#x7684;&#xFF1B;&#x5F53;&#x65E0;&#x6CD5;&#x88AB;&#x7F16;&#x8BD1;&#x5668;&#x63A8;&#x65AD;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x624B;&#x52A8;&#x6807;&#x6CE8;&#x751F;&#x547D;&#x5468;&#x671F;</li>
+<li>&#x751F;&#x547D;&#x5468;&#x671F;&#x5B58;&#x5728;&#x7684;&#x4E3B;&#x8981;&#x76EE;&#x6807;&#xFF1A;&#x907F;&#x514D;&#x60AC;&#x5782;&#x5F15;&#x7528;&#xFF08;dangling reference&#xFF09;</li>
+<li>&#x501F;&#x7528;&#x68C0;&#x67E5;&#x5668;&#xFF1A;&#x6BD4;&#x8F83;&#x4F5C;&#x7528;&#x57DF;&#x6765;&#x5224;&#x65AD;&#x6240;&#x6709;&#x7684;&#x501F;&#x7528;&#x662F;&#x5426;&#x5408;&#x6CD5;</li>
+<li>&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x6807;&#x6CE8;&#x4E0D;&#x4F1A;&#x6539;&#x53D8;&#x5F15;&#x7528;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x957F;&#x5EA6;</li>
+<li>&#x5F53;&#x6307;&#x5B9A;&#x4E86;&#x6CDB;&#x578B;&#x751F;&#x547D;&#x5468;&#x671F;&#x53C2;&#x6570;&#xFF0C;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x63A5;&#x6536;&#x5E26;&#x6709;&#x4EFB;&#x4F55;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x5F15;&#x7528;</li>
+<li>&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x6807;&#x6CE8;&#xFF1A;&#x63CF;&#x8FF0;&#x4E86;&#x591A;&#x4E2A;&#x5F15;&#x7528;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x5173;&#x7CFB;&#xFF0C;&#x4F46;&#x4E0D;&#x5F71;&#x54CD;&#x751F;&#x547D;&#x5468;&#x671F;</li>
+<li>&#x9759;&#x6001;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF1A;&#x6574;&#x4E2A;&#x7A0B;&#x5E8F;&#x7684;&#x6301;&#x7EED;&#x65F6;&#x95F4;&#x3002;<code>let s: &amp;&apos;static str = &quot;hello&quot;;</code></li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">longest</span></span>&lt;<span class="hljs-symbol">&apos;a</span>&gt;(x: &amp;<span class="hljs-symbol">&apos;a</span> <span class="hljs-keyword">str</span>, y: &amp;<span class="hljs-symbol">&apos;a</span> <span class="hljs-keyword">str</span>) -&gt; &amp;<span class="hljs-symbol">&apos;a</span> <span class="hljs-keyword">str</span> {
+    <span class="hljs-keyword">if</span> x &gt; y {
+        x
+    } <span class="hljs-keyword">else</span> {
+        y
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ImportantExcerpt</span></span>&lt;<span class="hljs-symbol">&apos;a</span>&gt; {
+    part: &amp;<span class="hljs-symbol">&apos;a</span> <span class="hljs-keyword">str</span>,
+}
+
+<span class="hljs-keyword">impl</span>&lt;<span class="hljs-symbol">&apos;a</span>&gt; ImportantExcerpt&lt;<span class="hljs-symbol">&apos;a</span>&gt; {
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">level</span></span>(&amp;<span class="hljs-keyword">self</span>) -&gt; <span class="hljs-keyword">i32</span> {
+        <span class="hljs-number">3</span>
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">longest_with_an_annoucement</span></span>&lt;<span class="hljs-symbol">&apos;a</span>, T&gt;
+    (x: &amp;<span class="hljs-symbol">&apos;a</span> <span class="hljs-keyword">str</span>, y: &amp;<span class="hljs-symbol">&apos;a</span> <span class="hljs-keyword">str</span>, ann: T) -&gt; &amp;<span class="hljs-symbol">&apos;a</span> <span class="hljs-keyword">str</span>
+<span class="hljs-keyword">where</span>
+    T: Display,
+{
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Announcement! {}&quot;</span>, ann)
+    <span class="hljs-keyword">if</span> x &gt; y {
+        x
+    } <span class="hljs-keyword">else</span> {
+        y
+    }
+}
+</code></pre>
+<p>&#x751F;&#x547D;&#x5468;&#x671F;&#x7701;&#x7565;&#x89C4;&#x5219;&#xFF1A;</p>
+<ul>
+<li>&#x7F16;&#x8BD1;&#x5668;&#x8003;&#x8651;&#x7684;&#x4E00;&#x4E9B;&#x7279;&#x6B8A;&#x60C5;&#x51B5;&#xFF0C;&#x65E0;&#x9700;&#x663E;&#x793A;&#x6807;&#x6CE8;</li>
+<li>&#x5982;&#x679C;&#x7F16;&#x8BD1;&#x5668;&#x65E0;&#x6CD5;&#x63A8;&#x65AD;&#xFF0C;&#x5219;&#x7F16;&#x8BD1;&#x9519;&#x8BEF;</li>
+<li>&#x8F93;&#x5165;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF1A;&#x51FD;&#x6570;/&#x65B9;&#x6CD5;&#x7684;&#x53C2;&#x6570;</li>
+<li>&#x8F93;&#x51FA;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF1A;&#x51FD;&#x6570;/&#x65B9;&#x6CD5;&#x7684;&#x8FD4;&#x56DE;&#x503C;</li>
+<li>&#x89C4;&#x5219;&#x9002;&#x7528;&#x4E8E; fn &#x5B9A;&#x4E49;&#x548C; impl &#x5757;</li>
+</ul>
+<p>&#x4E09;&#x4E2A;&#x7701;&#x7565;&#x89C4;&#x5219;&#xFF1A;</p>
+<ol>
+<li>&#x6BCF;&#x4E2A;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x7684;&#x53C2;&#x6570;&#x90FD;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF1B;</li>
+<li>&#x5982;&#x679C;&#x53EA;&#x6709; 1 &#x4E2A;&#x8F93;&#x5165;&#x751F;&#x547D;&#x5468;&#x671F;&#x53C2;&#x6570;&#xFF0C;&#x90A3;&#x4E48;&#x8BE5;&#x751F;&#x547D;&#x5468;&#x671F;&#x88AB;&#x8D4B;&#x7ED9;&#x6240;&#x6709;&#x7684;&#x8F93;&#x51FA;&#x751F;&#x547D;&#x5468;&#x671F;&#x53C2;&#x6570;&#xFF1B;</li>
+<li>&#x5982;&#x679C;&#x6709;&#x591A;&#x4E2A;&#x8F93;&#x5165;&#x751F;&#x547D;&#x5468;&#x671F;&#x53C2;&#x6570;&#xFF0C;&#x4F46;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x662F; &amp;self &#x6216; &amp;mut self&#xFF08;&#x65B9;&#x6CD5;&#xFF09;&#xFF0C;&#x90A3;&#x4E48; self &#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x4F1A;&#x88AB;&#x8D4B;&#x7ED9;&#x6240;&#x6709;&#x7684;&#x8F93;&#x51FA;&#x751F;&#x547D;&#x5468;&#x671F;&#x53C2;&#x6570;&#xFF1B;</li>
+</ol>
+<h2 id="18-&#x6D4B;&#x8BD5;">18. &#x6D4B;&#x8BD5;</h2>
+<ul>
+<li>&#x6D4B;&#x8BD5;&#xFF1A;<code>#[cfg(test)]</code>&#x3001;<code>#[test]</code></li>
+<li>&#x65AD;&#x8A00;&#xFF1A;<code>assert!</code>&#x3001;<code>assert_eq!</code>&#x3001;<code>assert_ne!</code></li>
+<li>&#x6050;&#x614C;&#xFF1A;<code>#[should_panic]</code></li>
+<li>&#x53EF;&#x4F7F;&#x7528; <code>Result&lt;T, E&gt;</code> &#x4F5C;&#x4E3A;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;</li>
+<li>&#x9ED8;&#x8BA4; <code>cargo test</code> &#x5E76;&#x884C;&#x8FD0;&#x884C;&#x6D4B;&#x8BD5;&#xFF0C;&#x63A7;&#x5236;&#x7EBF;&#x7A0B;&#x6570;&#x91CF; <code>--test-threads</code></li>
+<li>&#x6D4B;&#x8BD5;&#x901A;&#x8FC7;&#xFF0C;&#x4E0D;&#x4F1A;&#x770B;&#x5230;&#x6253;&#x5370;&#x5230;&#x6807;&#x51C6;&#x8F93;&#x51FA;&#x7684;&#x5185;&#x5BB9;&#xFF1B;&#x5426;&#x5219;&#x53EF;&#x4EE5;&#x770B;&#x5230;</li>
+<li>&#x6307;&#x5B9A;&#x6D4B;&#x8BD5;&#x540D;&#x79F0;&#x8FD0;&#x884C;&#x6D4B;&#x8BD5;&#xFF1A;<code>cargo test test-name</code></li>
+<li>&#x5FFD;&#x7565;&#x6D4B;&#x8BD5;&#xFF1A;<code>#[ignore]</code></li>
+<li>&#x53EA;&#x8FD0;&#x884C;&#x88AB;&#x5FFD;&#x7565;&#x7684;&#x6D4B;&#x8BD5;&#xFF1A;<code>cargo test -- --ignored</code></li>
+<li>&#x96C6;&#x6210;&#x6D4B;&#x8BD5;&#xFF1A;<code>tests</code>&#x76EE;&#x5F55;</li>
+<li>&#x73AF;&#x5883;&#x53D8;&#x91CF;&#xFF1A;<code>env::var(&quot;xx&quot;)</code></li>
+<li>&#x6807;&#x51C6;&#x8F93;&#x51FA;&#xFF1A;<code>println!</code></li>
+<li>&#x6807;&#x51C6;&#x9519;&#x8BEF;&#xFF1A;<code>eprintln!</code></li>
+</ul>
+<h2 id="19-&#x95ED;&#x5305;">19. &#x95ED;&#x5305;</h2>
+<ul>
+<li>&#x533F;&#x540D;&#x51FD;&#x6570;&#xFF0C;&#x53EF;&#x4EE5;&#x4FDD;&#x5B58;&#x4E3A;&#x53D8;&#x91CF;&#x3001;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;</li>
+<li>&#x95ED;&#x5305;&#x4E0D;&#x8981;&#x6C42;&#x6807;&#x6CE8;&#x53C2;&#x6570;&#x548C;&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x7C7B;&#x578B;&#xFF0C;&#x7F16;&#x8BD1;&#x5668;&#x901A;&#x5E38;&#x80FD;&#x63A8;&#x65AD;&#x51FA;&#x7C7B;&#x578B;&#xFF1B;&#x4F46;&#x4E5F;&#x53EF;&#x4EE5;&#x624B;&#x52A8;&#x6DFB;&#x52A0;&#x7C7B;&#x578B;&#x6807;&#x6CE8;</li>
+<li>&#x8BB0;&#x5FC6;&#x5316;&#xFF08;memoization&#xFF09;&#xFF1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; struct&#xFF0C;<strong>&#x5B83;&#x6301;&#x6709;&#x95ED;&#x5305;&#x53CA;&#x5176;&#x8C03;&#x7528;&#x7ED3;&#x679C;</strong><ul>
+<li>struct &#x4E2D;&#x9700;&#x8981;&#x6307;&#x660E;&#x95ED;&#x5305;&#x7684;&#x7C7B;&#x578B;</li>
+<li><strong>&#x6BCF;&#x4E2A;&#x95ED;&#x5305;&#x5B9E;&#x4F8B;&#x90FD;&#x6709;&#x81EA;&#x5DF1;&#x552F;&#x4E00;&#x7684;&#x533F;&#x540D;&#x7C7B;&#x578B;</strong>&#xFF0C;&#x5373;&#x4F7F;&#x4E24;&#x4E2A;&#x95ED;&#x5305;&#x7B7E;&#x540D;&#x5B8C;&#x5168;&#x4E00;&#x6837;</li>
+<li>&#x9700;&#x8981;&#x4F7F;&#x7528;&#xFF1A;<strong>&#x6CDB;&#x578B;&#x548C; Trait Bound</strong></li>
+</ul>
+</li>
+<li><strong>&#x6240;&#x6709;&#x7684;&#x95ED;&#x5305;&#x90FD;&#x81F3;&#x5C11;&#x5B9E;&#x73B0;&#x4E86;&#x4EE5;&#x4E0B; trait &#x4E4B;&#x4E00;</strong>&#xFF1A;<ul>
+<li>Fn</li>
+<li>FnMut</li>
+<li>FnOnce</li>
+</ul>
+</li>
+<li><strong>&#x95ED;&#x5305;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x5B9A;&#x4E49;&#x5B83;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x5185;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x800C;&#x666E;&#x901A;&#x51FD;&#x6570;&#x5219;&#x4E0D;&#x80FD;</strong><ul>
+<li>&#x4F1A;&#x4EA7;&#x751F;&#x5185;&#x5B58;&#x5F00;&#x9500;</li>
+<li>&#x95ED;&#x5305;&#x4ECE;&#x6240;&#x5728;&#x73AF;&#x5883;&#x4E2D;&#x6355;&#x83B7;&#x503C;&#x7684;&#x65B9;&#x5F0F;&#xFF1A;<ul>
+<li>&#x53D6;&#x5F97;&#x6240;&#x6709;&#x6743;&#xFF1A;FnOnce</li>
+<li>&#x53EF;&#x53D8;&#x501F;&#x7528;&#xFF1A;FnMut</li>
+<li>&#x4E0D;&#x53EF;&#x53D8;&#x501F;&#x7528;&#xFF1A;Fn</li>
+</ul>
+</li>
+<li>Rust&#x5982;&#x4F55;&#x63A8;&#x65AD;&#x5177;&#x4F53;&#x4F7F;&#x7528;&#x54EA;&#x4E2A; trait&#xFF1A;<ul>
+<li>&#x6240;&#x6709;&#x7684;&#x95ED;&#x5305;&#x90FD;&#x5B9E;&#x73B0;&#x4E86; FnOnce</li>
+<li>&#x6CA1;&#x6709;&#x79FB;&#x52A8;&#x6355;&#x83B7;&#x53D8;&#x91CF;&#x7684;&#x5B9E;&#x73B0;&#x4E86; FnMut</li>
+<li>&#x65E0;&#x9700;&#x53EF;&#x53D8;&#x8BBF;&#x95EE;&#x6355;&#x83B7;&#x53D8;&#x91CF;&#x7684;&#x95ED;&#x5305;&#x5B9E;&#x73B0;&#x4E86; Fn</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>move</code> &#x5173;&#x952E;&#x5B57;&#xFF1A;<strong>&#x53EF;&#x4EE5;&#x5F3A;&#x5236;&#x95ED;&#x5305;&#x53D6;&#x5F97;&#x5B83;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x73AF;&#x5883;&#x503C;&#x7684;&#x6240;&#x6709;&#x6743;</strong>
+  &#x573A;&#x666F;&#xFF1A;&#x5F53;&#x5C06;&#x95ED;&#x5305;&#x4F20;&#x9012;&#x7ED9;&#x65B0;&#x7EBF;&#x7A0B;&#x4EE5;&#x79FB;&#x52A8;&#x6570;&#x636E;&#x4F7F;&#x5176;&#x5F52;&#x65B0;&#x7EBF;&#x7A0B;&#x6240;&#x6709;&#x65F6;</li>
+<li>&#x6700;&#x4F73;&#x5B9E;&#x8DF5;&#xFF1A;&#x5F53;&#x6307;&#x5B9A; Fn trait bound &#x4E4B;&#x4E00;&#x65F6;&#xFF0C;&#x9996;&#x5148;&#x7528; Fn&#xFF0C;&#x57FA;&#x4E8E;&#x95ED;&#x5305;&#x4F53;&#x91CC;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x7F16;&#x8BD1;&#x5668;&#x4F1A;&#x518D;&#x544A;&#x8BC9;&#x4F60;&#x9700;&#x8981;&#x4F7F;&#x7528; FnOnce &#x6216; FnMut</li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-keyword">let</span> c1 = |x: <span class="hljs-keyword">u32</span>| -&gt; <span class="hljs-keyword">u32</span> { x + <span class="hljs-number">1</span> };
+<span class="hljs-keyword">let</span> c2 = |x| { x + <span class="hljs-number">1</span> };
+<span class="hljs-keyword">let</span> c3 = |x| x + <span class="hljs-number">1</span>;
+
+<span class="hljs-keyword">let</span> x = <span class="hljs-built_in">vec!</span>[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>];
+<span class="hljs-keyword">let</span> eq_x = move |z| z == x;
+<span class="hljs-comment">// x &#x5DF2;&#x53D1;&#x751F;&#x79FB;&#x52A8;&#xFF0C;&#x8FD9;&#x540E;&#x9762;&#x65E0;&#x6CD5;&#x518D;&#x4F7F;&#x7528;x</span>
+</code></pre>
+<pre><code class="lang-rust"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Cacher</span></span>&lt;T&gt;
+<span class="hljs-keyword">where</span>
+    T: <span class="hljs-built_in">Fn</span>(<span class="hljs-keyword">u32</span>) -&gt; <span class="hljs-keyword">u32</span>,
+{
+    calculation: T,
+    map: HashMap&lt;<span class="hljs-keyword">u32</span>, <span class="hljs-keyword">u32</span>&gt;,
+}
+
+<span class="hljs-keyword">impl</span>&lt;T&gt; Cacher&lt;T&gt;
+<span class="hljs-keyword">where</span>
+    T: <span class="hljs-built_in">Fn</span>(<span class="hljs-keyword">u32</span>) -&gt; <span class="hljs-keyword">u32</span>,
+{
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">new</span></span>(calculation: T) -&gt; Cacher&lt;T&gt; {
+        Cacher {
+            calculation,
+            map: HashMap::new(),
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">value</span></span>(&amp;<span class="hljs-keyword">mut</span> <span class="hljs-keyword">self</span>, key: <span class="hljs-keyword">u32</span>) -&gt; <span class="hljs-keyword">u32</span> {
+        <span class="hljs-keyword">let</span> v = <span class="hljs-keyword">self</span>.map.get(&amp;key);
+        <span class="hljs-keyword">match</span> v {
+            <span class="hljs-literal">Some</span>(i) =&gt; *i,
+            <span class="hljs-literal">None</span> =&gt; {
+                <span class="hljs-keyword">let</span> calc = (<span class="hljs-keyword">self</span>.calculation)(key);
+                <span class="hljs-keyword">self</span>.map.insert(key, calc);
+                calc
+            }
+        }
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() {
+    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> closure = Cacher::new(|num| {
+        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;calculation slowly...&quot;</span>);
+        thread::sleep(Duration::from_secs(<span class="hljs-number">2</span>));
+        num
+    });
+
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;one {}&quot;</span>, closure.value(<span class="hljs-number">99</span>));
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;two {}&quot;</span>, closure.value(<span class="hljs-number">99</span>));
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;three {}&quot;</span>, closure.value(<span class="hljs-number">99</span>));
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;one {}&quot;</span>, closure.value(<span class="hljs-number">100</span>));
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;two {}&quot;</span>, closure.value(<span class="hljs-number">100</span>));
+}
+</code></pre>
+<h2 id="20-&#x8FED;&#x4EE3;&#x5668;">20. &#x8FED;&#x4EE3;&#x5668;</h2>
+<ul>
+<li>&#x6240;&#x6709;&#x7684;&#x8FED;&#x4EE3;&#x5668;&#x90FD;&#x5B9E;&#x73B0;&#x4E86; <code>Iterator trait</code><ul>
+<li>&#x5B9E;&#x73B0; <code>Iterator trait</code> &#x9700;&#x8981;&#x5B9A;&#x4E49;&#x4E2A; Item &#x7C7B;&#x578B;&#xFF0C;&#x5B83;&#x7528;&#x4E8E; next &#x65B9;&#x6CD5;&#x7684;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;</li>
+<li>next &#x6BCF;&#x6B21;&#x8FD4;&#x56DE;&#x8FED;&#x4EE3;&#x5668;&#x4E2D;&#x7684;&#x4E00;&#x9879;&#xFF0C;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x5305;&#x88F9;&#x5728; Some &#x91CC;&#xFF0C;&#x8FED;&#x4EE3;&#x7ED3;&#x675F;&#x5219;&#x8FD4;&#x56DE; None</li>
+</ul>
+</li>
+<li><code>iter</code> &#x65B9;&#x6CD5;&#xFF1A;&#x5728;&#x4E0D;&#x53EF;&#x53D8;&#x5F15;&#x7528;&#x4E0A;&#x521B;&#x5EFA;&#x8FED;&#x4EE3;&#x5668;</li>
+<li><code>into_iter</code> &#x65B9;&#x6CD5;&#xFF1A;&#x521B;&#x5EFA;&#x7684;&#x8FED;&#x4EE3;&#x5668;&#x4F1A;&#x83B7;&#x5F97;&#x6240;&#x6709;&#x6743;</li>
+<li><code>iter_mut</code> &#x65B9;&#x6CD5;&#xFF1A;&#x8FED;&#x4EE3;&#x53EF;&#x53D8;&#x7684;&#x5F15;&#x7528;</li>
+<li>&#x6D88;&#x8017;&#x8FED;&#x4EE3;&#x5668;&#x7684;&#x65B9;&#x6CD5;&#xFF1A;next&#x3001;sum&#x7B49;</li>
+<li>&#x8FED;&#x4EE3;&#x5668;&#x9002;&#x914D;&#x5668;&#xFF1A;&#x628A;&#x8FED;&#x4EE3;&#x5668;&#x8F6C;&#x6362;&#x4E3A;&#x4E0D;&#x540C;&#x79CD;&#x7C7B;&#x7684;&#x8FED;&#x4EE3;&#x5668;&#xFF1B;&#x6BD4;&#x5982; map&#x3001;filter</li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Iterator</span></span> {
+    <span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">Item</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">next</span></span>(&amp;<span class="hljs-keyword">mut</span> <span class="hljs-keyword">self</span>) -&gt; <span class="hljs-built_in">Option</span>&lt;Self::Item&gt;;
+}
+
+<span class="hljs-keyword">let</span> v1 = <span class="hljs-built_in">vec!</span>[<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>];
+<span class="hljs-keyword">let</span> it = v1.iter().filter(|x| *x % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>);
+</code></pre>
+<pre><code class="lang-rust"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Counter</span></span> {
+    count: <span class="hljs-keyword">u32</span>,
+}
+
+<span class="hljs-keyword">impl</span> Counter {
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">new</span></span>() -&gt; Counter {
+        Counter { count: <span class="hljs-number">0</span> }
+    }
+}
+
+<span class="hljs-keyword">impl</span> <span class="hljs-built_in">Iterator</span> <span class="hljs-keyword">for</span> Counter {
+    <span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">Item</span></span> = <span class="hljs-keyword">u32</span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">next</span></span>(&amp;<span class="hljs-keyword">mut</span> <span class="hljs-keyword">self</span>) -&gt; <span class="hljs-built_in">Option</span>&lt;Self::Item&gt; {
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">self</span>.count &lt; <span class="hljs-number">5</span> {
+            <span class="hljs-keyword">self</span>.count += <span class="hljs-number">1</span>;
+            <span class="hljs-literal">Some</span>(<span class="hljs-keyword">self</span>.count)
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-literal">None</span>
+        }
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() {
+    <span class="hljs-keyword">let</span> s: <span class="hljs-keyword">u32</span> = Counter::new()
+        .zip(Counter::new().skip(<span class="hljs-number">1</span>))
+        .map(|(a, b)| a * b)
+        .filter(|x| x % <span class="hljs-number">3</span> == <span class="hljs-number">0</span>)
+        .sum();
+
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;{}&quot;</span>, s);
+}
+</code></pre>
+<h2 id="21-&#x53D1;&#x5E03;">21. &#x53D1;&#x5E03;</h2>
+<p>Cargo &#x4E3B;&#x8981;&#x6709;&#x4E24;&#x4E2A; profile&#xFF1A;</p>
+<ul>
+<li>dev profile&#xFF1A;&#x9002;&#x7528;&#x4E8E;&#x5F00;&#x53D1;&#xFF0C;cargo build</li>
+<li>release profile&#xFF1A;&#x9002;&#x7528;&#x4E8E;&#x53D1;&#x5E03;&#xFF0C;cargo build --release</li>
+</ul>
+<p>&#x81EA;&#x5B9A;&#x4E49; profile&#x65F6;&#xFF0C;&#x5728; <code>Cargo.toml</code> &#x91CC;&#x6DFB;&#x52A0; <code>[profile.xxx]</code> &#x533A;&#x57DF;&#xFF0C;&#x8986;&#x76D6;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;&#x7684;&#x5B50;&#x96C6;&#x3002;</p>
+<p>crate &#x5B98;&#x65B9;&#x6CE8;&#x518C;&#x8868;&#xFF1A;<code>https://crates.io</code> </p>
+<ul>
+<li>&#x767B;&#x5F55;&#x8D26;&#x53F7;&#xFF1A;cargo login [token]</li>
+<li>&#x53D1;&#x5E03;&#xFF1A;cargo publish &#xFF08;&#x4E00;&#x65E6;&#x53D1;&#x5E03;&#xFF0C;&#x8BE5;&#x7248;&#x672C;&#x4EE3;&#x7801;&#x65E0;&#x6CD5;&#x8986;&#x76D6;&#xFF0C;&#x65E0;&#x6CD5;&#x5220;&#x9664;&#xFF09;</li>
+<li>&#x64A4;&#x56DE;&#x4E00;&#x4E2A;&#x7248;&#x672C;&#xFF1A;cargo yank --vers 1.0.1 </li>
+<li>&#x53D6;&#x6D88;&#x64A4;&#x56DE;&#xFF1A;cargo yank --vers 1.0.1 --undo</li>
+<li>&#x5B89;&#x88C5;&#x4E8C;&#x8FDB;&#x5236; crate&#xFF1A;cargo install</li>
+</ul>
+<p>&#x6587;&#x6863;&#x6CE8;&#x91CA;&#xFF1A;&#x751F;&#x6210;HTML&#x6587;&#x6863;&#xFF1B;&#x4F7F;&#x7528; <code>///</code> &#xFF1B;&#x652F;&#x6301; Markdown</p>
+<ul>
+<li><code>cargo doc</code>&#x3001;<code>cargo dock --open</code>&#xFF1A;&#x751F;&#x6210;&#x5728; <code>target/doc</code> &#x76EE;&#x5F55;&#x4E0B;</li>
+<li>&#x5E38;&#x7528;&#x7AE0;&#x8282;&#xFF1A;<ul>
+<li><code># Examples</code>&#xFF1A;cargo test &#x53EF;&#x4EE5;&#x628A;&#x6587;&#x6863;&#x6CE8;&#x91CA;&#x4E2D;&#x7684;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#x4F5C;&#x4E3A;&#x6D4B;&#x8BD5;&#x6765;&#x8FD0;&#x884C;</li>
+<li><code># Panics</code>&#xFF1A;&#x51FD;&#x6570;&#x53EF;&#x80FD;&#x53D1;&#x751F; panic </li>
+<li><code># Errors</code>&#xFF1A;&#x5982;&#x679C;&#x51FD;&#x6570;&#x8FD4;&#x56DE; Result&#xFF0C;&#x63CF;&#x8FF0;&#x53EF;&#x80FD;&#x7684;&#x9519;&#x8BEF;&#x79CD;&#x7C7B;&#xFF0C;&#x4EE5;&#x53CA;&#x53EF;&#x5BFC;&#x81F4;&#x9519;&#x8BEF;&#x7684;&#x6761;&#x4EF6;</li>
+<li><code># Safety</code>&#xFF1A;&#x5982;&#x679C;&#x51FD;&#x6570;&#x5904;&#x4E8E; unsafe &#x8C03;&#x7528;&#xFF0C;&#x5C31;&#x5E94;&#x8BE5;&#x89E3;&#x91CA;&#x51FD;&#x6570; unsafe &#x7684;&#x539F;&#x56E0;&#xFF0C;&#x4EE5;&#x53CA;&#x8C03;&#x7528;&#x8005;&#x786E;&#x4FDD;&#x7684;&#x4F7F;&#x7528;&#x524D;&#x63D0;</li>
+</ul>
+</li>
+</ul>
+<p>&#x5982;&#x679C;&#x662F;&#x63CF;&#x8FF0; crate &#x548C;&#x6A21;&#x5757;&#x7684;&#x6CE8;&#x91CA;&#xFF0C;&#x6216;&#x8BB0;&#x5F55;&#x4E00;&#x4E2A;&#x6A21;&#x5757;&#x6574;&#x4F53;&#xFF0C;&#x4F7F;&#x7528; <code>//!</code></p>
+<p>&#x4F7F;&#x7528; <code>pub use</code> &#x5BFC;&#x51FA;&#x65B9;&#x4FBF;&#x4F7F;&#x7528;&#x7684;&#x516C;&#x5171; API</p>
+<p>&#x5DE5;&#x4F5C;&#x7A7A;&#x95F4;&#xFF1A;</p>
+<ul>
+<li>&#x7BA1;&#x7406;&#x591A;&#x4E2A;&#x5173;&#x8054;&#x4E14;&#x9700;&#x534F;&#x540C;&#x5F00;&#x53D1;&#x7684;crate</li>
+<li>&#x5C31;&#x662F;&#x4E00;&#x5957;&#x5171;&#x4EAB;&#x540C;&#x4E00;&#x4E2A; Cargo.lock &#x548C;&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x5939;&#x7684;&#x5305;</li>
+<li>&#x5DE5;&#x4F5C;&#x7A7A;&#x95F4;&#x5185;&#x6240;&#x6709;crate&#x4F7F;&#x7528;&#x7684;&#x4F9D;&#x8D56;&#x7684;&#x7248;&#x672C;&#x90FD;&#x662F;&#x76F8;&#x540C;&#x7684;</li>
+</ul>
+<p>&#x81EA;&#x5B9A;&#x4E49;&#x547D;&#x4EE4;&#x6269;&#x5C55; cargo&#xFF1A;</p>
+<ul>
+<li>cargo install</li>
+<li>&#x4E8C;&#x8FDB;&#x5236; cargo-abc&#xFF1B;&#x8FD0;&#x884C;&#x547D;&#x4EE4;<code>cargo abc</code></li>
+<li>cargo --list</li>
+</ul>
+<h2 id="22-&#x667A;&#x80FD;&#x6307;&#x9488;">22. &#x667A;&#x80FD;&#x6307;&#x9488;</h2>
+<ul>
+<li>&#x667A;&#x80FD;&#x6307;&#x9488;&#xFF1A;&#x884C;&#x4E3A;&#x8DDF;&#x6307;&#x9488;&#x7C7B;&#x4F3C;&#xFF1B;&#x6709;&#x989D;&#x5916;&#x7684;&#x5143;&#x6570;&#x636E;&#x548C;&#x529F;&#x80FD;&#xFF1B;</li>
+<li>&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x667A;&#x80FD;&#x6307;&#x9488;&#xFF1A;<ol>
+<li>&#x901A;&#x8FC7;&#x8BB0;&#x5F55;&#x6240;&#x6709;&#x8005;&#x7684;&#x6570;&#x91CF;&#xFF0C;&#x4F7F;&#x4E00;&#x4EFD;&#x6570;&#x636E;&#x88AB;&#x591A;&#x4E2A;&#x6240;&#x6709;&#x8005;&#x540C;&#x65F6;&#x6301;&#x6709;</li>
+<li>&#x5728;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x6240;&#x6709;&#x8005;&#x65F6;&#x81EA;&#x52A8;&#x6E05;&#x7406;&#x6570;&#x636E;</li>
+</ol>
+</li>
+<li>&#x5B9E;&#x73B0;&#x667A;&#x80FD;&#x6307;&#x9488;&#xFF1A;<ol>
+<li>&#x901A;&#x5E38;&#x4F7F;&#x7528; struct &#x5B9E;&#x73B0;&#xFF0C;&#x4E14;&#x5B9E;&#x73B0;&#x4E86; <code>Deref</code> &#x548C; <code>Drop</code> &#x8FD9;&#x4E24;&#x4E2A; trait</li>
+<li><code>Deref trait</code>&#xFF1A;&#x5141;&#x8BB8;&#x667A;&#x80FD;&#x6307;&#x9488; struct &#x7684;&#x5B9E;&#x4F8B;&#x50CF;&#x5F15;&#x7528;&#x4E00;&#x6837;&#x4F7F;&#x7528;</li>
+<li><code>Drop trait</code>&#xFF1A;&#x5141;&#x8BB8;&#x4F60;&#x81EA;&#x5B9A;&#x4E49;&#x5F53;&#x667A;&#x80FD;&#x6307;&#x9488;&#x5B9E;&#x4F8B;&#x8D70;&#x51FA;&#x4F5C;&#x7528;&#x57DF;&#x65F6;&#x7684;&#x4EE3;&#x7801;</li>
+</ol>
+</li>
+</ul>
+<p>&#x6BD4;&#x5982;&#xFF1A;<code>String</code> &#x548C; <code>Vec&lt;T&gt;</code> &#x5C31;&#x662F;&#x667A;&#x80FD;&#x6307;&#x9488;&#x3002;</p>
+<h3 id="221-box">22.1. Box\<t\></t\></h3>
+<p><code>Box&lt;T&gt;</code>&#x662F;&#x6700;&#x7B80;&#x5355;&#x7684;&#x667A;&#x80FD;&#x6307;&#x9488;&#xFF1A;</p>
+<ul>
+<li>&#x5728;heap&#x4E0A;&#x5B58;&#x50A8;&#x6570;&#x636E;</li>
+<li>&#x5728;stack&#x4E0A;&#x5B58;&#x50A8;&#x6307;&#x5411;heap&#x6570;&#x636E;&#x7684;&#x6307;&#x9488;</li>
+<li>&#x6CA1;&#x6709;&#x6027;&#x80FD;&#x5F00;&#x9500;&#x548C;&#x5176;&#x4ED6;&#x989D;&#x5916;&#x529F;&#x80FD;</li>
+<li>&#x5B9E;&#x73B0;&#x4E86;<code>Deref</code> &#x548C; <code>Drop</code> &#x4E24;&#x4E2A; trait</li>
+</ul>
+<p><img src="images/Box.png" alt="Box"></p>
+<p>&#x4F7F;&#x7528;&#x573A;&#x666F;&#xFF1A;</p>
+<ul>
+<li>&#x5728;&#x7F16;&#x8BD1;&#x65F6;&#xFF0C;&#x67D0;&#x7C7B;&#x578B;&#x7684;&#x5927;&#x5C0F;&#x65E0;&#x6CD5;&#x786E;&#x5B9A;&#x3002;&#x4F46;&#x4F7F;&#x7528;&#x8BE5;&#x7C7B;&#x578B;&#x65F6;&#xFF0C;&#x4E0A;&#x4E0B;&#x6587;&#x5374;&#x9700;&#x8981;&#x77E5;&#x9053;&#x5B83;&#x7684;&#x786E;&#x5207;&#x5927;&#x5C0F;&#x3002;</li>
+<li>&#x5F53;&#x6709;&#x5927;&#x91CF;&#x6570;&#x636E;&#xFF0C;&#x60F3;&#x79FB;&#x4EA4;&#x6240;&#x6709;&#x6743;&#xFF0C;&#x4F46;&#x9700;&#x8981;&#x786E;&#x4FDD;&#x5728;&#x64CD;&#x4F5C;&#x65F6;&#x6570;&#x636E;&#x4E0D;&#x4F1A;&#x88AB;&#x590D;&#x5236;&#x3002;</li>
+<li>&#x4F7F;&#x7528;&#x67D0;&#x4E2A;&#x503C;&#x65F6;&#xFF0C;&#x4F60;&#x53EA;&#x5173;&#x5FC3;&#x5B83;&#x662F;&#x5426;&#x5B9E;&#x73B0;&#x4E86;&#x7279;&#x5B9A;&#x7684; trait&#xFF0C;&#x800C;&#x4E0D;&#x5173;&#x5FC3;&#x5B83;&#x7684;&#x5177;&#x4F53;&#x7C7B;&#x578B;&#x3002;</li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-keyword">let</span> b = <span class="hljs-built_in">Box</span>::new(<span class="hljs-number">5</span>);
+<span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;b = {}&quot;</span>, b);
+
+<span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">List</span></span> {
+    Cons(<span class="hljs-keyword">i32</span>, <span class="hljs-built_in">Box</span>&lt;List&gt;),
+    Nil,
+}
+<span class="hljs-keyword">let</span> list = Cons(<span class="hljs-number">1</span>, <span class="hljs-built_in">Box</span>::new(Cons(<span class="hljs-number">2</span>, <span class="hljs-built_in">Box</span>::new(Cons(<span class="hljs-number">3</span>, <span class="hljs-built_in">Box</span>::new(Nil))))));
+</code></pre>
+<h3 id="222-deref-trait">22.2. Deref Trait</h3>
+<p>&#x5B9E;&#x73B0; Deref Trait&#xFF1A;</p>
+<ul>
+<li>&#x4F7F;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;<strong>&#x81EA;&#x5B9A;&#x4E49;&#x89E3;&#x5F15;&#x7528;&#x8FD0;&#x7B97;&#x7B26; <code>*</code> &#x7684;&#x884C;&#x4E3A;</strong></li>
+<li>&#x4F7F;&#x5F97;&#x667A;&#x80FD;&#x6307;&#x9488;&#x53EF;&#x50CF;&#x5E38;&#x89C4;&#x5F15;&#x7528;&#x4E00;&#x6837;&#x6765;&#x5904;&#x7406;</li>
+<li>&#x8981;&#x6C42;&#xFF1A;<strong>&#x5B9E;&#x73B0;&#x4E00;&#x4E2A; <code>deref</code> &#x65B9;&#x6CD5;</strong><ol>
+<li><strong>&#x8BE5;&#x65B9;&#x6CD5;&#x501F;&#x7528; <code>self</code></strong></li>
+<li><strong>&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6307;&#x5411;&#x5185;&#x90E8;&#x6570;&#x636E;&#x7684;&#x5F15;&#x7528;</strong></li>
+</ol>
+</li>
+</ul>
+<p><code>Box&lt;T&gt;</code> &#x88AB;&#x5B9A;&#x4E49;&#x6210;&#x62E5;&#x6709;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x7684; <code>tuple struct</code></p>
+<pre><code class="lang-rust"><span class="hljs-keyword">use</span> std::ops::Deref;
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">MyBox</span></span>&lt;T&gt;(T);
+
+<span class="hljs-keyword">impl</span>&lt;T&gt; MyBox&lt;T&gt; {
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">new</span></span>(x: T) -&gt; MyBox&lt;T&gt; {
+        MyBox(x)
+    }
+}
+
+<span class="hljs-keyword">impl</span>&lt;T&gt; Deref <span class="hljs-keyword">for</span> MyBox&lt;T&gt; {
+    <span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">Target</span></span> = T;
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">deref</span></span>(&amp;<span class="hljs-keyword">self</span>) -&gt; &amp;Self::Target {
+        &amp;<span class="hljs-keyword">self</span>.<span class="hljs-number">0</span>
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() {
+    <span class="hljs-keyword">let</span> x = <span class="hljs-number">5</span>;
+    <span class="hljs-keyword">let</span> y = MyBox::new(x);
+
+    <span class="hljs-built_in">assert_eq!</span>(<span class="hljs-number">5</span>, x);
+    <span class="hljs-built_in">assert_eq!</span>(<span class="hljs-number">5</span>, *y); <span class="hljs-comment">// &#x76F8;&#x5F53;&#x4E8E; *(y.deref())</span>
+}
+</code></pre>
+<p>&#x51FD;&#x6570;&#x548C;&#x65B9;&#x6CD5;&#x7684;<strong>&#x9690;&#x5F0F;&#x89E3;&#x5F15;&#x7528;&#x8F6C;&#x5316;&#xFF08;Deref Coercion&#xFF09;</strong>&#xFF1A;</p>
+<ul>
+<li>Deref Coercion &#x662F;&#x4E3A;&#x51FD;&#x6570;&#x548C;&#x65B9;&#x6CD5;&#x63D0;&#x4F9B;&#x7684;&#x4E00;&#x79CD;&#x4FBF;&#x6377;&#x7279;&#x6027;&#xFF1B;</li>
+<li>&#x5047;&#x8BBE; T &#x5B9E;&#x73B0;&#x4E86;Deref Trait&#xFF0C;&#x90A3;&#x4E48;Deref Coercion &#x53EF;&#x4EE5;&#x628A; <strong>T &#x7684;&#x5F15;&#x7528;</strong> &#x8F6C;&#x5316;&#x4E3A;<strong> T &#x7ECF;&#x8FC7; Deref &#x64CD;&#x4F5C;&#x540E;&#x751F;&#x6210;&#x7684;&#x5F15;&#x7528;</strong>&#xFF1B;</li>
+<li>&#x5F53;&#x628A;&#x67D0;&#x7C7B;&#x578B;&#x7684;&#x5F15;&#x7528;&#x4F20;&#x9012;&#x7ED9;&#x51FD;&#x6570;&#x6216;&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x4F46;&#x5B83;&#x7684;&#x7C7B;&#x578B;&#x548C;&#x5B9A;&#x4E49;&#x7684;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x4E0D;&#x5339;&#x914D;&#xFF0C;<strong>Deref Coercion &#x5C31;&#x4F1A;&#x81EA;&#x52A8;&#x53D1;&#x751F;</strong>&#xFF1B;<strong>&#x7F16;&#x8BD1;&#x5668;&#x4F1A;&#x5BF9; deref &#x8FDB;&#x884C;&#x4E00;&#x7CFB;&#x5217;&#x8C03;&#x7528;&#xFF0C;&#x6765;&#x628A;&#x5B83;&#x8F6C;&#x4E3A;&#x6240;&#x9700;&#x7684;&#x53C2;&#x6570;&#x7C7B;&#x578B;</strong>&#xFF1B;&#xFF08;&#x6CA1;&#x6709;&#x989D;&#x5916;&#x6027;&#x80FD;&#x5F00;&#x9500;&#xFF09;</li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">hello</span></span>(name: &amp;<span class="hljs-keyword">str</span>) {
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Hello, {}&quot;</span>, name)
+}
+
+<span class="hljs-keyword">let</span> name = MyBox::new(<span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;Rust&quot;</span>));
+hello(&amp;name);
+</code></pre>
+<p>&#x89E3;&#x5F15;&#x7528;&#x4E0E;&#x53EF;&#x53D8;&#x6027;&#xFF0C;&#x4E0B;&#x9762;&#x4E09;&#x79CD;&#x60C5;&#x51B5;&#x53D1;&#x751F;&#x65F6;&#xFF0C;Rust &#x4F1A;&#x6267;&#x884C; Deref Coercion&#xFF1A;</p>
+<ul>
+<li>&#x5F53; <code>T: Dreft&lt;Target=U&gt;</code>&#xFF0C;&#x5141;&#x8BB8; <code>&amp;T</code> &#x8F6C;&#x6362;&#x4E3A; <code>&amp;U</code></li>
+<li>&#x5F53; <code>T: DreftMut&lt;Target=U&gt;</code>&#xFF0C;&#x5141;&#x8BB8; <code>&amp;mut T</code> &#x8F6C;&#x6362;&#x4E3A; <code>&amp;mut U</code></li>
+<li>&#x5F53; <code>T: Dreft&lt;Target=U&gt;</code>&#xFF0C;&#x5141;&#x8BB8; <code>&amp;mut T</code> &#x8F6C;&#x6362;&#x4E3A; <code>&amp;U</code></li>
+</ul>
+<h3 id="223-drop-trait">22.3. Drop Trait</h3>
+<ul>
+<li>&#x81EA;&#x5B9A;&#x4E49;<strong> &#x5F53;&#x503C;&#x5C06;&#x8981;&#x79BB;&#x5F00;&#x4F5C;&#x7528;&#x57DF;&#x65F6;&#x53D1;&#x751F;&#x7684;&#x52A8;&#x4F5C;</strong>&#xFF1B;</li>
+<li>&#x4EFB;&#x4F55;&#x7C7B;&#x578B;&#x90FD;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0; Drop Trait&#xFF1B;</li>
+<li>&#x8981;&#x6C42;&#xFF1A;&#x5B9E;&#x73B0; <code>drop</code> &#x65B9;&#x6CD5;&#xFF0C;&#x53C2;&#x6570;&#x4E3A;&#x5BF9; <code>self</code> &#x7684;<strong>&#x53EF;&#x53D8;&#x5F15;&#x7528;</strong>&#xFF1B;</li>
+<li><strong>&#x4E0D;&#x5141;&#x8BB8;&#x663E;&#x793A;&#x7684;&#x8C03;&#x7528; <code>drop</code> &#x65B9;&#x6CD5;</strong>&#xFF1B;&#x4F46;&#x53EF;&#x4EE5;&#x8C03;&#x7528;&#x6807;&#x51C6;&#x5E93;&#x4E2D;&#x7684; <strong><code>std::mem::drop</code> &#x51FD;&#x6570;</strong>&#xFF0C;&#x6765;&#x63D0;&#x524D; drop &#x503C;&#xFF1B;</li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">SmartPointer</span></span> {
+    data: <span class="hljs-built_in">String</span>,
+}
+
+<span class="hljs-keyword">impl</span> <span class="hljs-built_in">Drop</span> <span class="hljs-keyword">for</span> SmartPointer {
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">drop</span></span>(&amp;<span class="hljs-keyword">mut</span> <span class="hljs-keyword">self</span>) {
+        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Dropping data {}&quot;</span>, <span class="hljs-keyword">self</span>.data);
+    }
+}
+
+<span class="hljs-keyword">let</span> p1 = SmartPointer {
+    data: <span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;one&quot;</span>),
+};
+std::mem::<span class="hljs-built_in">drop</span>(p1);
+<span class="hljs-keyword">let</span> p2 = SmartPointer {
+    data: <span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;two&quot;</span>),
+};
+</code></pre>
+<h3 id="224-rc">22.4. Rc\<t\></t\></h3>
+<ul>
+<li>&#x4E3A;&#x4E86;&#x652F;&#x6301;&#x591A;&#x91CD;&#x6240;&#x6709;&#x6743;&#xFF0C;&#x5F15;&#x5165;<code>Rc&lt;T&gt;</code></li>
+<li><code>Rc&lt;T&gt;</code> &#x901A;&#x8FC7;<strong>&#x4E0D;&#x53EF;&#x53D8;&#x5F15;&#x7528;</strong>&#xFF0C;&#x4F7F;&#x5F97;&#x5728;&#x7A0B;&#x5E8F;&#x4E0D;&#x540C;&#x5730;&#x65B9;&#x53EF;&#x4EE5;&#x5171;&#x4EAB;&#x53EA;&#x8BFB;&#x6570;&#x636E;</li>
+<li>reference couting&#xFF08;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#xFF09;</li>
+<li>&#x8FFD;&#x8E2A;&#x6240;&#x6709;&#x5230;&#x503C;&#x7684;&#x5F15;&#x7528;</li>
+<li>&#x5F53;0&#x4E2A;&#x5F15;&#x7528;&#x65F6;&#xFF0C;&#x8BE5;&#x503C;&#x53EF;&#x4EE5;&#x88AB;&#x6E05;&#x7406;&#x6389;</li>
+<li><code>Rc::clone(&amp;a)</code> &#x589E;&#x52A0;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#xFF0C;&#x4E0D;&#x4F1A;&#x6267;&#x884C;&#x6570;&#x636E;&#x7684;&#x6DF1;&#x5EA6;&#x62F7;&#x8D1D;</li>
+<li><code>Rc::strong_count(&amp;a)</code> &#x83B7;&#x5F97;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#xFF08;&#x5F3A;&#x5F15;&#x7528;&#xFF09;</li>
+<li><code>Rc::weak_count(&amp;a)</code> &#x83B7;&#x5F97;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#xFF08;&#x5F31;&#x5F15;&#x7528;&#xFF09;</li>
+<li>&#x4F7F;&#x7528;&#x573A;&#x666F;&#xFF1A;<ol>
+<li>&#x9700;&#x8981;&#x5728;heap&#x4E0A;&#x5206;&#x914D;&#x6570;&#x636E;&#xFF0C;&#x6570;&#x636E;&#x88AB;&#x7A0B;&#x5E8F;&#x7684;&#x591A;&#x4E2A;&#x5730;&#x65B9;&#x8BFB;&#x53D6;&#xFF08;&#x53EA;&#x8BFB;&#xFF09;&#xFF0C;&#x4F46;&#x5728;&#x7F16;&#x8BD1;&#x65F6;&#x65E0;&#x6CD5;&#x786E;&#x5B9A;&#x54EA;&#x4E2A;&#x90E8;&#x5206;&#x6700;&#x540E;&#x4F7F;&#x7528;&#x5B8C;&#x8FD9;&#x4E9B;&#x6570;&#x636E;&#xFF1B;</li>
+<li>&#x53EA;&#x80FD;&#x7528;&#x4E8E;<strong>&#x5355;&#x7EBF;&#x7A0B;</strong>&#x573A;&#x666F;</li>
+</ol>
+</li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">List</span></span> {
+    Cons(<span class="hljs-keyword">i32</span>, Rc&lt;List&gt;),
+    Nil,
+}
+
+<span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() {
+    <span class="hljs-keyword">let</span> a = Rc::new(Cons(<span class="hljs-number">5</span>, Rc::new(Cons(<span class="hljs-number">10</span>, Rc::new(Nil)))));
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;count after creating a = {}&quot;</span>, Rc::strong_count(&amp;a));
+
+    <span class="hljs-keyword">let</span> b = Cons(<span class="hljs-number">3</span>, Rc::clone(&amp;a));
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;count after creating b = {}&quot;</span>, Rc::strong_count(&amp;a));
+
+    {
+        <span class="hljs-keyword">let</span> c = Cons(<span class="hljs-number">4</span>, Rc::clone(&amp;a));
+        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;count after creating c = {}&quot;</span>, Rc::strong_count(&amp;a));
+    }
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;count after c goes out of scope = {}&quot;</span>, Rc::strong_count(&amp;a));
+}
+</code></pre>
+<h3 id="225-refcell">22.5. RefCell\<t\></t\></h3>
+<p>&#x5185;&#x90E8;&#x53EF;&#x53D8;&#x6027;&#xFF08;interior mutability&#xFF09;&#xFF1A;<strong>&#x53EF;&#x53D8;&#x7684;&#x501F;&#x7528;&#x4E00;&#x4E2A;&#x4E0D;&#x53EF;&#x53D8;&#x7684;&#x503C;</strong>&#x3002;Rust&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x4E4B;&#x4E00;&#xFF0C;&#x5B83;<strong>&#x5141;&#x8BB8;&#x4F60;&#x5728;&#x53EA;&#x6301;&#x6709;&#x4E0D;&#x53EF;&#x53D8;&#x5F15;&#x7528;&#x7684;&#x524D;&#x63D0;&#x4E0B;&#x5BF9;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x4FEE;&#x6539;</strong>&#x3002;&#xFF08;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x4E2D;&#x4F7F;&#x7528;&#x4E86; unsafe &#x4EE3;&#x7801;&#x6765;&#x7ED5;&#x8FC7; Rust &#x6B63;&#x5E38;&#x7684;&#x53EF;&#x53D8;&#x6027;&#x548C;&#x501F;&#x7528;&#x89C4;&#x5219;&#xFF09;</p>
+<ul>
+<li><code>RefCell&lt;T&gt;</code> &#x7C7B;&#x578B;&#x4EE3;&#x8868;&#x4E86;&#x5176;&#x6301;&#x6709;&#x6570;&#x636E;&#x7684;&#x552F;&#x4E00;&#x6240;&#x6709;&#x6743;</li>
+<li>&#x53EA;&#x80FD;&#x7528;&#x4E8E;<strong>&#x5355;&#x7EBF;&#x7A0B;</strong>&#x573A;&#x666F;</li>
+<li><code>RefCell&lt;T&gt;</code> &#x4F1A;&#x8BB0;&#x5F55;&#x5F53;&#x524D;&#x5B58;&#x5728;&#x591A;&#x5C11;&#x4E2A;&#x6D3B;&#x8DC3;&#x7684;<code>Ref&lt;T&gt;</code>&#x548C;<code>RefMut&lt;T&gt;</code>&#x667A;&#x80FD;&#x6307;&#x9488;</li>
+<li><code>borrow</code>&#x65B9;&#x6CD5;&#xFF1A;&#x8FD4;&#x56DE;&#x667A;&#x80FD;&#x6307;&#x9488; <code>Ref&lt;T&gt;</code>&#xFF0C;&#x5B83;&#x5B9E;&#x73B0;&#x4E86;Deref<ul>
+<li>&#x6BCF;&#x6B21;&#x8C03;&#x7528;&#xFF0C;&#x4E0D;&#x53EF;&#x53D8;&#x501F;&#x7528;&#x8BA1;&#x6570;&#x52A0; 1&#xFF1B;</li>
+<li>&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;<code>Ref&lt;T&gt;</code>&#x7684;&#x503C;&#x79BB;&#x5F00;&#x4F5C;&#x7528;&#x57DF;&#x65F6;&#xFF0C;&#x4E0D;&#x53EF;&#x53D8;&#x501F;&#x7528;&#x8BA1;&#x6570;&#x51CF; 1&#xFF1B;</li>
+</ul>
+</li>
+<li><code>borrow_mut</code>&#x65B9;&#x6CD5;&#xFF1A;&#x8FD4;&#x56DE;&#x667A;&#x80FD;&#x6307;&#x9488; <code>RefMut&lt;T&gt;</code>&#xFF0C;&#x5B83;&#x5B9E;&#x73B0;&#x4E86;Deref<ul>
+<li>&#x6BCF;&#x6B21;&#x8C03;&#x7528;&#xFF0C;&#x53EF;&#x53D8;&#x501F;&#x7528;&#x8BA1;&#x6570;&#x52A0; 1&#xFF1B;</li>
+<li>&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;<code>RefMut&lt;T&gt;</code>&#x7684;&#x503C;&#x79BB;&#x5F00;&#x4F5C;&#x7528;&#x57DF;&#x65F6;&#xFF0C;&#x53EF;&#x53D8;&#x501F;&#x7528;&#x8BA1;&#x6570;&#x51CF; 1&#xFF1B;</li>
+</ul>
+</li>
+<li>&#x5176;&#x4ED6;&#x53EF;&#x5B9E;&#x73B0;&#x5185;&#x90E8;&#x53EF;&#x53D8;&#x6027;&#x7684;&#x7C7B;&#x578B;&#xFF1A;<ul>
+<li><code>Cell&lt;T&gt;</code>&#xFF1A;&#x901A;&#x8FC7;&#x590D;&#x5236;&#x6765;&#x8BBF;&#x95EE;&#x6570;&#x636E;</li>
+<li><code>Mutex&lt;T&gt;</code>&#xFF1A;&#x7528;&#x4E8E;&#x5B9E;&#x73B0;&#x8DE8;&#x7EBF;&#x7A0B;&#x60C5;&#x5F62;&#x4E0B;&#x7684;&#x5185;&#x90E8;&#x53EF;&#x53D8;&#x6027;&#x6A21;&#x5F0F;</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-meta">#[derive(Debug)]</span>
+<span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">List</span></span> {
+    Cons(Rc&lt;RefCell&lt;<span class="hljs-keyword">i32</span>&gt;&gt;, Rc&lt;List&gt;),
+    Nil,
+}
+
+<span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() {
+    <span class="hljs-keyword">let</span> value = Rc::new(RefCell::new(<span class="hljs-number">5</span>));
+    <span class="hljs-keyword">let</span> a = Rc::new(Cons(Rc::clone(&amp;value), Rc::new(Nil)));
+    <span class="hljs-keyword">let</span> b = Cons(Rc::new(RefCell::new(<span class="hljs-number">6</span>)), Rc::clone(&amp;a));
+    <span class="hljs-keyword">let</span> c = Cons(Rc::new(RefCell::new(<span class="hljs-number">10</span>)), Rc::clone(&amp;a));
+
+    *value.borrow_mut() += <span class="hljs-number">10</span>;
+
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;a = {:?}&quot;</span>, a);
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;b = {:?}&quot;</span>, b);
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;c = {:?}&quot;</span>, c);
+}
+</code></pre>
+<h3 id="226-box-vs-rc-vs-refcell">22.6. Box\<t\> vs Rc\<t\> vs RefCell\<t\></t\></t\></t\></h3>
+<p><img src="images/box_vs_rc_vs_refcell.png" alt="box_vs_rc_vs_refcell"></p>
+<h3 id="227-&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#x5BFC;&#x81F4;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;">22.7. &#x5FAA;&#x73AF;&#x5F15;&#x7528;&#x5BFC;&#x81F4;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;</h3>
+<p>&#x4F7F;&#x7528;<code>Rc&lt;T&gt;</code>&#x548C;<code>RefCell&lt;T&gt;</code>&#x53EF;&#x4EE5;&#x521B;&#x9020;&#x51FA;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#xFF0C;&#x4ECE;&#x800C;&#x53D1;&#x751F;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#xFF1B;&#xFF08;&#x6BCF;&#x4E2A;&#x9879;&#x7684;&#x5F15;&#x7528;&#x6570;&#x91CF;&#x4E0D;&#x4F1A;&#x53D8;&#x6210;0&#xFF0C;&#x503C;&#x4E0D;&#x4F1A;&#x88AB;&#x6E05;&#x7406;&#x6389;&#xFF09;</p>
+<p>&#x9632;&#x6B62;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<ul>
+<li>&#x4F9D;&#x9760;&#x5F00;&#x53D1;&#x8005;&#x4FDD;&#x8BC1;&#xFF1B;</li>
+<li>&#x91CD;&#x65B0;&#x7EC4;&#x7EC7;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF1A;&#x4E00;&#x4E9B;&#x5F15;&#x7528;&#x6765;&#x8868;&#x8FBE;&#x6240;&#x6709;&#x6743;&#xFF0C;&#x4E00;&#x4E9B;&#x5F15;&#x7528;&#x4E0D;&#x8868;&#x8FBE;&#x6240;&#x6709;&#x6743;</li>
+<li><strong>&#x628A;<code>Rc&lt;T&gt;</code>&#x6362;&#x6210;<code>Weak&lt;T&gt;</code></strong><ul>
+<li><code>Rc&lt;T&gt;</code>&#x7684;&#x5B9E;&#x4F8B;&#x53EA;&#x6709;&#x5728; strong_count &#x4E3A; 0 &#x65F6;&#x624D;&#x4F1A;&#x88AB;&#x6E05;&#x7406;&#xFF1B;</li>
+<li><code>Rc&lt;T&gt;</code>&#x4F7F;&#x7528; weak_count &#x6765;&#x8FFD;&#x8E2A;&#x5B58;&#x5728;&#x591A;&#x5C11;<code>Weak&lt;T&gt;</code>&#xFF0C;<strong>weak_count&#x4E0D;&#x4E3A;0&#x5E76;&#x4E0D;&#x5F71;&#x54CD;<code>Rc&lt;T&gt;</code>&#x5B9E;&#x4F8B;&#x7684;&#x6E05;&#x7406;</strong>&#xFF1B;</li>
+</ul>
+</li>
+</ul>
+<p>&#x5F3A;&#x5F31;&#x5F15;&#x7528;&#xFF1A;</p>
+<ul>
+<li>Stong Reference&#xFF08;&#x5F3A;&#x5F15;&#x7528;&#xFF09;&#x662F;&#x5173;&#x4E8E;&#x5982;&#x4F55;&#x5206;&#x4EAB; <code>Rc&lt;T&gt;</code>&#x5B9E;&#x4F8B;&#x7684;&#x6240;&#x6709;&#x6743;&#xFF1B;</li>
+<li>Weak Reference&#xFF08;&#x5F31;&#x5F15;&#x7528;&#xFF09;&#x5E76;&#x4E0D;&#x4F1A;&#x521B;&#x5EFA;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#xFF0C;&#x5F53;Stong Reference&#x6570;&#x91CF;&#x4E3A;0&#x65F6;&#xFF0C;Weak Reference&#x4F1A;&#x81EA;&#x52A8;&#x65AD;&#x5F00;&#xFF1B;</li>
+<li>&#x5728;&#x4F7F;&#x7528;<code>Weak&lt;T&gt;</code>&#x524D;&#xFF0C;&#x9700;&#x8981;&#x4FDD;&#x8BC1;&#x5B83;&#x6307;&#x5411;&#x7684;&#x503C;&#x4ECD;&#x7136;&#x5B58;&#x5728;&#xFF1B;&#xFF08;&#x5728;<code>Weak&lt;T&gt;</code>&#x5B9E;&#x4F8B;&#x4E0A;&#x8C03;&#x7528; upgrade &#x65B9;&#x6CD5;&#xFF0C;&#x8FD4;&#x56DE;<code>Option&lt;Rc&lt;T&gt;&gt;</code>&#xFF09;</li>
+</ul>
+<pre><code class="lang-rust"><span class="hljs-meta">#[derive(Debug)]</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span></span> {
+    value: <span class="hljs-keyword">i32</span>,
+    parent: RefCell&lt;Weak&lt;Node&gt;&gt;,
+    children: RefCell&lt;<span class="hljs-built_in">Vec</span>&lt;Rc&lt;Node&gt;&gt;&gt;,
+}
+
+<span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() {
+    <span class="hljs-keyword">let</span> leaf = Rc::new(Node {
+        value: <span class="hljs-number">3</span>,
+        parent: RefCell::new(Weak::new()),
+        children: RefCell::new(<span class="hljs-built_in">vec!</span>[]),
+    });
+
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;leaf parent = {:?}&quot;</span>, leaf.parent.borrow().upgrade());
+    <span class="hljs-built_in">println!</span>(
+        <span class="hljs-string">&quot;leaf:   strong = {}, weak = {}&quot;</span>,
+        Rc::strong_count(&amp;leaf),
+        Rc::weak_count(&amp;leaf)
+    );
+
+    {
+        <span class="hljs-keyword">let</span> branch = Rc::new(Node {
+            value: <span class="hljs-number">5</span>,
+            parent: RefCell::new(Weak::new()),
+            children: RefCell::new(<span class="hljs-built_in">vec!</span>[Rc::clone(&amp;leaf)]),
+        });
+
+        *leaf.parent.borrow_mut() = Rc::downgrade(&amp;branch);
+        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;leaf parent = {:?}&quot;</span>, leaf.parent.borrow().upgrade());
+
+        <span class="hljs-built_in">println!</span>(
+            <span class="hljs-string">&quot;leaf:   strong = {}, weak = {}&quot;</span>,
+            Rc::strong_count(&amp;leaf),
+            Rc::weak_count(&amp;leaf)
+        );
+        <span class="hljs-built_in">println!</span>(
+            <span class="hljs-string">&quot;branch: strong = {}, weak = {}&quot;</span>,
+            Rc::strong_count(&amp;branch),
+            Rc::weak_count(&amp;branch)
+        );
+    }
+
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;leaf parent = {:?}&quot;</span>, leaf.parent.borrow().upgrade());
+    <span class="hljs-built_in">println!</span>(
+        <span class="hljs-string">&quot;leaf:   strong = {}, weak = {}&quot;</span>,
+        Rc::strong_count(&amp;leaf),
+        Rc::weak_count(&amp;leaf)
+    );
+}
+</code></pre>
 
                                 
                                 </section>
@@ -1865,7 +2390,7 @@ map.entry(&amp;<span class="hljs-built_in">String</span>::from(<span class="hljs
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"语言基础","level":"1.10.1","depth":2,"next":{"title":"内核","level":"1.11","depth":1,"ref":"","articles":[{"title":"进程调度","level":"1.11.1","depth":2,"path":"kernel/进程调度.md","ref":"./kernel/进程调度.md","articles":[{"title":"CFS","level":"1.11.1.1","depth":3,"path":"kernel/ps-1-cfs.md","ref":"./kernel/ps-1-cfs.md","articles":[]},{"title":"EEVDF","level":"1.11.1.2","depth":3,"path":"kernel/ps-2-eevdf.md","ref":"./kernel/ps-2-eevdf.md","articles":[]}]},{"title":"内存管理","level":"1.11.2","depth":2,"path":"kernel/内存管理.md","ref":"./kernel/内存管理.md","articles":[{"title":"将虚拟地址转换为物理地址","level":"1.11.2.1","depth":3,"path":"kernel/mm-1-va2pa.md","ref":"./kernel/mm-1-va2pa.md","articles":[]},{"title":"物理内存模型","level":"1.11.2.2","depth":3,"path":"kernel/mm-2-physical-memory-model.md","ref":"./kernel/mm-2-physical-memory-model.md","articles":[]},{"title":"memblock","level":"1.11.2.3","depth":3,"path":"kernel/mm-3-memblock.md","ref":"./kernel/mm-3-memblock.md","articles":[]}]},{"title":"系统调用","level":"1.11.3","depth":2,"ref":"","articles":[{"title":"fork","level":"1.11.3.1","depth":3,"path":"kernel/syscall-fork.md","ref":"./kernel/syscall-fork.md","articles":[]}]},{"title":"Kdump","level":"1.11.4","depth":2,"path":"kernel/kdump.md","ref":"./kernel/kdump.md","articles":[]},{"title":"coredump","level":"1.11.5","depth":2,"path":"kernel/coredump.md","ref":"./kernel/coredump.md","articles":[]},{"title":"tcpdump","level":"1.11.6","depth":2,"path":"kernel/tcpdump.md","ref":"./kernel/tcpdump.md","articles":[]},{"title":"Kprobes","level":"1.11.7","depth":2,"path":"kernel/kprobe.md","ref":"./kernel/kprobe.md","articles":[]},{"title":"Systemtap","level":"1.11.8","depth":2,"path":"kernel/systemtap.md","ref":"./kernel/systemtap.md","articles":[]},{"title":"RCU","level":"1.11.9","depth":2,"path":"kernel/rcu.md","ref":"./kernel/rcu.md","articles":[]}]},"previous":{"title":"Rust","level":"1.10","depth":1,"ref":"","articles":[{"title":"语言基础","level":"1.10.1","depth":2,"path":"rust/lang.md","ref":"./rust/lang.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"rust/lang.md","mtime":"2024-04-01T16:17:20.239Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-01T16:17:36.620Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"语言基础","level":"1.10.1","depth":2,"next":{"title":"内核","level":"1.11","depth":1,"ref":"","articles":[{"title":"进程调度","level":"1.11.1","depth":2,"path":"kernel/进程调度.md","ref":"./kernel/进程调度.md","articles":[{"title":"CFS","level":"1.11.1.1","depth":3,"path":"kernel/ps-1-cfs.md","ref":"./kernel/ps-1-cfs.md","articles":[]},{"title":"EEVDF","level":"1.11.1.2","depth":3,"path":"kernel/ps-2-eevdf.md","ref":"./kernel/ps-2-eevdf.md","articles":[]}]},{"title":"内存管理","level":"1.11.2","depth":2,"path":"kernel/内存管理.md","ref":"./kernel/内存管理.md","articles":[{"title":"将虚拟地址转换为物理地址","level":"1.11.2.1","depth":3,"path":"kernel/mm-1-va2pa.md","ref":"./kernel/mm-1-va2pa.md","articles":[]},{"title":"物理内存模型","level":"1.11.2.2","depth":3,"path":"kernel/mm-2-physical-memory-model.md","ref":"./kernel/mm-2-physical-memory-model.md","articles":[]},{"title":"memblock","level":"1.11.2.3","depth":3,"path":"kernel/mm-3-memblock.md","ref":"./kernel/mm-3-memblock.md","articles":[]}]},{"title":"系统调用","level":"1.11.3","depth":2,"ref":"","articles":[{"title":"fork","level":"1.11.3.1","depth":3,"path":"kernel/syscall-fork.md","ref":"./kernel/syscall-fork.md","articles":[]}]},{"title":"Kdump","level":"1.11.4","depth":2,"path":"kernel/kdump.md","ref":"./kernel/kdump.md","articles":[]},{"title":"coredump","level":"1.11.5","depth":2,"path":"kernel/coredump.md","ref":"./kernel/coredump.md","articles":[]},{"title":"tcpdump","level":"1.11.6","depth":2,"path":"kernel/tcpdump.md","ref":"./kernel/tcpdump.md","articles":[]},{"title":"Kprobes","level":"1.11.7","depth":2,"path":"kernel/kprobe.md","ref":"./kernel/kprobe.md","articles":[]},{"title":"Systemtap","level":"1.11.8","depth":2,"path":"kernel/systemtap.md","ref":"./kernel/systemtap.md","articles":[]},{"title":"RCU","level":"1.11.9","depth":2,"path":"kernel/rcu.md","ref":"./kernel/rcu.md","articles":[]}]},"previous":{"title":"Rust","level":"1.10","depth":1,"ref":"","articles":[{"title":"语言基础","level":"1.10.1","depth":2,"path":"rust/lang.md","ref":"./rust/lang.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"rust/lang.md","mtime":"2024-04-14T13:04:12.115Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-04-14T13:04:38.157Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
