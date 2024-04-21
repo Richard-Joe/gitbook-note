@@ -1111,3 +1111,113 @@ fn main() {
     );
 }
 ```
+
+## 23. 并发
+
+线程模型：
+
+- 调用OS的API来创建线程：1:1模型
+- 语言自己实现的线程（绿色线程）：M:N模型
+
+Rust 标准库仅提供 1:1 模型的线程。（第三方包会有M:N模型）
+
+创建新线程：
+
+- **`thread::spawn`**，参数为一个闭包
+- **`move`** 闭包，把值的所有权从一个线程转移到另一个线程
+
+```rust
+let v = vec![1, 2, 3];
+let handle = thread::spawn(move || {
+    println!("vector {:?}", v);
+});
+handle.join().unwrap();
+```
+
+**消息传递：**
+
+- **`channel`**：包含发送端和接收端；
+- 如果发送端、接收端中任意一端被丢弃了，那么 channel 就 关闭 了；
+- **`mpsc::channel`**，创建 channel，返回一个 tuple，里面元素分别是发送端和接收端；
+	- `mpsc`表示 multiple producer, single consumer（多个生产者，一个消费者）
+- **`recv`**：阻塞当前线程，直到 channel 有数据到来；
+	- 返回 `Result<T, E>`，当发送端关闭，就会收到一个错误；
+- **`try_recv`**：不会阻塞，立即返回 `Result<T, E>`
+	- 有数据到来，返回 Ok，里面包含着数据；
+	- 否则，返回错误
+- **`mpsc::Sender::clone(&tx)`**：可以通过 clone 创建多个发送者
+
+```rust
+let (tx, rx) = mpsc::channel();
+
+thread::spawn(move || {
+    tx.send(String::from("one")).unwrap();
+    tx.send(String::from("two")).unwrap();
+    tx.send(String::from("three")).unwrap();
+});
+
+for received in rx {
+    println!("Got {}", received);
+}
+```
+
+**共享状态：**
+
+- Rust 支持通过共享状态来实现并发；
+- channel 类似单所有权，一旦将值的所有权转移至 channel，就无法使用它了；
+- 共享内存并发类似多所有权，多个线程可以同时访问同一块内存；
+- **`mutex`：通过锁定系统来保护它所持有的数据。**`mutual exclusion`（互斥锁）
+	- `Mutex::new`：返回`Mutex<T>`;
+	- `lock`：会阻塞当前线程，返回`MutexGuard`（实现了Deref和Drop）;
+	- `Mutex<T>`提供了内部可变性，和 Cell 家族一样；
+- **`Arc<T>`**：与`Rc<T>`不同的是，`Arc<T>`用于并发场景，可进行原子引用计数；
+	- 可以使用`RefCell<T>`来改变`Rc<T>`里面的内容；
+	- 可以使用`Mutex<T>`来改变`Arc<T>`里面的内容；
+- 风险：
+	- `Rc<T>`和`RefCell<T>`使用可能有内存泄漏的风险；
+	- `Mutex<T>`也有死锁的风险；
+
+```rust
+let c = Arc::new(Mutex::new(0));
+let mut handles = vec![];
+
+for _ in 0..10 {
+    let cc = Arc::clone(&c);
+    let handle = thread::spawn(move || {
+        let mut num = cc.lock().unwrap();
+        *num += 1;
+    });
+    handles.push(handle);
+}
+
+for handle in handles {
+    handle.join().unwrap();
+}
+
+println!("Result: {}", *c.lock().unwrap());
+```
+
+**扩展并发**：
+
+- 两个 Trait：`std::marker::Sync`和`std::marker::Send`；
+- **`Send`：实现了`Send` trait的类型可在线程间转移所有权；**
+	- `Rc<T>`没有实现 Send，所以只用于单线程场景；
+- **`Sync`：实现了`Sync` trait的类型可以安全的被多个线程引用；**
+	- 基础类型都是 Sync 的；
+	- 完全由 Sync 类型组成的类型也是 Sync 的；
+	- `Rc<T>`、`RefCell<T>`、`Cell<T>`不是Sync的；
+	- `Mutex<T>` 是 Sync的；
+- **手动实现`Send`和`Sync`是不安全的；**
+
+## 24. 面向对象
+
+- Rust是面向对象的；
+	- struct、enum包含数据；impl块为之提供方法；
+- 封装：Rust里提供 **pub 关键字** 来决定代码是否公开；
+- 继承：Rust没有继承；
+	- 代码复用：Rust通过 **默认 trait 方法** 来进行代码共享；
+	- 多态：Rust通过 **泛型和trait约束** 来实现多态；
+- 使用 trait 对象，执行的是动态派发（dynamic dispatch），会产生运行时开销；
+- trait 对象必须保证对象安全，Rust有一系列规则来判定对象是否安全：
+	- 方法的返回类型不是 Self
+	- 方法中不包含任何泛型类型参数
