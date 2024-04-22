@@ -1662,3 +1662,85 @@ impl fmt::Display for Wrapper {
 
 ### 26.3. 高级类型
 
+- 类型别名：`type`
+- Never类型：`!`。不返回值。
+- 动态大小的类型（Dynamically Sized Types，DST）：运行时确定大小。str 是动态大小的类型。
+- Rust 提供了一个 Sized trait 来确定一个类型的大小在编译时是否已知；
+	- 编译时可计算出大小的类型会自动实现这一 trait；
+	- Rust还会为每一个泛型函数隐式的添加Sized约束；
+- `?Sized`：默认情况下，泛型函数只能被用于编译时已经知道大小的类型，可以通过特殊语法解除这一限制；
+
+```rust
+type Kilometers = i32;
+
+type Thunk = Box<dyn Fn() + Send + 'static>;
+
+fn generic<T>(t: T) {}
+// 被隐式转换成如下：
+fn generic<T: Sized>(t: T) {}
+// ?Sized 表示 T 可能是Sized，也可能不是Sized
+fn generic<T: ?Sized>(t: &T) {}
+```
+
+### 26.4. 高级函数和闭包
+
+- `fn` 是一个类型，不是一个 trait
+- 函数指针实现了全部 3 种闭包 trait（Fn、FnMut、FnOnce）
+	- 总是可以把函数指针用作参数传递给一个接收闭包的函数；
+	- 所以，倾向于搭配闭包trait的泛型来编写函数：可以同时接收闭包和普通函数
+- 某些情况下，只想接收 fn 而不接收闭包：比如与外部不支持闭包的代码交互的 C 函数
+- 返回闭包：无法在函数中直接返回一个闭包，可以将一个实现了trait的具体类型作为返回值；
+
+```rust
+fn do_twice(f: fn(i32) -> i32, arg: i32) -> i32 {
+    f(arg) + f(arg)
+}
+
+enum Status {
+    Value(u32),
+    Stop,
+}
+let list_of_statuses: Vec<Status> = (0u32..20).map(Status::Value).collect();
+
+fn returns_closure() -> Box<dyn Fn(i32) -> i32> {
+    Box::new(|x| x + 1)
+}
+```
+
+### 26.5. 宏
+
+- 使用 `macro_rules!` 构建的声明宏
+- 3 种过程宏：
+	- 自定义派生宏；
+	- 属性宏，在任何条目上添加自定义属性；
+	- 函数宏，看起来像函数调用；
+
+```rust
+#[macro_export]
+macro_rules! vec {
+    ( $( $x:expr ),* ) => {
+        {
+            let mut temp_vec = Vec::new();
+            $(
+                temp_vec.push($x);
+            )*
+            temp_vec
+        }
+    };
+}
+
+// 1. 自定义派生宏
+#[proc_macro_derive(HelloMacro)]
+pub fn hello_macro_derive(input: TokenStream) -> TokenStream {}
+
+// 2. 属性宏
+#[route(GET, "/")]
+fn index() {}
+#[proc_macro_attribute]
+pub fn route(attr: TokenStream, item: TokenStream) -> TokenStream {}
+
+// 3. 函数宏
+let sql = sql!(SELECT * FROM posts WHERE id=1);
+#[proc_macro]
+pub fn sql(input: TokenStream) -> TokenStream {}
+```
