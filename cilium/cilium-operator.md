@@ -143,6 +143,10 @@ spec:
         pool: podippool-2
 ```
 
+### 4. 对比
+
+![cilium](images/cilium-ipam.png)
+
 ## 重启coredns
 
 当coredns不存在CiliumEndpoint时，重启coredns。
