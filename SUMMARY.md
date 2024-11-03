@@ -16,6 +16,7 @@
     * [邻居子系统](./network/basic/neighbor.md)
     * [路由子系统](./network/basic/route.md)
     * [netfilter](./network/basic/netfilter.md)
+    * [VLAN](./network/basic/vlan.md)
 
   * [负载均衡](./network/lb/LB.md)
     * [LVS](./network/lb/LVS.md)
