@@ -14,7 +14,7 @@
 **IOMMU 通常集成在 CPU 内部**，不是主板上的独立芯片。
 
 | 平台 | 硬件位置 | 常见名称 |
-|------|----------|-----------|
+| ------ | ---------- | ----------- |
 | Intel x86 | CPU 内的内存控制器和 PCIe 根联合体 | VT-d |
 | AMD x86 | CPU 内的数据架构和 PCIe 控制器 | AMD-Vi |
 | ARM SoC | 系统内存管理单元模块 | SMMU |
@@ -43,6 +43,7 @@ BIOS/UEFI 负责 IOMMU 的早期初始化和配置：
 - **操作系统引导**：内核读取 ACPI 表，接管 IOMMU（可重写配置或沿用 BIOS 设置）。如果 BIOS 完全禁用，内核无法强制开启。
 
 常见问题：
+
 - BIOS 开启但系统未生效 → 检查内核参数（如 `intel_iommu=on`）。
 - BIOS 名称不一致 → Intel 主板叫 `VT-d`，AMD 叫 `IOMMU` / `SVM`。
 - BIOS Bug → 可能导致 DMAR 表错误，需要更新 BIOS。
@@ -52,7 +53,7 @@ BIOS/UEFI 负责 IOMMU 的早期初始化和配置：
 内核实现了一套完整的 IOMMU 管理框架，而不是简单开关硬件：
 
 | 功能模块 | 说明 |
-|----------|------|
+| ---------- | ------ |
 | **硬件初始化和探测** | 解析 ACPI 表，识别 IOMMU 硬件，处理内核参数（`iommu=pt` 等） |
 | **IOMMU 域管理** | 分配地址空间域（IDENTITY/DMA/UNMANAGED），为设备绑定域 |
 | **DMA 映射后端** | 实现 `dma_map_single`/`dma_map_sg` 的 IOMMU 路径：分配 IOVA、建立页表、刷新 IOTLB |
