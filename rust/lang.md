@@ -633,6 +633,7 @@ impl<T: Display> ToString for T {
 - 静态生命周期：整个程序的持续时间。`let s: &'static str = "hello";`
 
 ```rust
+// 生命周期 'a 的实际生命周期是：x 和 y 两个生命周期中较小的那个
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 	if x > y {
 		x
