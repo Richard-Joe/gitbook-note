@@ -113,6 +113,21 @@
 
 - 字符串切片的范围索引必须发生在有效的 UTF-8 字符边界内；
 - 如果对一个**多字节的字符**中创建字符串切片，程序报错并退出；
+- 在 Rust 最佳实践中，&str 作为函数参数类型几乎总是比 &String 更好；
+
+```
+// &String 作为函数参数类型只能接受 &String
+fn print_len(s: &String) {}
+
+// 可以接受多种类型
+fn print_len(s: &str) {}
+
+let s = String::from("hello");
+let slice = "world";
+print_len(slice);   // 接受 &str 
+print_len(&s);      // 接受 &String，可以自动解引用为 &str
+print_len("hello");  // 接受字符串字面量
+```
 
 ## 8. 结构体（struct）
 
@@ -153,7 +168,7 @@ let origin = Point(4, 5, 6);
 struct Solution;
 ```
 
-- **方法**：在 `impl` 块定义方法；方法的第一个参数可以是 `&self`，也可以获得其所有权 或 可变借用；
+- **方法**：在 `impl` 块定义方法；方法的第一个参数可以是 `&self`，也可以获得其所有权（`self`） 或 可变借用（`&mut self`）；
 - **关联函数**：在 `impl` 块定义，不把 `self` 作为第一个参数的函数；
 
 ```rust
@@ -177,6 +192,13 @@ impl Rectangle {
         }
     }
 }
+
+
+println!("{}", rect.area()); // 调用方法
+println!("{:#?}", Rectangle::square(10)); // 调用关联函数
+// 打印结构体
+println!("{:?}", rect);
+println!("{:#?}", rect);
 ```
 
 ## 9. 枚举（enum）
@@ -234,6 +256,25 @@ match v {
     5 => 5,
     _ => 999,
 }
+
+#[derive(Debug)]
+enum UsState {
+    Alabama,
+    Alaska,
+}
+
+enum Coin {
+    Penny,
+    Quarter(UsState),
+}
+
+match coin {
+    Coin::Penny => 1,
+    Coin::Quarter(state) => {
+        println!("{:#?}", state);
+        7
+    }
+}
 ```
 
 ## 11. if let
@@ -259,7 +300,7 @@ if let Some(5) = x {
 		- `src/lib.rs`  ( library )
 
 - `Package`：
-	- `Cargo.toml`：描述了如果构建 `Crates`
+	- `Cargo.toml`：描述了如何构建 `Crates`
 	- 只能包含 `0-1` 个 `library crate`
 	- 可以包含 `任意数量` 的 `binary crate`
 	- 但必须至少包含一个 `crate`
@@ -289,7 +330,7 @@ if let Some(5) = x {
 
 - **`use`**：将 `path` 导入到作用域内，（作用域内**私有**）
 	- 函数：惯用做法是将函数的父级模块引入作用域（指定父级）
-	- `struct、enum`：惯用做法指定完整路径（指定本省）（除非两个模块中的结构体名称相同）
+	- `struct、enum`：惯用做法指定完整路径（然后直接使用本身）（除非两个模块中的结构体名称相同）
 	- **`as`** 关键字：可以给引入路径指定（本地）别名
 	- **`pub use`**：重新导出名称
 	- 可以使用 **嵌套路径** 清理大量的 `use` 语句
@@ -297,8 +338,9 @@ if let Some(5) = x {
 
 ```rust
 // 嵌套路径
-use std::{cmp::Ordering, io}
-use std::io::{self, Write}
+use std::{cmp::Ordering, io};
+use std::io::{self, Write};
+use std::collections::*;
 ```
 
 - **将模块内容移动到其他文件**
@@ -591,6 +633,7 @@ impl<T: Display> ToString for T {
 - 静态生命周期：整个程序的持续时间。`let s: &'static str = "hello";`
 
 ```rust
+// 生命周期 'a 的实际生命周期是：x 和 y 两个生命周期中较小的那个
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 	if x > y {
 		x

@@ -318,3 +318,128 @@ def findKthLargest(self, nums: List[int], k: int) -> int:
     self.randomPartitionWithK(nums, 0, len(nums)-1, k)
     return nums[k-1]
 ```
+
+## 回溯
+
+回溯三要素：`路径`、`选择列表`、`结束条件`。
+
+```python
+result = []
+path = []
+
+def backtrack():
+    if 满足结束条件:
+        result.append(path[:])  # 拷贝一份，避免被后续修改
+        return
+    for 选择 in 选择列表:
+        if 不合法: continue  # 剪枝
+        path.append(选择)  # 做选择
+        backtrack()
+        path.pop()  # 撤销选择
+
+backtrack()
+```
+
+### 子集型
+
+特点：
+
+- 两种写法：选或不选、答案视角（枚举下一个选谁）
+- 答案视角需要 `start` 防止重复，每个节点都是一个答案
+
+[78. 子集](https://leetcode.cn/problems/subsets/)
+
+【写法一】选或不选：
+
+```python
+res = []
+
+def backtrack(track: list[int], i: int):
+    if i == len(nums):
+        res.append(track.copy())
+        return
+    # 不选 nums[i]
+    backtrack(track, i+1)
+    # 选 nums[i]
+    track.append(nums[i])
+    backtrack(track, i+1)
+    track.pop()
+
+track = []
+backtrack(track, 0)
+```
+
+【写法二】答案视角：
+
+```python
+res = []
+
+def backtrack(track: list[int], start: int):
+    res.append(track.copy())  # 每个节点都是一个答案
+    for i in range(start, len(nums)):
+        track.append(nums[i])
+        backtrack(track, i+1)
+        track.pop()
+
+track = []
+backtrack(track, 0)
+```
+
+### 组合型
+
+特点：
+
+- 需要一个 `start` 防止重复，从 `start` 开始枚举
+- 长度等于 `k` 的约束
+- 剩余元素不足时，可以剪枝
+
+[77. 组合](https://leetcode.cn/problems/combinations/)
+
+```python
+res = []
+
+def backtrack(track: list[int], start: int):
+    if len(track) == k:
+        res.append(track.copy())
+        return
+
+    for i in range(start, n+1):
+        track.append(i)
+        backtrack(track, i+1)
+        track.pop()
+
+track = []
+backtrack(track, 1)
+```
+
+### 排列型
+
+特点：
+
+- 需要一个 `used` 数组标记已选元素，防止重复使用
+- 长度等于 `len(nums)` 的约束
+- 每次都从头开始枚举
+
+[46. 全排列](https://leetcode.cn/problems/permutations/)
+
+```python
+res = []
+
+def backtrack(track: list[int], used: list[bool]):
+    if len(track) == len(nums):
+        res.append(track.copy())
+        return
+
+    for i in range(len(nums)):
+        if used[i]:
+            continue
+        used[i] = True
+        track.append(nums[i])
+        backtrack(track, used)
+        track.pop()
+        used[i] = False
+
+track = []
+used = [False] * len(nums)
+backtrack(track, used)
+```

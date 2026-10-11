@@ -1359,8 +1359,20 @@ Rust&#x8BA9; s1 &#x5931;&#x6548;&#xFF1B;
 <ul>
 <li>&#x5B57;&#x7B26;&#x4E32;&#x5207;&#x7247;&#x7684;&#x8303;&#x56F4;&#x7D22;&#x5F15;&#x5FC5;&#x987B;&#x53D1;&#x751F;&#x5728;&#x6709;&#x6548;&#x7684; UTF-8 &#x5B57;&#x7B26;&#x8FB9;&#x754C;&#x5185;&#xFF1B;</li>
 <li>&#x5982;&#x679C;&#x5BF9;&#x4E00;&#x4E2A;<strong>&#x591A;&#x5B57;&#x8282;&#x7684;&#x5B57;&#x7B26;</strong>&#x4E2D;&#x521B;&#x5EFA;&#x5B57;&#x7B26;&#x4E32;&#x5207;&#x7247;&#xFF0C;&#x7A0B;&#x5E8F;&#x62A5;&#x9519;&#x5E76;&#x9000;&#x51FA;&#xFF1B;</li>
+<li>&#x5728; Rust &#x6700;&#x4F73;&#x5B9E;&#x8DF5;&#x4E2D;&#xFF0C;&amp;str &#x4F5C;&#x4E3A;&#x51FD;&#x6570;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x51E0;&#x4E4E;&#x603B;&#x662F;&#x6BD4; &amp;String &#x66F4;&#x597D;&#xFF1B;</li>
 </ul>
-<h2 id="8-&#x7ED3;&#x6784;&#x4F53;&#xFF08;struct&#xFF09;">8. &#x7ED3;&#x6784;&#x4F53;&#xFF08;struct&#xFF09;</h2>
+<pre><code>// &amp;String &#x4F5C;&#x4E3A;&#x51FD;&#x6570;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x53EA;&#x80FD;&#x63A5;&#x53D7; &amp;String
+fn print_len(s: &amp;String) {}
+
+// &#x53EF;&#x4EE5;&#x63A5;&#x53D7;&#x591A;&#x79CD;&#x7C7B;&#x578B;
+fn print_len(s: &amp;str) {}
+
+let s = String::from(&quot;hello&quot;);
+let slice = &quot;world&quot;;
+print_len(slice);   // &#x63A5;&#x53D7; &amp;str 
+print_len(&amp;s);      // &#x63A5;&#x53D7; &amp;String&#xFF0C;&#x53EF;&#x4EE5;&#x81EA;&#x52A8;&#x89E3;&#x5F15;&#x7528;&#x4E3A; &amp;str
+print_len(&quot;hello&quot;);  // &#x63A5;&#x53D7;&#x5B57;&#x7B26;&#x4E32;&#x5B57;&#x9762;&#x91CF;
+</code></pre><h2 id="8-&#x7ED3;&#x6784;&#x4F53;&#xFF08;struct&#xFF09;">8. &#x7ED3;&#x6784;&#x4F53;&#xFF08;struct&#xFF09;</h2>
 <ul>
 <li>&#x4E00;&#x65E6; struct &#x7684;&#x5B9E;&#x4F8B;&#x662F;&#x53EF;&#x53D8;&#x7684;&#xFF0C;&#x90A3;&#x4E48;&#x5B9E;&#x4F8B;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x5B57;&#x6BB5;&#x90FD;&#x662F;&#x53EF;&#x53D8;&#x7684;&#xFF1B;</li>
 </ul>
@@ -1398,7 +1410,7 @@ Rust&#x8BA9; s1 &#x5931;&#x6548;&#xFF1B;
 <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Solution</span></span>;
 </code></pre>
 <ul>
-<li><strong>&#x65B9;&#x6CD5;</strong>&#xFF1A;&#x5728; <code>impl</code> &#x5757;&#x5B9A;&#x4E49;&#x65B9;&#x6CD5;&#xFF1B;&#x65B9;&#x6CD5;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x662F; <code>&amp;self</code>&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x83B7;&#x5F97;&#x5176;&#x6240;&#x6709;&#x6743; &#x6216; &#x53EF;&#x53D8;&#x501F;&#x7528;&#xFF1B;</li>
+<li><strong>&#x65B9;&#x6CD5;</strong>&#xFF1A;&#x5728; <code>impl</code> &#x5757;&#x5B9A;&#x4E49;&#x65B9;&#x6CD5;&#xFF1B;&#x65B9;&#x6CD5;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x662F; <code>&amp;self</code>&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x83B7;&#x5F97;&#x5176;&#x6240;&#x6709;&#x6743;&#xFF08;<code>self</code>&#xFF09; &#x6216; &#x53EF;&#x53D8;&#x501F;&#x7528;&#xFF08;<code>&amp;mut self</code>&#xFF09;&#xFF1B;</li>
 <li><strong>&#x5173;&#x8054;&#x51FD;&#x6570;</strong>&#xFF1A;&#x5728; <code>impl</code> &#x5757;&#x5B9A;&#x4E49;&#xFF0C;&#x4E0D;&#x628A; <code>self</code> &#x4F5C;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x7684;&#x51FD;&#x6570;&#xFF1B;</li>
 </ul>
 <pre><code class="lang-rust"><span class="hljs-meta">#[derive(Debug)]</span>
@@ -1421,6 +1433,13 @@ Rust&#x8BA9; s1 &#x5931;&#x6548;&#xFF1B;
         }
     }
 }
+
+
+<span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;{}&quot;</span>, rect.area()); <span class="hljs-comment">// &#x8C03;&#x7528;&#x65B9;&#x6CD5;</span>
+<span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;{:#?}&quot;</span>, Rectangle::square(<span class="hljs-number">10</span>)); <span class="hljs-comment">// &#x8C03;&#x7528;&#x5173;&#x8054;&#x51FD;&#x6570;</span>
+<span class="hljs-comment">// &#x6253;&#x5370;&#x7ED3;&#x6784;&#x4F53;</span>
+<span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;{:?}&quot;</span>, rect);
+<span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;{:#?}&quot;</span>, rect);
 </code></pre>
 <h2 id="9-&#x679A;&#x4E3E;&#xFF08;enum&#xFF09;">9. &#x679A;&#x4E3E;&#xFF08;enum&#xFF09;</h2>
 <ul>
@@ -1472,6 +1491,25 @@ Rust&#x8BA9; s1 &#x5931;&#x6548;&#xFF1B;
     <span class="hljs-number">5</span> =&gt; <span class="hljs-number">5</span>,
     _ =&gt; <span class="hljs-number">999</span>,
 }
+
+<span class="hljs-meta">#[derive(Debug)]</span>
+<span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">UsState</span></span> {
+    Alabama,
+    Alaska,
+}
+
+<span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Coin</span></span> {
+    Penny,
+    Quarter(UsState),
+}
+
+<span class="hljs-keyword">match</span> coin {
+    Coin::Penny =&gt; <span class="hljs-number">1</span>,
+    Coin::Quarter(state) =&gt; {
+        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;{:#?}&quot;</span>, state);
+        <span class="hljs-number">7</span>
+    }
+}
 </code></pre>
 <h2 id="11-if-let">11. if let</h2>
 <ul>
@@ -1499,7 +1537,7 @@ Rust&#x8BA9; s1 &#x5931;&#x6548;&#xFF1B;
 </li>
 <li><p><code>Package</code>&#xFF1A;</p>
 <ul>
-<li><code>Cargo.toml</code>&#xFF1A;&#x63CF;&#x8FF0;&#x4E86;&#x5982;&#x679C;&#x6784;&#x5EFA; <code>Crates</code></li>
+<li><code>Cargo.toml</code>&#xFF1A;&#x63CF;&#x8FF0;&#x4E86;&#x5982;&#x4F55;&#x6784;&#x5EFA; <code>Crates</code></li>
 <li>&#x53EA;&#x80FD;&#x5305;&#x542B; <code>0-1</code> &#x4E2A; <code>library crate</code></li>
 <li>&#x53EF;&#x4EE5;&#x5305;&#x542B; <code>&#x4EFB;&#x610F;&#x6570;&#x91CF;</code> &#x7684; <code>binary crate</code></li>
 <li>&#x4F46;&#x5FC5;&#x987B;&#x81F3;&#x5C11;&#x5305;&#x542B;&#x4E00;&#x4E2A; <code>crate</code></li>
@@ -1541,7 +1579,7 @@ Rust&#x8BA9; s1 &#x5931;&#x6548;&#xFF1B;
 <li><p><strong><code>use</code></strong>&#xFF1A;&#x5C06; <code>path</code> &#x5BFC;&#x5165;&#x5230;&#x4F5C;&#x7528;&#x57DF;&#x5185;&#xFF0C;&#xFF08;&#x4F5C;&#x7528;&#x57DF;&#x5185;<strong>&#x79C1;&#x6709;</strong>&#xFF09;</p>
 <ul>
 <li>&#x51FD;&#x6570;&#xFF1A;&#x60EF;&#x7528;&#x505A;&#x6CD5;&#x662F;&#x5C06;&#x51FD;&#x6570;&#x7684;&#x7236;&#x7EA7;&#x6A21;&#x5757;&#x5F15;&#x5165;&#x4F5C;&#x7528;&#x57DF;&#xFF08;&#x6307;&#x5B9A;&#x7236;&#x7EA7;&#xFF09;</li>
-<li><code>struct&#x3001;enum</code>&#xFF1A;&#x60EF;&#x7528;&#x505A;&#x6CD5;&#x6307;&#x5B9A;&#x5B8C;&#x6574;&#x8DEF;&#x5F84;&#xFF08;&#x6307;&#x5B9A;&#x672C;&#x7701;&#xFF09;&#xFF08;&#x9664;&#x975E;&#x4E24;&#x4E2A;&#x6A21;&#x5757;&#x4E2D;&#x7684;&#x7ED3;&#x6784;&#x4F53;&#x540D;&#x79F0;&#x76F8;&#x540C;&#xFF09;</li>
+<li><code>struct&#x3001;enum</code>&#xFF1A;&#x60EF;&#x7528;&#x505A;&#x6CD5;&#x6307;&#x5B9A;&#x5B8C;&#x6574;&#x8DEF;&#x5F84;&#xFF08;&#x7136;&#x540E;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x672C;&#x8EAB;&#xFF09;&#xFF08;&#x9664;&#x975E;&#x4E24;&#x4E2A;&#x6A21;&#x5757;&#x4E2D;&#x7684;&#x7ED3;&#x6784;&#x4F53;&#x540D;&#x79F0;&#x76F8;&#x540C;&#xFF09;</li>
 <li><strong><code>as</code></strong> &#x5173;&#x952E;&#x5B57;&#xFF1A;&#x53EF;&#x4EE5;&#x7ED9;&#x5F15;&#x5165;&#x8DEF;&#x5F84;&#x6307;&#x5B9A;&#xFF08;&#x672C;&#x5730;&#xFF09;&#x522B;&#x540D;</li>
 <li><strong><code>pub use</code></strong>&#xFF1A;&#x91CD;&#x65B0;&#x5BFC;&#x51FA;&#x540D;&#x79F0;</li>
 <li>&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <strong>&#x5D4C;&#x5957;&#x8DEF;&#x5F84;</strong> &#x6E05;&#x7406;&#x5927;&#x91CF;&#x7684; <code>use</code> &#x8BED;&#x53E5;</li>
@@ -1550,8 +1588,9 @@ Rust&#x8BA9; s1 &#x5931;&#x6548;&#xFF1B;
 </li>
 </ul>
 <pre><code class="lang-rust"><span class="hljs-comment">// &#x5D4C;&#x5957;&#x8DEF;&#x5F84;</span>
-<span class="hljs-keyword">use</span> std::{cmp::Ordering, io}
-<span class="hljs-keyword">use</span> std::io::{<span class="hljs-keyword">self</span>, Write}
+<span class="hljs-keyword">use</span> std::{cmp::Ordering, io};
+<span class="hljs-keyword">use</span> std::io::{<span class="hljs-keyword">self</span>, Write};
+<span class="hljs-keyword">use</span> std::collections::*;
 </code></pre>
 <ul>
 <li><strong>&#x5C06;&#x6A21;&#x5757;&#x5185;&#x5BB9;&#x79FB;&#x52A8;&#x5230;&#x5176;&#x4ED6;&#x6587;&#x4EF6;</strong><ul>
@@ -1855,7 +1894,8 @@ map.entry(&amp;<span class="hljs-built_in">String</span>::from(<span class="hljs
 <li>&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x6807;&#x6CE8;&#xFF1A;&#x63CF;&#x8FF0;&#x4E86;&#x591A;&#x4E2A;&#x5F15;&#x7528;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x5173;&#x7CFB;&#xFF0C;&#x4F46;&#x4E0D;&#x5F71;&#x54CD;&#x751F;&#x547D;&#x5468;&#x671F;</li>
 <li>&#x9759;&#x6001;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF1A;&#x6574;&#x4E2A;&#x7A0B;&#x5E8F;&#x7684;&#x6301;&#x7EED;&#x65F6;&#x95F4;&#x3002;<code>let s: &amp;&apos;static str = &quot;hello&quot;;</code></li>
 </ul>
-<pre><code class="lang-rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">longest</span></span>&lt;<span class="hljs-symbol">&apos;a</span>&gt;(x: &amp;<span class="hljs-symbol">&apos;a</span> <span class="hljs-keyword">str</span>, y: &amp;<span class="hljs-symbol">&apos;a</span> <span class="hljs-keyword">str</span>) -&gt; &amp;<span class="hljs-symbol">&apos;a</span> <span class="hljs-keyword">str</span> {
+<pre><code class="lang-rust"><span class="hljs-comment">// &#x751F;&#x547D;&#x5468;&#x671F; &apos;a &#x7684;&#x5B9E;&#x9645;&#x751F;&#x547D;&#x5468;&#x671F;&#x662F;&#xFF1A;x &#x548C; y &#x4E24;&#x4E2A;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x8F83;&#x5C0F;&#x7684;&#x90A3;&#x4E2A;</span>
+<span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">longest</span></span>&lt;<span class="hljs-symbol">&apos;a</span>&gt;(x: &amp;<span class="hljs-symbol">&apos;a</span> <span class="hljs-keyword">str</span>, y: &amp;<span class="hljs-symbol">&apos;a</span> <span class="hljs-keyword">str</span>) -&gt; &amp;<span class="hljs-symbol">&apos;a</span> <span class="hljs-keyword">str</span> {
     <span class="hljs-keyword">if</span> x &gt; y {
         x
     } <span class="hljs-keyword">else</span> {
@@ -3012,7 +3052,7 @@ union MyUnion {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"语言基础","level":"1.10.1","depth":2,"next":{"title":"内核","level":"1.11","depth":1,"ref":"","articles":[{"title":"进程调度","level":"1.11.1","depth":2,"path":"kernel/进程调度.md","ref":"./kernel/进程调度.md","articles":[{"title":"CFS","level":"1.11.1.1","depth":3,"path":"kernel/ps-1-cfs.md","ref":"./kernel/ps-1-cfs.md","articles":[]},{"title":"EEVDF","level":"1.11.1.2","depth":3,"path":"kernel/ps-2-eevdf.md","ref":"./kernel/ps-2-eevdf.md","articles":[]}]},{"title":"内存管理","level":"1.11.2","depth":2,"path":"kernel/内存管理.md","ref":"./kernel/内存管理.md","articles":[{"title":"将虚拟地址转换为物理地址","level":"1.11.2.1","depth":3,"path":"kernel/mm-1-va2pa.md","ref":"./kernel/mm-1-va2pa.md","articles":[]},{"title":"物理内存模型","level":"1.11.2.2","depth":3,"path":"kernel/mm-2-physical-memory-model.md","ref":"./kernel/mm-2-physical-memory-model.md","articles":[]},{"title":"memblock","level":"1.11.2.3","depth":3,"path":"kernel/mm-3-memblock.md","ref":"./kernel/mm-3-memblock.md","articles":[]}]},{"title":"系统调用","level":"1.11.3","depth":2,"ref":"","articles":[{"title":"fork","level":"1.11.3.1","depth":3,"path":"kernel/syscall-fork.md","ref":"./kernel/syscall-fork.md","articles":[]}]},{"title":"Kdump","level":"1.11.4","depth":2,"path":"kernel/kdump.md","ref":"./kernel/kdump.md","articles":[]},{"title":"coredump","level":"1.11.5","depth":2,"path":"kernel/coredump.md","ref":"./kernel/coredump.md","articles":[]},{"title":"tcpdump","level":"1.11.6","depth":2,"path":"kernel/tcpdump.md","ref":"./kernel/tcpdump.md","articles":[]},{"title":"Kprobes","level":"1.11.7","depth":2,"path":"kernel/kprobe.md","ref":"./kernel/kprobe.md","articles":[]},{"title":"Systemtap","level":"1.11.8","depth":2,"path":"kernel/systemtap.md","ref":"./kernel/systemtap.md","articles":[]},{"title":"RCU","level":"1.11.9","depth":2,"path":"kernel/rcu.md","ref":"./kernel/rcu.md","articles":[]}]},"previous":{"title":"Rust","level":"1.10","depth":1,"ref":"","articles":[{"title":"语言基础","level":"1.10.1","depth":2,"path":"rust/lang.md","ref":"./rust/lang.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"rust/lang.md","mtime":"2024-04-24T13:19:15.814Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-11-03T12:39:26.897Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"语言基础","level":"1.10.1","depth":2,"next":{"title":"内核","level":"1.11","depth":1,"ref":"","articles":[{"title":"进程调度","level":"1.11.1","depth":2,"path":"kernel/进程调度.md","ref":"./kernel/进程调度.md","articles":[{"title":"CFS","level":"1.11.1.1","depth":3,"path":"kernel/ps-1-cfs.md","ref":"./kernel/ps-1-cfs.md","articles":[]},{"title":"EEVDF","level":"1.11.1.2","depth":3,"path":"kernel/ps-2-eevdf.md","ref":"./kernel/ps-2-eevdf.md","articles":[]}]},{"title":"内存管理","level":"1.11.2","depth":2,"path":"kernel/内存管理.md","ref":"./kernel/内存管理.md","articles":[{"title":"将虚拟地址转换为物理地址","level":"1.11.2.1","depth":3,"path":"kernel/mm-1-va2pa.md","ref":"./kernel/mm-1-va2pa.md","articles":[]},{"title":"物理内存模型","level":"1.11.2.2","depth":3,"path":"kernel/mm-2-physical-memory-model.md","ref":"./kernel/mm-2-physical-memory-model.md","articles":[]},{"title":"memblock","level":"1.11.2.3","depth":3,"path":"kernel/mm-3-memblock.md","ref":"./kernel/mm-3-memblock.md","articles":[]}]},{"title":"系统调用","level":"1.11.3","depth":2,"ref":"","articles":[{"title":"fork","level":"1.11.3.1","depth":3,"path":"kernel/syscall-fork.md","ref":"./kernel/syscall-fork.md","articles":[]}]},{"title":"Kdump","level":"1.11.4","depth":2,"path":"kernel/kdump.md","ref":"./kernel/kdump.md","articles":[]},{"title":"coredump","level":"1.11.5","depth":2,"path":"kernel/coredump.md","ref":"./kernel/coredump.md","articles":[]},{"title":"tcpdump","level":"1.11.6","depth":2,"path":"kernel/tcpdump.md","ref":"./kernel/tcpdump.md","articles":[]},{"title":"Kprobes","level":"1.11.7","depth":2,"path":"kernel/kprobe.md","ref":"./kernel/kprobe.md","articles":[]},{"title":"Systemtap","level":"1.11.8","depth":2,"path":"kernel/systemtap.md","ref":"./kernel/systemtap.md","articles":[]},{"title":"RCU","level":"1.11.9","depth":2,"path":"kernel/rcu.md","ref":"./kernel/rcu.md","articles":[]}]},"previous":{"title":"Rust","level":"1.10","depth":1,"ref":"","articles":[{"title":"语言基础","level":"1.10.1","depth":2,"path":"rust/lang.md","ref":"./rust/lang.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["intopic-toc","katex","expandable-chapters"],"pluginsConfig":{"intopic-toc":{"isCollapsed":true,"isScrollspyActive":true,"label":"In this article","maxDepth":6,"mode":"nested","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","visible":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"rust/lang.md","mtime":"2026-08-30T11:29:37.341Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2026-10-11T15:11:08.591Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
