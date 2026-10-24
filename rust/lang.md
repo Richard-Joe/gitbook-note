@@ -1260,7 +1260,9 @@ println!("Result: {}", *c.lock().unwrap());
 - 继承：Rust没有继承；
 	- 代码复用：Rust通过 **默认 trait 方法** 来进行代码共享；
 	- 多态：Rust通过 **泛型和trait约束** 来实现多态；
-- 使用 trait 对象，执行的是动态派发（dynamic dispatch），会产生运行时开销；
+- 使用 trait 对象，可以存储不同类型的值，比如 `Vec<Box<dyn Draw>>`；
+- 使用 trait 对象，执行的是动态派发（dynamic dispatch），会产生运行时开销，阻止编译器内联方法代码，部分优化操作无法进行；
+- 使用 trait 约束作用于泛型时，编译器会执行单态化，单态化生成的代码会执行静态派发（static dispatch），编译器会替换泛型参数，为每一个具体类型生成非泛型代码的函数和方法；
 - trait 对象必须保证对象安全，Rust有一系列规则来判定对象是否安全：
 	- 方法的返回类型不是 Self
 	- 方法中不包含任何泛型类型参数
@@ -1269,15 +1271,44 @@ println!("Result: {}", *c.lock().unwrap());
 
 Rust中的一种特殊语法，用于匹配复杂和简单类型的结构。模式由以下元素组成：字面值、enum、struct、tuple、变量、通配符、占位符。**想要使用模式，需要将其与某个值进行比较。**
 
-举例：`match`、`if let`、`while let`、`for (k, v)`、`let (x, y, z)`、函数参数等
+举例：`let`、`match`、`if let`、`while let`、`for (k, v)`、函数参数等
+
+```rust
+let PATTERN = EXPRESSION;
+let (x, y, z) = (1, 2, 3);
+
+match VALUE {
+    PATTERN => EXPRESSION,
+    PATTERN => EXPRESSION,
+    PATTERN => EXPRESSION,
+}
+
+if let Ok(age) = age {   // age: Result<u8, _>
+    ...
+}
+
+while let Ok(value) = rx.recv() {
+}
+
+for (index, value) in v.iter().enumerate() {
+}
+
+fn print_coordinates(&(x, y): &(i32, i32)) {
+}
+
+let Some(x) = some_option_value else {
+    return;
+};
+
+```
 
 模式有两种形式：
 
-- **无可辩驳的**：能匹配任何可能传递的值的模式；比如`let x = 5`。
-- **可辩驳的（rufutable）**；某些情况，无法进行匹配的模式；比如`if let Some(x) = a`（a可能为空）。
+- **无可反驳的（irrefutable）**：能匹配任何可能传递的值的模式；比如`let x = 5`。
+- **可反驳的（refutable）**；某些情况，无法进行匹配的模式；比如`if let Some(x) = a`（a可能为空）。
 
-- `函数参数`、`let 语句`、`for 循环` 只接受无可辩驳的模式；
-- `if let`、`while let` 接受可辩驳和无可辩驳的模式；
+- `函数参数`、`let 语句`、`for 循环` 只接受无可反驳的模式；
+- `if let`、`while let`、`let...else` 接受可反驳和无可反驳的模式；
 
 模式使用语法：
 
