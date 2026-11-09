@@ -443,3 +443,124 @@ track = []
 used = [False] * len(nums)
 backtrack(track, used)
 ```
+
+## 并查集
+
+```python3
+class UnionFind:
+    def __init__(self, n):
+        # 记录每个节点的父节点，初始时每个节点自成一个集合
+        self.parent = list(range(n))
+        # 记录每棵树的大小（节点数），用于按大小合并
+        self.size = [1] * n
+        # 连通分量的个数
+        self.cnt = n
+
+    def find(self, x: int):
+        # 返回x的根节点（支持路径压缩）
+        while self.parent[x] != x:
+            self.parent[x] = self.parent[self.parent[x]]
+            x = self.parent[x]
+        return x
+
+    def union(self, x: int, y: int) -> bool:
+        # 将x和y连通，返回是否真的发生了合并
+        rootX = self.find(x)
+        rootY = self.find(y)
+        if rootX == rootY:
+            return False
+        
+        # 按大小合并：小树挂到大树下面，保证树高为 O(log n)
+        if self.size[rootX] < self.size[rootY]:
+            rootX, rootY = rootY, rootX
+        self.parent[rootY] = rootX
+        self.size[rootX] += self.size[rootY]
+        # 把连通分量减一
+        self.cnt -= 1
+        return True
+    
+    def connected(self, x: int, y: int):
+        # 判断x和y是否连通
+        rootX = self.find(x)
+        rootY = self.find(y)
+        return rootX == rootY
+    
+    def get_count(self) -> int:
+        # 返回连通分量个数
+        return self.cnt
+```
+
+### 复杂度与要点
+
+- 路径压缩 + 按大小合并，均摊时间复杂度 `O(α(n))`，可以近似看作 `O(1)`。
+- `find` 用**迭代**（路径减半）而不是递归，避免 Python 递归深度限制。
+- `parent` 初始化为 `list(range(n))`，一开始每个节点自成一个集合。
+- 只有 `union` 真正合并了两个集合时，`cnt` 才会减一。
+
+### 常见技巧
+
+1. **只能加边，不能删边**：遇到删边/删点的题，考虑**逆向思维**、离线倒序处理，把删除变成添加。[803. 打砖块](https://leetcode.cn/problems/bricks-falling-when-hit/)
+2. **判环**：遍历无向图的边，如果一条边的两个端点已经连通，这条边就会形成环。[684. 冗余连接](https://leetcode.cn/problems/redundant-connection/)
+3. **二维坐标转一维**：网格题把 `(i, j)` 映射成 `i * m + j`。[305. 岛屿数量 II](https://leetcode.cn/problems/number-of-islands-ii/)
+4. **维护集合信息**：集合大小、最大值、最小值等信息挂在根节点上，合并时一起更新（模板里的 `size` 就是集合大小）。
+5. **Kruskal 最小生成树**：边按权值排序，用并查集判断两端是否已连通，不连通就选这条边。[1584. 连接所有点的最小费用](https://leetcode.cn/problems/min-cost-to-connect-all-points/)
+6. **合并顺序不影响结果**，可以边读入边合并。
+
+### 带权并查集
+
+每个节点额外维护 `weight[x]`，表示 `x` 到 `parent[x]` 的权值（比如倍数关系）。`find` 回溯时把路径上的权值累乘到根，就能在压缩路径的同时维护关系。
+
+[399. 除法求值](https://leetcode.cn/problems/evaluate-division/)
+
+```python
+class WeightedUnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        # weight[x] 表示 x / parent[x] 的值
+        self.weight = [1.0] * n
+
+    def find(self, x: int) -> int:
+        # 递归写法：先找到根，回溯时累乘权值并压缩路径
+        if self.parent[x] != x:
+            root = self.find(self.parent[x])
+            self.weight[x] *= self.weight[self.parent[x]]
+            self.parent[x] = root
+        return self.parent[x]
+
+    def union(self, x: int, y: int, w: float):
+        # 已知 x / y = w，合并 x、y 所在集合
+        rootX, rootY = self.find(x), self.find(y)
+        if rootX == rootY:
+            return
+        # 令 parent[rootX] = rootY，则 rootX / rootY = w * weight[y] / weight[x]
+        self.parent[rootX] = rootY
+        self.weight[rootX] = w * self.weight[y] / self.weight[x]
+
+    def query(self, x: int, y: int) -> float:
+        # 查询 x / y，先 find 把 weight 累计到根
+        rootX, rootY = self.find(x), self.find(y)
+        if rootX != rootY:
+            return -1.0
+        return self.weight[x] / self.weight[y]
+```
+
+> 带权并查集的 `find` 用递归写最直观；数据量大时注意递归深度（可调整 `sys.setrecursionlimit`，或改成显式栈）。
+
+### 种类并查集（扩展域）
+
+当元素要分成 `k` 类、并且存在"同类 / 异类"关系时，把每个元素拆成 `k` 个点：`x`、`x+n`、`x+2n`……，再把关系转成合并操作。
+
+例如判断二分图（每个点属于 A 或 B），开 `2n` 个点：
+
+```python
+# x 表示"x 属于 A"，x+n 表示"x 属于 B"
+uf = UnionFind(2 * n)
+
+# x 和 y 不能在同一集合：x 与 y+n 合并，y 与 x+n 合并
+uf.union(x, y + n)
+uf.union(y, x + n)
+
+# 若某个 x 满足 find(x) == find(x+n)，说明矛盾（x 同时属于 A 和 B）
+```
+
+[886. 可能的二分法](https://leetcode.cn/problems/possible-bipartition/)；更复杂的关系（如"食物链"的三类关系）开 `3n` 个点即可。

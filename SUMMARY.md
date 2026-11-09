@@ -50,6 +50,7 @@
 
 * [Rust]()
   * [语言基础](./rust/lang.md)
+  * [语言进阶](./rust/advanced.md)
 
 * [内核]()
   * [进程调度](./kernel/进程调度.md)
