@@ -564,3 +564,90 @@ uf.union(y, x + n)
 ```
 
 [886. 可能的二分法](https://leetcode.cn/problems/possible-bipartition/)；更复杂的关系（如"食物链"的三类关系）开 `3n` 个点即可。
+
+## 前缀和
+
+```python
+from itertools import accumulate
+
+# 带前置 0 的前缀和
+pre_sum = [0, *accumulate(arr)]
+```
+
+- 区间和：`[i, j]` 的和 = `pre_sum[j] - pre_sum[i]`
+- 差分数组是前缀和的逆运算（见「差分数组」）
+
+### 前缀和 + 哈希表
+
+把 `pre[j] - pre[i] = target` 移项成 `pre[i] = pre[j] - target`，边遍历边用哈希表查。
+
+- 计数类：`前缀和 -> 出现次数`，初始化 `cnt[0] = 1` 代表空前缀
+- 最长类：`前缀和 -> 第一次出现的下标`
+
+```python
+from collections import defaultdict
+
+cnt = defaultdict(int)
+cnt[0] = 1
+s = res = 0
+for x in nums:
+    s += x
+    res += cnt[s - target]
+    cnt[s] += 1
+return res
+```
+
+[560. 和为 K 的子数组](https://leetcode.cn/problems/subarray-sum-equals-k/)
+
+### 同余
+
+`(pre[j] - pre[i]) % k == 0` 等价于 `pre[j] % k == pre[i] % k`，按余数分组计数。
+
+```python
+s = (s + x) % k  # Python 取模结果非负
+res += cnt[s]
+cnt[s] += 1
+```
+
+[974. 和可被 K 整除的子数组](https://leetcode.cn/problems/subarray-sums-divisible-by-k/)
+
+### 二维前缀和
+
+```python
+# pre[i+1][j+1] 表示左上角 (0,0) 到 (i,j) 的子矩阵和
+pre[i+1][j+1] = pre[i][j+1] + pre[i+1][j] - pre[i][j] + a[i][j]
+
+# 子矩阵 (r1, c1) 到 (r2, c2) 的和（闭区间）
+s = pre[r2+1][c2+1] - pre[r1][c2+1] - pre[r2+1][c1] + pre[r1][c1]
+```
+
+[304. 二维区域和检索 - 矩阵不可变](https://leetcode.cn/problems/range-sum-query-2d-immutable/)
+
+### 前缀异或
+
+异或的逆运算还是异或：`pre[j] ^ pre[i]` 是区间异或和；两个前缀异或相等，说明中间一段异或为 0。
+
+```python
+from operator import xor
+pre = [0, *accumulate(nums, xor)]
+```
+
+[1310. 子数组异或查询](https://leetcode.cn/problems/xor-queries-of-a-subarray/)
+
+### 把条件转成 +1 / -1
+
+0 看成 -1，就是求和为 0 的最长子数组；大于阈值记 +1、否则 -1，就是求和 > 0 的最长子数组。
+
+[525. 连续数组](https://leetcode.cn/problems/contiguous-array/)
+
+### 前缀最值
+
+每个位置需要左右两侧的信息时，预处理前缀最大 / 最小（或乘积），再从右往左扫一遍。
+
+[42. 接雨水](https://leetcode.cn/problems/trapping-rain-water/)
+
+### 前缀和优化 DP
+
+转移是区间内 `dp[j]` 求和时，用 dp 的前缀和把 O(n) 的转移降到 O(1)。
+
+[1871. 跳跃游戏 VII](https://leetcode.cn/problems/jump-game-vii/)
