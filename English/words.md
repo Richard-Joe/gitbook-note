@@ -11,3 +11,10 @@
 - violate
 - in conjunction with
 - restriction
+
+## 2026-11-19
+
+- fundamental
+- interpret
+- correctness
+- discriminant
