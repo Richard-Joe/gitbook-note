@@ -1,11 +1,13 @@
 # 哪懂什么算法，全是靠刷
 
-## 数学
+## 1. 数学
 
 - 排列：`A(m, n) = n!/(n-m)!`
 - 组合：`C(m, n) = n!/(m!(n-m)!)`
 
-### 最大公约数（Greatest Common Divisor）
+### 1.1. 最大公约数（Greatest Common Divisor）
+
+其他叫法：最大公因数 / 最大公因子
 
 `gcd(a, b)`是能同时整除 `a` 和 `b` 的最大正整数。
 
@@ -14,7 +16,7 @@
 - **与最小公倍数的关系**：`gcd(a, b) * lcm(a, b) = a * b`，所以 `lcm(a, b) = a // gcd(a, b) * b`（先除后乘，避免溢出）
 - **任意多整数的最大公约数**：`gcd(a, b, c) = gcd(gcd(a, b), c)`
 
-#### 数学原理：辗转相除法（欧几里得算法）
+#### 1.1.1. 数学原理：辗转相除法（欧几里得算法）
 
 核心等式：
 
@@ -31,7 +33,7 @@ gcd(a, b) = gcd(b, a % b)
 
 所以 `(a, b)` 和 `(b, r)` 的**公约数集合完全相同**，最大公约数自然相等。
 
-#### Python 实现
+#### 1.1.2. Python 实现
 
 方式一：`math.gcd` 直接调用（Python 3.9+）
 
@@ -50,6 +52,37 @@ def gcd(a: int, b: int) -> int:
     while b != 0:
         a, b = b, a % b
     return a
+```
+
+### 1.2. 最小公倍数（Least Common Multiple）
+
+`lcm(a, b)` 是能同时被 `a` 和 `b` 整除的最小正整数。
+
+- 约定：`lcm(a, 0) = 0`，`lcm(0, 0) = 0`
+- **与最大公约数的关系**：`gcd(a, b) * lcm(a, b) = a * b`，所以 `lcm(a, b) = a // gcd(a, b) * b`
+- **任意多整数的最小公倍数**：`lcm(a, b, c) = lcm(lcm(a, b), c)`
+
+#### 1.2.1. Python 实现
+
+方式一：`math.lcm` 直接调用（Python 3.9+）
+
+```python
+from math import lcm
+
+lcm(4, 6)          # 12
+lcm(*nums)         # 对列表中所有数求 lcm
+```
+
+方式二：借助 gcd 手动实现（先除后乘，避免溢出）：
+
+```python
+from math import gcd
+
+def lcm(a: int, b: int) -> int:
+    # 如果涉及负数：a, b = abs(a), abs(b)
+    if a == 0 or b == 0:
+        return 0
+    return a // gcd(a, b) * b
 ```
 
 ## 离线查询
