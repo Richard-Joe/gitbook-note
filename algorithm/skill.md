@@ -651,3 +651,92 @@ pre = [0, *accumulate(nums, xor)]
 转移是区间内 `dp[j]` 求和时，用 dp 的前缀和把 O(n) 的转移降到 O(1)。
 
 [1871. 跳跃游戏 VII](https://leetcode.cn/problems/jump-game-vii/)
+
+## 前缀积
+
+```python
+from itertools import accumulate
+from operator import mul
+
+# pre[0] = 1，pre[i] = nums[0] * ... * nums[i-1]
+pre = [1, *accumulate(nums, mul)]
+
+# 区间 [i, j] 的乘积 = pre[j+1] // pre[i]
+```
+
+- **不能随便除**：有 `0` 时除法失效；取模下除法需要**逆元**。
+- 处理 `0` 的两种思路：**遇到 0 重置前缀积**（见下），或**前后缀分解**（完全不做除法）。
+
+### 前后缀分解（不除，避免 0 与逆元）
+
+求「除了自身以外」的乘积：维护前缀积，再从右往左扫一遍累乘后缀积。
+
+```python
+n = len(nums)
+pre = [1] * (n + 1)
+for i in range(n):
+    pre[i + 1] = pre[i] * nums[i]
+
+res = [0] * n
+suf = 1
+for i in range(n - 1, -1, -1):
+    res[i] = pre[i] * suf  # 左边全部 × 右边全部
+    suf *= nums[i]
+```
+
+[238. 除自身以外数组的乘积](https://leetcode.cn/problems/product-of-array-except-self/)
+
+### 遇到 0 就重置
+
+维护 `pre[i]` = **最近一个 0 之后**到 `i-1` 的乘积，遇到 0 时把前缀积重置为 1。
+
+**后缀查询（最后 K 个数）**：重置时直接清空 `self.pre = [1]`，**不需要 `lastZero`**——`k` 超过重置后的长度，说明窗口越过了那个 0。
+
+```python
+class ProductOfNumbers:
+    def __init__(self):
+        self.pre = [1]
+
+    def add(self, num):
+        if num == 0:
+            self.pre = [1]              # 清零，之后的值与 0 无关
+        else:
+            self.pre.append(self.pre[-1] * num)
+
+    def getProduct(self, k):
+        if k >= len(self.pre):          # 窗口越过重置点，必含 0
+            return 0
+        return self.pre[-1] // self.pre[-1 - k]
+```
+
+[1352. 最后 K 个数的乘积](https://leetcode.cn/problems/product-of-the-last-k-numbers/)
+
+**任意区间 `[l, r]`**：只记 `lastZero` 不够——最近的 0 可能在区间外，而区间里还有更早的 0。此时要另开 `zeroPre[i]`（0 的前缀个数），`zeroPre[r+1] - zeroPre[l] > 0` 就返回 0，否则再做 `pre[r+1] // pre[l]`（重置保证 `pre[l]` 是 1，不会出现 `0 // 0`）。
+
+### 只关心符号：负号前缀和
+
+**场景**：只问乘积的**正负**，不关心具体数值。好处是绕开大数溢出，也绕开「不能整除 / 0 做分母」。
+
+区间乘积的符号只由**负号个数的奇偶**决定：`neg = negPre[r+1] - negPre[l]`，`neg & 1 == 1` 则为负。含 0 时乘积为 0，单独判。
+
+[1822. 数组元素积的符号](https://leetcode.cn/problems/sign-of-the-product-of-an-array/)：整个数组的符号 = 负号个数的奇偶。
+
+更典型的是 [1567. 乘积为正数的最长子数组长度](https://leetcode.cn/problems/maximum-length-of-subarray-with-positive-product/)：0 把数组切成若干段，段内**两个前缀的负号奇偶相同** ⇒ 中间乘积为正，所以只需记录每种奇偶**最早**出现的位置。
+
+```python
+res = 0
+neg = 0                # 前缀负号个数的奇偶
+first = {0: -1}        # 奇偶 -> 最早出现的下标
+for i, x in enumerate(nums):
+    if x == 0:         # 0 断开，重置状态
+        neg = 0
+        first = {0: i}
+        continue
+    neg ^= int(x < 0)
+    if neg in first:
+        res = max(res, i - first[neg])
+    else:
+        first[neg] = i
+```
+
+本质是把符号转成 **0/1 前缀异或**，再套「前缀和 + 哈希」的老套路——只是要找的是**相同奇偶**，而不是某个定值。
