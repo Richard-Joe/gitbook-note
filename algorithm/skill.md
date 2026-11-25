@@ -1,4 +1,4 @@
-# 哪懂什么算法，全是靠刷
+# 对症下药
 
 ## 1. 数学
 
@@ -85,6 +85,41 @@ def lcm(a: int, b: int) -> int:
     return a // gcd(a, b) * b
 ```
 
+### 1.3. 质因数分解（Prime Factorization）
+
+其他叫法：整数分解（Integer Factorization）/ 素因数分解
+
+把大于 1 的正整数写成质数乘积：`n = p1^a1 * p2^a2 * ... * pk^ak`，分解唯一（算术基本定理）。
+
+#### 1.3.1. 数学原理：试除法
+
+从小到大枚举 `i`，能整除就反复除掉并记录指数。第一次出现的整除因子必是质数（更小的因子已在前面的轮次除干净）。
+
+枚举到 `i * i > n` 即可停止：若剩下的 `n > 1`，它本身就是一个质数，直接作为最后一个质因子。
+
+#### 1.3.2. Python 实现
+
+```python
+def factorize(n: int) -> list[tuple[int, int]]:
+    # 返回 [(质因子, 指数), ...]，如 12 -> [(2, 2), (3, 1)]
+    factors = []
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            cnt = 0
+            while n % i == 0:
+                n //= i
+                cnt += 1
+            factors.append((i, cnt))
+        i += 1
+    if n > 1:
+        factors.append((n, 1))
+    return factors
+```
+
+- 只想要质因子列表时，把 `factors.append((i, cnt))` 换成在内层循环里 `append(i)` 即可
+- 复杂度 `O(√n)`；应用：约数个数 `∏(a_i + 1)`、约数之和 `∏(p_i^(a_i+1) - 1)/(p_i - 1)`
+
 ## 离线查询
 
 在线查询：请求来一个，立即处理并回答一个。
@@ -112,16 +147,6 @@ def lcm(a: int, b: int) -> int:
 `求所有方案数` 转化为 `求每个元素的贡献值的总和`
 
 [2475. 数组中不等三元组的数目](https://leetcode.cn/problems/number-of-unequal-triplets-in-array/description/)
-
-## 分解质因数
-
-```python
-while i * i <= n:
-	while n % i == 0:
-    	# print(i)
-		n //= i
-	i += 1
-```
 
 ## 差分数组
 
@@ -820,3 +845,7 @@ for i, x in enumerate(nums):
 ```
 
 本质是把符号转成 **0/1 前缀异或**，再套「前缀和 + 哈希」的老套路——只是要找的是**相同奇偶**，而不是某个定值。
+
+## 后缀数组
+
+## 滚动哈希
