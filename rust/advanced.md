@@ -575,3 +575,231 @@ use std::mem::size_of;
 assert_eq!(size_of::<&[u8]>(), 2 * size_of::<usize>());
 assert_eq!(size_of::<Box<dyn Debug>>(), 2 * size_of::<usize>());
 ```
+
+## 5. Trait 与 Trait 约束（Traits and Trait Bounds）
+
+本章讨论更技术性的部分——泛型代码编译后变成什么、`dyn Trait` 调用背后发生了什么、实现 trait 时受哪些规则约束，以及 trait 约束的进阶写法。
+
+### 5.1 编译与分发（Compilation and Dispatch）
+
+#### 单态化（Monomorphization）
+
+```rust
+impl str {
+  #[inline]
+  pub fn contains<P: Pattern>(&self, pat: P) -> bool {
+    pat.is_contained_in(self)
+  }
+}
+
+pub trait Pattern: Sized {
+  /// Associated searcher for this pattern
+  type Searcher<'a>: Searcher<'a>;
+
+  /// Constructs the associated searcher from
+  /// `self` and the `haystack` to search in.
+  fn into_searcher(self, haystack: &str) -> Self::Searcher<'_>;
+
+  /// Checks whether the pattern matches anywhere in the haystack
+  #[inline]
+  fn is_contained_in(self, haystack: &str) -> bool {
+    self.into_searcher(haystack).next_match().is_some()
+  }
+}
+
+// Pattern 的实现者只提供「搜索器」：写出 Searcher<'a> 的具体类型并实现 into_searcher；
+// is_contained_in 直接复用默认实现，不必逐类型重写。
+// 三种 P 对应的搜索器分别是 CharSearcher、StrSearcher、CharPredicateSearcher<F>。
+// 调用处出现三种 P，编译器就为每个 P 各实例化一份 contains（源码仍只有一份，无需手写）：
+assert_eq!("hello".contains('l'), true);  // P = char：生成 contains<char>，内部走 CharSearcher
+assert_eq!("hello".contains("ll"), true); // P = &str：生成 contains<&str>，内部走 StrSearcher
+assert_eq!("hello".contains(|c| c == 'l'), true); // P = 闭包 F：生成 contains<F>，内部走 CharPredicateSearcher<F>
+```
+
+- 为什么必须为每个 `P` 复制一份 `contains`：`pat.is_contained_in(self)` 最终要变成一条**跳转指令**，CPU 需要一个具体地址；`char`、`&str`、闭包各自的调用链（`into_searcher` → 搜索器）不同，地址也就不同，不存在「对任意类型通用」的地址。所以编译器按每个实际用到的 `P` 各**实例化**一份 `contains`——这就是**静态分发（static dispatch）**。（「静态」指编译期已知，因而可以写进静态内存。）
+- 「泛型 → 许多非泛型实例」的过程叫**单态化（monomorphization）**。
+  - 并非全文复制：只复制**用到的部分**——若从不调用 `Vec<i32>::find`，`find` 的那份拷贝就不会生成。
+- 单态化是泛型 Rust 通常与非泛型 Rust 一样快的原因：优化器开工时泛型已不存在，每个实例带着完整的具体类型信息单独优化；源码里的 `#[inline]` 让 `contains<char>` 内部的调用可以一路内联，甚至化简成对字符的直接比较。
+- 代价：
+  - 同一泛型的所有实例要**分别编译** → 编译时间变长；
+  - 每个实例各占一份机器码 → 二进制更大；
+  - 逻辑相同的指令在实例间**不共享** → CPU 指令缓存效率下降。
+
+#### 非泛型内层函数
+
+- 泛型方法中往往只有小部分代码**依赖类型**。例如 `HashMap::insert`：计算 key 的哈希依赖 key 类型，而遍历桶、寻找插入点的代码不依赖。
+- 把不依赖类型的部分抽成**非泛型辅助函数**，各单态化实例就能共享它的机器码，只有类型相关的部分被复制。把它声明在方法**内部**（内层函数），还能避免用一个一次性函数污染模块命名空间。
+- 也可以声明在方法外面，但**不要**把它写成泛型 impl 块里的方法——那样它仍然会被单态化。
+
+#### 动态分发（Dynamic Dispatch）
+
+- 实践中传入的是指向 **vtable（虚方法表）** 的指针：表中存着该类型对 trait 每个方法实现的地址。vtable 还包含具体类型的**布局与对齐信息**（操作任何类型都离不开它）。想看显式 vtable，可参考 `std::task::RawWakerVTable`。
+- 调用 trait 方法时：查 vtable 拿到地址 → 间接跳转执行。这样无论调用方传入什么类型，函数体都只有一份。
+- **Trait 对象（trait object）** = 实现了某 trait 的类型 + 该类型的 vtable。
+- `dyn Trait` 是 `!Sized`：编译期不知道调用方传入类型的大小，不能按值接收。必须放在**指针**后面（`&`、`&mut`、`Box`、`Arc` 等能容纳胖指针的指针都可以）；又因为要捎带 vtable 指针，它是**胖指针**——额外一个字存放 vtable 指针。
+
+#### 对象安全（Object Safety）
+
+- 大多数 trait 可以转成 trait 对象，不满足**对象安全（object-safe）**的除外：
+  - 方法不能是**泛型的**。如 `Extend::extend` 对迭代器类型泛型，`dyn Extend` 的 vtable 需要为它可能被调用过的每个类型各留一个条目，无法固定。
+  - 方法不能使用 `Self`（接收者 `&self` / `&mut self` / `self` 之外的 `Self`）。如 `Clone::clone` 返回 `Self`，在 `dyn Clone` 上调用时不知道该返回什么类型 → `Clone` 不是对象安全的。
+  - 不能有**静态方法**（第一个参数不解引用到 `Self` 的方法），否则无法确定该调用哪个实例——`FromIterator::from_iter(&[0])` 究竟该执行哪份代码就说不清。
+- **`Self: Sized` 约束**蕴含「`Self` 不会通过 trait 对象使用」（trait 对象是 `!Sized`，不满足该约束）：
+  - 放在 trait 上 → 要求该 trait 永远不走动态分发；
+  - 放在具体方法上 → 该方法在 trait 对象上不可用。
+  - 带 `where Self: Sized` 的方法在对象安全检查中**豁免**。
+
+#### 静态分发 vs 动态分发
+
+- 动态分发的收益：不必编译多份拷贝 → 编译更快；指令缓存更友好。
+- 动态分发的代价：编译器无法针对具体类型优化（vtable 另一端会执行什么代码不可知，例如无法内联）；每次调用多一次 vtable 查找。
+- 如何选（经验法则）：
+  - **库 → 静态分发**：把选择权留给用户。库若用动态分发，用户被迫跟随；库若用静态分发，用户仍可自己包一层 `dyn`。
+  - **二进制 → 动态分发**：最终代码，没有下游需求要考虑；动态分发代码更干净（省去泛型参数）、编译更快，性能代价通常很小。
+
+### 5.2 泛型 trait：类型参数与关联类型（Generic Traits）
+
+- Trait 可以按两种方式泛型化：
+  - 类型参数：`trait Foo<T>`
+  - 关联类型：`trait Foo { type Bar; }`
+- 区别初看并不明显，但选择规则很简单：**预期同一类型只有一份实现 → 关联类型；否则 → 类型参数**。更直白地说：能用关联类型就用关联类型（它通常好用得多）。
+- 类型参数的成本：
+  - 使用者必须写全所有参数，并重复参数上的约束；trait 每新增一个参数，所有使用处都要跟着改；
+  - 同一类型可能有多份实现，编译器可能推断不出你指哪一份，需要难看的消歧调用，如 `FromIterator::<u32>::from_iter`。
+- 类型参数的收益：**一个类型可以实现多份**。例如为自己的类型对多个右侧类型实现 `PartialEq`，或在 `T: Clone` 时同时实现 `FromIterator<T>` 与 `FromIterator<&T>`。
+- 关联类型的收益：
+  - 编译器只需知道「哪个类型实现了 trait」，关联类型随之全部确定 → 约束可以都写在 trait 里，使用处无需重复；trait 之后新增关联类型也不会影响使用方。
+  - 关联类型由实现类型唯一决定 → 永远不会出现消歧问题。
+- 关联类型的限制：一个类型只能有一份实现——不能对多个 `Target` 实现 `Deref`，也不能用不同的 `Item` 实现 `Iterator`。
+
+```rust
+// 类型参数：同一类型、多份实现
+impl PartialEq<u32>    for MyId { /* ... */ }
+impl PartialEq<String> for MyId { /* ... */ }
+
+// 关联类型：给定类型只有一份实现
+impl Iterator for Counter {
+    type Item = u32;    // 只能有一个 Item
+    fn next(&mut self) -> Option<u32> { /* ... */ }
+}
+```
+
+### 5.3 一致性与孤儿规则（Coherence and the Orphan Rule）
+
+- Rust 对「在哪里、为哪些类型实现 trait」有严格规则，目的是保持**一致性（coherence）**：对任意类型与方法组合，只有一个正确的实现可选。
+  - 反例：若允许为 `bool` 写自己的 `Display` 实现，任何打印 `bool` 的代码都会同时看到你的实现和标准库的实现，编译器无从选择，也没有哪份更正确；两个相互依赖的 crate 为同一共享类型实现同一 trait 时同样如此。一致性保证编译器永远不必做这种选择。
+- 两个朴素的极端都不可行：
+  - 只有定义 trait 的 crate 能实现它 → 无法为自己的类型实现 `Debug`、`Serialize`，trait 基本失去价值；
+  - 只能为自己的类型实现 trait → 上游 crate 无法为自己的 trait 提供 `Vec` 等标准库类型的实现。
+- **孤儿规则（orphan rule）** 取其中间：**trait 或类型至少有一个属于本 crate** 时才能写 impl。于是：
+  - `impl Debug for MyType` ✓（类型本地）
+  - `impl MyNeatTrait for bool` ✓（trait 本地）
+  - `impl Debug for bool` ✗（都是外部的）——编译器会报 conflicting implementations。
+  - 术语：**upstream** = 你的代码依赖的东西；**downstream** = 依赖你的代码的东西。
+
+#### Blanket 实现（Blanket Implementations）
+
+- `impl<T> MyTrait for T where ...` 对一大类类型统一实现，称为 **blanket 实现**。
+- 只有**定义 trait 的 crate** 能写 blanket 实现。
+- 给已有 trait **新增 blanket 实现属于破坏性变更**：否则下游已有的 `impl MyTrait for Foo` 会因冲突而突然编译失败。
+
+#### 基础类型（Fundamental Types）
+
+- 少数类型被标记 `#[fundamental]`：目前是 `&`、`&mut`、`Box`。对孤儿规则而言它们**如同不存在**——检查前先被擦除。
+  - 例：`impl IntoIterator for &MyType`。`IntoIterator` 和 `&` 都来自标准库，按孤儿规则本不合法；擦除 `&` 后只剩本地类型 `MyType` → 合法。
+  - 给基础类型新增 blanket 实现同样属于破坏性变更。
+
+#### 覆盖实现（Covered Implementations）
+
+- 有时确实需要「外部 trait + 外部类型」，最典型的是 `impl From<MyType> for Vec<i32>`。`From` 与 `Vec` 都是外部的，但这并不威胁一致性：能与之冲突的实现只可能来自标准库的 blanket 实现（标准库否则无法命名 `MyType`），而那本来就属于破坏性变更。
+- 为此孤儿规则开了一个**很窄的豁免**：`impl<P1..=Pn> ForeignTrait<T1..=Tn> for T0` 合法，当且仅当：
+  1. 至少有一个 `Ti` 是**本地类型**；
+  2. 在第一个本地类型之前的各位置（含 `T0`）中，**不出现裸泛型参数**——泛型参数可以出现，但必须被某个中间类型**覆盖**（如 `Vec<T>` 中的 `T`）；裸的 `T` 或隔着基础类型的 `&T` 都不算覆盖。
+
+```rust
+// ✓ 合法（ForeignTrait、From、Vec 均为外部；MyType 为本地类型）
+impl<T> From<T> for MyType                  // T0 = MyType
+impl<T> From<T> for MyType<T>               // T0 中的 T 被本地类型 MyType 覆盖
+impl<T> From<MyType> for Vec<T>             // T1 = MyType；T0 中的 T 被 Vec 覆盖
+impl<T> ForeignTrait<MyType, T> for Vec<T>  // 首个本地类型是 MyType，其前的 T0 覆盖了 T
+
+// ✗ 不合法：找不到本地类型，或本地类型之前出现裸泛型参数
+impl<T> ForeignTrait for T
+impl<T> From<T> for T
+impl<T> From<T> for Vec<T>
+impl<T> ForeignTrait<T> for Vec<T>
+```
+
+- 规则是非对称的：
+
+  ```rust
+  impl<T> ForeignTrait<LocalType, T> for ForeignType   // ✓
+  impl<T> ForeignTrait<T, LocalType> for ForeignType   // ✗
+  ```
+
+  看似武断：若允许后者，另一个 crate 就能写 `impl<T> ForeignTrait<TheirType, T> for ForeignType`；两个实现各自在各自 crate 里都没问题，只有两个 crate 被一起引入时才爆发冲突。要求「本地类型先于泛型参数」是一个**平局裁决（tie-break）**：保证每个 crate 单独 coherent 时，组合起来也 coherent。
+- 破坏性变更的判定随之细化：给已有 trait 新增实现，**只有**当实现包含至少一个满足上述豁免条件的新本地类型时才是非破坏性的；其他新增实现都算破坏性变更。
+
+### 5.4 Trait 约束（Trait Bounds）
+
+标准库到处都是 trait 约束（`HashMap` 的 key 必须 `Hash + Eq`，`thread::spawn` 的闭包必须 `FnOnce + Send + 'static`）。写更复杂的泛型代码时，需要更强的约束表达能力。
+
+#### 任意形式的约束
+
+- 约束不必是 `T: Trait` 形式（`T` 也不必是泛型参数）。约束是**任意类型断言**，甚至可以不包含泛型参数、参数类型或本地类型：
+  - `where String: Clone`——恒真也可以写；
+  - `where io::Error: From<MyError<T>>`——泛型参数不必只出现在左边。
+- 这种写法还能**省去重复约束**：比如方法要构造 `HashMap<T, usize, S>`，与其抄写 `where T: Hash + Eq, S: BuildHasher + Default`，不如写 `where HashMap<T, usize, S>: FromIterator`——不必去查底层方法确切的约束清单，也更能表达「代码真正需要什么」。
+
+#### 关联类型上的约束
+
+- 用 `Type::AssocType` 语法引用关联类型。例：标准库 `flatten` 产出的 `Flatten<I>` 要成为 `Iterator`，需要外层迭代器 `I: Iterator`，且 `I::Item: IntoIterator`——约束落在「外层迭代器的元素类型」上，而它正是 `I::Item`：
+
+```rust
+where
+    I: Iterator,
+    I::Item: IntoIterator,   // 对 I 产出的元素类型再加约束
+```
+
+- 同名关联类型有多个来源时（提供该关联类型的 trait 本身是泛型的，因此存在多份实现），用 `<Type as Trait>::AssocType` 消歧，如 `<I as Iterator>::Item`。
+
+#### 高阶 trait 约束（Higher-Ranked Trait Bounds, HRTB）
+
+- 有时约束要表达「某引用在**任意**生命周期下都实现某 trait」。有泛型生命周期参数就够时用不到它；这种写法很罕见（写作时标准库只有三处用到），但在 `Fn` 系列 trait 上很常见。
+- 例：泛型于「接收 `&T`、返回其内部 `&U` 的函数」——`F: Fn(&T) -> &U` 需要为引用指定生命周期，而真正想说的是「输出与输入同生命周期」：
+  - `F: for<'a> Fn(&'a T) -> &'a U`：对任意 `'a` 该约束都成立。
+- 写 `Fn` 约束且参数带引用时，编译器会**自动补上 `for`**，这也是显式写法罕见的原因，但值得知道。
+- 综合示例——为任意「可迭代、且元素可 debug」的集合实现 `Debug`：
+
+```rust
+impl Debug for AnyIterable
+    where for<'a> &'a Self: IntoIterator,
+          for<'a> <&'a Self as IntoIterator>::Item: Debug
+{
+    fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+        f.debug_list().entries(self).finish()
+    }
+}
+```
+
+- 这段实现复制到几乎任何集合类型上都能「直接工作」。
+
+#### `#[derive]` 的隐式约束
+
+- 许多 `#[derive(Trait)]` 展开为 `impl Trait for Foo<T> where T: Trait`。通常这正是想要的，但不总是。
+- 例：`Foo<T>` 含有一个 `Arc<T>` 字段。`Arc<T>: Clone` 与 `T` 是否 `Clone` 无关，但 derive 出的 `Clone` 仍要求 `T: Clone`——凭空多出一条约束。
+- 把类型改名为 `Shared<T>` 更能看清问题：`Shared<NotClone>` 本可以 clone（复制 `Arc` 即可），编译器却说不能，用户会很困惑。
+- 写作时标准库的 `#[derive(Clone)]` 就是这样，未来可能改变。
+
+### 5.5 标记 trait 与标记类型（Marker Traits and Marker Types）
+
+- 通常 trait 表示**功能**（`Hash` 可 hash、`Clone` 可 clone、`Debug` 可 fmt）。**标记 trait（marker trait）** 不同：没有方法、没有关联类型，只表明实现类型的某种**性质**。
+  - 例：`Send`——实现它表示可以安全地跨线程传递，没实现就是不可以。没有哪个方法对应「send 一下」，这只是一个关于类型的事实。
+- `std::marker` 中的标记 trait：`Send`、`Sync`、`Copy`、`Sized`、`Unpin`。大多数（除 `Copy` 外）是 **auto trait**：编译器自动为类型实现，除非类型含有未实现该 trait 的东西。
+- 价值：允许编写**代码里没有直接体现的语义要求**。要求 `Send` 的代码是在假设「这个类型可以拿到另一个线程使用」；没有标记 trait，编译器就无从检查这个假设，只能靠程序员记住它并仔细审阅代码——那条路通向数据竞争、段错误等运行时问题。
+- **标记类型（marker type）**：与标记 trait 类似，但它是**单元类型**（如 `struct MyMarker;`），无数据无方法，用来在类型系统里标明「类型处于某种状态」。
+  - 典型用途：让 API 的误用在编译期就不可能发生。
+  - 例：`SshConnection` 可能已认证也可能未认证——加一个泛型参数，并定义两个标记类型 `Unauthenticated`、`Authenticated`：
+    - 刚连接时得到 `SshConnection<Unauthenticated>`，其 impl 块**只**提供 `connect`；
+    - `connect` 返回 `SshConnection<Authenticated>`，执行命令等其余方法只在已认证状态的 impl 块中提供。
+  - 这是 **typestate（类型状态）** 模式的雏形，书中后续会继续展开。
