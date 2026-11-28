@@ -1742,7 +1742,7 @@ impl fmt::Display for Wrapper {
 - Rust 提供了一个 Sized trait 来确定一个类型的大小在编译时是否已知；
 	- 编译时可计算出大小的类型会自动实现这一 trait；
 	- Rust还会为每一个泛型函数隐式的添加Sized约束；
-- `?Sized`：默认情况下，泛型函数只能被用于编译时已经知道大小的类型，可以通过特殊语法解除这一限制；
+- `?Sized`：Rust 里泛型参数默认隐含 T: Sized，只有显式写 ?Sized 才能接受 str、[T]、dyn Trait 这类大小在编译期未知的类型。
 
 ```rust
 type Kilometers = i32;
